@@ -1,0 +1,88 @@
+id: design-live-room-critique
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-03-12"
+name: Live Room Design Critique
+description: >
+  Critique and improve a live execution-room interface with a focus on
+  hierarchy, polish, and clarity.
+tier: tier1_quick
+domain: design
+repeatCount: 3
+contaminationRisk: low
+
+rawPrompt: |
+  Critique the following interface problem and produce a design review:
+
+  "A live initiative room shows the initiative title, current task, outputs,
+  blockers, and queue, but users report that they cannot tell what is happening,
+  who is working, or where the current task sits in the larger initiative."
+
+  The review should include:
+  1. Core UX diagnosis
+  2. Hierarchy problems
+  3. Recommended redesign principles
+  4. Proposed above-the-fold structure
+  5. Reusable component guidance
+
+initiativeSpec:
+  title: Critique live room hierarchy and polish
+  description: Produce a design review that turns a confusing live room into a calm execution surface
+  domains:
+    - design
+
+seedProvenance: >
+  Publicly shareable OrgX live-room problem framing derived from product screenshots and a
+  redacted user report captured in March 2026.
+
+acceptanceCriteria:
+  - id: diagnoses-hierarchy
+    description: Clearly diagnoses information hierarchy failures
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: proposes-structure
+    description: Proposes a concrete above-the-fold structure, not only vague advice
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: references-component-system
+    description: Suggests how existing components should be reused or simplified
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: high-taste
+    description: Demonstrates taste and restraint rather than adding more dashboard chrome
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+
+decisionReadyCriteriaIds:
+  - diagnoses-hierarchy
+  - proposes-structure
+  - high-taste
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Tracks whether OrgX's design reasoning is becoming more opinionated, structured, and tasteful.
+knownFailureModes:
+  - Adds more dashboard chrome instead of simplifying hierarchy.
+  - Critique stays abstract and fails to recommend an above-the-fold structure.
+  - Recommends net-new components instead of simplifying existing system primitives.
+
+humanBaseline:
+  timeSeconds: 3000
+  costCents: 2200
+  qualityScore: 89
+  completeness: 1
+  artifactCount: 1
+  provenance: senior product design review estimate, Mar 2026
+  methodology: expert_estimate
+  sourceSummary: Redacted estimate from two senior product design reviews of the same prompt shape.
+  sampleSize: 2
+  collectedAt: "2026-03-07"
+  operatorProfile: Senior product designer with SaaS execution-room experience
+
+constraints:
+  maxDurationMinutes: 8
+  maxCostCents: 125

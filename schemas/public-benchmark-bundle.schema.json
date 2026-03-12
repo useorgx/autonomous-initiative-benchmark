@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/public-benchmark-bundle.schema.json",
+  "title": "OrgX Public Benchmark Bundle",
+  "type": "object",
+  "description": "Top-level shape of the files published for each benchmark week. Individual files are stored separately in results/<week>/.",
+  "properties": {
+    "summary": {
+      "type": "object",
+      "required": [
+        "benchmarkWeek",
+        "benchmarkVersion",
+        "catalogVersion",
+        "generatedAt",
+        "suiteId",
+        "suiteVersion",
+        "gitSha",
+        "headlineMetrics"
+      ]
+    },
+    "metadata": {
+      "type": "object",
+      "required": [
+        "benchmarkWeek",
+        "methodologyUrl",
+        "repoUrl",
+        "taskCount",
+        "repeatCount",
+        "domains",
+        "label",
+        "reasons",
+        "modeAssumptions",
+        "dataFiles"
+      ]
+    },
+    "tasks": {
+      "type": "array",
+      "description": "Task-level assumptions, human baseline provenance, and observed execution mode metadata."
+    },
+    "examples": {
+      "type": "array",
+      "description": "Curated safe benchmark examples suitable for public inspection."
+    }
+  }
+}

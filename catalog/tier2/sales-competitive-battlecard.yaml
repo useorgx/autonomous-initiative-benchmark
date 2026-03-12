@@ -1,0 +1,92 @@
+id: sales-competitive-battlecard
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-03-12"
+name: Sales Competitive Battlecard
+description: >
+  Create a concise battlecard that helps a founder or GTM lead position OrgX
+  against direct-model and agent-platform alternatives.
+tier: tier2_medium
+domain: sales
+repeatCount: 2
+contaminationRisk: medium
+
+rawPrompt: |
+  Build a competitive battlecard for OrgX against this category set:
+
+  Alternatives:
+  - "Just use Claude or ChatGPT directly"
+  - Cursor / code-centric copilots
+  - workflow automation tools that orchestrate tasks but do not produce reviewed artifacts
+
+  Audience:
+  - Founder or first GTM hire selling to technical startup teams
+
+  The battlecard must include:
+  1. Category framing
+  2. Where OrgX wins
+  3. Where OrgX is weaker or not the best fit
+  4. Objection handling
+  5. Demo / proof moments to show in a sales process
+  6. One crisp talk track for founders
+
+initiativeSpec:
+  title: Create founder-ready OrgX competitive battlecard
+  description: Build a battlecard that positions OrgX against direct-model and orchestration alternatives
+  domains:
+    - sales
+
+seedProvenance: >
+  Public competitive framing and redacted founder-sales positioning notes from March 2026.
+
+acceptanceCriteria:
+  - id: explicit-comparison
+    description: Makes explicit category comparisons instead of vague positioning claims
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: acknowledges-weakness
+    description: Honestly states where OrgX is weaker or not a fit
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: proof-moments
+    description: Includes concrete proof or demo moments to show in the sales process
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: founder-talk-track
+    description: Provides a concise talk track a founder could actually use
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+
+decisionReadyCriteriaIds:
+  - explicit-comparison
+  - proof-moments
+  - founder-talk-track
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Tests whether OrgX sales reasoning can position the product honestly against the strongest alternative: using the frontier models directly.
+knownFailureModes:
+  - Presents OrgX as universally better without nuance.
+  - Fails to anchor positioning on proof moments.
+  - Does not acknowledge cases where direct-model use or other tools may be sufficient.
+
+humanBaseline:
+  timeSeconds: 3600
+  costCents: 2500
+  qualityScore: 87
+  completeness: 1
+  artifactCount: 1
+  provenance: founder-led competitive positioning estimate, Mar 2026
+  methodology: hybrid
+  sourceSummary: Estimate from founder-led competitive narrative development with one GTM reviewer.
+  sampleSize: 2
+  collectedAt: "2026-03-08"
+  operatorProfile: Founder or first GTM hire creating a competitive battlecard for early sales
+
+constraints:
+  maxDurationMinutes: 12
+  maxCostCents: 175

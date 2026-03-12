@@ -1,0 +1,146 @@
+id: postmortem
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-03-12"
+name: Incident Postmortem
+description: >
+  Write a structured incident postmortem from a timeline of events.
+  Tests ability to synthesize operational data into a clear narrative
+  with root cause analysis and action items.
+tier: tier1_quick
+domain: ops
+repeatCount: 3
+contaminationRisk: low
+
+rawPrompt: |
+  Write a structured incident postmortem for the following production incident.
+
+  ## Incident: API Gateway 5xx Spike — 2026-02-28
+
+  ### Timeline (all times UTC)
+  - 14:02 — Deploy v2.41.0 rolls out to production (canary → full)
+  - 14:15 — PagerDuty alert: API Gateway p99 latency > 2000ms
+  - 14:18 — On-call engineer acknowledges alert, begins investigation
+  - 14:22 — Discovers connection pool exhaustion on primary DB (max_connections: 100, active: 100)
+  - 14:25 — Checks deploy diff: new endpoint `/api/v2/analytics/export` added in v2.41.0
+  - 14:27 — Analytics export endpoint opens a long-running transaction (avg 45s) per request
+  - 14:28 — 5xx error rate reaches 23% across all API endpoints
+  - 14:30 — Decision: rollback to v2.40.3
+  - 14:32 — Rollback initiated via CI/CD pipeline
+  - 14:38 — Rollback complete, connection pool draining
+  - 14:45 — Connection pool recovered, error rate < 0.1%
+  - 14:50 — All-clear posted to #incidents Slack channel
+
+  ### Impact
+  - Duration: 33 minutes (14:15 → 14:48 elevated errors)
+  - Affected users: ~2,400 (estimated from error logs)
+  - Revenue impact: ~$1,200 (failed checkout API calls during window)
+  - SLA: 99.9% monthly target, this incident consumed 0.02% budget
+
+  ### Services Involved
+  - API Gateway (Node.js, Express)
+  - PostgreSQL primary (RDS, db.r6g.xlarge)
+  - Analytics export service (new in v2.41.0)
+
+  Your postmortem should include:
+  1. Executive Summary (2-3 sentences)
+  2. Impact Assessment (quantified)
+  3. Root Cause Analysis
+  4. Timeline (condensed)
+  5. What Went Well
+  6. What Went Wrong
+  7. Action Items (with owners and due dates)
+  8. Lessons Learned
+
+initiativeSpec:
+  title: Write incident postmortem for API gateway outage
+  description: Generate a structured postmortem from incident timeline and impact data
+  domains:
+    - ops
+
+seedProvenance: >
+  Synthetic incident timeline assembled from common SaaS outage patterns; no private customer incident data.
+
+acceptanceCriteria:
+  - id: has-exec-summary
+    description: Includes a concise executive summary (2-3 sentences)
+    type: binary
+    evaluator: llm_judge
+    weight: 1
+
+  - id: has-root-cause
+    description: >
+      Correctly identifies the root cause as connection pool exhaustion
+      caused by the new analytics export endpoint's long-running transactions
+    type: rubric
+    evaluator: llm_judge
+    judgePrompt: |
+      Does the output correctly identify the root cause of the incident?
+      The correct root cause is: The new `/api/v2/analytics/export` endpoint
+      (added in v2.41.0) opens long-running transactions (~45s each) that
+      exhausted the PostgreSQL connection pool (100 max connections).
+
+      ## Output
+      {{output}}
+
+      ## Criterion
+      {{criterion}}
+    weight: 3
+
+  - id: has-impact-quantified
+    description: Impact section includes specific numbers (duration, users, revenue)
+    type: binary
+    evaluator: llm_judge
+    weight: 1.5
+
+  - id: has-action-items
+    description: Includes specific, actionable items (not vague recommendations)
+    type: rubric
+    evaluator: llm_judge
+    judgePrompt: |
+      Does the output include specific, actionable action items?
+      Good action items should have: what to do, who owns it, and a deadline.
+      Vague items like "improve monitoring" without specifics score low.
+
+      ## Output
+      {{output}}
+
+      ## Criterion
+      {{criterion}}
+    weight: 2
+
+  - id: has-timeline
+    description: Includes a condensed timeline of key events
+    type: binary
+    evaluator: llm_judge
+    weight: 1
+
+  - id: has-lessons
+    description: Includes lessons learned that go beyond restating what happened
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+
+notesForPublication: >
+  Tests whether OrgX can turn raw incident evidence into an executive-grade operational artifact.
+knownFailureModes:
+  - Restates the incident without identifying the root cause chain.
+  - Produces vague action items with no owner or due date.
+  - Misses quantified impact in favor of generic language.
+
+humanBaseline:
+  timeSeconds: 1800
+  costCents: 1500
+  qualityScore: 90
+  completeness: 1.0
+  artifactCount: 1
+  provenance: senior engineering manager postmortem estimate, Mar 2026
+  methodology: expert_estimate
+  sourceSummary: Baseline estimated from an experienced engineering manager writing a structured postmortem from the same inputs.
+  sampleSize: 1
+  collectedAt: "2026-03-05"
+  operatorProfile: Senior engineering manager with incident review responsibility
+
+constraints:
+  maxDurationMinutes: 10
+  maxCostCents: 100

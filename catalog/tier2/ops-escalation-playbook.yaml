@@ -1,0 +1,91 @@
+id: ops-escalation-playbook
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-03-12"
+name: Ops Escalation Playbook
+description: >
+  Create a practical escalation playbook for an initiative that is blocked by
+  integrations, billing, and approval dependencies. Benchmarks operational clarity under constraint.
+tier: tier2_medium
+domain: ops
+repeatCount: 2
+contaminationRisk: low
+
+rawPrompt: |
+  Create an escalation playbook for this scenario:
+
+  Context:
+  - A launch-critical initiative has stalled in the live initiative room.
+  - One workstream is blocked on missing integration auth.
+  - One workstream is blocked on free-credit exhaustion.
+  - One approval decision has been pending for 18 hours.
+  - The founder wants a repeatable process so the team does not have to improvise every time.
+
+  The playbook must include:
+  1. Trigger conditions
+  2. Severity levels
+  3. Escalation path by blocker type
+  4. Time-based SLAs and ownership
+  5. Communication templates
+  6. Recovery / resolution checklist
+
+initiativeSpec:
+  title: Create live-initiative escalation playbook
+  description: Produce a reusable ops playbook for launch-critical execution blockers
+  domains:
+    - ops
+
+seedProvenance: >
+  Public OrgX blocker patterns and a redacted internal escalation scenario derived from live initiative workflows.
+
+acceptanceCriteria:
+  - id: blocker-specific
+    description: Distinguishes between integration, billing, and approval blockers instead of giving one generic escalation flow
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: sla-owner-clarity
+    description: Defines time-based ownership and SLA expectations
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: communication-ready
+    description: Includes reusable communication language or templates
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: recovery-checklist
+    description: Includes a practical resolution checklist, not only escalation routing
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+
+decisionReadyCriteriaIds:
+  - blocker-specific
+  - sla-owner-clarity
+  - recovery-checklist
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Tests whether OrgX can formalize operational judgment into a playbook teams could actually use during blocked execution.
+knownFailureModes:
+  - Treats all blockers as the same category.
+  - Omits ownership or time expectations.
+  - Provides escalation language without a concrete recovery checklist.
+
+humanBaseline:
+  timeSeconds: 3900
+  costCents: 2800
+  qualityScore: 88
+  completeness: 1
+  artifactCount: 1
+  provenance: ops lead escalation playbook estimate, Mar 2026
+  methodology: expert_estimate
+  sourceSummary: Estimate from an operations lead documenting an escalation policy for initiative blockers.
+  sampleSize: 2
+  collectedAt: "2026-03-08"
+  operatorProfile: Operations lead responsible for escalation and service continuity
+
+constraints:
+  maxDurationMinutes: 12
+  maxCostCents: 175

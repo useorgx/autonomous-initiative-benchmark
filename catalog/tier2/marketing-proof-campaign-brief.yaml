@@ -1,0 +1,89 @@
+id: marketing-proof-campaign-brief
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-03-12"
+name: Marketing Proof Campaign Brief
+description: >
+  Build a campaign brief that uses real outputs, artifacts, and live evidence as the
+  primary conversion mechanism. Benchmarks proof-led marketing judgment.
+tier: tier2_medium
+domain: marketing
+repeatCount: 2
+contaminationRisk: medium
+
+rawPrompt: |
+  Build a campaign brief for this theme:
+
+  Theme: "Watch the initiative complete itself"
+  Product: OrgX live initiative room
+  Audience: AI-native founders and lean startup operators
+  Problem: They have seen too many agent demos that never produce real, reviewable work
+
+  The brief must include:
+  1. Campaign thesis
+  2. Primary audience segments
+  3. Proof assets to capture
+  4. Content plan across homepage, blog, social, and email
+  5. One anti-pattern to avoid in every channel
+  6. Success metrics for the campaign
+
+initiativeSpec:
+  title: Build proof-led campaign for autonomous initiatives
+  description: Create a cross-channel campaign brief that sells proof over hype
+  domains:
+    - marketing
+
+seedProvenance: >
+  Public OrgX messaging themes and a redacted proof-led campaign scenario captured from March 2026 GTM planning.
+
+acceptanceCriteria:
+  - id: proof-assets
+    description: Treats proofs, artifacts, and live execution as core campaign assets rather than optional embellishments
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: channel-specific
+    description: Produces distinct content guidance per channel instead of one generic plan
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: anti-pattern-awareness
+    description: Calls out at least one hype-driven anti-pattern and how to avoid it
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: measurable
+    description: Defines measurable campaign success metrics
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+
+decisionReadyCriteriaIds:
+  - proof-assets
+  - channel-specific
+  - measurable
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Measures whether OrgX marketing reasoning can center on evidence and real product proof rather than generic AI messaging.
+knownFailureModes:
+  - Reverts to generic AI product marketing language.
+  - Fails to distinguish how proof appears across channels.
+  - Omits success metrics or anti-patterns.
+
+humanBaseline:
+  timeSeconds: 3300
+  costCents: 2400
+  qualityScore: 87
+  completeness: 1
+  artifactCount: 1
+  provenance: fractional growth lead campaign brief estimate, Mar 2026
+  methodology: hybrid
+  sourceSummary: Combined founder and fractional growth lead estimate for a proof-led launch campaign.
+  sampleSize: 2
+  collectedAt: "2026-03-08"
+  operatorProfile: B2B SaaS growth lead working with a founder on launch messaging
+
+constraints:
+  maxDurationMinutes: 12
+  maxCostCents: 175

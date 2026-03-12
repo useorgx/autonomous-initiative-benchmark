@@ -1,0 +1,103 @@
+id: engineering-release-readiness-review
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-03-12"
+name: Engineering Release Readiness Review
+description: >
+  Review a release plan for technical risks, rollout gaps, verification coverage,
+  and rollback readiness. Benchmarks engineering execution judgment, not only writing polish.
+tier: tier2_medium
+domain: engineering
+repeatCount: 2
+contaminationRisk: medium
+
+rawPrompt: |
+  Review the following release plan and produce a release-readiness memo.
+
+  Release: "MCP Pairing v2"
+
+  Planned changes:
+  - Auto-generate agent API keys during pairing
+  - Background init of required workspace secrets
+  - New live pairing callback flow for browser + CLI
+  - One-click fallback repair for expired pairings
+
+  Constraints:
+  - Launching to all paid workspaces first
+  - No maintenance window
+  - A failed pairing blocks first-use activation
+  - Support team has no new headcount this week
+
+  Known implementation notes:
+  - New callback endpoint depends on a token exchange worker
+  - Retry logic was added but not load-tested
+  - One integration migration still runs serially
+  - No explicit rollback checklist exists yet
+
+  Your memo must include:
+  1. Executive recommendation (ship / ship-with-guardrails / do not ship)
+  2. Top technical and rollout risks
+  3. Gaps in verification or observability
+  4. Required pre-launch guardrails
+  5. Rollback and incident response expectations
+
+initiativeSpec:
+  title: Review MCP Pairing v2 release readiness
+  description: Produce an engineering release-readiness memo for a risky product rollout
+  domains:
+    - engineering
+
+seedProvenance: >
+  Publicly shareable release-review scenario assembled from OrgX MCP pairing themes and a redacted rollout planning brief.
+
+acceptanceCriteria:
+  - id: recommendation-quality
+    description: Gives a clear release recommendation tied to specific risks and guardrails
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: identifies-operational-risk
+    description: Identifies verification, observability, or rollback gaps instead of treating the task as a generic launch memo
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: proposes-guardrails
+    description: Recommends concrete pre-launch guardrails or rollout constraints
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: incident-thinking
+    description: Demonstrates real release/incident thinking rather than only implementation advice
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+
+decisionReadyCriteriaIds:
+  - recommendation-quality
+  - identifies-operational-risk
+  - proposes-guardrails
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Tests whether OrgX can make engineering release decisions with operational realism, not just summarize launch plans.
+knownFailureModes:
+  - Recommends shipping without tying the decision to rollout safeguards.
+  - Focuses on implementation details but misses verification and rollback gaps.
+  - Produces generic project-management advice instead of technical release judgment.
+
+humanBaseline:
+  timeSeconds: 3600
+  costCents: 2600
+  qualityScore: 89
+  completeness: 1
+  artifactCount: 1
+  provenance: senior engineering lead release review estimate, Mar 2026
+  methodology: expert_estimate
+  sourceSummary: Estimate from a senior engineering lead reviewing a comparable release-readiness packet.
+  sampleSize: 2
+  collectedAt: "2026-03-08"
+  operatorProfile: Senior engineering lead responsible for rollout and incident readiness
+
+constraints:
+  maxDurationMinutes: 12
+  maxCostCents: 175

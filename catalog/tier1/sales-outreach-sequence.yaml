@@ -1,0 +1,87 @@
+id: sales-outreach-sequence
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-03-12"
+name: Sales Outreach Sequence
+description: >
+  Build a founder-quality outreach sequence for a specific ICP with message
+  angles and proof-driven CTA.
+tier: tier1_quick
+domain: sales
+repeatCount: 3
+contaminationRisk: medium
+
+rawPrompt: |
+  Create a 3-step outbound sequence for this ICP:
+
+  - Buyer: technical founder at a 2-20 person startup
+  - Pain: too much context switching across planning, execution, and reviewing AI output
+  - Product: OrgX live initiative rooms and orchestration
+
+  Sequence requirements:
+  1. Email 1
+  2. Follow-up email
+  3. Short LinkedIn message
+  4. One objection-handling angle
+  5. CTA tied to a concrete proof moment
+
+initiativeSpec:
+  title: Build proof-first founder outreach sequence
+  description: Create a practical outbound sequence that sells on proof, not abstraction
+  domains:
+    - sales
+
+seedProvenance: >
+  Public ICP framing based on OrgX positioning work and a redacted founder-outreach scenario.
+
+acceptanceCriteria:
+  - id: personalized-icp
+    description: The sequence feels specific to the ICP, not generic AI SaaS outreach
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: proof-led-cta
+    description: The CTA is tied to a demo or live proof moment
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: multi-step-sequence
+    description: Includes all required steps in a coherent sequence
+    type: binary
+    evaluator: llm_judge
+    weight: 1.5
+  - id: objection-angle
+    description: Includes a credible objection-handling angle
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+
+decisionReadyCriteriaIds:
+  - personalized-icp
+  - proof-led-cta
+  - multi-step-sequence
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Tests whether OrgX can produce revenue-facing messaging that sells proof instead of promising magic.
+knownFailureModes:
+  - Sequence sounds like generic AI SaaS outreach.
+  - CTA is abstract rather than tied to a proof moment.
+  - Objection handling is missing or not believable for founders.
+
+humanBaseline:
+  timeSeconds: 2100
+  costCents: 1600
+  qualityScore: 84
+  completeness: 1
+  artifactCount: 1
+  provenance: founder-led outbound estimate, Mar 2026
+  methodology: expert_estimate
+  sourceSummary: Estimate from founder-led outbound workflow for a three-step proof-first sequence.
+  sampleSize: 1
+  collectedAt: "2026-03-06"
+  operatorProfile: Founder-operator running early outbound without a dedicated SDR
+
+constraints:
+  maxDurationMinutes: 8
+  maxCostCents: 125

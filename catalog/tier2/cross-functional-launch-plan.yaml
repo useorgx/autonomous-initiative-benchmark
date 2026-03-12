@@ -1,0 +1,98 @@
+id: cross-functional-launch-plan
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-03-12"
+name: Cross-Functional Launch Plan
+description: >
+  Create a decision-ready launch plan that coordinates product, design,
+  engineering, marketing, and sales for a new live execution-room release.
+tier: tier2_medium
+domain: cross_functional
+repeatCount: 2
+contaminationRisk: medium
+
+rawPrompt: |
+  Build a cross-functional launch plan for this release:
+
+  Release: "OrgX Live Initiative Room v2"
+  Objective: prove that autonomous initiatives are real by showing live hierarchy,
+  agent state, and surfaced artifacts on a shareable link.
+
+  The plan must include:
+  1. Executive summary
+  2. Workstream breakdown across product, design, engineering, marketing, and sales
+  3. Milestones and sequencing
+  4. Risks and dependencies
+  5. Launch readiness checklist
+  6. Post-launch success metrics
+
+initiativeSpec:
+  title: Launch Live Initiative Room v2 cross-functionally
+  description: Coordinate product, design, engineering, marketing, and sales around a single launch
+  domains:
+    - product
+    - design
+    - engineering
+    - marketing
+    - sales
+
+seedProvenance: >
+  Public release framing and redacted cross-functional planning scenario based on OrgX Live Initiative Room v2 launch work.
+
+acceptanceCriteria:
+  - id: covers-all-domains
+    description: The plan explicitly covers product, design, engineering, marketing, and sales
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: sequencing
+    description: Includes a believable sequence of milestones and dependencies
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: launch-readiness
+    description: Includes a practical launch-readiness checklist
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: proof-orientation
+    description: Keeps the launch anchored on proving real work and visible outputs
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: measurable-metrics
+    description: Includes measurable post-launch success metrics
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+
+decisionReadyCriteriaIds:
+  - covers-all-domains
+  - sequencing
+  - proof-orientation
+  - measurable-metrics
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  This is the flagship public benchmark because it measures coordination quality, not just single-output writing.
+knownFailureModes:
+  - Covers all domains but fails to create believable sequencing.
+  - Produces parallel workstreams without clear dependencies or readiness gates.
+  - Optimizes for writing quality while missing launch-proof orientation.
+
+humanBaseline:
+  timeSeconds: 7200
+  costCents: 4800
+  qualityScore: 90
+  completeness: 1
+  artifactCount: 3
+  provenance: founder + leads planning session estimate, Mar 2026
+  methodology: hybrid
+  sourceSummary: Estimate based on a founder-led planning session plus cross-functional lead review for the same launch brief.
+  sampleSize: 2
+  collectedAt: "2026-03-08"
+  operatorProfile: Founder, product lead, and functional leads coordinating a launch plan
+
+constraints:
+  maxDurationMinutes: 20
+  maxCostCents: 250

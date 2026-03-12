@@ -1,0 +1,92 @@
+id: product-retention-experiment-plan
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-03-12"
+name: Product Retention Experiment Plan
+description: >
+  Turn a product signal into a decision-ready retention experiment plan with
+  target behavior, instrumentation, and launch sequencing.
+tier: tier2_medium
+domain: product
+repeatCount: 2
+contaminationRisk: medium
+
+rawPrompt: |
+  Create a product experiment plan for this signal:
+
+  Observation:
+  - Technical founders launch the first live initiative room
+  - They watch for 3-7 minutes
+  - Many do not return the next day even when the first room looks impressive
+
+  Goal:
+  Increase day-2 return rate without adding human onboarding calls.
+
+  The plan must include:
+  1. Hypothesis
+  2. Target user behavior to change
+  3. Experiment design
+  4. Instrumentation / measurement plan
+  5. Risks and confounders
+  6. Recommended rollout sequence
+
+initiativeSpec:
+  title: Improve day-2 return from the first live initiative room
+  description: Create a product experiment plan for founder retention after initial proof
+  domains:
+    - product
+
+seedProvenance: >
+  Public OrgX onboarding goals and a redacted retention signal synthesized from March 2026 product analysis.
+
+acceptanceCriteria:
+  - id: behavior-change
+    description: Focuses on a concrete user behavior change, not just vague engagement improvement
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: experiment-specific
+    description: Defines a real experiment with testable conditions instead of generic product ideas
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: measurement-plan
+    description: Includes instrumentation or measurement details tied to the hypothesis
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: rollout-sequencing
+    description: Includes a sensible rollout or validation sequence
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+
+decisionReadyCriteriaIds:
+  - behavior-change
+  - experiment-specific
+  - measurement-plan
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Measures whether OrgX product reasoning can turn retention signals into experiment-ready plans with instrumentation discipline.
+knownFailureModes:
+  - Suggests generic onboarding improvements without a real experiment.
+  - Omits measurement or confounders.
+  - Does not focus on the day-2 return behavior change.
+
+humanBaseline:
+  timeSeconds: 3300
+  costCents: 2400
+  qualityScore: 88
+  completeness: 1
+  artifactCount: 1
+  provenance: PM retention experiment estimate, Mar 2026
+  methodology: hybrid
+  sourceSummary: Estimate from a PM-led retention planning workflow with founder input.
+  sampleSize: 2
+  collectedAt: "2026-03-08"
+  operatorProfile: Product manager focused on onboarding and activation experiments
+
+constraints:
+  maxDurationMinutes: 12
+  maxCostCents: 175

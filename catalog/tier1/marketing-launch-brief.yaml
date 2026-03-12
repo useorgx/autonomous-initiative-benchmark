@@ -1,0 +1,92 @@
+id: marketing-launch-brief
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-03-12"
+name: Marketing Launch Brief
+description: >
+  Produce a launch brief for a new AI product feature with audience, angle,
+  channels, and proof points.
+tier: tier1_quick
+domain: marketing
+repeatCount: 3
+contaminationRisk: medium
+
+rawPrompt: |
+  Write a launch brief for this feature:
+
+  Feature: "Live Initiative Room"
+  Audience: technical founders and small AI-native teams
+  Core value: users can watch agents produce real work on a shared live link
+
+  The launch brief must include:
+  1. Positioning statement
+  2. Core message pillars
+  3. Channel plan (homepage, email, social, docs)
+  4. Proof points / demos to show
+  5. Call-to-action strategy
+
+initiativeSpec:
+  title: Launch the live initiative room
+  description: Create a decision-ready launch brief for go-to-market execution
+  domains:
+    - marketing
+
+seedProvenance: >
+  Public OrgX messaging inputs and a redacted launch scenario built from March 2026 product messaging.
+
+acceptanceCriteria:
+  - id: has-positioning
+    description: Includes a clear positioning statement for the feature
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: has-message-pillars
+    description: Defines message pillars that are distinct and reusable
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: has-channel-plan
+    description: Includes channel-specific recommendations rather than one generic launch plan
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: proof-emphasis
+    description: Uses proof, demo, or live evidence as a central conversion lever
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: has-cta
+    description: Includes a clear CTA strategy
+    type: binary
+    evaluator: llm_judge
+    weight: 1
+
+decisionReadyCriteriaIds:
+  - has-positioning
+  - has-message-pillars
+  - proof-emphasis
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Benchmarks whether OrgX can produce launch strategy that leads with proof instead of generic AI messaging.
+knownFailureModes:
+  - Falls back to generic AI launch messaging instead of proof-led positioning.
+  - Produces one blended launch plan instead of channel-specific recommendations.
+  - Omits a concrete CTA tied to a live demo or artifact.
+
+humanBaseline:
+  timeSeconds: 2700
+  costCents: 2100
+  qualityScore: 86
+  completeness: 1
+  artifactCount: 1
+  provenance: solo founder + fractional marketer estimate, Mar 2026
+  methodology: hybrid
+  sourceSummary: Combined estimate from founder-led launch planning and fractional marketer review.
+  sampleSize: 2
+  collectedAt: "2026-03-06"
+  operatorProfile: Founder plus B2B SaaS fractional marketing lead
+
+constraints:
+  maxDurationMinutes: 8
+  maxCostCents: 125

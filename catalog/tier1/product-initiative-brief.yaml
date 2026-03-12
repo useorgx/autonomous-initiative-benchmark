@@ -1,0 +1,93 @@
+id: product-initiative-brief
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-03-12"
+name: Product Initiative Brief
+description: >
+  Turn a founder request into a crisp initiative brief with goals, user,
+  scope, metrics, and sequencing. Benchmarks product framing quality.
+tier: tier1_quick
+domain: product
+repeatCount: 3
+contaminationRisk: medium
+
+rawPrompt: |
+  Draft an initiative brief for this founder request:
+
+  "We need a frictionless onboarding flow for technical founders who install the MCP,
+  hit the first live initiative room, and decide in one session whether OrgX is real."
+
+  The brief should include:
+  1. Problem statement
+  2. Primary user and trigger moment
+  3. Success metrics
+  4. In-scope / out-of-scope
+  5. Top risks
+  6. Recommended workstreams
+  7. Suggested launch sequence
+
+initiativeSpec:
+  title: Launch frictionless MCP onboarding
+  description: Translate a founder request into a decision-ready initiative brief
+  domains:
+    - product
+
+seedProvenance: >
+  Prompt assembled from public OrgX onboarding goals and a redacted founder request scenario from March 2026.
+
+acceptanceCriteria:
+  - id: has-problem-statement
+    description: Includes a clear product problem statement tied to the user pain
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: has-success-metrics
+    description: Includes measurable success metrics, not vague goals
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: has-scope
+    description: Clearly defines in-scope and out-of-scope work
+    type: binary
+    evaluator: llm_judge
+    weight: 1.5
+  - id: has-workstreams
+    description: Recommends sensible workstreams or execution lanes
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: founder-decision-moment
+    description: Recognizes the one-session founder decision moment as central to the task
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+
+decisionReadyCriteriaIds:
+  - has-problem-statement
+  - has-success-metrics
+  - founder-decision-moment
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Measures how quickly OrgX can turn an ambiguous founder ask into a structured initiative brief.
+knownFailureModes:
+  - Produces a generic product spec without identifying the one-session decision moment.
+  - Uses vague metrics instead of decision-ready success criteria.
+  - Recommends workstreams without sequencing or scope boundaries.
+
+humanBaseline:
+  timeSeconds: 2400
+  costCents: 1800
+  qualityScore: 88
+  completeness: 1
+  artifactCount: 1
+  provenance: PM lead + founder review estimate, Mar 2026
+  methodology: hybrid
+  sourceSummary: Combined estimate from PM-led initiative framing and founder review of the same request.
+  sampleSize: 2
+  collectedAt: "2026-03-06"
+  operatorProfile: Product lead working with a technical founder on initiative framing
+
+constraints:
+  maxDurationMinutes: 8
+  maxCostCents: 125

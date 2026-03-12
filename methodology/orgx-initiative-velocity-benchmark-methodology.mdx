@@ -1,0 +1,222 @@
+---
+title: "OrgX Initiative Velocity Benchmark: Methodology"
+slug: "orgx-initiative-velocity-benchmark-methodology"
+excerpt: "The benchmark spec behind OrgX's weekly initiative-velocity reports: tasks, baselines, scoring, repeats, confidence intervals, and publication rules."
+publishedAt: "2026-03-12T09:00:00.000Z"
+author: "OrgX"
+tags:
+  - benchmarks
+  - methodology
+  - orgx
+benchmarkWeek: "Methodology"
+benchmarkVersion: "2026-q1"
+taskCount: 12
+domains:
+  - engineering
+  - product
+  - marketing
+  - sales
+  - design
+  - ops
+  - cross_functional
+repoUrl: "https://github.com/useorgx/initiative-velocity-benchmark"
+canonicalUrl: "https://useorgx.com/blog/orgx-initiative-velocity-benchmark-methodology"
+draft: false
+---
+# OrgX Initiative Velocity Benchmark methodology
+
+This page is the benchmark spec behind our weekly benchmark posts. It exists so outside readers can inspect the benchmark on its own terms instead of relying on a headline claim.
+
+## Benchmark goals
+
+The OrgX Initiative Velocity Benchmark is designed to answer one specific question:
+
+> When the same initiative-shaped task is executed through OrgX orchestration, does it reach a decision-ready output faster than a strong single-agent workflow or a curated human baseline without collapsing the quality bar?
+
+This benchmark is **not** intended to estimate average customer results. It is a controlled, versioned benchmark suite.
+
+## Modes compared
+
+Every benchmark task is evaluated in three modes:
+
+| Mode | What it represents |
+| --- | --- |
+| `orgx_orchestrated` | A multi-step OrgX execution path using decomposition, specialist phases, and a coordinator |
+| `single_agent` | A strong direct model workflow without orchestration |
+| `human_baseline` | A curated human reference baseline with explicit provenance metadata |
+
+We treat `single_agent` as the closest benchmark analogue to “just use Claude, ChatGPT, or Cursor directly.”
+
+## Task catalog structure
+
+The benchmark catalog is versioned in-repo and grouped by tier and domain.
+
+- **Tier 1**: short, decision-ready tasks with fast iteration loops
+- **Tier 2**: medium complexity tasks that require more decomposition
+- **Tier 3**: deeper initiative-scale tasks, used sparingly
+
+The current public benchmark suite spans 12 public tasks across every OrgX agent domain:
+
+- engineering
+- product
+- marketing
+- sales
+- design
+- ops
+- cross-functional initiative work
+
+For a weekly result to be classified `publish-ready`, the measured tasks must
+include at least one benchmark from each of those seven domains. If even one
+domain is missing from the measured set, the week is labeled
+`do-not-publish`.
+
+Every task includes:
+
+- a benchmark version and catalog version
+- weighted acceptance criteria
+- decision-ready criteria
+- execution constraints
+- contamination risk
+- seed-data provenance
+- known failure modes
+- a human baseline with methodology and provenance
+
+## Human baseline protocol
+
+Human baselines are not placeholders. Each published task includes:
+
+- `methodology`
+- `provenance`
+- `sourceSummary`
+- `sampleSize`
+- `collectedAt`
+- `operatorProfile`
+
+If any of those fields are missing, the benchmark run is classified `do-not-publish`.
+
+We currently support four human-baseline methods:
+
+- `expert_estimate`
+- `timed_human_run`
+- `historical_average`
+- `hybrid`
+
+The weekly publication flow fails closed for public publication when human baseline metadata is incomplete.
+
+## What we measure
+
+The public scorecard centers on these metrics:
+
+- **OrgX Flow Multiplier**: `human_time / orgx_time`
+- **Quality delta vs human baseline**
+- **Autonomous completion rate**
+- **Benchmark completeness**
+- **Time to first artifact**
+- **Time to decision-ready**
+- **Initiative completion time**
+- **Cost efficiency**
+
+These metrics are computed from the benchmark runner output, then aggregated into weekly scorecards with confidence intervals where available.
+
+## Repeats and variance
+
+We do not treat a single benchmark run as proof.
+
+- Tier 1 tasks default to 3 repeats
+- Tier 2 tasks default to 2 repeats
+- Weekly publication requires at least 2 repeats per task
+
+Weekly posts report confidence intervals when the scorecard has enough support to compute them. If repeat counts or task counts fall below the publication floor, the week is classified `do-not-publish`.
+
+## Scoring methodology
+
+Outputs are scored against explicit acceptance criteria, not aesthetics alone.
+
+Each criterion has:
+
+- an evaluator type
+- a weight
+- a pass/fail result
+- a criterion score
+
+The scoring layer combines:
+
+- deterministic checks where possible
+- LLM-judge scoring for qualitative criteria
+- a weighted overall quality score
+- completeness, derived from criterion coverage
+
+Decision-ready timing uses either the explicit `decisionReadyCriteriaIds` set for a task or falls back to all acceptance criteria if none are specified.
+
+## Orchestration assumptions
+
+`orgx_orchestrated` is measured as a multi-phase execution, not a parallel bag of calls.
+
+For every orchestrated mode result we record:
+
+- model
+- provider
+- runtime
+- phase summaries
+- agent topology
+- coordination overhead
+
+The benchmark runner is allowed to use a benchmark-safe orchestration path, but it must disclose the topology it used. The weekly public bundle includes this metadata so readers can inspect the execution pattern behind the result.
+
+## Contamination controls
+
+Every public benchmark task includes:
+
+- seed-data provenance
+- contamination risk (`low`, `medium`, `high`)
+
+This does not eliminate contamination risk entirely, but it does force us to disclose it. Weekly posts are expected to link back to this methodology page and the public benchmark repo so readers can inspect the task set directly.
+
+## Failure handling
+
+Failure cases are not hidden.
+
+Weekly posts should include at least one failure or regression when one exists. We consider failure analysis part of the benchmark, not an appendix.
+
+## Publication gating rules
+
+A weekly benchmark can only become public when:
+
+- orchestrated benchmark results are present
+- required public scorecard metrics are present
+- benchmark completeness is above the publication floor
+- repeat count is at or above the minimum threshold
+- task count is above the minimum threshold
+- task metadata and human-baseline provenance are complete
+
+If those conditions are not met:
+
+- the internal report is still generated
+- the run is still recorded
+- the week is labeled `do-not-publish`
+
+## Public proof artifacts
+
+Every public benchmark week is expected to expose:
+
+- a weekly blog post
+- a benchmark dataset page under `/benchmarks/<week>`
+- a public raw-data bundle
+- a public benchmark repo reference
+
+The public bundle should contain only whitelisted fields. It must never publish raw private run transcripts, file-system paths, or internal identifiers that are not explicitly part of the public contract.
+
+## Relationship to other benchmarks
+
+This benchmark is not trying to be SWE-bench or GAIA.
+
+Those benchmarks measure broad model capability on their own terms. The OrgX Initiative Velocity Benchmark measures something narrower: whether orchestration improves initiative-shaped work against a decision-ready quality bar.
+
+That difference matters. We publish this methodology so the benchmark can be judged as a benchmark system, not as product copy.
+
+## Limitations
+
+- This is a controlled public benchmark, not customer-average telemetry.
+- Human baselines are curated and versioned, not universal truths.
+- Domain coverage is improving over time; every benchmark version should be interpreted in the context of its task catalog.
+- A benchmark can prove disciplined progress. It cannot prove every real-world outcome.

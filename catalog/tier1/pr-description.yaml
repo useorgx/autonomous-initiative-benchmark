@@ -1,0 +1,151 @@
+id: pr-description
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-03-12"
+name: PR Description from Diff
+description: >
+  Write a comprehensive pull request description given a code diff and commit
+  messages. The output should include a summary, list of changes, testing
+  instructions, and any migration notes.
+tier: tier1_quick
+domain: engineering
+repeatCount: 3
+contaminationRisk: low
+
+rawPrompt: |
+  You are writing a pull request description for a code review.
+
+  Given the following git diff and commit messages, write a comprehensive PR description that includes:
+  1. A clear title (one line)
+  2. A summary of what changed and why (2-3 sentences)
+  3. A bullet list of specific changes
+  4. Testing instructions
+  5. Any migration or deployment notes (if applicable)
+
+  ## Commit Messages
+  - fix(auth): handle expired refresh tokens gracefully
+  - test(auth): add integration tests for token refresh flow
+  - chore: update jose dependency to 5.2.0
+
+  ## Diff Summary
+  Files changed: 4
+  - src/lib/auth/tokenRefresh.ts (+45, -12)
+  - src/lib/auth/middleware.ts (+8, -3)
+  - tests/integration/auth/tokenRefresh.test.ts (+120, -0)
+  - package.json (+1, -1)
+
+  ## Key Diff Hunks
+
+  ### src/lib/auth/tokenRefresh.ts
+  ```diff
+  - async function refreshToken(token: string): Promise<TokenPair> {
+  -   const decoded = await verifyToken(token);
+  -   return issueNewTokenPair(decoded.sub);
+  + async function refreshToken(token: string): Promise<TokenPair | null> {
+  +   try {
+  +     const decoded = await verifyToken(token);
+  +     if (isTokenExpiredBeyondGrace(decoded)) {
+  +       logger.warn('Refresh token expired beyond grace period', { sub: decoded.sub });
+  +       return null;
+  +     }
+  +     return issueNewTokenPair(decoded.sub);
+  +   } catch (error) {
+  +     if (error instanceof TokenExpiredError) {
+  +       logger.info('Expired refresh token intercepted', { error: error.message });
+  +       return null;
+  +     }
+  +     throw error;
+  +   }
+  ```
+
+  ### src/lib/auth/middleware.ts
+  ```diff
+    const newTokens = await refreshToken(refreshCookie);
+  - res.setHeader('Set-Cookie', serializeTokenCookies(newTokens));
+  + if (!newTokens) {
+  +   return redirectToLogin(req, res);
+  + }
+  + res.setHeader('Set-Cookie', serializeTokenCookies(newTokens));
+  ```
+
+initiativeSpec:
+  title: Write PR description for auth token refresh fix
+  description: Generate a comprehensive pull request description from diff context
+  domains:
+    - engineering
+
+seedData:
+  diff: pr-description/diff.patch
+seedProvenance: >
+  Synthetic diff derived from a redacted auth refresh-token change pattern and safe fixture patch.
+
+acceptanceCriteria:
+  - id: has-title
+    description: Output includes a clear, descriptive PR title
+    type: binary
+    evaluator: llm_judge
+    judgePrompt: |
+      Does the following output include a clear, descriptive one-line PR title that summarizes the change?
+
+      ## Output
+      {{output}}
+
+      ## Criterion
+      {{criterion}}
+    weight: 1
+
+  - id: has-summary
+    description: Output includes a 2-3 sentence summary explaining what changed and why
+    type: rubric
+    evaluator: llm_judge
+    judgePrompt: |
+      Does the output include a concise summary (2-3 sentences) that explains both WHAT changed and WHY?
+
+      ## Output
+      {{output}}
+
+      ## Criterion
+      {{criterion}}
+    weight: 2
+
+  - id: has-changes-list
+    description: Output includes a specific bullet list of changes
+    type: binary
+    evaluator: llm_judge
+    weight: 1.5
+
+  - id: has-testing-instructions
+    description: Output includes testing instructions
+    type: binary
+    evaluator: llm_judge
+    weight: 1
+
+  - id: mentions-auth-tokens
+    description: Output correctly identifies this as a token refresh fix, not a generic auth change
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+
+notesForPublication: >
+  Measures whether OrgX can produce practical engineering review artifacts faster than a conventional workflow.
+knownFailureModes:
+  - Writes a generic auth PR summary instead of identifying the refresh-token behavior change.
+  - Misses testing instructions or deployment notes.
+  - Hallucinates migrations or files not present in the diff.
+
+humanBaseline:
+  timeSeconds: 600
+  costCents: 500
+  qualityScore: 85
+  completeness: 1.0
+  artifactCount: 1
+  provenance: senior engineer PR authoring estimate, Mar 2026
+  methodology: expert_estimate
+  sourceSummary: Baseline estimated from a senior engineer writing a PR description from the same diff and commit context.
+  sampleSize: 1
+  collectedAt: "2026-03-05"
+  operatorProfile: Senior software engineer working in a code review workflow
+
+constraints:
+  maxDurationMinutes: 5
+  maxCostCents: 50
