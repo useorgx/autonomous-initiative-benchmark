@@ -2,7 +2,7 @@
   "benchmarkWeek": null,
   "benchmarkVersion": "2026-q1",
   "catalogVersion": "2026-03-12",
-  "repoSlug": "useorgx/initiative-velocity-benchmark",
+  "repoSlug": "useorgx/autonomous-initiative-benchmark",
   "scaffoldOnly": true,
   "generatedFrom": {
     "sourceRepo": "useorgx/orgx",

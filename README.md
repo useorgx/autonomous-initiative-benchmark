@@ -1,6 +1,6 @@
-# OrgX Initiative Velocity Benchmark
+# OrgX Autonomous Initiative Benchmark
 
-This repository is the public proof surface for the OrgX Initiative Velocity Benchmark.
+This repository is the public proof surface for the OrgX Autonomous Initiative Benchmark.
 
 It contains:
 
@@ -22,7 +22,7 @@ No public weekly benchmark bundle has been synced yet. The repository currently 
 
 ## Primary URLs
 
-- Benchmark methodology: https://useorgx.com/blog/orgx-initiative-velocity-benchmark-methodology
+- Benchmark methodology: https://useorgx.com/blog/orgx-autonomous-initiative-benchmark-methodology
 - Benchmark hub: https://useorgx.com/benchmarks
 - Weekly blog posts: https://useorgx.com/blog
-- Public repo: https://github.com/useorgx/initiative-velocity-benchmark
+- Public repo: https://github.com/useorgx/autonomous-initiative-benchmark
