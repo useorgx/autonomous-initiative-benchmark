@@ -1,0 +1,13 @@
+{
+  "name": "autonomous-initiative-benchmark",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "orgx": "node runner/orgx-benchmark.mjs",
+    "orgx:open": "node runner/orgx-benchmark.mjs open",
+    "orgx:starter": "node runner/orgx-benchmark.mjs start starter",
+    "orgx:full": "node runner/orgx-benchmark.mjs start full",
+    "validate:bundle": "node runner/validate-bundle.mjs",
+    "recompute:scorecard": "node runner/recompute-scorecard.mjs"
+  }
+}

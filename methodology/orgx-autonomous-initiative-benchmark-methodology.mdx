@@ -1,7 +1,7 @@
 ---
-title: "OrgX Autonomous Initiative Benchmark: Methodology"
+title: "How We Prove OrgX Works"
 slug: "orgx-autonomous-initiative-benchmark-methodology"
-excerpt: "The benchmark spec behind OrgX's weekly initiative-velocity reports: tasks, baselines, scoring, repeats, confidence intervals, and publication rules."
+excerpt: "12 tasks. 7 domains. 3 execution modes. Every week, we run real initiative work through OrgX orchestration, a single AI agent, and a human baseline — then publish the results with full provenance. Here's exactly how."
 publishedAt: "2026-03-12T09:00:00.000Z"
 author: "OrgX"
 tags:
@@ -23,200 +23,290 @@ repoUrl: "https://github.com/useorgx/autonomous-initiative-benchmark"
 canonicalUrl: "https://useorgx.com/blog/orgx-autonomous-initiative-benchmark-methodology"
 draft: false
 ---
-# OrgX Autonomous Initiative Benchmark methodology
+# The question we're trying to answer
 
-This page is the benchmark spec behind our weekly benchmark posts. It exists so outside readers can inspect the benchmark on its own terms instead of relying on a headline claim.
+When a real business task — drafting a product spec, planning a launch campaign, analyzing churn, coordinating across engineering and marketing — gets executed as an OrgX initiative, does multi-agent orchestration actually beat a single strong AI agent?
 
-## Benchmark goals
+Not theoretically. Measurably.
 
-The OrgX Autonomous Initiative Benchmark is designed to answer one specific question:
+> Does OrgX orchestration improve time-to-decision while keeping the quality bar intact — across engineering, product, marketing, design, sales, ops, and cross-functional work?
 
-> When the same initiative-shaped task is executed through OrgX orchestration, does it reach a decision-ready output faster than a strong single-agent workflow or a curated human baseline without collapsing the quality bar?
+That's what this benchmark exists to answer. Every week, we run the same suite of initiative-shaped tasks through three execution modes, score the outputs against explicit acceptance criteria, and publish everything — wins, losses, and regressions.
 
-This benchmark is **not** intended to estimate average customer results. It is a controlled, versioned benchmark suite.
+## Try it yourself
 
-## Modes compared
+The fastest way to evaluate OrgX is to run the benchmark inside the product.
+
+1. [Sign up for OrgX](https://useorgx.com/sign-up?redirect_url=/benchmark/runs) or open [Benchmark Lab](https://useorgx.com/benchmark/runs) if you already have access.
+2. Choose the **Starter benchmark** for a quick all-domain pass, or the **Full benchmark** for publication-grade coverage.
+3. Inspect your scorecard, surfaced artifacts, and bundle links on the run detail page.
+4. Compare your results against the public corpus in the [benchmark hub](https://useorgx.com/benchmarks).
+
+The [public GitHub repo](https://github.com/useorgx/autonomous-initiative-benchmark) lets you inspect the methodology and published proof bundles. The product is where you run it.
+
+When you run it in OrgX, the benchmark should feel like normal OrgX usage:
+
+- benchmark tasks launch as ordinary initiatives with benchmark metadata attached
+- single-domain tasks launch domain-specific initiatives and cross-functional tasks launch multi-domain initiatives
+- the same execution contract is reused across Agent, API, CLI, and E2B-backed execution surfaces
+- benchmark workspaces default to the highest autonomy level the platform policy allows
+- if a human approval or decision is required, the run is preserved but marked non-autonomous
+
+## Three modes, head to head
 
 Every benchmark task is evaluated in three modes:
 
 | Mode | What it represents |
 | --- | --- |
-| `orgx_orchestrated` | A multi-step OrgX execution path using decomposition, specialist phases, and a coordinator |
-| `single_agent` | A strong direct model workflow without orchestration |
-| `human_baseline` | A curated human reference baseline with explicit provenance metadata |
+| `orgx_orchestrated` | Multi-step OrgX execution: decomposition, specialist phases, coordinator synthesis |
+| `single_agent` | A strong single model (Claude, GPT) doing all the work directly — no orchestration |
+| `human_baseline` | Curated human reference with explicit provenance and methodology |
 
-We treat `single_agent` as the closest benchmark analogue to “just use Claude, ChatGPT, or Cursor directly.”
+We treat `single_agent` as the closest analogue to "just use Claude, ChatGPT, or Cursor directly." If OrgX can't beat that bar, we don't publish.
 
-## Task catalog structure
+This three-mode design is grounded in how the field evaluates multi-agent systems. [Du et al. (2023)](https://arxiv.org/abs/2305.14325) showed that multiple LLM instances debating over rounds significantly improve reasoning and factual accuracy — even when individual agents initially give wrong answers. The key insight: coordination structure matters more than raw model capability. [MetaGPT (Hong et al., 2023)](https://arxiv.org/abs/2308.00352) demonstrated that encoding real-world Standard Operating Procedures into multi-agent workflows reduces hallucinations and produces structured deliverables that unstructured single-agent runs cannot match.
+
+But multi-agent isn't always better. [Kim et al. (2025)](https://arxiv.org/abs/2512.08296) derived scaling laws across 180 agent configurations and found that multi-agent architectures incur 1.6x to 6.2x token overhead at matched performance — a direct parallel to Brooks's Law. Our benchmark exists precisely to measure whether OrgX's orchestration topology justifies that coordination cost for initiative-shaped work.
+
+## Benchmark architecture
+
+The system has three layers, each with a distinct job:
+
+**Layer 1: [Private OrgX repo](https://github.com/hopeatina/orgx) — runs the benchmark**
+- Task catalog and benchmark runners
+- Scoring, comparison, and weekly report generation
+- Publishability classification and gating
+
+**Layer 2: [Public repo](https://github.com/useorgx/autonomous-initiative-benchmark) — proves the benchmark**
+- Full methodology (this page)
+- Public task catalog and bundle schemas
+- Whitelisted weekly result bundles
+- Lightweight validation tools anyone can run
+
+**Layer 3: [OrgX product](https://useorgx.com/benchmark/runs) — lets anyone test it**
+- Benchmark Lab with self-serve runs
+- Scorecards, surfaced artifacts, and comparison
+- No setup required beyond signing in
+
+The private repo runs it. The public repo proves it. The product lets you verify it yourself.
+
+## Where benchmarks run
+
+There are two execution surfaces, each optimized for different goals:
+
+**Weekly public benchmark** runs from the private OrgX harness with controlled runners and publication gating. This produces the stable, reviewable public scorecard and bundle.
+
+**Self-serve Benchmark Lab** lets users run the same benchmark logic inside OrgX. These runs produce scorecards and artifacts optimized for evaluation and proof, but aren't published directly to the public corpus unless they meet the stricter weekly publication rules. The benchmark path is designed to mirror the real product path: standard initiatives, standard workstreams, standard auto-continue, and standard approval/blocker handling, with benchmark metadata layered on top.
+
+That distinction is deliberate. The public benchmark needs to be stable and auditable. Benchmark Lab needs to be fast and accessible.
+
+## Task catalog
 
 The benchmark catalog is versioned in-repo and grouped by tier and domain.
 
-- **Tier 1**: short, decision-ready tasks with fast iteration loops
-- **Tier 2**: medium complexity tasks that require more decomposition
-- **Tier 3**: deeper initiative-scale tasks, used sparingly
+- **Tier 1** — Short, decision-ready tasks with fast iteration loops (3 repeats default)
+- **Tier 2** — Medium-complexity tasks requiring decomposition (3 repeats default for the public weekly suite)
+- **Tier 3** — Deeper initiative-scale tasks, used sparingly
 
-The current public benchmark suite spans 12 public tasks across every OrgX agent domain:
+The current suite spans **12 tasks across all 7 OrgX agent domains**: engineering, product, marketing, sales, design, ops, and cross-functional initiative work.
 
-- engineering
-- product
-- marketing
-- sales
-- design
-- ops
-- cross-functional initiative work
+If even one domain is missing from a weekly run, the entire week is classified `do-not-publish`.
 
-For a weekly result to be classified `publish-ready`, the measured tasks must
-include at least one benchmark from each of those seven domains. If even one
-domain is missing from the measured set, the week is labeled
-`do-not-publish`.
+The task decomposition approach follows [Zhou et al. (2022)](https://arxiv.org/abs/2205.10625), who showed that breaking complex problems into simpler sub-problems solved sequentially enables generalization to harder problems — achieving 99%+ accuracy on tasks where chain-of-thought alone managed 16%. Our tier system reflects this: Tier 1 tasks test single-domain capability, Tier 2 tasks require cross-step decomposition, and Tier 3 tasks demand the kind of initiative-scale coordination that [ChatDev (Qian et al., 2023)](https://arxiv.org/abs/2307.07924) demonstrated with role-specialized agents collaborating through structured phases.
 
-Every task includes:
+Every task in the catalog includes:
 
-- a benchmark version and catalog version
-- weighted acceptance criteria
-- decision-ready criteria
-- execution constraints
-- contamination risk
-- seed-data provenance
-- known failure modes
-- a human baseline with methodology and provenance
+- Benchmark version and catalog version
+- Weighted acceptance criteria with decision-ready thresholds
+- Execution constraints and contamination risk level
+- Seed-data provenance and known failure modes
+- A human baseline with full methodology and provenance
 
-## Human baseline protocol
+## Human baselines are real
 
-Human baselines are not placeholders. Each published task includes:
+Human baselines are not placeholders. Each published task includes six required provenance fields:
 
-- `methodology`
-- `provenance`
-- `sourceSummary`
-- `sampleSize`
-- `collectedAt`
-- `operatorProfile`
+- `methodology` — how the baseline was collected
+- `provenance` — where the data came from
+- `sourceSummary` — what the human actually produced
+- `sampleSize` — how many data points
+- `collectedAt` — when it was gathered
+- `operatorProfile` — who performed it
 
-If any of those fields are missing, the benchmark run is classified `do-not-publish`.
+If any field is missing, the benchmark run is classified `do-not-publish`. We support four collection methods: `expert_estimate`, `timed_human_run`, `historical_average`, and `hybrid`.
 
-We currently support four human-baseline methods:
-
-- `expert_estimate`
-- `timed_human_run`
-- `historical_average`
-- `hybrid`
-
-The weekly publication flow fails closed for public publication when human baseline metadata is incomplete.
+The publication flow fails closed. Incomplete metadata blocks public release.
 
 ## What we measure
 
-The public scorecard centers on these metrics:
+The public scorecard now tracks thirteen metrics: the core outcome metrics plus explicit overhead, stability, and loss accounting.
 
-- **OrgX Flow Multiplier**: `human_time / orgx_time`
-- **Quality delta vs human baseline**
-- **Autonomous completion rate**
-- **Benchmark completeness**
-- **Time to first artifact**
-- **Time to decision-ready**
-- **Initiative completion time**
-- **Cost efficiency**
+- **Flow Multiplier** — `human_time / orgx_time` (the headline number)
+- **Quality delta** — quality score vs. human baseline
+- **Autonomous completion rate** — % of tasks completed without human intervention
+- **Benchmark completeness** — coverage across the full task catalog
+- **Time to first artifact** — how fast the first deliverable appears
+- **Time to decision-ready** — when the output crosses the quality threshold
+- **Initiative completion time** — total wall-clock time
+- **Cost efficiency** — quality-per-dollar relative to `single_agent`
+- **Pairwise win rate** — blinded A/B comparisons, counting draws as half-wins
+- **Coordination token ratio** — `coordination_tokens / execution_tokens`
+- **Topology token ratio** — total OrgX tokens divided by single-agent tokens
+- **Stable task coverage** — share of repeated tasks eligible for the headline flow metric
+- **Orchestration loss rate** — share of tasks where orchestration lost on quality, speed, stability, or token cost
 
-These metrics are computed from the benchmark runner output, then aggregated into weekly scorecards with confidence intervals where available.
+This multi-metric approach follows the principle established by [HELM (Liang et al., 2022)](https://arxiv.org/abs/2211.09110): evaluating across a slate of metrics rather than optimizing a single number. HELM showed that prior benchmarks covered only 17.9% of core evaluation scenarios — a single headline metric hides more than it reveals. [Thomas & Uminsky (2022)](https://www.sciencedirect.com/science/article/pii/S2666389922000563) formalized this further, demonstrating that unthinking metric optimization causes real-world harms and proposing that benchmarks use a slate of metrics with external audits.
 
-## Repeats and variance
+## Repeats and confidence
 
 We do not treat a single benchmark run as proof.
 
-- Tier 1 tasks default to 3 repeats
-- Tier 2 tasks default to 2 repeats
-- Weekly publication requires at least 2 repeats per task
+The public weekly suite runs Tier 1 and Tier 2 tasks 3 times each. Benchmark Lab starter runs can be cheaper, but those runs are treated as exploratory and can carry `stability_unmeasured` caveats rather than feeding the public headline number directly.
 
-Weekly posts report confidence intervals when the scorecard has enough support to compute them. If repeat counts or task counts fall below the publication floor, the week is classified `do-not-publish`.
+We compute a coefficient of variation (CV) per repeated task and classify it as `stable`, `moderate`, or `unstable`. Tasks with `CV > 0.30` stay visible in the weekly report, but they do not contribute to the headline flow multiplier. Stable-task coverage is reported explicitly so readers can see how much of the suite contributed to the headline metric.
 
-## Scoring methodology
+Weekly posts report confidence intervals when the scorecard has enough support to compute them. No hand-waving. This follows the reproducibility standards established by [Pineau et al. (2021)](https://www.jmlr.org/papers/v22/20-303.html) in their NeurIPS reproducibility program, which demonstrated that requiring code submission and reproducibility checklists raised the rate of reproducible papers significantly.
 
-Outputs are scored against explicit acceptance criteria, not aesthetics alone.
+## How scoring works
 
-Each criterion has:
+Outputs are scored against explicit acceptance criteria — not vibes.
 
-- an evaluator type
-- a weight
-- a pass/fail result
-- a criterion score
+Each criterion has an evaluator type, a weight, a pass/fail result, and a criterion score. The scoring layer combines deterministic checks where possible, LLM-judge scoring for qualitative criteria, a weighted overall quality score, and completeness derived from criterion coverage.
 
-The scoring layer combines:
+We now report both absolute and relative judgment:
 
-- deterministic checks where possible
-- LLM-judge scoring for qualitative criteria
-- a weighted overall quality score
-- completeness, derived from criterion coverage
+- **Absolute scoring** produces the weighted quality score and completeness.
+- **Pairwise scoring** presents `orgx_orchestrated` and `single_agent` side by side in blinded, randomized order and asks the judge to pick a winner or a draw on the same benchmark criterion.
 
-Decision-ready timing uses either the explicit `decisionReadyCriteriaIds` set for a task or falls back to all acceptance criteria if none are specified.
+For LLM-judge scoring, we follow [Zheng et al. (2023)](https://arxiv.org/abs/2306.05685), who showed that strong LLM judges achieve over 80% agreement with human preferences — matching inter-human agreement levels — while also documenting systematic biases (verbosity, position, self-enhancement) that evaluators must account for.
 
-## Orchestration assumptions
+Decision-ready timing uses the explicit `decisionReadyCriteriaIds` set for a task when it exists, and falls back to the full acceptance criteria set otherwise.
 
-`orgx_orchestrated` is measured as a multi-phase execution, not a parallel bag of calls.
+## Orchestration transparency
 
-For every orchestrated mode result we record:
+`orgx_orchestrated` is measured as a multi-phase execution, not a parallel bag of calls. For every orchestrated result we record: model, provider, runtime, phase summaries, agent topology, and split token usage.
 
-- model
-- provider
-- runtime
-- phase summaries
-- agent topology
-- coordination overhead
+That token split matters. The benchmark now distinguishes:
 
-The benchmark runner is allowed to use a benchmark-safe orchestration path, but it must disclose the topology it used. The weekly public bundle includes this metadata so readers can inspect the execution pattern behind the result.
+- **Execution tokens** — specialist work that directly advances the task
+- **Coordination tokens** — orchestration, routing, and inter-phase overhead
+
+Public scorecards report both `coordination_token_ratio` and `topology_token_ratio` so readers can evaluate whether orchestration quality gains justify coordination cost.
+
+The benchmark runner may use a benchmark-safe orchestration path, but must disclose the topology. Public bundles include this metadata so readers can inspect the execution pattern behind every result.
+
+This transparency is informed by [AutoGen (Wu et al., 2023)](https://arxiv.org/abs/2308.08155), which showed that the structure of multi-agent conversation — not just the capability of individual agents — determines outcome quality. Different agent topologies produce different results on the same task. Without disclosing topology, benchmark results are not reproducible.
 
 ## Contamination controls
 
-Every public benchmark task includes:
+Every public benchmark task discloses seed-data provenance, contamination risk (`low`, `medium`, or `high`), and a normalized `contaminationScore` in the task catalog and weekly reporting bundle. [Deng et al. (2024)](https://arxiv.org/abs/2311.09783) demonstrated that contamination in widely-used benchmarks like MMLU and GSM8K can inflate performance by inducing memorization rather than genuine generalization. Our contamination disclosure does not eliminate the risk, but it makes the risk legible instead of burying it in footnotes.
 
-- seed-data provenance
-- contamination risk (`low`, `medium`, `high`)
+## Failures are part of the benchmark
 
-This does not eliminate contamination risk entirely, but it does force us to disclose it. Weekly posts are expected to link back to this methodology page and the public benchmark repo so readers can inspect the task set directly.
+Failure cases are not hidden or pushed below the fold. Weekly benchmark briefs now lead with a dedicated `Where orchestration lost` section before the scorecard. This section calls out:
 
-## Failure handling
+- tasks where `single_agent` beat `orgx_orchestrated` on quality
+- tasks where orchestration was slower
+- unstable repeated tasks
+- tasks where token overhead rose without a material quality gain
 
-Failure cases are not hidden.
+We consider failure analysis part of the benchmark, not an appendix. That choice is informed both by [HELM (Liang et al., 2022)](https://arxiv.org/abs/2211.09110) and by newer evidence that multi-agent systems can underperform their strongest individual expert when coordination drags performance down.
 
-Weekly posts should include at least one failure or regression when one exists. We consider failure analysis part of the benchmark, not an appendix.
+## Publication gates
 
-## Publication gating rules
+Every weekly run ends in one of three labels:
 
-A weekly benchmark can only become public when:
+- `publish-ready`
+- `publish-with-caveats`
+- `do-not-publish`
 
-- orchestrated benchmark results are present
-- required public scorecard metrics are present
-- benchmark completeness is above the publication floor
-- repeat count is at or above the minimum threshold
-- task count is above the minimum threshold
-- task metadata and human-baseline provenance are complete
+A weekly benchmark is `publish-ready` only when all of these are true:
 
-If those conditions are not met:
+- Orchestrated benchmark results are present
+- Required public scorecard metrics are present
+- Benchmark completeness exceeds the publication floor
+- Repeat count meets the minimum threshold
+- Task count meets the minimum threshold
+- Task metadata and human-baseline provenance are complete
+- All seven domains are represented
 
-- the internal report is still generated
-- the run is still recorded
-- the week is labeled `do-not-publish`
+`publish-with-caveats` is used when the benchmark is complete enough to publish but still carries material warnings, such as:
+
+- unstable task share above 30%
+- any task with `contaminationScore > 0.5`
+- fewer than 2 domains with orchestrated quality wins
+
+If hard requirements fail, the internal report is still generated and the run is still recorded — but the week is labeled `do-not-publish`.
 
 ## Public proof artifacts
 
-Every public benchmark week is expected to expose:
+Every published benchmark week exposes:
 
-- a weekly blog post
-- a benchmark dataset page under `/benchmarks/<week>`
-- a public raw-data bundle
-- a public benchmark repo reference
+- A weekly blog post with analysis
+- A benchmark dataset page at `/benchmarks/<week>`
+- A public raw-data bundle (whitelisted fields only)
+- A link to the [public benchmark repo](https://github.com/useorgx/autonomous-initiative-benchmark)
 
-The public bundle should contain only whitelisted fields. It must never publish raw private run transcripts, file-system paths, or internal identifiers that are not explicitly part of the public contract.
+The bundle never includes raw private run transcripts, file-system paths, or internal identifiers outside the public contract.
 
-## Relationship to other benchmarks
+## Verify it yourself
 
-This benchmark is not trying to be SWE-bench or GAIA.
+The public verification repo: [useorgx/autonomous-initiative-benchmark](https://github.com/useorgx/autonomous-initiative-benchmark)
 
-Those benchmarks measure broad model capability on their own terms. The OrgX Autonomous Initiative Benchmark measures something narrower: whether orchestration improves initiative-shaped work against a decision-ready quality bar.
+Once a weekly bundle is published, validate it directly:
 
-That difference matters. We publish this methodology so the benchmark can be judged as a benchmark system, not as product copy.
+```bash
+node runner/validate-bundle.mjs results/<week>
+node runner/recompute-scorecard.mjs results/<week>
+```
+
+The goal is to let any outside reader inspect the data contract, recompute the scorecard, and understand exactly what was measured.
+
+## How this relates to other benchmarks
+
+This is not [SWE-bench (Jimenez et al., 2023)](https://arxiv.org/abs/2310.06770) or [GAIA (Mialon et al., 2023)](https://arxiv.org/abs/2311.12983). SWE-bench measures whether models can resolve real GitHub issues — execution-based evaluation against repository test suites. GAIA measures general assistant capability on tasks requiring multi-step reasoning, web browsing, and tool use (humans score 92%, GPT-4 with plugins scores 15%).
+
+This benchmark measures something narrower and more specific: whether orchestrating specialist agents across 7 business domains produces better initiative-shaped work than a single strong agent — faster, and at quality. The orchestration hypothesis draws from a long line of research on task decomposition and cognitive specialization, from [Simon's hierarchical decomposition principle (1969)](https://mitpress.mit.edu/9780262691918/the-sciences-of-the-artificial/) to [Kitcher's division of cognitive labor (1990)](https://philpapers.org/rec/KITTDO) to [Malone & Crowston's coordination theory (1994)](https://dl.acm.org/doi/10.1145/174666.174668), which showed that coordination can be understood as managing dependencies between activities — exactly what OrgX's orchestrator does across agent domains.
+
+## What a good weekly brief answers
+
+Every weekly benchmark post should make it easy to answer:
+
+- What was measured, and against what baseline?
+- How many tasks, which domains, how many repeats?
+- What assumptions and quality bar were applied?
+- Where is the raw data bundle?
+- How do I run this benchmark myself?
+
+If a weekly post can't answer those questions, it's not a strong proof artifact.
 
 ## Limitations
 
-- This is a controlled public benchmark, not customer-average telemetry.
-- Human baselines are curated and versioned, not universal truths.
-- Domain coverage is improving over time; every benchmark version should be interpreted in the context of its task catalog.
-- A benchmark can prove disciplined progress. It cannot prove every real-world outcome.
+This is a controlled public benchmark, not customer-average telemetry. Human baselines are curated and versioned, not universal truths. Domain coverage improves over time — interpret each benchmark version in the context of its task catalog.
+
+A benchmark can prove disciplined progress. It cannot prove every real-world outcome. That's why we publish every week, lead with the losses, and let you run it yourself.
+
+## References
+
+The methodology behind this benchmark draws on the following research:
+
+- Bai et al. [Constitutional AI: Harmlessness from AI Feedback](https://arxiv.org/abs/2212.08073). 2022.
+- Deng et al. [Investigating Data Contamination in Modern Benchmarks for Large Language Models](https://arxiv.org/abs/2311.09783). NAACL 2024.
+- Du et al. [Improving Factuality and Reasoning in Language Models through Multiagent Debate](https://arxiv.org/abs/2305.14325). ICML 2024.
+- Hong et al. [MetaGPT: Meta Programming for a Multi-Agent Collaborative Framework](https://arxiv.org/abs/2308.00352). ICLR 2024.
+- Jimenez et al. [SWE-bench: Can Language Models Resolve Real-World GitHub Issues?](https://arxiv.org/abs/2310.06770). ICLR 2024.
+- Kim et al. [Towards a Science of Scaling Agent Systems](https://arxiv.org/abs/2512.08296). 2025.
+- Kitcher. [The Division of Cognitive Labor](https://philpapers.org/rec/KITTDO). The Journal of Philosophy, 1990.
+- Liang et al. [Holistic Evaluation of Language Models](https://arxiv.org/abs/2211.09110). TMLR 2023.
+- Malone & Crowston. [The Interdisciplinary Study of Coordination](https://dl.acm.org/doi/10.1145/174666.174668). ACM Computing Surveys, 1994.
+- Mialon et al. [GAIA: A Benchmark for General AI Assistants](https://arxiv.org/abs/2311.12983). ICLR 2024.
+- Pappu et al. [Multi-Agent Teams Hold Experts Back](https://arxiv.org/abs/2502.01537). 2025.
+- Ouyang et al. [Training Language Models to Follow Instructions with Human Feedback](https://arxiv.org/abs/2203.02155). NeurIPS 2022.
+- Pineau et al. [Improving Reproducibility in Machine Learning Research](https://www.jmlr.org/papers/v22/20-303.html). JMLR 2021.
+- Qian et al. [ChatDev: Communicative Agents for Software Development](https://arxiv.org/abs/2307.07924). ACL 2024.
+- Simon. [The Sciences of the Artificial](https://mitpress.mit.edu/9780262691918/the-sciences-of-the-artificial/). MIT Press, 1969.
+- Thomas & Uminsky. [Reliance on Metrics is a Fundamental Challenge for AI](https://www.sciencedirect.com/science/article/pii/S2666389922000563). Patterns, 2022.
+- Wu et al. [AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation](https://arxiv.org/abs/2308.08155). 2023.
+- Yao et al. [Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/abs/2305.10601). NeurIPS 2023.
+- Zheng et al. [Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena](https://arxiv.org/abs/2306.05685). NeurIPS 2023.
+- Zhou et al. [Least-to-Most Prompting Enables Complex Reasoning in Large Language Models](https://arxiv.org/abs/2205.10625). ICLR 2023.
