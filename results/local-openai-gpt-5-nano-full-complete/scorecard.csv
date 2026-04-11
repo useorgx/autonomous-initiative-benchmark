@@ -1,0 +1,13 @@
+task_id,run_id,mode,provider,model,domain,tier,autonomous_completed,duration_seconds,cost_cents,quality_score,completeness,human_baseline_seconds,human_quality_score
+design-live-room-critique,design-live-room-critique-r1,local_openai,openai,gpt-5-nano,design,tier1_quick,true,10.53,0.0668,89.53,0.88,3000,89
+marketing-launch-brief,marketing-launch-brief-r1,local_openai,openai,gpt-5-nano,marketing,tier1_quick,true,7.23,0.0368,100,0.85,2700,86
+postmortem,postmortem-r1,local_openai,openai,gpt-5-nano,ops,tier1_quick,true,106.49,0.0504,100,1,1800,90
+pr-description,pr-description-r1,local_openai,openai,gpt-5-nano,engineering,tier1_quick,true,9.76,0.0306,100,0.92,600,85
+product-initiative-brief,product-initiative-brief-r1,local_openai,openai,gpt-5-nano,product,tier1_quick,true,82.17,0.048,91.67,0.92,2400,88
+sales-outreach-sequence,sales-outreach-sequence-r1,local_openai,openai,gpt-5-nano,sales,tier1_quick,true,6.71,0.0432,98.93,0.9,2100,84
+cross-functional-launch-plan,cross-functional-launch-plan-r1,local_openai,openai,gpt-5-nano,cross_functional,tier2_medium,true,7.86,0.0511,98.33,0.95,7200,90
+engineering-release-readiness-review,engineering-release-readiness-review-r1,local_openai,openai,gpt-5-nano,engineering,tier2_medium,true,9.02,0.0514,78.53,0.72,3600,89
+marketing-proof-campaign-brief,marketing-proof-campaign-brief-r1,local_openai,openai,gpt-5-nano,marketing,tier2_medium,true,6.76,0.0416,100,1,3300,87
+ops-escalation-playbook,ops-escalation-playbook-r1,local_openai,openai,gpt-5-nano,ops,tier2_medium,true,12.58,0.0782,89.29,0.9,3900,88
+product-retention-experiment-plan,product-retention-experiment-plan-r1,local_openai,openai,gpt-5-nano,product,tier2_medium,true,17.62,0.0494,92.67,0.92,3300,88
+sales-competitive-battlecard,sales-competitive-battlecard-r1,local_openai,openai,gpt-5-nano,sales,tier2_medium,true,8.16,0.0515,87.14,0.88,3600,87

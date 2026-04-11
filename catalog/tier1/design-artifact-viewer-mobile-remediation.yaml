@@ -1,0 +1,99 @@
+id: design-artifact-viewer-mobile-remediation
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-04-11"
+name: Mobile Artifact Viewer Remediation
+description: >
+  Produce a practical mobile UX remediation plan for a dense artifact viewer used
+  to review generated outputs inside a live initiative room.
+tier: tier1_quick
+domain: design
+repeatCount: 3
+contaminationRisk: low
+
+rawPrompt: |
+  Act as a senior product designer reviewing a mobile artifact viewer.
+
+  Context:
+  - The page is a live initiative room.
+  - The artifact viewer can show markdown documents, code diffs, task evidence,
+    generated assets, and metadata.
+  - On mobile, users complain that the viewer feels cramped, the header consumes
+    too much space, actions are hard to find, and it is unclear whether they are
+    reading the artifact, its provenance, or review controls.
+
+  Produce a remediation plan that includes:
+  1. Core mobile UX diagnosis
+  2. Proposed mobile information architecture
+  3. Header, tabs, and action placement rules
+  4. Empty, loading, long-document, and error states
+  5. Accessibility and touch-target requirements
+  6. Component-level implementation guidance for engineering
+
+initiativeSpec:
+  title: Improve mobile artifact viewer UX
+  description: Turn a cramped mobile artifact viewer into a reviewable, action-oriented surface
+  domains:
+    - design
+
+seedProvenance: >
+  Publicly shareable artifact-viewer scenario derived from OrgX mobile QA notes and
+  redacted live-room usability findings captured in April 2026.
+
+acceptanceCriteria:
+  - id: practical-mobile-diagnosis
+    description: Identifies concrete mobile usability failures rather than generic responsive advice
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: viewer-information-architecture
+    description: Defines a clear mobile IA for content, provenance, metadata, and review actions
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: state-coverage
+    description: Covers empty, loading, long-document, and error states with usable behavior
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: implementation-ready-guidance
+    description: Gives engineering-ready component guidance, not only visual critique
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: mobile-accessibility
+    description: Includes touch target, focus, reading order, and screen reader requirements
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+
+decisionReadyCriteriaIds:
+  - practical-mobile-diagnosis
+  - viewer-information-architecture
+  - implementation-ready-guidance
+  - mobile-accessibility
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Measures whether design output can create implementation-grade mobile remediation for a high-density review surface.
+knownFailureModes:
+  - Suggests hiding important controls without defining alternate access.
+  - Recommends desktop-style tabs that collapse poorly on small screens.
+  - Provides visual opinions but no implementation contract for engineering.
+
+humanBaseline:
+  timeSeconds: 3600
+  costCents: 2600
+  qualityScore: 91
+  completeness: 1
+  artifactCount: 1
+  provenance: senior mobile product design remediation estimate, Apr 2026
+  methodology: expert_estimate
+  sourceSummary: Estimate based on a senior designer reviewing comparable mobile review and document-viewer surfaces.
+  sampleSize: 2
+  collectedAt: "2026-04-11"
+  operatorProfile: Senior product designer with mobile SaaS review-workflow experience
+
+constraints:
+  maxDurationMinutes: 10
+  maxCostCents: 150

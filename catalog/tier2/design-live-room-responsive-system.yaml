@@ -1,0 +1,99 @@
+id: design-live-room-responsive-system
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-04-11"
+name: Live Room Responsive System Spec
+description: >
+  Produce a production-ready responsive system specification for a live initiative
+  room across mobile, tablet, and desktop.
+tier: tier2_medium
+domain: design
+repeatCount: 2
+contaminationRisk: medium
+
+rawPrompt: |
+  Act as a principal product designer creating a responsive system spec for an OrgX live initiative room.
+
+  Context:
+  - The live room contains initiative status, active agents, next-up queue, blockers,
+    decisions, artifact outputs, and review actions.
+  - The current design has improved visually, but the product needs a durable
+    responsive hierarchy for mobile, tablet, and desktop so future subpages and
+    modals do not regress.
+
+  Produce a design system spec that includes:
+  1. Responsive hierarchy across 375px, 768px, 1024px, and 1440px
+  2. Header behavior and priority rules at each breakpoint
+  3. Layout composition for live state, queue, blockers, and artifacts
+  4. Navigation and subpage behavior
+  5. Component tokens and spacing rules using restrained SaaS visual language
+  6. Accessibility, density, and progressive disclosure rules
+  7. Engineering handoff checklist
+
+initiativeSpec:
+  title: Define responsive live room system
+  description: Create durable responsive hierarchy for live room surfaces and subpages
+  domains:
+    - design
+    - engineering
+
+seedProvenance: >
+  Publicly shareable responsive-system scenario derived from OrgX live-room mobile UX work and design QA notes.
+
+acceptanceCriteria:
+  - id: breakpoint-specificity
+    description: Gives concrete behavior for 375px, 768px, 1024px, and 1440px breakpoints
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: durable-header-rules
+    description: Defines header priority, compression, sticky behavior, and action placement without over-containerization
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: system-thinking
+    description: Creates reusable layout and component rules for subpages, not a one-off screen critique
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: artifact-and-blocker-flows
+    description: Covers artifact, blocker, queue, and decision flows across responsive states
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: implementation-checklist
+    description: Includes a practical engineering handoff checklist and QA requirements
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+
+decisionReadyCriteriaIds:
+  - breakpoint-specificity
+  - durable-header-rules
+  - system-thinking
+  - implementation-checklist
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Measures whether design work can scale from a single critique to a responsive product system.
+knownFailureModes:
+  - Produces a pretty layout description without breakpoint-level behavior.
+  - Overuses cards and containers instead of defining hierarchy.
+  - Ignores subpage and modal continuity.
+
+humanBaseline:
+  timeSeconds: 7200
+  costCents: 5200
+  qualityScore: 92
+  completeness: 1
+  artifactCount: 2
+  provenance: principal product design systems estimate, Apr 2026
+  methodology: expert_estimate
+  sourceSummary: Estimate based on principal-level responsive system work for complex SaaS execution surfaces.
+  sampleSize: 2
+  collectedAt: "2026-04-11"
+  operatorProfile: Principal product designer with design-system and responsive SaaS experience
+
+constraints:
+  maxDurationMinutes: 20
+  maxCostCents: 250
