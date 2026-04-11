@@ -7,7 +7,9 @@
     "orgx:open": "node runner/orgx-benchmark.mjs open",
     "orgx:starter": "node runner/orgx-benchmark.mjs start starter",
     "orgx:full": "node runner/orgx-benchmark.mjs start full",
+    "run:openai": "node runner/openai-catalog-runner.mjs",
     "validate:bundle": "node runner/validate-bundle.mjs",
+    "validate:bundle:strict": "node runner/validate-bundle.mjs --strict",
     "recompute:scorecard": "node runner/recompute-scorecard.mjs"
   }
 }

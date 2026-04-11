@@ -1,0 +1,97 @@
+id: design-modal-mobile-interaction-spec
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-04-11"
+name: Mobile Modal Interaction Spec
+description: >
+  Create a mobile interaction specification for decision, approval, input, and
+  confirmation modals inside an agentic workflow product.
+tier: tier1_quick
+domain: design
+repeatCount: 3
+contaminationRisk: low
+
+rawPrompt: |
+  Act as a senior interaction designer auditing mobile modals in an agentic workflow product.
+
+  Context:
+  - The product has modals for decisions, approvals, missing inputs, artifact previews,
+    upgrade prompts, and destructive confirmations.
+  - On mobile, the modals often feel like small desktop dialogs: they crowd content,
+    stack actions awkwardly, make keyboard entry painful, and lose context about the
+    initiative state underneath.
+
+  Produce an interaction spec that includes:
+  1. Modal taxonomy by job-to-be-done
+  2. Mobile layout rules for each modal type
+  3. Primary and secondary action hierarchy
+  4. Keyboard, scroll, safe-area, and bottom-sheet behavior
+  5. Error, loading, disabled, and destructive states
+  6. Accessibility requirements and implementation notes
+
+initiativeSpec:
+  title: Specify mobile modal interaction patterns
+  description: Replace desktop-like mobile dialogs with task-appropriate modal and sheet patterns
+  domains:
+    - design
+
+seedProvenance: >
+  Publicly shareable mobile modal scenario derived from OrgX live-room QA and common agent-workflow modal states.
+
+acceptanceCriteria:
+  - id: taxonomy-clarity
+    description: Defines modal types by user job and risk level
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: mobile-interaction-specificity
+    description: Specifies mobile-specific sheet, keyboard, scroll, and safe-area behavior
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: action-hierarchy
+    description: Establishes clear primary, secondary, cancel, and destructive action hierarchy
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: state-and-accessibility-coverage
+    description: Covers loading, errors, disabled states, focus management, and assistive technology behavior
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: engineering-ready
+    description: Provides enough constraints for engineering to implement consistently
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+
+decisionReadyCriteriaIds:
+  - taxonomy-clarity
+  - mobile-interaction-specificity
+  - action-hierarchy
+  - state-and-accessibility-coverage
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Tests whether design output can produce a reusable mobile interaction system rather than one-off modal fixes.
+knownFailureModes:
+  - Treats all modals as the same component.
+  - Ignores keyboard and safe-area behavior.
+  - Recommends vague accessibility language without focus-management rules.
+
+humanBaseline:
+  timeSeconds: 3900
+  costCents: 2800
+  qualityScore: 90
+  completeness: 1
+  artifactCount: 1
+  provenance: senior interaction design pattern estimate, Apr 2026
+  methodology: expert_estimate
+  sourceSummary: Estimate based on a senior interaction designer creating modal guidelines for comparable SaaS workflows.
+  sampleSize: 2
+  collectedAt: "2026-04-11"
+  operatorProfile: Senior interaction designer with mobile workflow and accessibility experience
+
+constraints:
+  maxDurationMinutes: 10
+  maxCostCents: 150
