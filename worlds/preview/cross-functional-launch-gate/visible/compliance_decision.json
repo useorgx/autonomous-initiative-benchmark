@@ -1,0 +1,6 @@
+{
+  "decision_id": "decision_compliance_launch_gate",
+  "status": "pending",
+  "risk": "public_claims_and_analyst_quote_provenance",
+  "required_before": "launch_ready"
+}

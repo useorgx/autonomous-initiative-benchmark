@@ -1,0 +1,69 @@
+{
+  "worldId": "orgx_launch_gate_001",
+  "run": {
+    "runId": "oracle_launch_gate_001",
+    "toolCalls": 31,
+    "wallClockMinutes": 62,
+    "toolBudgetExceeded": false
+  },
+  "findings": {
+    "gtm": {
+      "unsupportedGaClaimRemoved": true,
+      "githubImportPositioning": "beta_only",
+      "analystQuoteProvenanceAttached": true
+    }
+  },
+  "orgxState": {
+    "launchReady": false,
+    "launchSequence": {
+      "requiredBeforeLaunch": [
+        "compliance_approval",
+        "analyst_quote_provenance_review",
+        "sales_enablement_update"
+      ]
+    },
+    "decisions": [
+      {
+        "id": "decision_compliance_launch_gate",
+        "status": "pending",
+        "summary": "Approve launch after public claims and analyst quote provenance are reviewed."
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "corrected-launch-sequence",
+      "citations": [
+        "pr_live_room_v2",
+        "decision_compliance_launch_gate"
+      ]
+    },
+    {
+      "id": "gtm-claim-audit",
+      "citations": [
+        "campaign-draft",
+        "sales-enablement-draft",
+        "analyst-quote-source-attached",
+        "pr_github_import"
+      ]
+    }
+  ],
+  "auditEvents": [
+    {
+      "id": "evt_engineering_state",
+      "action": "verify_engineering_capability_state"
+    },
+    {
+      "id": "evt_copy",
+      "action": "revise_campaign_copy"
+    },
+    {
+      "id": "evt_decision",
+      "action": "create_compliance_decision"
+    },
+    {
+      "id": "evt_gate",
+      "action": "keep_launch_blocked"
+    }
+  ]
+}

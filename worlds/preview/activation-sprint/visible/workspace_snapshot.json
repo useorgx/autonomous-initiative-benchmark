@@ -1,0 +1,62 @@
+{
+  "workspace_id": "seed_activation_workspace",
+  "initiative": {
+    "id": "init_activation_sprint",
+    "title": "Activation Sprint",
+    "status": "in_progress",
+    "launch_ready": false,
+    "blockers": [
+      {
+        "id": "blocker_first_workspace",
+        "summary": "Users complete install but do not reach first connected workspace.",
+        "status": "open"
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "id": "task_onboarding_triage",
+      "domain": "product",
+      "status": "in_progress",
+      "title": "Triage first connected workspace drop-off"
+    },
+    {
+      "id": "task_kickoff_link_fix",
+      "domain": "engineering",
+      "status": "todo",
+      "title": "Verify kickoff callback returns live link after workspace creation"
+    },
+    {
+      "id": "task_launch_gate",
+      "domain": "operations",
+      "status": "blocked",
+      "title": "Approve launch gate after QA evidence"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision_launch_copy",
+      "status": "pending",
+      "summary": "Approve customer-facing launch copy after activation fix is proven."
+    }
+  ],
+  "known_source_ids": [
+    "analytics-activation-events",
+    "support-thread-104",
+    "support-thread-117",
+    "repo-fixture-kickoff-link",
+    "qa-proof-onboarding-link"
+  ],
+  "audit_events": [
+    {
+      "id": "evt_001",
+      "action": "initiative_created",
+      "actor": "system"
+    },
+    {
+      "id": "evt_002",
+      "action": "blocker_created",
+      "actor": "operator"
+    }
+  ]
+}

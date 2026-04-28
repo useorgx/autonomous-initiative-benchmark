@@ -33,6 +33,20 @@ Not theoretically. Measurably.
 
 That's what this benchmark exists to answer. Every week, we run the same suite of initiative-shaped tasks through three execution modes, score the outputs against explicit acceptance criteria, and publish everything — wins, losses, and regressions.
 
+## Benchmark V2 amendment: Initiative Worlds
+
+Benchmark V2 is a trust-hardening release, shipped as **OrgX-Bench v0.2: Initiative Worlds** while the public corpus is still pre-1.0.
+
+The current public catalog remains valuable, but it is now classified as the public validation set. It proves the task format, runner behavior, result bundle shape, and judging pipeline. It is not sufficient frontier evidence by itself.
+
+Initiative Worlds add seeded OrgX workspaces, visible organizational state, hidden evaluator truth, deterministic validators, approval boundaries, artifact provenance, and timed human baselines. The benchmark question becomes:
+
+> Can an AI system take a messy organizational objective, inspect the actual workspace state, coordinate the right work across product / engineering / GTM / ops, preserve evidence, respect approval boundaries, and leave behind a verifiable execution trail?
+
+We do not treat rubric-only document generation as a headline benchmark result. A world contributes to the headline benchmark only when the agent must change organizational state and when at least 70% of scoring weight comes from deterministic validators. LLM judges are reserved for bounded qualitative dimensions after deterministic checks complete.
+
+The public preview lives in the public repo's `worlds/` directory. It includes runnable examples that prove the schema, receipt, and validator architecture, but headline scores require private holdout worlds with isolated evaluator bundles and at least three timed human baselines.
+
 ## Try it yourself
 
 The fastest way to evaluate OrgX is to run the benchmark inside the product.

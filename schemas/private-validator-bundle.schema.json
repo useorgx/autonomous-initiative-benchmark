@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/private-validator-bundle.schema.json",
+  "title": "OrgX Private Validator Bundle",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "worldId",
+    "version",
+    "evaluatorIsolation",
+    "validators"
+  ],
+  "properties": {
+    "worldId": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "evaluatorIsolation": {
+      "type": "object",
+      "required": [
+        "agentCanRead",
+        "validatorHost",
+        "referenceAnswersOffPath"
+      ],
+      "properties": {
+        "agentCanRead": {
+          "type": "boolean",
+          "const": false
+        },
+        "validatorHost": {
+          "type": "string"
+        },
+        "referenceAnswersOffPath": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
+    "validators": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "dimension",
+          "weight",
+          "deterministic"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "json_path_equals",
+              "json_path_not_equals",
+              "json_path_includes",
+              "citation_resolver",
+              "event_order",
+              "file_exists"
+            ]
+          },
+          "dimension": {
+            "type": "string",
+            "enum": [
+              "outcome",
+              "trust",
+              "evidence",
+              "coordination",
+              "efficiency"
+            ]
+          },
+          "weight": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "deterministic": {
+            "type": "boolean"
+          },
+          "critical": {
+            "type": "boolean"
+          },
+          "hardFailFlag": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

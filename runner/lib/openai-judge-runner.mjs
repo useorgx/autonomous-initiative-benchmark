@@ -6,59 +6,80 @@ import { clampNumber, normalizeCriterionScores, scoreCriteria } from './scoring.
 const MAX_ATTEMPTS = 5;
 const RETRY_BASE_MS = 750;
 
-export async function runOpenAITask(task, runId, options) {
+export async function runOpenAIJudge({ task, result, judgeSpec, judgeId, options }) {
   const startedAt = new Date().toISOString();
   const started = performance.now();
   let lastError = null;
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
     try {
-      const prompt = buildPrompt(task, options.minArtifactChars, lastError, attempt);
-      const response = await createResponse(task, prompt, options);
-      const durationSeconds = Number(((performance.now() - started) / 1000).toFixed(2));
+      const prompt = buildJudgePrompt(task, result, lastError, attempt);
+      const response = await createJudgeResponse(prompt, judgeSpec, options);
       const parsed = parseJsonObject(extractResponseText(response));
-      const artifactMarkdown = String(parsed.artifactMarkdown || '').trim();
       const criterionScores = normalizeCriterionScores(task, parsed.criterionScores);
       const qualityScore = scoreCriteria(task.acceptanceCriteria, criterionScores);
-      const completeness = clampNumber(parsed.completeness ?? qualityScore / 100, 0, 1);
-      const validationError = validateRunResult(response, artifactMarkdown, completeness, qualityScore, options);
+      const completeness = clampNumber(Number(parsed.completeness), 0, 1);
+      const confidence = clampNumber(Number(parsed.confidence), 0, 1);
+      const rationale = String(parsed.rationale || '').trim();
+      const redFlags = Array.isArray(parsed.redFlags)
+        ? parsed.redFlags.map((flag) => String(flag).trim()).filter(Boolean)
+        : [];
 
-      if (validationError) {
-        lastError = validationError;
+      if (!rationale) {
+        lastError = 'judge rationale was empty';
         if (attempt < MAX_ATTEMPTS) continue;
-        throw new Error(validationError);
+        throw new Error(lastError);
       }
 
       return {
-        runId,
+        judgeId,
         taskId: task.id,
-        status: response.status,
-        model: options.model,
+        runId: result.runId,
         provider: 'openai',
+        model: judgeSpec.model,
+        reasoningEffort: judgeSpec.reasoningEffort,
+        status: response.status,
         startedAt,
         completedAt: new Date().toISOString(),
-        durationSeconds,
+        durationSeconds: Number(((performance.now() - started) / 1000).toFixed(2)),
         usage: response.usage ?? {},
-        costCents: estimateCostCents(options.model, response.usage ?? {}),
+        costCents: estimateCostCents(judgeSpec.model, response.usage ?? {}),
         qualityScore,
         completeness,
-        autonomousCompleted: true,
-        artifactMarkdown,
         criterionScores,
-        selfReportedQualityScore: qualityScore,
-        selfReportedCompleteness: completeness,
-        selfReportedCriterionScores: criterionScores,
-        scoringSource: 'self_reported',
-        notes: String(parsed.notes || '').trim(),
+        confidence,
+        rationale,
+        redFlags,
+        humanReviewRecommended: Boolean(parsed.humanReviewRecommended),
       };
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
-      if (attempt === MAX_ATTEMPTS) throw new Error(`${runId} failed after ${MAX_ATTEMPTS} attempts: ${lastError}`);
+      if (attempt === MAX_ATTEMPTS) {
+        return {
+          judgeId,
+          taskId: task.id,
+          runId: result.runId,
+          provider: 'openai',
+          model: judgeSpec.model,
+          reasoningEffort: judgeSpec.reasoningEffort,
+          status: 'failed',
+          startedAt,
+          completedAt: new Date().toISOString(),
+          durationSeconds: Number(((performance.now() - started) / 1000).toFixed(2)),
+          usage: {},
+          costCents: 0,
+          qualityScore: 0,
+          completeness: 0,
+          criterionScores: normalizeCriterionScores(task, {}),
+          confidence: 0,
+          rationale: '',
+          redFlags: [lastError],
+          humanReviewRecommended: true,
+        };
+      }
       await sleep(retryDelayMs(attempt));
     }
   }
-
-  throw new Error(`${runId} failed unexpectedly.`);
 }
 
 function retryDelayMs(attempt) {
@@ -69,7 +90,7 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function createResponse(task, prompt, options) {
+async function createJudgeResponse(prompt, judgeSpec, options) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), options.timeoutMs);
 
@@ -81,11 +102,11 @@ async function createResponse(task, prompt, options) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: options.model,
+        model: judgeSpec.model,
         input: prompt,
-        reasoning: { effort: 'minimal' },
+        reasoning: { effort: judgeSpec.reasoningEffort },
         max_output_tokens: options.maxOutputTokens,
-        text: { format: buildOutputFormat(task) },
+        text: { format: buildJudgeOutputFormat(options.criterionIds) },
       }),
       signal: controller.signal,
     });
@@ -101,47 +122,47 @@ async function createResponse(task, prompt, options) {
   }
 }
 
-function buildPrompt(task, minArtifactChars, lastError, attempt) {
-  const criteria = task.acceptanceCriteria
+function buildJudgePrompt(task, result, lastError, attempt) {
+  const criteria = (task.acceptanceCriteria ?? [])
     .map((criterion) => `- ${criterion.id} (${criterion.weight}): ${criterion.description}`)
     .join('\n');
 
   return [
-    'You are completing one public autonomous initiative benchmark task.',
+    'You are an independent benchmark judge. You did not generate the artifact.',
+    'Judge only the artifact against the provided task prompt and acceptance criteria.',
+    'Do not reward confident wording, length, or generic polish unless it satisfies a criterion.',
+    'Score each criterion from 0 to 1. Use 0.5 for partially correct, 0.8 for strong, and 1.0 only for excellent, concrete satisfaction.',
     'Return JSON only. Do not wrap it in markdown.',
-    'The JSON shape must be:',
-    '{"artifactMarkdown":"...","criterionScores":{"criterion-id":0.0},"completeness":0.0,"notes":"..."}',
-    'Criterion scores must be numbers from 0 to 1. completeness must be 0 to 1.',
-    `artifactMarkdown must contain the complete finished artifact in Markdown, at least ${minArtifactChars} characters.`,
-    'notes must be a brief note about scoring only. Do not put the artifact in notes.',
-    attempt > 1 ? `Previous attempt was rejected: ${lastError}` : '',
+    attempt > 1 ? `Previous judging attempt was rejected: ${lastError}` : '',
     '',
     `Task id: ${task.id}`,
     `Task name: ${task.name}`,
     `Domain: ${task.domain}`,
     '',
+    'Original user prompt:',
+    task.rawPrompt || task.description,
+    '',
     'Acceptance criteria:',
     criteria,
     '',
-    'User prompt:',
-    task.rawPrompt,
+    'Artifact to judge:',
+    result.artifactMarkdown,
   ].join('\n');
 }
 
-function buildOutputFormat(task) {
+function buildJudgeOutputFormat(criterionIds) {
   const criterionScoreProperties = Object.fromEntries(
-    task.acceptanceCriteria.map((criterion) => [criterion.id, { type: 'number' }])
+    criterionIds.map((criterionId) => [criterionId, { type: 'number' }])
   );
 
   return {
     type: 'json_schema',
-    name: 'benchmark_output',
+    name: 'benchmark_judgment',
     strict: true,
     schema: {
       type: 'object',
       additionalProperties: false,
       properties: {
-        artifactMarkdown: { type: 'string' },
         criterionScores: {
           type: 'object',
           additionalProperties: false,
@@ -149,21 +170,24 @@ function buildOutputFormat(task) {
           required: Object.keys(criterionScoreProperties),
         },
         completeness: { type: 'number' },
-        notes: { type: 'string' },
+        confidence: { type: 'number' },
+        rationale: { type: 'string' },
+        redFlags: {
+          type: 'array',
+          items: { type: 'string' },
+        },
+        humanReviewRecommended: { type: 'boolean' },
       },
-      required: ['artifactMarkdown', 'criterionScores', 'completeness', 'notes'],
+      required: [
+        'criterionScores',
+        'completeness',
+        'confidence',
+        'rationale',
+        'redFlags',
+        'humanReviewRecommended',
+      ],
     },
   };
-}
-
-function validateRunResult(response, artifactMarkdown, completeness, qualityScore, options) {
-  if (response.status !== 'completed') return `response status was ${response.status}`;
-  if (artifactMarkdown.length < options.minArtifactChars) {
-    return `artifactMarkdown was too short (${artifactMarkdown.length} chars, minimum ${options.minArtifactChars})`;
-  }
-  if (completeness < 0.7) return `completeness was below threshold (${completeness})`;
-  if (qualityScore <= 0) return 'criterion scores produced a zero quality score';
-  return null;
 }
 
 function extractResponseText(response) {
@@ -190,6 +214,6 @@ function parseJsonObject(text) {
     const start = cleaned.indexOf('{');
     const end = cleaned.lastIndexOf('}');
     if (start !== -1 && end > start) return JSON.parse(cleaned.slice(start, end + 1));
-    throw new Error(`Model did not return parseable JSON: ${cleaned.slice(0, 500)}`);
+    throw new Error(`Judge did not return parseable JSON: ${cleaned.slice(0, 500)}`);
   }
 }

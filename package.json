@@ -8,6 +8,9 @@
     "orgx:starter": "node runner/orgx-benchmark.mjs start starter",
     "orgx:full": "node runner/orgx-benchmark.mjs start full",
     "run:openai": "node runner/openai-catalog-runner.mjs",
+    "judge:bundle": "node runner/judge-bundle.mjs",
+    "validate:world": "node runner/validate-world.mjs",
+    "validate:worlds:preview": "node runner/validate-world.mjs --registry worlds/corpus-splits.json --split initiative_worlds_preview",
     "validate:bundle": "node runner/validate-bundle.mjs",
     "validate:bundle:strict": "node runner/validate-bundle.mjs --strict",
     "recompute:scorecard": "node runner/recompute-scorecard.mjs"

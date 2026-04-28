@@ -2,6 +2,35 @@
 
 This repository is the public proof surface for the OrgX Autonomous Initiative Benchmark.
 
+## Initiative Worlds preview
+
+Benchmark V2 is a trust-hardening release:
+
+**Benchmark V2 / OrgX-Bench v0.2: Initiative Worlds**
+
+The current task catalog remains the public validation set. It is useful for
+runner smoke tests, methodology transparency, and contamination-visible examples.
+It is not the headline frontier suite.
+
+Initiative Worlds are seeded OrgX workspaces with visible state, hidden evaluator
+truth, deterministic validators, approval boundaries, artifact provenance, and
+timed human baselines. The benchmark goal shifts from "can an AI write a good
+artifact?" to "can an AI system complete multi-domain organizational work while
+preserving trust?"
+
+Start here:
+
+- Architecture: [docs/initiative-worlds.md](docs/initiative-worlds.md)
+- Methodology amendment: [docs/methodology-amendment-initiative-worlds.md](docs/methodology-amendment-initiative-worlds.md)
+- Corpus split registry: [worlds/corpus-splits.json](worlds/corpus-splits.json)
+- Preview worlds: [worlds/README.md](worlds/README.md)
+
+Validate the runnable preview worlds:
+
+```bash
+npm run validate:worlds:preview
+```
+
 The easiest way to evaluate OrgX is to **run the benchmark inside OrgX itself**:
 
 1. Sign up for OrgX
@@ -38,6 +67,7 @@ OrgX does not spin up a benchmark-only execution path for the real product run.
 It contains:
 
 - versioned public benchmark task definitions in `catalog/`
+- Initiative Worlds schemas, split registry, preview worlds, and validator runner in `worlds/`, `schemas/`, and `runner/`
 - the benchmark methodology in `methodology/`
 - a small reproducibility layer in `runner/`
 - public weekly result bundles in `results/<week>/`

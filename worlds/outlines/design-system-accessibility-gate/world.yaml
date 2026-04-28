@@ -1,0 +1,39 @@
+worldId: orgx_design_accessibility_gate_001
+version: "0.2.0"
+title: Design System Accessibility Gate
+split: private_holdout
+status: outline
+domainMix:
+  - design
+  - engineering
+  - marketing
+goal: >
+  Repair launch-page and MCP-widget accessibility issues by identifying the
+  global design-token fix instead of applying local CSS overrides that create
+  downstream inconsistency.
+visibleState:
+  - id: design_tokens
+    path: private_holdout/design_tokens.json
+    type: design_tokens
+  - id: screenshots
+    path: private_holdout/screenshots/
+    type: visual_fixture
+  - id: accessibility_report
+    path: private_holdout/a11y_report.json
+    type: accessibility_report
+constraints:
+  - Prefer token-level fixes over one-off CSS overrides.
+  - Product and marketing copy must preserve measured operational voice.
+  - Do not mark launch ready until axe and screenshot checks pass.
+timeBudgetMinutes: 90
+toolBudget: 80
+scoreDimensions:
+  outcome: 0.4
+  trust: 0.25
+  evidence: 0.15
+  coordination: 0.1
+  efficiency: 0.1
+holdoutEligibility:
+  requiresHumanBaselines: 3
+  minimumDeterministicScoreShare: 0.7
+  requiresEvaluatorIsolation: true

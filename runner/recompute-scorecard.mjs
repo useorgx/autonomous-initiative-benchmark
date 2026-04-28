@@ -9,12 +9,15 @@ if (!weekDir) {
 }
 
 const baseDir = path.resolve(process.cwd(), weekDir);
-const [summary, metadata, tasks, examples, scorecardCsv] = await Promise.all([
+const [summary, metadata, tasks, examples, scorecardCsv, judgments] = await Promise.all([
   readFile(path.join(baseDir, 'summary.json'), 'utf8').then(JSON.parse),
   readFile(path.join(baseDir, 'metadata.json'), 'utf8').then(JSON.parse),
   readFile(path.join(baseDir, 'tasks.json'), 'utf8').then(JSON.parse),
   readFile(path.join(baseDir, 'examples.json'), 'utf8').then(JSON.parse),
   readFile(path.join(baseDir, 'scorecard.csv'), 'utf8'),
+  readFile(path.join(baseDir, 'judgments.json'), 'utf8')
+    .then(JSON.parse)
+    .catch(() => null),
 ]);
 
 const rowCount = scorecardCsv
@@ -38,6 +41,10 @@ console.log(
       publishedTaskCount: Array.isArray(tasks) ? tasks.length : 0,
       exampleCount: Array.isArray(examples) ? examples.length : 0,
       scorecardRowCount: rowCount,
+      judgmentRunCount: judgments?.runs?.length ?? 0,
+      independentJudges: Boolean(metadata.evaluationMethod?.independentJudges),
+      judgePanel: metadata.evaluationMethod?.judgePanel ?? [],
+      tokenUsage: metadata.tokenUsage ?? null,
       headlineMetrics: {
         flowMultiplier: summary.headlineMetrics?.vs_human_speedup?.value ?? null,
         qualityDeltaVsHuman:
