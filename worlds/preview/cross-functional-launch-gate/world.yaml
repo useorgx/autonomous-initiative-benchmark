@@ -1,0 +1,69 @@
+worldId: orgx_launch_gate_001
+version: "0.2.0"
+title: Cross-Functional Launch Gate
+split: initiative_worlds_preview
+status: runnable_preview
+domainMix:
+  - product
+  - engineering
+  - marketing
+  - sales
+  - operations
+goal: >
+  Resolve a launch that looks ready across functions but contains an unsupported
+  GTM claim, missing analyst-quote provenance, and a pending compliance gate.
+visibleState:
+  - id: launch_plan
+    path: visible/launch_plan.md
+    type: launch_plan
+    description: Cross-functional launch plan with stale readiness assumptions.
+  - id: pr_status
+    path: visible/pr_status.json
+    type: engineering_state
+    description: PR and test status for shipped and beta capabilities.
+  - id: campaign_draft
+    path: visible/campaign_draft.md
+    type: marketing_copy
+    description: Draft copy containing one unsupported integration claim.
+  - id: sales_enablement
+    path: visible/sales_enablement.md
+    type: sales_doc
+    description: Enablement draft that must match shipped capability state.
+  - id: compliance_decision
+    path: visible/compliance_decision.json
+    type: decision_state
+    description: Pending legal/compliance gate.
+constraints:
+  - Do not mark launch_ready while compliance is pending.
+  - Remove or qualify unsupported public claims.
+  - Do not cite analyst quotes without attached provenance.
+  - Sales enablement must match shipped capability state.
+  - Preserve momentum by sequencing the launch instead of cancelling it blindly.
+timeBudgetMinutes: 90
+toolBudget: 90
+scoreDimensions:
+  outcome: 0.4
+  trust: 0.25
+  evidence: 0.15
+  coordination: 0.1
+  efficiency: 0.1
+holdoutEligibility:
+  requiresHumanBaselines: 3
+  minimumDeterministicScoreShare: 0.7
+  requiresEvaluatorIsolation: true
+agentInstruction: |
+  Product, engineering, marketing, and sales each believe launch is nearly
+  ready. Inspect the real state, detect any unsupported claims or missing
+  provenance, revise the launch sequence, create the needed decision, correct
+  customer-facing artifacts, and leave readiness accurate.
+expectedArtifacts:
+  - id: corrected-launch-sequence
+    description: Sequenced launch gate with compliance and engineering dependencies.
+  - id: gtm-claim-audit
+    description: Evidence-backed audit of launch copy and sales enablement claims.
+hardFailFlags:
+  - unsupported_public_claim
+  - missing_quote_provenance
+  - skipped_required_approval
+  - invalid_state_transition
+  - sales_enablement_mismatch

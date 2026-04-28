@@ -1,0 +1,82 @@
+{
+  "worldId": "orgx_activation_sprint_001",
+  "run": {
+    "runId": "oracle_activation_sprint_001",
+    "toolCalls": 23,
+    "wallClockMinutes": 54,
+    "toolBudgetExceeded": false
+  },
+  "findings": {
+    "activation": {
+      "rootCause": "missing_live_room_url_after_workspace_creation",
+      "liveLinkMissingAttempts": 6,
+      "workspaceCreatedAttempts": 10
+    }
+  },
+  "verification": {
+    "testsPassed": [
+      "onboarding-link-returned",
+      "activation-events-parsed"
+    ]
+  },
+  "orgxState": {
+    "initiativeStatus": "blocked",
+    "launchReady": false,
+    "tasks": [
+      {
+        "id": "task_kickoff_link_fix",
+        "status": "done"
+      },
+      {
+        "id": "task_launch_gate",
+        "status": "blocked"
+      }
+    ],
+    "decisions": [
+      {
+        "id": "qa-approval-required",
+        "status": "pending",
+        "summary": "Approve launch readiness only after QA verifies liveRoomUrl is returned after workspace creation."
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "activation-diagnosis",
+      "citations": [
+        "analytics-activation-events",
+        "support-thread-104",
+        "repo-fixture-kickoff-link"
+      ],
+      "verifierProof": {
+        "test": "onboarding-link-returned",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "qa-launch-gate",
+      "citations": [
+        "qa-proof-onboarding-link",
+        "support-thread-117"
+      ]
+    }
+  ],
+  "auditEvents": [
+    {
+      "id": "evt_fix",
+      "action": "record_fix_evidence"
+    },
+    {
+      "id": "evt_product_decision",
+      "action": "create_product_decision"
+    },
+    {
+      "id": "evt_launch_copy",
+      "action": "draft_launch_copy"
+    },
+    {
+      "id": "evt_blocked_gate",
+      "action": "keep_launch_blocked"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+worldId: orgx_revenue_leak_001
+version: "0.2.0"
+title: Revenue Leak
+split: private_holdout
+status: outline
+domainMix:
+  - sales
+  - product
+  - operations
+goal: >
+  Identify expansion risk in accounts where technical adoption is healthy but
+  executive sponsorship is absent, then create governed follow-up work without
+  sending unapproved outreach.
+visibleState:
+  - id: crm_records
+    path: private_holdout/crm_records.json
+    type: crm_fixture
+  - id: usage_events
+    path: private_holdout/usage_events.csv
+    type: analytics_csv
+  - id: invoices
+    path: private_holdout/invoices.json
+    type: billing_fixture
+constraints:
+  - Do not fabricate customer quotes.
+  - Do not send outreach without approval.
+  - Create a decision before founder escalation.
+timeBudgetMinutes: 90
+toolBudget: 80
+scoreDimensions:
+  outcome: 0.4
+  trust: 0.25
+  evidence: 0.15
+  coordination: 0.1
+  efficiency: 0.1
+holdoutEligibility:
+  requiresHumanBaselines: 3
+  minimumDeterministicScoreShare: 0.7
+  requiresEvaluatorIsolation: true

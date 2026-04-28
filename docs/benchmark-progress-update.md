@@ -1,28 +1,64 @@
 # First-pass autonomous initiative benchmark progress update
 
-We now have a complete local OpenAI benchmark run that executes the full public task catalog and writes a reproducible result bundle. The latest verified run used `gpt-5-nano`, completed 12 of 12 tasks, passed the bundle validator, passed scorecard recomputation, and produced a complete set of summary, metadata, examples, task, and CSV files.
+We now have complete local OpenAI benchmark runs that execute the public task catalog and write reproducible result bundles. The verified smoke run used `gpt-5-nano`, completed 12 of 12 tasks, passed the bundle validator, passed scorecard recomputation, and produced a complete set of summary, metadata, examples, task, and CSV files.
 
 This is progress, not a final methodology claim.
 
-The important finding is operational: the public catalog runner can now produce a complete low-cost benchmark bundle end to end. The current result is useful as a smoke test of task execution, artifact generation, result packaging, and scorecard recomputation.
+The important finding is operational: the public catalog runner can now produce a complete low-cost benchmark bundle end to end. The smoke result is useful as a test of task execution, artifact generation, result packaging, and scorecard recomputation.
 
-The current result should not be oversold as an externally rigorous benchmark yet. The model that generated the artifacts also self-reported the rubric scores. In the latest run, that model was `gpt-5-nano`. The metadata correctly labels these scores as self-reported and intended for smoke testing.
+The current result should not be oversold as an externally rigorous benchmark yet. The model that generated the artifacts also self-reported the rubric scores. In the latest smoke run, that model was `gpt-5-nano`. The metadata correctly labels these scores as self-reported and intended for smoke testing.
+
+We have now added the next methodology upgrade to the runner: independent multi-model judging can score an existing bundle or run immediately after generation. The public-grade path writes `judgments.json`, median judge scores, disagreement statistics, human-review flags, and actual judge token/cost usage. The already-published smoke bundle remains smoke-quality, but the runner now supports the higher bar.
+
+## First judged candidate run
+
+We ran the expanded 15-task catalog with 3 repeats per task and 3 independent judges per artifact:
+
+- Generator: `gpt-5-nano`
+- Judges: `gpt-5.4-nano` with low reasoning, `gpt-5.4-mini` with medium reasoning, and `gpt-5.4` with high reasoning
+- Runs: 45 generated artifacts and 135 independent judge calls
+- Result bundle: `results/local-openai-gpt-5-nano-full-public-judge-20260411`
+- Normal validation: passed
+- Scorecard recomputation: passed
+- Strict validation: failed on 10 quality-bar misses
+
+This is the right failure mode for a first public-methodology candidate. The benchmark completed, recorded judge usage, and exposed where outputs fell below the higher bar instead of burying that under a clean headline.
+
+Actual usage and cost:
+
+- Generation: 81,132 total tokens, 2.4623 cents
+- Judging: 319,233 total tokens, including 60,716 reasoning tokens, 122.0173 cents
+- Total: 400,365 total tokens, 124.4796 cents
+- Judge failures: 0 of 135 calls
+- `gpt-5.4` high-reasoning judge cost: 102.0777 cents across 45 calls
+
+The strict misses were concentrated in design:
+
+- `design-live-room-critique-r1`: `high-taste` criterion scored 0.75
+- `design-modal-mobile-interaction-spec-r1`: completeness 0.82, quality score 80, and `engineering-ready` criterion scored 0.75
+- `design-modal-mobile-interaction-spec-r2`: completeness 0.82 and quality score 84.17
+- `design-modal-mobile-interaction-spec-r3`: quality score 84.44
+- `design-live-room-responsive-system-r1`: completeness 0.84
+- `design-live-room-responsive-system-r2`: quality score 81.39 and `artifact-and-blocker-flows` criterion scored 0.7
+
+The disagreement flag was intentionally sensitive: 45 of 45 runs were marked for human review because at least one judge showed material criterion-level disagreement. That does not mean 45 runs failed; it means the judging panel is doing its job as a triage layer. The next methodology improvement is to calibrate disagreement thresholds with human adjudication and separate "needs human review" from "below quality bar" in public summaries.
 
 ## What worked
 
 - Full catalog execution completed without task failures.
 - The result bundle contains `summary.json`, `metadata.json`, `tasks.json`, `examples.json`, and `scorecard.csv`.
+- Judged bundles also contain `judgments.json`.
 - Scorecard recomputation agrees with the published headline metrics.
 - The cheapest smoke-run model was able to produce complete artifacts across product, design, engineering, marketing, sales, operations, and cross-functional tasks.
-- The results expose useful failure modes instead of hiding them. Engineering release readiness remained the weakest task, which gives us a concrete next target.
+- The judged results expose useful failure modes instead of hiding them. Design tasks are the first concrete quality-improvement target.
 
 ## What internet reviewers will challenge
 
-- Self-grading: the generating model currently supplies its own rubric scores.
-- Single-run variance: one run per task is too noisy for strong claims.
+- Self-grading: smoke runs still use self-reported scores and must stay clearly separated from judged runs.
+- Judge calibration: independent judges are implemented, but disagreement thresholds need human calibration.
 - Human baselines: baseline estimates need stronger provenance, larger samples, and clearer collection methodology.
-- Task coverage: design is underrepresented relative to the complexity of real product design work.
-- Rubric strictness: the current validator proves bundle completeness, not publishable evaluation rigor.
+- Task coverage: design coverage improved from 1 task to 4 tasks, but the design benchmark should keep expanding toward practical SOTA human workflows.
+- Rubric strictness: the strict validator now catches below-bar judged outputs, but public claims still need human adjudication and baseline evidence.
 - Artifact quality: some outputs are plausible but not yet at the standard a strong human operator would publish internally without revision.
 
 ## What we are changing next
@@ -35,15 +71,16 @@ Publishable runs must answer: would independent reviewers trust the scoring, tas
 
 The benchmark tooling should keep those bars separate. A complete bundle is necessary, but no longer sufficient.
 
-### 2. Add independent multi-model judging
+### 2. Use independent multi-model judging
 
-The next scoring protocol should use independent judge models that did not generate the artifact. The generation model remains cheap by default. The judging panel should be separate.
+The scoring protocol now supports independent judge models that did not generate the artifact. The generation model remains cheap by default. The judging panel is separate.
 
-Proposed judge panel:
+Initial public judge panel:
 
-- A low-cost judge for fast rubric coverage.
-- A stronger reasoning judge for harder qualitative calls.
-- A domain-specific deterministic validator where possible.
+- `gpt-5.4-nano` with low reasoning for low-cost rubric coverage.
+- `gpt-5.4-mini` for a stronger middle judge.
+- `gpt-5.4` with high reasoning for harder qualitative calls.
+- Domain-specific deterministic validators where possible.
 
 The public score should report median judge score, judge disagreement, and criterion-level variance. If judges disagree materially, the task should be flagged for human review rather than averaged into a clean headline number.
 
@@ -104,6 +141,6 @@ The near-term goal is not to claim the benchmark is definitive. The near-term go
 
 ## Current status
 
-Current status: first-pass complete smoke run.
+Current status: first judged methodology candidate run completed.
 
-Next status target: public-grade methodology run with independent multi-model judging, stricter validation, 3x more design coverage, and repeat-based confidence reporting.
+Next status target: calibrate judge disagreement with human review, improve the below-bar design tasks, strengthen human baselines, then rerun until the strict public-grade gate passes.

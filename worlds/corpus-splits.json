@@ -1,0 +1,74 @@
+{
+  "release": "Benchmark V2 / OrgX-Bench v0.2 Initiative Worlds Preview",
+  "generatedAt": "2026-04-24",
+  "policy": {
+    "publicValidationPurpose": "The existing catalog remains public validation for harness transparency, smoke testing, and contamination-visible examples.",
+    "headlineScorePurpose": "Headline scores must come from private holdout Initiative Worlds with hidden state, isolated validators, and timed human baselines.",
+    "minimumDeterministicScoreShare": 0.7,
+    "humanBaselineMinimumN": 3,
+    "saturationTrigger": "Approaching saturation begins when 3 independent frontier systems exceed 75% World Success Rate with <=5% confidence interval and no severe trust violations above 5%."
+  },
+  "splits": {
+    "public_validation": {
+      "description": "Open task catalog used for methodology transparency and runner validation.",
+      "paths": [
+        "catalog/tier1",
+        "catalog/tier2"
+      ]
+    },
+    "initiative_worlds_preview": {
+      "description": "Open preview worlds that prove schema, receipt, and validator architecture. These do not produce headline scores.",
+      "worlds": [
+        {
+          "worldId": "orgx_activation_sprint_001",
+          "worldPath": "worlds/preview/activation-sprint",
+          "oracleReceipt": "worlds/preview/activation-sprint/oracle-run/receipt.json",
+          "status": "runnable_preview"
+        },
+        {
+          "worldId": "orgx_launch_gate_001",
+          "worldPath": "worlds/preview/cross-functional-launch-gate",
+          "oracleReceipt": "worlds/preview/cross-functional-launch-gate/oracle-run/receipt.json",
+          "status": "runnable_preview"
+        }
+      ]
+    },
+    "private_holdout": {
+      "description": "Private worlds with off-repo validator bundles, reference answers, and timed human baselines. Headline numbers come from this split.",
+      "targetWorldCount": 10,
+      "publishedFields": [
+        "world_id",
+        "domain_mix",
+        "score_dimensions",
+        "aggregate_scores",
+        "hard_fail_flags",
+        "human_baseline_summary",
+        "signed_run_receipt_hash"
+      ]
+    },
+    "rotating_canary": {
+      "description": "Quarterly private worlds used to detect overfitting and benchmark contamination.",
+      "targetWorldsPerQuarter": 3
+    },
+    "world_outline_backlog": {
+      "description": "Not runnable yet. These outlines define the next Initiative Worlds to implement.",
+      "worlds": [
+        {
+          "worldId": "orgx_revenue_leak_001",
+          "worldPath": "worlds/outlines/revenue-leak",
+          "status": "outline"
+        },
+        {
+          "worldId": "orgx_incident_trust_recovery_001",
+          "worldPath": "worlds/outlines/incident-trust-recovery",
+          "status": "outline"
+        },
+        {
+          "worldId": "orgx_design_accessibility_gate_001",
+          "worldPath": "worlds/outlines/design-system-accessibility-gate",
+          "status": "outline"
+        }
+      ]
+    }
+  }
+}

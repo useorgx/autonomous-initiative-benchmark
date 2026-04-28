@@ -1,0 +1,11 @@
+attempt_id,account,event_name,workspace_created,live_link_returned,first_connected_workspace_minutes
+a-001,acme,install_started,true,true,9
+a-002,boreal,install_started,true,false,
+a-003,caldera,install_started,true,true,12
+a-004,delta,install_started,true,false,
+a-005,ember,install_started,true,false,
+a-006,forest,install_started,true,true,7
+a-007,granite,install_started,true,false,
+a-008,helio,install_started,true,false,
+a-009,ion,install_started,true,true,11
+a-010,juno,install_started,true,false,

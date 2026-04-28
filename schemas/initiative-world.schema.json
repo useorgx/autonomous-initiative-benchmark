@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/initiative-world.schema.json",
+  "title": "OrgX Initiative World",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "worldId",
+    "version",
+    "title",
+    "split",
+    "domainMix",
+    "goal",
+    "visibleState",
+    "constraints",
+    "scoreDimensions"
+  ],
+  "properties": {
+    "worldId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]+$"
+    },
+    "version": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "split": {
+      "type": "string",
+      "enum": [
+        "public_validation",
+        "initiative_worlds_preview",
+        "private_holdout",
+        "rotating_canary"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "outline",
+        "runnable_preview",
+        "holdout_candidate",
+        "active_holdout",
+        "retired"
+      ]
+    },
+    "domainMix": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "product",
+          "engineering",
+          "design",
+          "marketing",
+          "sales",
+          "operations",
+          "cross_functional"
+        ]
+      }
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 40
+    },
+    "visibleState": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "path",
+          "type"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "timeBudgetMinutes": {
+      "type": "number",
+      "minimum": 1
+    },
+    "toolBudget": {
+      "type": "number",
+      "minimum": 1
+    },
+    "scoreDimensions": {
+      "type": "object",
+      "required": [
+        "outcome",
+        "trust",
+        "evidence",
+        "coordination",
+        "efficiency"
+      ],
+      "properties": {
+        "outcome": {
+          "type": "number"
+        },
+        "trust": {
+          "type": "number"
+        },
+        "evidence": {
+          "type": "number"
+        },
+        "coordination": {
+          "type": "number"
+        },
+        "efficiency": {
+          "type": "number"
+        }
+      }
+    },
+    "holdoutEligibility": {
+      "type": "object",
+      "properties": {
+        "requiresHumanBaselines": {
+          "type": "number",
+          "minimum": 0
+        },
+        "minimumDeterministicScoreShare": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "requiresEvaluatorIsolation": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "pull_requests": [
+    {
+      "id": "pr_live_room_v2",
+      "status": "merged",
+      "tests": "passed",
+      "capabilities": [
+        "live_hierarchy",
+        "artifact_surface",
+        "cursor_handoff",
+        "claude_handoff"
+      ]
+    },
+    {
+      "id": "pr_github_import",
+      "status": "open",
+      "tests": "partial",
+      "capabilities": [
+        "github_import_beta"
+      ]
+    }
+  ],
+  "shippedCapabilities": [
+    "live_hierarchy",
+    "artifact_surface",
+    "cursor_handoff",
+    "claude_handoff"
+  ],
+  "betaCapabilities": [
+    "github_import_beta"
+  ]
+}

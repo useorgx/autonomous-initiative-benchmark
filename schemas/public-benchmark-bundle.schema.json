@@ -40,6 +40,10 @@
     "examples": {
       "type": "array",
       "description": "Curated safe benchmark examples suitable for public inspection."
+    },
+    "judgments": {
+      "type": "object",
+      "description": "Optional independent judge panel outputs, criterion-level median scores, disagreement statistics, human-review flags, and judge usage/cost metadata."
     }
   }
 }

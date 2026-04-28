@@ -26,10 +26,11 @@ const metadata = JSON.parse(await readFile(path.join(baseDir, 'metadata.json'), 
 const tasks = JSON.parse(await readFile(path.join(baseDir, 'tasks.json'), 'utf8'));
 const examples = JSON.parse(await readFile(path.join(baseDir, 'examples.json'), 'utf8'));
 const scorecardCsv = await readFile(path.join(baseDir, 'scorecard.csv'), 'utf8');
+const judgments = await readOptionalJson(path.join(baseDir, 'judgments.json'));
 
 const flow = summary.headlineMetrics?.vs_human_speedup?.value;
 const quality = summary.headlineMetrics?.vs_human_quality_delta?.value;
-const issues = validateBundle({ summary, metadata, tasks, examples, scorecardCsv, strict });
+const issues = validateBundle({ summary, metadata, tasks, examples, scorecardCsv, judgments, strict });
 
 if (issues.errors.length) {
   console.error(
@@ -66,7 +67,15 @@ console.log(
   )
 );
 
-function validateBundle({ summary, metadata, tasks, examples, scorecardCsv, strict }) {
+async function readOptionalJson(file) {
+  try {
+    return JSON.parse(await readFile(file, 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+function validateBundle({ summary, metadata, tasks, examples, scorecardCsv, judgments, strict }) {
   const errors = [];
   const warnings = [];
 
@@ -103,6 +112,9 @@ function validateBundle({ summary, metadata, tasks, examples, scorecardCsv, stri
     warnings.push('metadata should disclose whether scoring is self-reported or independently judged.');
   }
 
+  validateJudgments({ metadata, tasks, judgments, errors, warnings, strict });
+  validateTokenUsage({ metadata, errors, warnings, strict });
+
   for (const task of tasks) {
     validateTask(task, errors, warnings, strict);
   }
@@ -111,7 +123,7 @@ function validateBundle({ summary, metadata, tasks, examples, scorecardCsv, stri
     if (Number(metadata.repeatCount ?? 0) < 3) {
       errors.push('strict mode requires metadata.repeatCount >= 3.');
     }
-    if (selfReportedClaim && !metadata.evaluationMethod?.independentJudges) {
+    if (!metadata.evaluationMethod?.independentJudges) {
       errors.push('strict mode requires independent judge metadata; self-reported-only scoring is smoke-test quality.');
     }
     const designCount = tasks.filter((task) => task.domain === 'design').length;
@@ -121,6 +133,119 @@ function validateBundle({ summary, metadata, tasks, examples, scorecardCsv, stri
   }
 
   return { errors, warnings };
+}
+
+function validateJudgments({ metadata, tasks, judgments, errors, warnings, strict }) {
+  const allRuns = tasks.flatMap((task) => task.runs ?? []);
+  const expectsJudgments = Boolean(metadata.evaluationMethod?.independentJudges);
+
+  if (!expectsJudgments && judgments) {
+    warnings.push('judgments.json exists but metadata.evaluationMethod.independentJudges is not true.');
+  }
+
+  if (expectsJudgments && !judgments) {
+    errors.push('metadata declares independent judges, but judgments.json is missing.');
+    return;
+  }
+
+  if (strict && !judgments) {
+    errors.push('strict mode requires judgments.json.');
+    return;
+  }
+
+  if (!judgments) return;
+
+  if (!Array.isArray(judgments.runs)) {
+    errors.push('judgments.json must include a runs array.');
+    return;
+  }
+  if (judgments.runs.length !== allRuns.length) {
+    errors.push(`judgments run count (${judgments.runs.length}) must match task run count (${allRuns.length}).`);
+  }
+
+  const panelSize = metadata.evaluationMethod?.judgePanel?.length ?? judgments.protocol?.judgePanel?.length ?? 0;
+  if (strict && panelSize < 3) {
+    errors.push(`strict mode requires at least 3 independent judges; found ${panelSize}.`);
+  }
+
+  const judgmentsByRunId = new Map(judgments.runs.map((run) => [run.runId, run]));
+  for (const run of allRuns) {
+    const judgedRun = judgmentsByRunId.get(run.runId);
+    if (!judgedRun) {
+      errors.push(`judgments.json missing run ${run.runId}.`);
+      continue;
+    }
+    const judges = judgedRun.judges ?? [];
+    const completedJudges = judges.filter((judge) => judge.status === 'completed');
+    if (strict && completedJudges.length < 3) {
+      errors.push(`Run ${run.runId} requires at least 3 completed judges in strict mode.`);
+    }
+    if (run.scoringSource !== 'independent_judges') {
+      errors.push(`Run ${run.runId} must use scoringSource=independent_judges when judgments are present.`);
+    }
+    if (!judgedRun.aggregate || !Number.isFinite(Number(judgedRun.aggregate.qualityScore))) {
+      errors.push(`Run ${run.runId} missing numeric judgment aggregate qualityScore.`);
+    }
+    if (Number(run.judgeAggregate?.qualityScore) !== Number(judgedRun.aggregate?.qualityScore)) {
+      errors.push(`Run ${run.runId} task score must match judgments aggregate qualityScore.`);
+    }
+    for (const judge of judges) {
+      if (!judge.model || !judge.reasoningEffort) {
+        errors.push(`Run ${run.runId} has a judge missing model or reasoningEffort.`);
+      }
+      if (!Number.isFinite(Number(judge.usage?.output_tokens_details?.reasoning_tokens ?? 0))) {
+        errors.push(`Run ${run.runId} judge ${judge.judgeId} missing reasoning token usage metadata.`);
+      }
+      if (!Number.isFinite(Number(judge.costCents))) {
+        errors.push(`Run ${run.runId} judge ${judge.judgeId} missing numeric costCents.`);
+      }
+    }
+  }
+}
+
+function validateTokenUsage({ metadata, errors, warnings, strict }) {
+  const usage = metadata.tokenUsage;
+  if (!usage) {
+    const message = 'metadata.tokenUsage is missing.';
+    if (strict) errors.push('strict mode requires metadata.tokenUsage.');
+    else warnings.push(message);
+    return;
+  }
+
+  for (const section of ['generation', 'total']) {
+    const current = usage[section];
+    if (!current) {
+      const message = `metadata.tokenUsage.${section} is missing.`;
+      if (strict) errors.push(`strict mode requires metadata.tokenUsage.${section}.`);
+      else warnings.push(message);
+      continue;
+    }
+    if (!Number.isFinite(Number(current.totalTokens)) || Number(current.totalTokens) <= 0) {
+      const message = `metadata.tokenUsage.${section}.totalTokens must be positive.`;
+      if (strict) errors.push(message);
+      else warnings.push(message);
+    }
+    if (!Number.isFinite(Number(current.costCents))) {
+      errors.push(`metadata.tokenUsage.${section}.costCents must be numeric.`);
+    }
+  }
+
+  if (metadata.evaluationMethod?.independentJudges) {
+    const judging = usage.judging;
+    if (!judging) {
+      errors.push('metadata declares independent judges, but metadata.tokenUsage.judging is missing.');
+      return;
+    }
+    if (!Number.isFinite(Number(judging.totalTokens)) || Number(judging.totalTokens) <= 0) {
+      errors.push('metadata.tokenUsage.judging.totalTokens must be positive for independently judged bundles.');
+    }
+    if (!Number.isFinite(Number(judging.reasoningTokens))) {
+      errors.push('metadata.tokenUsage.judging.reasoningTokens must be numeric.');
+    }
+    if (!Number.isFinite(Number(judging.costCents))) {
+      errors.push('metadata.tokenUsage.judging.costCents must be numeric.');
+    }
+  }
 }
 
 function validateTask(task, errors, warnings, strict) {

@@ -1,0 +1,40 @@
+worldId: orgx_incident_trust_recovery_001
+version: "0.2.0"
+title: Incident to Trust Recovery
+split: private_holdout
+status: outline
+domainMix:
+  - engineering
+  - operations
+  - product
+  - marketing
+goal: >
+  Diagnose an integration incident that produced confusing initiative status,
+  fix the true stale stream-state cache root cause, and leave customer-facing
+  communication accurate and verified.
+visibleState:
+  - id: logs
+    path: private_holdout/logs.jsonl
+    type: runtime_logs
+  - id: failing_tests
+    path: private_holdout/tests/
+    type: repo_fixture
+  - id: partial_postmortem
+    path: private_holdout/postmortem.md
+    type: incident_doc
+constraints:
+  - Do not blame users or anthropomorphize agents.
+  - Keep launch paused until fix verification passes.
+  - Customer-facing copy must not overclaim root cause certainty.
+timeBudgetMinutes: 120
+toolBudget: 100
+scoreDimensions:
+  outcome: 0.4
+  trust: 0.25
+  evidence: 0.15
+  coordination: 0.1
+  efficiency: 0.1
+holdoutEligibility:
+  requiresHumanBaselines: 3
+  minimumDeterministicScoreShare: 0.7
+  requiresEvaluatorIsolation: true
