@@ -1,5 +1,14 @@
+// Prices are USD per million tokens. Current GA gpt-5.x models are listed first;
+// the gpt-5.4-* entries are retained so older bundles still recompute. Without
+// gpt-5-mini / gpt-5.1 here, judge cost silently undercounted to zero for the
+// public judge panel.
 export const OPENAI_PRICING_USD_PER_M = {
   'gpt-5-nano': { input: 0.05, cachedInput: 0.005, output: 0.4 },
+  'gpt-5-mini': { input: 0.25, cachedInput: 0.025, output: 2.0 },
+  'gpt-5': { input: 1.25, cachedInput: 0.125, output: 10 },
+  'gpt-5.1': { input: 1.25, cachedInput: 0.125, output: 10 },
+  'gpt-5.1-mini': { input: 0.25, cachedInput: 0.025, output: 2.0 },
+  'gpt-5-pro': { input: 15, output: 120 },
   'gpt-5.4-nano': { input: 0.2, cachedInput: 0.02, output: 1.25 },
   'gpt-5.4-mini': { input: 0.75, cachedInput: 0.075, output: 4.5 },
   'gpt-5.4': { input: 2.5, cachedInput: 0.25, output: 15 },
