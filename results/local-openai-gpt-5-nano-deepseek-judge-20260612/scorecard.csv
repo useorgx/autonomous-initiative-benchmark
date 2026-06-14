@@ -1,0 +1,13 @@
+task_id,run_id,mode,provider,model,domain,tier,autonomous_completed,duration_seconds,cost_cents,quality_score,completeness,scoring_source,judge_count,judge_disagreement_points,human_review_recommended,judge_cost_cents,human_baseline_seconds,human_quality_score
+design-live-room-critique,design-live-room-critique-r1,local_openai,openai,gpt-5-nano,design,tier1_quick,true,10.53,0.0668,100,1,independent_judges,3,20,true,0.31,3000,89
+marketing-launch-brief,marketing-launch-brief-r1,local_openai,openai,gpt-5-nano,marketing,tier1_quick,true,7.23,0.0368,100,1,independent_judges,3,0,false,0.2676,2700,86
+postmortem,postmortem-r1,local_openai,openai,gpt-5-nano,ops,tier1_quick,true,106.49,0.0504,100,1,independent_judges,3,0,false,0.6892,1800,90
+pr-description,pr-description-r1,local_openai,openai,gpt-5-nano,engineering,tier1_quick,true,9.76,0.0306,100,1,independent_judges,3,0,false,0.2974,600,85
+product-initiative-brief,product-initiative-brief-r1,local_openai,openai,gpt-5-nano,product,tier1_quick,true,82.17,0.048,100,1,independent_judges,3,0,false,0.2483,2400,88
+sales-outreach-sequence,sales-outreach-sequence-r1,local_openai,openai,gpt-5-nano,sales,tier1_quick,true,6.71,0.0432,94.29,1,independent_judges,3,1.43,true,0.6709,2100,84
+cross-functional-launch-plan,cross-functional-launch-plan-r1,local_openai,openai,gpt-5-nano,cross_functional,tier2_medium,true,7.86,0.0511,100,1,independent_judges,3,4.44,true,0.2829,7200,90
+engineering-release-readiness-review,engineering-release-readiness-review-r1,local_openai,openai,gpt-5-nano,engineering,tier2_medium,true,9.02,0.0514,100,1,independent_judges,3,0,false,0.3296,3600,89
+marketing-proof-campaign-brief,marketing-proof-campaign-brief-r1,local_openai,openai,gpt-5-nano,marketing,tier2_medium,true,6.76,0.0416,100,1,independent_judges,3,20,true,0.614,3300,87
+ops-escalation-playbook,ops-escalation-playbook-r1,local_openai,openai,gpt-5-nano,ops,tier2_medium,true,12.58,0.0782,100,1,independent_judges,3,2.86,true,0.4304,3900,88
+product-retention-experiment-plan,product-retention-experiment-plan-r1,local_openai,openai,gpt-5-nano,product,tier2_medium,true,17.62,0.0494,97.33,0.95,independent_judges,3,12,true,0.461,3300,88
+sales-competitive-battlecard,sales-competitive-battlecard-r1,local_openai,openai,gpt-5-nano,sales,tier2_medium,true,8.16,0.0515,95.71,1,independent_judges,3,10,true,0.7566,3600,87

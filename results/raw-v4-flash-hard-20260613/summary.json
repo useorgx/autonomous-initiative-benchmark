@@ -1,0 +1,37 @@
+{
+  "benchmarkWeek": "raw-v4-flash-hard-20260613",
+  "benchmarkVersion": "2026-q1",
+  "generatedAt": "2026-06-13T05:36:43.421Z",
+  "source": "local_openrouter_catalog_runner",
+  "gitSha": "d40c875",
+  "headlineMetrics": {
+    "vs_human_speedup": {
+      "value": 111,
+      "unit": "x"
+    },
+    "vs_human_quality_delta": {
+      "value": -25.16,
+      "unit": "points"
+    },
+    "autonomous_completion_rate": {
+      "value": 1,
+      "unit": "ratio"
+    },
+    "cost_per_task_cents": {
+      "value": 1.2234,
+      "unit": "cents"
+    },
+    "generation_cost_per_task_cents": {
+      "value": 0.135,
+      "unit": "cents"
+    },
+    "judging_cost_per_task_cents": {
+      "value": 1.0884,
+      "unit": "cents"
+    },
+    "human_review_recommended_rate": {
+      "value": 1,
+      "unit": "ratio"
+    }
+  }
+}

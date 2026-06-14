@@ -16,6 +16,8 @@ export async function writeBundle({
   maxOutputTokens,
   judgeRuns = [],
   judgeConfig = null,
+  generationMethod = null,
+  source = 'local_openai_catalog_runner',
 }) {
   const evaluatedResults = applyJudgmentsToResults(tasks, results, judgeRuns, judgeConfig);
   const aggregate = aggregateResults(tasks, evaluatedResults);
@@ -28,7 +30,7 @@ export async function writeBundle({
     benchmarkWeek: resultId,
     benchmarkVersion: '2026-q1',
     generatedAt: new Date().toISOString(),
-    source: 'local_openai_catalog_runner',
+    source,
     gitSha: getGitSha(repoRoot),
     headlineMetrics: aggregate.headlineMetrics,
   };
@@ -39,11 +41,14 @@ export async function writeBundle({
     taskCount: tasks.length,
     repeatCount: aggregate.repeatCount,
     domains,
-    providers: ['openai'],
+    providers: unique([
+      ...results.map((result) => result.provider ?? 'openai'),
+      ...judgeRuns.map((judge) => judge.provider ?? 'openai'),
+    ]),
     models: unique([model, ...judgeRuns.map((judge) => judge.model)]),
     runtimes: [`node-${process.versions.node}`],
     claims: buildClaims(hasJudges),
-    generationMethod: {
+    generationMethod: generationMethod ?? {
       provider: 'openai',
       model,
       reasoningEffort: 'minimal',
@@ -53,7 +58,7 @@ export async function writeBundle({
       ? {
           independentJudges: true,
           judgePanel: (judgeConfig?.judgeSpecs ?? []).map((spec) => ({
-            provider: 'openai',
+            provider: spec.provider ?? 'openai',
             model: spec.model,
             reasoningEffort: spec.reasoningEffort,
           })),

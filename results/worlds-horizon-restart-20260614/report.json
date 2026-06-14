@@ -1,0 +1,56 @@
+{
+  "benchmark": "orgx-bench-v2-instrumented-worlds",
+  "generatedAtNote": "timestamp stamped by caller",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-v4-flash",
+  "k": 8,
+  "arms": [
+    "raw",
+    "restart"
+  ],
+  "worldCount": 1,
+  "scoring": "deterministic validators only (no LLM judge)",
+  "perWorld": [
+    {
+      "worldId": "order-pipeline-horizon",
+      "domain": "ops",
+      "arms": {
+        "raw": {
+          "n": 8,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 34839,
+          "meanCostCents": 0.405,
+          "meanToolCalls": 25.875,
+          "qualityPerKToken": 0.0287,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "restart": {
+          "n": 8,
+          "passAtK": 0.125,
+          "passPowK": 0,
+          "meanTokens": 29342,
+          "meanCostCents": 0.311,
+          "meanToolCalls": 39.25,
+          "qualityPerKToken": 0.0043,
+          "dimensions": {
+            "outcome": 0.125,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 0.125
+          },
+          "failures": 0
+        }
+      }
+    }
+  ],
+  "uplift": null
+}

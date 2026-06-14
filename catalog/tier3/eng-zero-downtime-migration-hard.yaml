@@ -1,0 +1,150 @@
+id: eng-zero-downtime-migration-hard
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-06-12"
+name: Zero-Downtime Migration Plan (Hard)
+description: >
+  Migration plan for a 2.1B-row hot Postgres table under a nearly exhausted
+  SLO error budget. The stated "weekend" expectation is impossible at safe
+  backfill rates, and the naive index approach locks writes. Criteria are
+  hidden from the generator.
+tier: tier3_hard
+domain: engineering
+repeatCount: 1
+contaminationRisk: low
+judgingProtocol: strict
+hideCriteriaFromGenerator: true
+
+rawPrompt: |
+  Write the migration plan for the change below. Product expects this "done
+  over a weekend." Be specific: exact SQL/DDL strategy, timeline with
+  arithmetic, safety mechanisms, observability, and rollback. If any stated
+  expectation is unsafe or impossible, say so with numbers and give the real
+  plan.
+
+  ## Change request
+  Add tenant-region awareness to the events pipeline:
+  1. Add column `tenant_region text NOT NULL DEFAULT 'us-east'` to `events`
+  2. Backfill `tenant_region` for existing rows from `tenants.region`
+  3. Add composite index on (`tenant_region`, `created_at`)
+  4. Cut reads over to region-filtered queries
+
+  ## System facts
+  - PostgreSQL 13 (RDS), single writer primary + 2 read replicas
+  - `events` table: 2.1 billion rows, 950 GB on disk
+  - Write load on `events`: ~8,000 inserts/sec at peak, ~3,000/sec off-peak
+  - Prior load tests: sustained backfill UPDATE rate above ~5,000 rows/sec on
+    this table degrades p99 insert latency beyond acceptable limits
+  - Service SLO: 99.95% monthly availability on the events ingest API
+  - This month the ingest API has already accumulated 14.6 minutes of downtime
+    (a 30-day month)
+  - The events ingest path writes to `events` synchronously; if the primary
+    blocks, ingest errors immediately
+  - Team has standard tooling available (no pg_logical / no Citus); deploys
+    are zero-downtime rolling
+
+  ## Stakeholder notes
+  - PM: "Can we just run it Saturday night? Marketing wants region dashboards Monday."
+  - New backend hire: "ALTER TABLE ADD COLUMN with a DEFAULT rewrites the whole
+    table, right? Maybe we should make it nullable first."
+
+initiativeSpec:
+  title: Tenant-region migration for the events pipeline
+  description: Zero-downtime migration plan with verified arithmetic and rollback
+  domains:
+    - engineering
+
+seedProvenance: >
+  Synthetic hard-tier pilot scenario with planted ground truth, authored
+  2026-06-12. Contamination-visible.
+
+acceptanceCriteria:
+  - id: concurrent-index-required
+    description: >
+      Specifies CREATE INDEX CONCURRENTLY for the composite index, notes a
+      plain CREATE INDEX would block writes on a hot 2.1B-row table, and
+      handles the CONCURRENTLY caveats (cannot run inside a transaction;
+      retry/cleanup on invalid index).
+    type: rubric
+    evaluator: llm_judge
+    weight: 3
+  - id: backfill-duration-math
+    description: >
+      Computes backfill duration from the given safe rate: 2.1B rows at
+      <=5,000 rows/sec is at least ~420,000 seconds, i.e. approximately 4.9
+      days of continuous backfill (accept 4-7 days with batching/throttling
+      overhead) — and explicitly rejects the "weekend" expectation with this
+      arithmetic.
+    type: rubric
+    evaluator: llm_judge
+    weight: 3
+  - id: error-budget-arithmetic
+    description: >
+      Computes the SLO error budget: 99.95% over a 30-day month is ~21.6
+      minutes; with 14.6 minutes consumed, ~7 minutes remain — and constrains
+      the plan so no step can risk more than the remaining budget on the
+      synchronous ingest path.
+    type: rubric
+    evaluator: llm_judge
+    weight: 3
+  - id: default-column-fact-check
+    description: >
+      Correctly handles the new hire's claim: on PostgreSQL 11+ (so PG 13),
+      ADD COLUMN with a constant DEFAULT is a metadata-only change that does
+      not rewrite the table — the artifact should add the column with the
+      default directly and correct the "nullable first" detour.
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: write-consistency-during-backfill
+    description: >
+      Ensures rows written during the multi-day backfill window get correct
+      tenant_region values (e.g. write-path population at insert time plus
+      keyed/batched UPDATE backfill with progress tracking and resumability),
+      not just a one-shot UPDATE.
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: rollback-and-observability
+    description: >
+      Includes a real rollback posture (column stays until reads are verified;
+      index drop is safe; cutover behind a flag with instant revert) and
+      migration observability (replication lag, p99 insert latency, backfill
+      progress rate with abort thresholds).
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+
+decisionReadyCriteriaIds:
+  - concurrent-index-required
+  - backfill-duration-math
+  - error-budget-arithmetic
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Hard-tier pilot: the schedule expectation is impossible at the stated safe
+  backfill rate, the naive index locks a hot table, and a plausible-sounding
+  junior claim is false on this Postgres version. Tests whether the system
+  does arithmetic and fact-checking instead of agreeable planning.
+knownFailureModes:
+  - Agrees to the weekend timeline without computing the backfill duration.
+  - Omits CONCURRENTLY or wraps it in a transaction.
+  - Endorses the "nullable first to avoid a rewrite" detour on PG 13.
+  - Ignores the nearly-exhausted error budget when sequencing risky steps.
+
+humanBaseline:
+  timeSeconds: 14400
+  costCents: 14000
+  qualityScore: 90
+  completeness: 1
+  artifactCount: 1
+  provenance: synthetic hard-tier pilot estimate, Jun 2026
+  methodology: expert_estimate
+  sourceSummary: Estimated from a staff engineer planning comparable large-table online migrations.
+  sampleSize: 1
+  collectedAt: "2026-06-12"
+  operatorProfile: Staff engineer who owns database reliability
+
+constraints:
+  maxDurationMinutes: 30
+  maxCostCents: 500

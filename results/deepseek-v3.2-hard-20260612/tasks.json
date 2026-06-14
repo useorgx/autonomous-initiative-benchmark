@@ -1,0 +1,389 @@
+[
+  {
+    "id": "eng-zero-downtime-migration-hard",
+    "name": "Zero-Downtime Migration Plan (Hard)",
+    "tier": "tier3_hard",
+    "domain": "engineering",
+    "description": "Migration plan for a 2.1B-row hot Postgres table under a nearly exhausted SLO error budget. The stated \"weekend\" expectation is impossible at safe backfill rates, and the naive index approach locks writes. Criteria are hidden from the generator.",
+    "acceptanceCriteria": [
+      {
+        "id": "concurrent-index-required",
+        "description": "Specifies CREATE INDEX CONCURRENTLY for the composite index, notes a plain CREATE INDEX would block writes on a hot 2.1B-row table, and handles the CONCURRENTLY caveats (cannot run inside a transaction; retry/cleanup on invalid index).",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "backfill-duration-math",
+        "description": "Computes backfill duration from the given safe rate: 2.1B rows at <=5,000 rows/sec is at least ~420,000 seconds, i.e. approximately 4.9 days of continuous backfill (accept 4-7 days with batching/throttling overhead) — and explicitly rejects the \"weekend\" expectation with this arithmetic.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "error-budget-arithmetic",
+        "description": "Computes the SLO error budget: 99.95% over a 30-day month is ~21.6 minutes; with 14.6 minutes consumed, ~7 minutes remain — and constrains the plan so no step can risk more than the remaining budget on the synchronous ingest path.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "default-column-fact-check",
+        "description": "Correctly handles the new hire's claim: on PostgreSQL 11+ (so PG 13), ADD COLUMN with a constant DEFAULT is a metadata-only change that does not rewrite the table — the artifact should add the column with the default directly and correct the \"nullable first\" detour.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "write-consistency-during-backfill",
+        "description": "Ensures rows written during the multi-day backfill window get correct tenant_region values (e.g. write-path population at insert time plus keyed/batched UPDATE backfill with progress tracking and resumability), not just a one-shot UPDATE.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "rollback-and-observability",
+        "description": "Includes a real rollback posture (column stays until reads are verified; index drop is safe; cutover behind a flag with instant revert) and migration observability (replication lag, p99 insert latency, backfill progress rate with abort thresholds).",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 14400,
+      "costCents": 14000,
+      "qualityScore": 90,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "synthetic hard-tier pilot estimate, Jun 2026",
+      "methodology": "expert_estimate",
+      "sourceSummary": "Estimated from a staff engineer planning comparable large-table online migrations.",
+      "sampleSize": 1,
+      "collectedAt": "2026-06-12",
+      "operatorProfile": "Staff engineer who owns database reliability"
+    },
+    "constraints": {
+      "maxDurationMinutes": 30,
+      "maxCostCents": 500
+    },
+    "runs": [
+      {
+        "runId": "eng-zero-downtime-migration-hard-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 208.27,
+        "costCents": 0.2125,
+        "usage": {
+          "input_tokens": 556,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 4716,
+          "output_tokens_details": {
+            "reasoning_tokens": 2862
+          },
+          "total_tokens": 5272
+        },
+        "qualityScore": 70.69,
+        "completeness": 0.6,
+        "criterionScores": {
+          "concurrent-index-required": 0.5,
+          "backfill-duration-math": 1,
+          "error-budget-arithmetic": 1,
+          "default-column-fact-check": 0,
+          "write-consistency-during-backfill": 1,
+          "rollback-and-observability": 0.5
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 0,
+        "selfReportedCompleteness": 1,
+        "selfReportedCriterionScores": {
+          "concurrent-index-required": 0,
+          "backfill-duration-math": 0,
+          "error-budget-arithmetic": 0,
+          "default-column-fact-check": 0,
+          "write-consistency-during-backfill": 0,
+          "rollback-and-observability": 0
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 70.69,
+          "completeness": 0.6,
+          "criterionScores": {
+            "concurrent-index-required": 0.5,
+            "backfill-duration-math": 1,
+            "error-budget-arithmetic": 1,
+            "default-column-fact-check": 0,
+            "write-consistency-during-backfill": 1,
+            "rollback-and-observability": 0.5
+          },
+          "disagreementPoints": 5.18,
+          "maxCriterionDisagreementPoints": 50,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "criterion disagreement >= 8 points",
+            "at least one judge recommended human review"
+          ]
+        },
+        "judgeCostCents": 1.0637
+      }
+    ]
+  },
+  {
+    "id": "ops-incident-forensics-hard",
+    "name": "Incident Forensics Under Noise (Hard)",
+    "tier": "tier3_hard",
+    "domain": "ops",
+    "description": "Forensic postmortem over a noisy multi-signal incident bundle containing a red-herring deploy, cross-region clock skew, an inflated impact claim, and an unrelated co-occurring incident. Acceptance criteria reference hidden ground truth and are withheld from the generator.",
+    "acceptanceCriteria": [
+      {
+        "id": "finds-flag-root-cause",
+        "description": "Identifies the 13:47 `batch-export-v2` feature flag rollout (long-running ~41s export transactions exhausting the shared connection pool) as the root cause, not the v3.2.0 deploy.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "exonerates-deploy",
+        "description": "Explicitly exonerates the v3.2.0 deploy with evidence: 5% canary scope cannot produce a 12% fleet-wide error rate, and errors persisted for ~23 minutes after the 13:52 rollback, only recovering after the flag was disabled at 14:12.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2.5
+      },
+      {
+        "id": "resolves-clock-skew",
+        "description": "Detects that the eu-central \"15:49\" pool-exhaustion log is CEST (UTC+2), i.e. 13:49 UTC, aligning with the flag rollout — and rejects the \"delayed effect\" theory in the #eng chatter.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2.5
+      },
+      {
+        "id": "separates-unrelated-incident",
+        "description": "Identifies the 14:05 admin-panel TLS certificate expiry as an unrelated, internal-only co-incident and excludes it from customer impact.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "corrects-impact-math",
+        "description": "Recomputes revenue impact from the given data — roughly 220/hr x 26min window x 12% failure x $42 = approximately $480 (accept $350-$700) — and explicitly challenges the $18,000 claim in OPS-2214.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "actionable-remediation",
+        "description": "Remediation addresses the actual failure class: pool isolation or per-workload connection limits, transaction duration budgets, flag rollout canarying or progressive delivery, and timezone-normalized logging.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 14400,
+      "costCents": 12000,
+      "qualityScore": 88,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "synthetic hard-tier pilot estimate, Jun 2026",
+      "methodology": "expert_estimate",
+      "sourceSummary": "Estimated from senior SRE/IC forensic review of comparable multi-signal incidents.",
+      "sampleSize": 1,
+      "collectedAt": "2026-06-12",
+      "operatorProfile": "Senior SRE with incident-command experience"
+    },
+    "constraints": {
+      "maxDurationMinutes": 30,
+      "maxCostCents": 500
+    },
+    "runs": [
+      {
+        "runId": "ops-incident-forensics-hard-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 106.64,
+        "costCents": 0.0882,
+        "usage": {
+          "input_tokens": 762,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 1799,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2561
+        },
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "finds-flag-root-cause": 1,
+          "exonerates-deploy": 1,
+          "resolves-clock-skew": 1,
+          "separates-unrelated-incident": 1,
+          "corrects-impact-math": 1,
+          "actionable-remediation": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 0,
+        "selfReportedCompleteness": 0.95,
+        "selfReportedCriterionScores": {
+          "finds-flag-root-cause": 0,
+          "exonerates-deploy": 0,
+          "resolves-clock-skew": 0,
+          "separates-unrelated-incident": 0,
+          "corrects-impact-math": 0,
+          "actionable-remediation": 0
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "finds-flag-root-cause": 1,
+            "exonerates-deploy": 1,
+            "resolves-clock-skew": 1,
+            "separates-unrelated-incident": 1,
+            "corrects-impact-math": 1,
+            "actionable-remediation": 1
+          },
+          "disagreementPoints": 14.29,
+          "maxCriterionDisagreementPoints": 50,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "judge quality disagreement >= 8 points",
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 1.3201
+      }
+    ]
+  },
+  {
+    "id": "product-capacity-plan-hard",
+    "name": "Capacity Plan With Infeasible Ask (Hard)",
+    "tier": "tier3_hard",
+    "domain": "product",
+    "description": "Two-quarter hiring and capacity plan where the stated request is infeasible under the stated budget once attrition and recruiting fees are applied. The correct artifact detects the infeasibility, quantifies the exact gap, and proposes a minimal relaxation. Criteria are hidden from the generator.",
+    "acceptanceCriteria": [
+      {
+        "id": "detects-infeasibility",
+        "description": "States clearly that the plan as requested exceeds the $1.1M envelope — it is not approvable as asked.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "correct-gap-arithmetic",
+        "description": "Computes the correct totals: Q3 = 4x$110k = $440k; Q4 = 3 remaining seniors ($330k) + 3 mids ($255k) + designer ($80k) = $665k; recruiting fees 4 x $25k = $100k; total $1,205k, i.e. $105,000 over budget (accept $95k-$115k). Must include Dana's departure in Q4 (a $215k overrun answer means attrition was missed; a \"roughly fits\" answer means fees were missed).",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "minimal-relaxation",
+        "description": "Proposes a minimal change that closes the gap exactly with arithmetic shown — e.g. deferring the designer to Q1 saves $80k comp + $25k fee = $105k, landing the plan exactly at $1,100k (equivalent-value alternatives with correct math also accepted).",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2.5
+      },
+      {
+        "id": "challenges-finance-claim",
+        "description": "Pushes back on the VP Finance \"roughly fits\" message with numbers rather than deferring to it.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "ramp-capacity-honesty",
+        "description": "Notes that with 50% first-quarter productivity, the three Q4 mid-level hires deliver only ~1.5 effective FTE in Q4 against the initiative's 2-FTE need (and Dana's departure removes further senior capacity), and addresses the resulting delivery risk for the end-of-Q4 ship date.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2.5
+      },
+      {
+        "id": "decision-ready-structure",
+        "description": "Reads as a decision-ready plan: recommendation, headcount/budget table, risks, and an explicit approval ask.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 10800,
+      "costCents": 9000,
+      "qualityScore": 87,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "synthetic hard-tier pilot estimate, Jun 2026",
+      "methodology": "expert_estimate",
+      "sourceSummary": "Estimated from an experienced product/ops lead building comparable capacity plans.",
+      "sampleSize": 1,
+      "collectedAt": "2026-06-12",
+      "operatorProfile": "Product or operations lead who owns headcount planning"
+    },
+    "constraints": {
+      "maxDurationMinutes": 30,
+      "maxCostCents": 500
+    },
+    "runs": [
+      {
+        "runId": "product-capacity-plan-hard-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 172.37,
+        "costCents": 1.6174,
+        "usage": {
+          "input_tokens": 524,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 10608,
+          "output_tokens_details": {
+            "reasoning_tokens": 9996
+          },
+          "total_tokens": 11132
+        },
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "detects-infeasibility": 1,
+          "correct-gap-arithmetic": 1,
+          "minimal-relaxation": 1,
+          "challenges-finance-claim": 1,
+          "ramp-capacity-honesty": 1,
+          "decision-ready-structure": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 0,
+        "selfReportedCompleteness": 1,
+        "selfReportedCriterionScores": {
+          "detects-infeasibility": 0,
+          "correct-gap-arithmetic": 0,
+          "minimal-relaxation": 0,
+          "challenges-finance-claim": 0,
+          "ramp-capacity-honesty": 0,
+          "decision-ready-structure": 0
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "detects-infeasibility": 1,
+            "correct-gap-arithmetic": 1,
+            "minimal-relaxation": 1,
+            "challenges-finance-claim": 1,
+            "ramp-capacity-honesty": 1,
+            "decision-ready-structure": 1
+          },
+          "disagreementPoints": 14.81,
+          "maxCriterionDisagreementPoints": 100,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "judge quality disagreement >= 8 points",
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 0.9743
+      }
+    ]
+  }
+]

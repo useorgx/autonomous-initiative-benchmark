@@ -1,0 +1,4 @@
+task_id,run_id,mode,provider,model,domain,tier,autonomous_completed,duration_seconds,cost_cents,quality_score,completeness,scoring_source,judge_count,judge_disagreement_points,human_review_recommended,judge_cost_cents,human_baseline_seconds,human_quality_score
+eng-zero-downtime-migration-hard,eng-zero-downtime-migration-hard-r1,local_openai,openrouter,deepseek/deepseek-v4-flash,engineering,tier3_hard,true,48.24,0.1261,100,1,independent_judges,3,29.31,true,1.1334,14400,90
+ops-incident-forensics-hard,ops-incident-forensics-hard-r1,local_openai,openrouter,deepseek/deepseek-v4-flash,ops,tier3_hard,true,42.99,0.0947,100,1,independent_judges,3,14.29,true,0.702,14400,88
+product-capacity-plan-hard,product-capacity-plan-hard-r1,local_openai,openrouter,deepseek/deepseek-v4-flash,product,tier3_hard,true,182.09,0.2143,100,1,independent_judges,3,14.81,true,0.8355,10800,87

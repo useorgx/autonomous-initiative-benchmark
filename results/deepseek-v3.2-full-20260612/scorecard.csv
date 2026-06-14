@@ -1,0 +1,16 @@
+task_id,run_id,mode,provider,model,domain,tier,autonomous_completed,duration_seconds,cost_cents,quality_score,completeness,scoring_source,judge_count,judge_disagreement_points,human_review_recommended,judge_cost_cents,human_baseline_seconds,human_quality_score
+design-artifact-viewer-mobile-remediation,design-artifact-viewer-mobile-remediation-r1,local_openai,openrouter,deepseek/deepseek-v3.2,design,tier1_quick,true,45.6,0.0882,100,1,independent_judges,3,0,false,0.8004,3600,91
+design-live-room-critique,design-live-room-critique-r1,local_openai,openrouter,deepseek/deepseek-v3.2,design,tier1_quick,true,127.81,0.1275,100,1,independent_judges,3,10.67,true,0.6816,3000,89
+design-modal-mobile-interaction-spec,design-modal-mobile-interaction-spec-r1,local_openai,openrouter,deepseek/deepseek-v3.2,design,tier1_quick,true,36.31,0.0722,100,1,independent_judges,3,0,false,0.4205,3900,90
+marketing-launch-brief,marketing-launch-brief-r1,local_openai,openrouter,deepseek/deepseek-v3.2,marketing,tier1_quick,true,40.63,0.0623,100,1,independent_judges,3,0,false,0.6988,2700,86
+postmortem,postmortem-r1,local_openai,openrouter,deepseek/deepseek-v3.2,ops,tier1_quick,true,27.56,0.075,100,1,independent_judges,3,0,false,0.4443,1800,90
+pr-description,pr-description-r1,local_openai,openrouter,deepseek/deepseek-v3.2,engineering,tier1_quick,true,18.52,0.0527,100,1,independent_judges,3,5.71,true,0.2565,600,85
+product-initiative-brief,product-initiative-brief-r1,local_openai,openrouter,deepseek/deepseek-v3.2,product,tier1_quick,true,42.43,0.0659,100,1,independent_judges,3,0,false,0.4579,2400,88
+sales-outreach-sequence,sales-outreach-sequence-r1,local_openai,openrouter,deepseek/deepseek-v3.2,sales,tier1_quick,true,32.64,0.5727,94.29,1,independent_judges,3,0,false,0.3289,2100,84
+cross-functional-launch-plan,cross-functional-launch-plan-r1,local_openai,openrouter,deepseek/deepseek-v3.2,cross_functional,tier2_medium,true,130.53,0.1248,100,1,independent_judges,3,0,false,0.6325,7200,90
+design-live-room-responsive-system,design-live-room-responsive-system-r1,local_openai,openrouter,deepseek/deepseek-v3.2,design,tier2_medium,true,42.52,0.0911,97.78,1,independent_judges,3,19.44,true,0.8735,7200,92
+engineering-release-readiness-review,engineering-release-readiness-review-r1,local_openai,openrouter,deepseek/deepseek-v3.2,engineering,tier2_medium,true,28.08,0.0651,100,1,independent_judges,3,0,false,0.6442,3600,89
+marketing-proof-campaign-brief,marketing-proof-campaign-brief-r1,local_openai,openrouter,deepseek/deepseek-v3.2,marketing,tier2_medium,true,28.55,0.0626,100,1,independent_judges,3,100,true,0.5024,3300,87
+ops-escalation-playbook,ops-escalation-playbook-r1,local_openai,openrouter,deepseek/deepseek-v3.2,ops,tier2_medium,true,193.1,0.1504,100,1,independent_judges,3,0,false,0.6326,3900,88
+product-retention-experiment-plan,product-retention-experiment-plan-r1,local_openai,openrouter,deepseek/deepseek-v3.2,product,tier2_medium,true,31.06,0.0698,100,1,independent_judges,3,0,false,0.6895,3300,88
+sales-competitive-battlecard,sales-competitive-battlecard-r1,local_openai,openrouter,deepseek/deepseek-v3.2,sales,tier2_medium,true,32.22,0.0671,100,1,independent_judges,3,0,false,0.7356,3600,87

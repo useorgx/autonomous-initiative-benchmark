@@ -1,0 +1,2798 @@
+[
+  {
+    "episodeId": "revenue-reconciliation-hard-raw-e1",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 18.42,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "Q3 ARR = ($2,000 acme + $1,500 beta + $1,000 epsilon + $2,500 eta + $2,000 theta net of 50% promo + $800 kappa + $0 lambda free trial + $1,200 nu) × 12 + $24,000 gamma annual + $12,000 zeta annual + $18,000 iota annual = $186,000. Excluded: INV-02 duplicate, INV-05 churned, INV-09 superseded pre-upgrade row, INV-14 churned."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 3,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "Q3 ARR = ($2,000 acme + $1,500 beta + $1,000 epsilon + $2,500 eta + $2,000 theta net of 50% promo + $800 kappa + $0 lambda free trial + $1,200 nu) × 12 + $24,000 gamma annual + $12,000 zeta annual + $18,000 iota annual = $186,000. Excluded: INV-02 duplicate, INV-05 churned, INV-09 superseded pre-upgrade row, INV-14 churned."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "(2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200) * 12 + 24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Q3 ARR = ($2,000 acme + $1,500 beta + $1,000 epsilon + $2,500 eta + $2,000 theta net of 50% promo + $800 kappa + $0 lambda free trial + $1,200 nu) × 12 + $24,000 gamma annual + $12,000 zeta annual + $18,000 iota annual = $186,000. Excluded: INV-02 duplicate, INV-05 churned, INV-09 superseded pre-upgrade row, INV-14 churned."
+          }
+        }
+      ],
+      "promptTokens": 5654,
+      "completionTokens": 2166,
+      "totalTokens": 7820,
+      "costCents": 0.1103,
+      "modelTurns": 4,
+      "toolCallCount": 5
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  },
+  {
+    "episodeId": "revenue-reconciliation-hard-raw-e2",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 63.03,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "Active monthly customers (acme $2k, beta $1.5k, epsilon $1k, eta $2.5k, theta net $2k after 50% promo, kappa $800, lambda $0 free trial, nu $1.2k) × 12 = $132k plus active annual contracts (gamma $24k, zeta $12k, iota $18k) = $54k → $186k total. Excluded: duplicates (INV-02), churned (delta, mu), superseded pre-upgrade (INV-09)."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 2,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "Active monthly customers (acme $2k, beta $1.5k, epsilon $1k, eta $2.5k, theta net $2k after 50% promo, kappa $800, lambda $0 free trial, nu $1.2k) × 12 = $132k plus active annual contracts (gamma $24k, zeta $12k, iota $18k) = $54k → $186k total. Excluded: duplicates (INV-02), churned (delta, mu), superseded pre-upgrade (INV-09)."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 1000*12 + 2500*12 + 2000*12 + 800*12 + 0*12 + 1200*12 + 24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Active monthly customers (acme $2k, beta $1.5k, epsilon $1k, eta $2.5k, theta net $2k after 50% promo, kappa $800, lambda $0 free trial, nu $1.2k) × 12 = $132k plus active annual contracts (gamma $24k, zeta $12k, iota $18k) = $54k → $186k total. Excluded: duplicates (INV-02), churned (delta, mu), superseded pre-upgrade (INV-09)."
+          }
+        }
+      ],
+      "promptTokens": 3804,
+      "completionTokens": 1841,
+      "totalTokens": 5645,
+      "costCents": 0.0859,
+      "modelTurns": 3,
+      "toolCallCount": 4
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  },
+  {
+    "episodeId": "revenue-reconciliation-hard-raw-e3",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 19.65,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "$186,000 = acme (2000×12=24K) + beta (1500×12=18K) + gamma (24K annual) + epsilon (1000×12=12K) + zeta (12K annual) + eta (2500×12=30K, superseded row excluded) + theta (4000 gross ×50% promo=2000 net×12=24K) + iota (18K annual) + kappa (800×12=9.6K, full run-rate despite mid-quarter start) + lambda (0 free trial) + nu (1200×12=14.4K); excluded duplicates, churned (delta, mu), superseded INV-09, and free trial contributes 0."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 3,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "$186,000 = acme (2000×12=24K) + beta (1500×12=18K) + gamma (24K annual) + epsilon (1000×12=12K) + zeta (12K annual) + eta (2500×12=30K, superseded row excluded) + theta (4000 gross ×50% promo=2000 net×12=24K) + iota (18K annual) + kappa (800×12=9.6K, full run-rate despite mid-quarter start) + lambda (0 free trial) + nu (1200×12=14.4K); excluded duplicates, churned (delta, mu), superseded INV-09, and free trial contributes 0."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "(2000 * 12) + (1500 * 12) + (1000 * 12) + (2500 * 12) + (2000 * 12) + (800 * 12) + (1200 * 12) + 24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 18000 + 24000 + 12000 + 12000 + 30000 + 24000 + 18000 + 9600 + 14400"
+          }
+        },
+        {
+          "step": 3,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "$186,000 = acme (2000×12=24K) + beta (1500×12=18K) + gamma (24K annual) + epsilon (1000×12=12K) + zeta (12K annual) + eta (2500×12=30K, superseded row excluded) + theta (4000 gross ×50% promo=2000 net×12=24K) + iota (18K annual) + kappa (800×12=9.6K, full run-rate despite mid-quarter start) + lambda (0 free trial) + nu (1200×12=14.4K); excluded duplicates, churned (delta, mu), superseded INV-09, and free trial contributes 0."
+          }
+        }
+      ],
+      "promptTokens": 5562,
+      "completionTokens": 2808,
+      "totalTokens": 8370,
+      "costCents": 0.1164,
+      "modelTurns": 4,
+      "toolCallCount": 5
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  },
+  {
+    "episodeId": "revenue-reconciliation-hard-raw-e4",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 35.84,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "ARR = (Acme $2k + Beta $1.5k + Epsilon $1k + Eta $2.5k + Theta $2k net after 50% promo + Kappa $0.8k + Nu $1.2k) × 12 = $132k monthly run-rate + annual contracts Gamma $24k + Zeta $12k + Iota $18k = $54k = $186k total. Excluded: duplicate INV-02, churned INV-05/14, superseded INV-09, free trial INV-13."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 6,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "ARR = (Acme $2k + Beta $1.5k + Epsilon $1k + Eta $2.5k + Theta $2k net after 50% promo + Kappa $0.8k + Nu $1.2k) × 12 = $132k monthly run-rate + annual contracts Gamma $24k + Zeta $12k + Iota $18k = $54k = $186k total. Excluded: duplicate INV-02, churned INV-05/14, superseded INV-09, free trial INV-13."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 1000*12 + 2500*12 + 2000*12 + 800*12 + 1200*12 + 24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "24000+18000+12000+30000+24000+9600+14400"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "24000+12000+18000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "24000+18000+12000+30000+24000+9600+14400"
+          }
+        },
+        {
+          "step": 4,
+          "name": "compute",
+          "args": {
+            "expression": "132000 + 54000"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 1000*12 + 2500*12 + 2000*12 + 800*12 + 1200*12 + 24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 6,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "ARR = (Acme $2k + Beta $1.5k + Epsilon $1k + Eta $2.5k + Theta $2k net after 50% promo + Kappa $0.8k + Nu $1.2k) × 12 = $132k monthly run-rate + annual contracts Gamma $24k + Zeta $12k + Iota $18k = $54k = $186k total. Excluded: duplicate INV-02, churned INV-05/14, superseded INV-09, free trial INV-13."
+          }
+        }
+      ],
+      "promptTokens": 11989,
+      "completionTokens": 3528,
+      "totalTokens": 15517,
+      "costCents": 0.18019999999999997,
+      "modelTurns": 7,
+      "toolCallCount": 9
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  },
+  {
+    "episodeId": "revenue-reconciliation-hard-raw-e5",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 45.46,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "Active monthly customers ×12 + annual contract values: acme $2k×12 + beta $1.5k×12 + gamma $24k + epsilon $1k×12 + zeta $12k + eta $2.5k×12 + theta $2k×12 (50% promo net) + iota $18k + kappa $800×12 (full run-rate, no prorate) + nu $1.2k×12 = $186k. Excluded: duplicates (INV-02), superseded (INV-09), churned (INV-05, INV-14), free trial (INV-13 $0)."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 2,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "Active monthly customers ×12 + annual contract values: acme $2k×12 + beta $1.5k×12 + gamma $24k + epsilon $1k×12 + zeta $12k + eta $2.5k×12 + theta $2k×12 (50% promo net) + iota $18k + kappa $800×12 (full run-rate, no prorate) + nu $1.2k×12 = $186k. Excluded: duplicates (INV-02), superseded (INV-09), churned (INV-05, INV-14), free trial (INV-13 $0)."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000 + 2500*12 + 2000*12 + 18000 + 800*12 + 1200*12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Active monthly customers ×12 + annual contract values: acme $2k×12 + beta $1.5k×12 + gamma $24k + epsilon $1k×12 + zeta $12k + eta $2.5k×12 + theta $2k×12 (50% promo net) + iota $18k + kappa $800×12 (full run-rate, no prorate) + nu $1.2k×12 = $186k. Excluded: duplicates (INV-02), superseded (INV-09), churned (INV-05, INV-14), free trial (INV-13 $0)."
+          }
+        }
+      ],
+      "promptTokens": 3927,
+      "completionTokens": 2357,
+      "totalTokens": 6284,
+      "costCents": 0.104,
+      "modelTurns": 3,
+      "toolCallCount": 4
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  },
+  {
+    "episodeId": "revenue-reconciliation-hard-raw-e6",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 30.61,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "ARR = (monthly active run-rate × 12) + annual contract values = ($2,000 acme + $1,500 beta + $1,000 epsilon + $2,500 eta + $2,000 theta [net of 50% promo] + $800 kappa + $0 lambda + $1,200 nu) × 12 + ($24,000 gamma + $12,000 zeta + $18,000 iota) = $11,000 × 12 + $54,000 = $186,000."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 4,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "ARR = (monthly active run-rate × 12) + annual contract values = ($2,000 acme + $1,500 beta + $1,000 epsilon + $2,500 eta + $2,000 theta [net of 50% promo] + $800 kappa + $0 lambda + $1,200 nu) × 12 + ($24,000 gamma + $12,000 zeta + $18,000 iota) = $11,000 × 12 + $54,000 = $186,000."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + (4000 * 0.5) + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12 + 54000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 4,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "ARR = (monthly active run-rate × 12) + annual contract values = ($2,000 acme + $1,500 beta + $1,000 epsilon + $2,500 eta + $2,000 theta [net of 50% promo] + $800 kappa + $0 lambda + $1,200 nu) × 12 + ($24,000 gamma + $12,000 zeta + $18,000 iota) = $11,000 × 12 + $54,000 = $186,000."
+          }
+        }
+      ],
+      "promptTokens": 7135,
+      "completionTokens": 3069,
+      "totalTokens": 10204,
+      "costCents": 0.14500000000000002,
+      "modelTurns": 5,
+      "toolCallCount": 6
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  },
+  {
+    "episodeId": "revenue-reconciliation-hard-raw-e7",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 42.06,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "Active customers: acme ($2000/mo ×12 = $24k), beta ($1500/mo ×12 = $18k), epsilon ($1000/mo ×12 = $12k), eta ($2500/mo ×12 = $30k, using current rate INV-08, superseding INV-09), theta ($4000/mo with 50% promo credit = $2000/mo net ×12 = $24k), kappa ($800/mo ×12 = $9.6k, full run-rate despite mid-quarter start), lambda ($0 free trial = $0), nu ($1200/mo ×12 = $14.4k), plus annual contracts: gamma ($24k), zeta ($12k), iota ($18k). Excluded: duplicate INV-02, churned delta/mu, superseded INV-09. Total = 186,000."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 2,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "Active customers: acme ($2000/mo ×12 = $24k), beta ($1500/mo ×12 = $18k), epsilon ($1000/mo ×12 = $12k), eta ($2500/mo ×12 = $30k, using current rate INV-08, superseding INV-09), theta ($4000/mo with 50% promo credit = $2000/mo net ×12 = $24k), kappa ($800/mo ×12 = $9.6k, full run-rate despite mid-quarter start), lambda ($0 free trial = $0), nu ($1200/mo ×12 = $14.4k), plus annual contracts: gamma ($24k), zeta ($12k), iota ($18k). Excluded: duplicate INV-02, churned delta/mu, superseded INV-09. Total = 186,000."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 1000*12 + 2500*12 + (4000*0.5)*12 + 800*12 + 0*12 + 1200*12 + 24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Active customers: acme ($2000/mo ×12 = $24k), beta ($1500/mo ×12 = $18k), epsilon ($1000/mo ×12 = $12k), eta ($2500/mo ×12 = $30k, using current rate INV-08, superseding INV-09), theta ($4000/mo with 50% promo credit = $2000/mo net ×12 = $24k), kappa ($800/mo ×12 = $9.6k, full run-rate despite mid-quarter start), lambda ($0 free trial = $0), nu ($1200/mo ×12 = $14.4k), plus annual contracts: gamma ($24k), zeta ($12k), iota ($18k). Excluded: duplicate INV-02, churned delta/mu, superseded INV-09. Total = 186,000."
+          }
+        }
+      ],
+      "promptTokens": 3535,
+      "completionTokens": 2640,
+      "totalTokens": 6175,
+      "costCents": 0.11860000000000001,
+      "modelTurns": 3,
+      "toolCallCount": 4
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  },
+  {
+    "episodeId": "revenue-reconciliation-hard-raw-e8",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 78.28,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "ARR = (monthly active sum $11,000 × 12) + annual contracts $54,000 = $186,000. Monthly active: acme $2,000, beta $1,500, epsilon $1,000, eta $2,500, theta $2,000 (net of 50% promo credit), kappa $800 (full mid-quarter start), lambda $0 (free trial), nu $1,200. Excluded: acme duplicate row (INV-02), eta superseded pre-rate (INV-09), churned accounts delta, mu. Annual: gamma $24,000, zeta $12,000, iota $18,000."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 3,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "ARR = (monthly active sum $11,000 × 12) + annual contracts $54,000 = $186,000. Monthly active: acme $2,000, beta $1,500, epsilon $1,000, eta $2,500, theta $2,000 (net of 50% promo credit), kappa $800 (full mid-quarter start), lambda $0 (free trial), nu $1,200. Excluded: acme duplicate row (INV-02), eta superseded pre-rate (INV-09), churned accounts delta, mu. Annual: gamma $24,000, zeta $12,000, iota $18,000."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + (4000 * 0.5) + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "132000 + 54000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + (4000 * 0.5) + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12 + 24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "ARR = (monthly active sum $11,000 × 12) + annual contracts $54,000 = $186,000. Monthly active: acme $2,000, beta $1,500, epsilon $1,000, eta $2,500, theta $2,000 (net of 50% promo credit), kappa $800 (full mid-quarter start), lambda $0 (free trial), nu $1,200. Excluded: acme duplicate row (INV-02), eta superseded pre-rate (INV-09), churned accounts delta, mu. Annual: gamma $24,000, zeta $12,000, iota $18,000."
+          }
+        }
+      ],
+      "promptTokens": 5498,
+      "completionTokens": 3476,
+      "totalTokens": 8974,
+      "costCents": 0.1516,
+      "modelTurns": 4,
+      "toolCallCount": 9
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  },
+  {
+    "episodeId": "revenue-reconciliation-hard-orgx-e1",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 46.6,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "Q3 ARR = (Net active monthly revenue $11,000 × 12) + Active annual contract value $54,000 = $186,000"
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "verification_gate",
+          "step": 6,
+          "draft": {
+            "q3_arr": 186000,
+            "derivation": "Q3 ARR = (Net active monthly revenue $11,000 × 12) + Active annual contract value $54,000 = $186,000"
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 7,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 7,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 8,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 9,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 10,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 11,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 12,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "Q3 ARR = (Net active monthly revenue $11,000 × 12) + Active annual contract value $54,000 = $186,000"
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 1200"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 1200 + 0"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 4,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12 + 54000"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "2000 * 12 + 1500 * 12 + 1000 * 12 + 2500 * 12 + 2000 * 12 + 800 * 12 + 0 * 12 + 1200 * 12 + 24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 6,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Q3 ARR = (Net active monthly revenue $11,000 × 12) + Active annual contract value $54,000 = $186,000"
+          }
+        },
+        {
+          "step": 7,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 7,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 8,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 1200 + 0"
+          }
+        },
+        {
+          "step": 9,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12"
+          }
+        },
+        {
+          "step": 10,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 11,
+          "name": "compute",
+          "args": {
+            "expression": "132000 + 54000"
+          }
+        },
+        {
+          "step": 12,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Q3 ARR = (Net active monthly revenue $11,000 × 12) + Active annual contract value $54,000 = $186,000"
+          }
+        }
+      ],
+      "promptTokens": 33706,
+      "completionTokens": 5253,
+      "totalTokens": 38959,
+      "costCents": 0.3968,
+      "modelTurns": 13,
+      "toolCallCount": 15
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  },
+  {
+    "episodeId": "revenue-reconciliation-hard-orgx-e2",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 55.52,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "ARR = Monthly active revenue × 12 + Annual contract values. Monthly: acme $2,000 + beta $1,500 + epsilon $1,000 + eta $2,500 (current rate) + theta $2,000 (after 50% promo) + kappa $800 (full amount, mid-quarter) + lambda $0 (free trial) + nu $1,200 = $11,000 × 12 = $132,000. Annuals: gamma $24,000 + zeta $12,000 + iota $18,000 = $54,000. Total: $132,000 + $54,000 = $186,000. Excluded: duplicate INV-02, churned INV-05 & INV-14, superseded INV-09."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "verification_gate",
+          "step": 4,
+          "draft": {
+            "q3_arr": 186000,
+            "derivation": "ARR = Monthly active revenue × 12 + Annual contract values. Monthly: acme $2,000 + beta $1,500 + epsilon $1,000 + eta $2,500 (current rate) + theta $2,000 (after 50% promo) + kappa $800 (full amount, mid-quarter) + lambda $0 (free trial) + nu $1,200 = $11,000 × 12 = $132,000. Annuals: gamma $24,000 + zeta $12,000 + iota $18,000 = $54,000. Total: $132,000 + $54,000 = $186,000. Excluded: duplicate INV-02, churned INV-05 & INV-14, superseded INV-09."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 7,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 8,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "ARR = Monthly active revenue × 12 + Annual contract values. Monthly: acme $2,000 + beta $1,500 + epsilon $1,000 + eta $2,500 (current rate) + theta $2,000 (after 50% promo) + kappa $800 (full amount, mid-quarter) + lambda $0 (free trial) + nu $1,200 = $11,000 × 12 = $132,000. Annuals: gamma $24,000 + zeta $12,000 + iota $18,000 = $54,000. Total: $132,000 + $54,000 = $186,000. Excluded: duplicate INV-02, churned INV-05 & INV-14, superseded INV-09."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12 + 54000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12 + 54000"
+          }
+        },
+        {
+          "step": 4,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "ARR = Monthly active revenue × 12 + Annual contract values. Monthly: acme $2,000 + beta $1,500 + epsilon $1,000 + eta $2,500 (current rate) + theta $2,000 (after 50% promo) + kappa $800 (full amount, mid-quarter) + lambda $0 (free trial) + nu $1,200 = $11,000 × 12 = $132,000. Annuals: gamma $24,000 + zeta $12,000 + iota $18,000 = $54,000. Total: $132,000 + $54,000 = $186,000. Excluded: duplicate INV-02, churned INV-05 & INV-14, superseded INV-09."
+          }
+        },
+        {
+          "step": 5,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 5,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 6,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 7,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12 + 54000"
+          }
+        },
+        {
+          "step": 8,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "ARR = Monthly active revenue × 12 + Annual contract values. Monthly: acme $2,000 + beta $1,500 + epsilon $1,000 + eta $2,500 (current rate) + theta $2,000 (after 50% promo) + kappa $800 (full amount, mid-quarter) + lambda $0 (free trial) + nu $1,200 = $11,000 × 12 = $132,000. Annuals: gamma $24,000 + zeta $12,000 + iota $18,000 = $54,000. Total: $132,000 + $54,000 = $186,000. Excluded: duplicate INV-02, churned INV-05 & INV-14, superseded INV-09."
+          }
+        }
+      ],
+      "promptTokens": 23892,
+      "completionTokens": 4967,
+      "totalTokens": 28859,
+      "costCents": 0.27349999999999997,
+      "modelTurns": 9,
+      "toolCallCount": 14
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  },
+  {
+    "episodeId": "revenue-reconciliation-hard-orgx-e3",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 45.35,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "Monthly active customers (acme $2k, beta $1.5k, epsilon $1k, eta $2.5k, theta net $2k, kappa $800, nu $1.2k) × 12 = $132k, plus annual contracts (gamma $24k, zeta $12k, iota $18k) = $54k, total $186k. Excluded: duplicates (INV-02), superseded (INV-09), churned (INV-05, INV-14), free trial (INV-13 = $0). Applied 50% promo credit to theta (net $2k/mo). Mid-quarter start kappa at full rate."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "verification_gate",
+          "step": 4,
+          "draft": {
+            "q3_arr": 186000,
+            "derivation": "Monthly active customers (acme $2k, beta $1.5k, epsilon $1k, eta $2.5k, theta net $2k, kappa $800, nu $1.2k) × 12 = $132k, plus annual contracts (gamma $24k, zeta $12k, iota $18k) = $54k, total $186k. Excluded: duplicates (INV-02), superseded (INV-09), churned (INV-05, INV-14), free trial (INV-13 = $0). Applied 50% promo credit to theta (net $2k/mo). Mid-quarter start kappa at full rate."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 7,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 8,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 9,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "Monthly active customers (acme $2k, beta $1.5k, epsilon $1k, eta $2.5k, theta net $2k, kappa $800, nu $1.2k) × 12 = $132k, plus annual contracts (gamma $24k, zeta $12k, iota $18k) = $54k, total $186k. Excluded: duplicates (INV-02), superseded (INV-09), churned (INV-05, INV-14), free trial (INV-13 = $0). Applied 50% promo credit to theta (net $2k/mo). Mid-quarter start kappa at full rate."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 1000*12 + 2500*12 + 2000*12 + 800*12 + 0*12 + 1200*12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "132000 + 24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 1000*12 + 2500*12 + 2000*12 + 800*12 + 0*12 + 1200*12 + 24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 4,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Monthly active customers (acme $2k, beta $1.5k, epsilon $1k, eta $2.5k, theta net $2k, kappa $800, nu $1.2k) × 12 = $132k, plus annual contracts (gamma $24k, zeta $12k, iota $18k) = $54k, total $186k. Excluded: duplicates (INV-02), superseded (INV-09), churned (INV-05, INV-14), free trial (INV-13 = $0). Applied 50% promo credit to theta (net $2k/mo). Mid-quarter start kappa at full rate."
+          }
+        },
+        {
+          "step": 5,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 5,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 6,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 1000*12 + 2500*12 + 2000*12 + 800*12 + 0*12 + 1200*12"
+          }
+        },
+        {
+          "step": 7,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 8,
+          "name": "compute",
+          "args": {
+            "expression": "132000 + 54000"
+          }
+        },
+        {
+          "step": 9,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Monthly active customers (acme $2k, beta $1.5k, epsilon $1k, eta $2.5k, theta net $2k, kappa $800, nu $1.2k) × 12 = $132k, plus annual contracts (gamma $24k, zeta $12k, iota $18k) = $54k, total $186k. Excluded: duplicates (INV-02), superseded (INV-09), churned (INV-05, INV-14), free trial (INV-13 = $0). Applied 50% promo credit to theta (net $2k/mo). Mid-quarter start kappa at full rate."
+          }
+        }
+      ],
+      "promptTokens": 26646,
+      "completionTokens": 4666,
+      "totalTokens": 31312,
+      "costCents": 0.2967,
+      "modelTurns": 10,
+      "toolCallCount": 12
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  },
+  {
+    "episodeId": "revenue-reconciliation-hard-orgx-e4",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 53.34,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "Monthly active customers: acme ($2k), beta ($1.5k), epsilon ($1k), eta ($2.5k current rate), theta ($2k net after 50% promo), kappa ($800 full amount no proration), lambda ($0 free trial), nu ($1.2k) = $11k/mo × 12 = $132k run-rate + Annual contracts: gamma ($24k), zeta ($12k), iota ($18k) = $54k → $186k total ARR."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "compute"
+        },
+        {
+          "type": "verification_gate",
+          "step": 5,
+          "draft": {
+            "q3_arr": 186000,
+            "derivation": "Monthly active customers: acme ($2k), beta ($1.5k), epsilon ($1k), eta ($2.5k current rate), theta ($2k net after 50% promo), kappa ($800 full amount no proration), lambda ($0 free trial), nu ($1.2k) = $11k/mo × 12 = $132k run-rate + Annual contracts: gamma ($24k), zeta ($12k), iota ($18k) = $54k → $186k total ARR."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 7,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 8,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 9,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 10,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 11,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "Monthly active customers: acme ($2k), beta ($1.5k), epsilon ($1k), eta ($2.5k current rate), theta ($2k net after 50% promo), kappa ($800 full amount no proration), lambda ($0 free trial), nu ($1.2k) = $11k/mo × 12 = $132k run-rate + Annual contracts: gamma ($24k), zeta ($12k), iota ($18k) = $54k → $186k total ARR."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12 + 54000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "2000+1500+1000+2500+2000+800+0+1200"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12+1500*12+1000*12+2500*12+2000*12+800*12+0*12+1200*12"
+          }
+        },
+        {
+          "step": 4,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 4,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 5,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Monthly active customers: acme ($2k), beta ($1.5k), epsilon ($1k), eta ($2.5k current rate), theta ($2k net after 50% promo), kappa ($800 full amount no proration), lambda ($0 free trial), nu ($1.2k) = $11k/mo × 12 = $132k run-rate + Annual contracts: gamma ($24k), zeta ($12k), iota ($18k) = $54k → $186k total ARR."
+          }
+        },
+        {
+          "step": 6,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 6,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 7,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 8,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12"
+          }
+        },
+        {
+          "step": 9,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 10,
+          "name": "compute",
+          "args": {
+            "expression": "132000 + 54000"
+          }
+        },
+        {
+          "step": 11,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Monthly active customers: acme ($2k), beta ($1.5k), epsilon ($1k), eta ($2.5k current rate), theta ($2k net after 50% promo), kappa ($800 full amount no proration), lambda ($0 free trial), nu ($1.2k) = $11k/mo × 12 = $132k run-rate + Annual contracts: gamma ($24k), zeta ($12k), iota ($18k) = $54k → $186k total ARR."
+          }
+        }
+      ],
+      "promptTokens": 33941,
+      "completionTokens": 7176,
+      "totalTokens": 41117,
+      "costCents": 0.3638,
+      "modelTurns": 12,
+      "toolCallCount": 18
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  },
+  {
+    "episodeId": "revenue-reconciliation-hard-orgx-e5",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 76.89,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "Active monthly customers (acme $2000, beta $1500, epsilon $1000, eta $2500, theta $2000 net after 50% promo, kappa $800, lambda $0, nu $1200) = $11,000 monthly ×12 = $132,000; plus active annual contracts (gamma $24,000, zeta $12,000, iota $18,000) = $54,000; total $186,000. Excluded: duplicate (INV-02), churned (INV-05, INV-14), superseded pre-upgrade (INV-09)."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 7,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 8,
+          "name": "compute"
+        },
+        {
+          "type": "verification_gate",
+          "step": 9,
+          "draft": {
+            "q3_arr": 186000,
+            "derivation": "Active monthly customers (acme $2000, beta $1500, epsilon $1000, eta $2500, theta $2000 net after 50% promo, kappa $800, lambda $0, nu $1200) = $11,000 monthly ×12 = $132,000; plus active annual contracts (gamma $24,000, zeta $12,000, iota $18,000) = $54,000; total $186,000. Excluded: duplicate (INV-02), churned (INV-05, INV-14), superseded pre-upgrade (INV-09)."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 10,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 10,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 11,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 11,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 11,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 11,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 11,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 11,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 11,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 11,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 12,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 13,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 14,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 15,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "Active monthly customers (acme $2000, beta $1500, epsilon $1000, eta $2500, theta $2000 net after 50% promo, kappa $800, lambda $0, nu $1200) = $11,000 monthly ×12 = $132,000; plus active annual contracts (gamma $24,000, zeta $12,000, iota $18,000) = $54,000; total $186,000. Excluded: duplicate (INV-02), churned (INV-05, INV-14), superseded pre-upgrade (INV-09)."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 18000 + 12000 + 30000 + 24000 + 9600 + 0 + 14400"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 4,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12"
+          }
+        },
+        {
+          "step": 6,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 7,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 8,
+          "name": "compute",
+          "args": {
+            "expression": "132000 + 54000"
+          }
+        },
+        {
+          "step": 9,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Active monthly customers (acme $2000, beta $1500, epsilon $1000, eta $2500, theta $2000 net after 50% promo, kappa $800, lambda $0, nu $1200) = $11,000 monthly ×12 = $132,000; plus active annual contracts (gamma $24,000, zeta $12,000, iota $18,000) = $54,000; total $186,000. Excluded: duplicate (INV-02), churned (INV-05, INV-14), superseded pre-upgrade (INV-09)."
+          }
+        },
+        {
+          "step": 10,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 10,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 11,
+          "name": "compute",
+          "args": {
+            "expression": "2000"
+          }
+        },
+        {
+          "step": 11,
+          "name": "compute",
+          "args": {
+            "expression": "1500"
+          }
+        },
+        {
+          "step": 11,
+          "name": "compute",
+          "args": {
+            "expression": "1000"
+          }
+        },
+        {
+          "step": 11,
+          "name": "compute",
+          "args": {
+            "expression": "2500"
+          }
+        },
+        {
+          "step": 11,
+          "name": "compute",
+          "args": {
+            "expression": "4000 * 0.5"
+          }
+        },
+        {
+          "step": 11,
+          "name": "compute",
+          "args": {
+            "expression": "800"
+          }
+        },
+        {
+          "step": 11,
+          "name": "compute",
+          "args": {
+            "expression": "0"
+          }
+        },
+        {
+          "step": 11,
+          "name": "compute",
+          "args": {
+            "expression": "1200"
+          }
+        },
+        {
+          "step": 12,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 13,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12"
+          }
+        },
+        {
+          "step": 14,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 15,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Active monthly customers (acme $2000, beta $1500, epsilon $1000, eta $2500, theta $2000 net after 50% promo, kappa $800, lambda $0, nu $1200) = $11,000 monthly ×12 = $132,000; plus active annual contracts (gamma $24,000, zeta $12,000, iota $18,000) = $54,000; total $186,000. Excluded: duplicate (INV-02), churned (INV-05, INV-14), superseded pre-upgrade (INV-09)."
+          }
+        }
+      ],
+      "promptTokens": 45838,
+      "completionTokens": 7716,
+      "totalTokens": 53554,
+      "costCents": 0.4414,
+      "modelTurns": 16,
+      "toolCallCount": 25
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  },
+  {
+    "episodeId": "revenue-reconciliation-hard-orgx-e6",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 49.97,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "Monthly active customers (acme $2k, beta $1.5k, epsilon $1k, eta $2.5k, theta $2k net of 50% promo, kappa $800, lambda $0, nu $1.2k) sum to $11k/mo × 12 = $132k; plus annual contracts (gamma $24k, zeta $12k, iota $18k) = $54k; total $186k. Excluded: duplicate row, churned accounts, superseded plan-change row."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "verification_gate",
+          "step": 4,
+          "draft": {
+            "q3_arr": 186000,
+            "derivation": "Monthly active customers (acme $2k, beta $1.5k, epsilon $1k, eta $2.5k, theta $2k net of 50% promo, kappa $800, lambda $0, nu $1.2k) sum to $11k/mo × 12 = $132k; plus annual contracts (gamma $24k, zeta $12k, iota $18k) = $54k; total $186k. Excluded: duplicate row, churned accounts, superseded plan-change row."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 7,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 8,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 9,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "Monthly active customers (acme $2k, beta $1.5k, epsilon $1k, eta $2.5k, theta $2k net of 50% promo, kappa $800, lambda $0, nu $1.2k) sum to $11k/mo × 12 = $132k; plus annual contracts (gamma $24k, zeta $12k, iota $18k) = $54k; total $186k. Excluded: duplicate row, churned accounts, superseded plan-change row."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "132000 + 54000"
+          }
+        },
+        {
+          "step": 4,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Monthly active customers (acme $2k, beta $1.5k, epsilon $1k, eta $2.5k, theta $2k net of 50% promo, kappa $800, lambda $0, nu $1.2k) sum to $11k/mo × 12 = $132k; plus annual contracts (gamma $24k, zeta $12k, iota $18k) = $54k; total $186k. Excluded: duplicate row, churned accounts, superseded plan-change row."
+          }
+        },
+        {
+          "step": 5,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 5,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 6,
+          "name": "compute",
+          "args": {
+            "expression": "2000 + 1500 + 1000 + 2500 + 2000 + 800 + 0 + 1200"
+          }
+        },
+        {
+          "step": 7,
+          "name": "compute",
+          "args": {
+            "expression": "11000 * 12"
+          }
+        },
+        {
+          "step": 8,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 9,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Monthly active customers (acme $2k, beta $1.5k, epsilon $1k, eta $2.5k, theta $2k net of 50% promo, kappa $800, lambda $0, nu $1.2k) sum to $11k/mo × 12 = $132k; plus annual contracts (gamma $24k, zeta $12k, iota $18k) = $54k; total $186k. Excluded: duplicate row, churned accounts, superseded plan-change row."
+          }
+        }
+      ],
+      "promptTokens": 25101,
+      "completionTokens": 5597,
+      "totalTokens": 30698,
+      "costCents": 0.2846,
+      "modelTurns": 10,
+      "toolCallCount": 13
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  },
+  {
+    "episodeId": "revenue-reconciliation-hard-orgx-e7",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 40.05,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "Monthly customers ×12: acme $2k (excl duplicate), beta $1.5k, epsilon $1k, eta $2.5k (current, excl superseded), theta $2k net (50% promo), kappa $800 (full, no prorate), nu $1.2k = $132k run-rate. Annual customers at contract value: gamma $24k, zeta $12k, iota $18k = $54k. Excluded: churned (delta, mu), free trial (lambda $0). Total Q3 ARR = $186,000."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "verification_gate",
+          "step": 3,
+          "draft": {
+            "q3_arr": 186000,
+            "derivation": "Monthly customers ×12: acme $2k (excl duplicate), beta $1.5k, epsilon $1k, eta $2.5k (current, excl superseded), theta $2k net (50% promo), kappa $800 (full, no prorate), nu $1.2k = $132k run-rate. Annual customers at contract value: gamma $24k, zeta $12k, iota $18k = $54k. Excluded: churned (delta, mu), free trial (lambda $0). Total Q3 ARR = $186,000."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 7,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "Monthly customers ×12: acme $2k (excl duplicate), beta $1.5k, epsilon $1k, eta $2.5k (current, excl superseded), theta $2k net (50% promo), kappa $800 (full, no prorate), nu $1.2k = $132k run-rate. Annual customers at contract value: gamma $24k, zeta $12k, iota $18k = $54k. Excluded: churned (delta, mu), free trial (lambda $0). Total Q3 ARR = $186,000."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 1000*12 + 2500*12 + 2000*12 + 800*12 + 1200*12 + 24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "1500*12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "1000*12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "2500*12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "800*12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "1200*12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 1000*12 + 2500*12 + 2000*12 + 800*12 + 1200*12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Monthly customers ×12: acme $2k (excl duplicate), beta $1.5k, epsilon $1k, eta $2.5k (current, excl superseded), theta $2k net (50% promo), kappa $800 (full, no prorate), nu $1.2k = $132k run-rate. Annual customers at contract value: gamma $24k, zeta $12k, iota $18k = $54k. Excluded: churned (delta, mu), free trial (lambda $0). Total Q3 ARR = $186,000."
+          }
+        },
+        {
+          "step": 4,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 4,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "1500*12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "1000*12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "2500*12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "800*12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "1200*12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "24000+12000+18000"
+          }
+        },
+        {
+          "step": 6,
+          "name": "compute",
+          "args": {
+            "expression": "24000+18000+12000+30000+24000+9600+14400"
+          }
+        },
+        {
+          "step": 7,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Monthly customers ×12: acme $2k (excl duplicate), beta $1.5k, epsilon $1k, eta $2.5k (current, excl superseded), theta $2k net (50% promo), kappa $800 (full, no prorate), nu $1.2k = $132k run-rate. Annual customers at contract value: gamma $24k, zeta $12k, iota $18k = $54k. Excluded: churned (delta, mu), free trial (lambda $0). Total Q3 ARR = $186,000."
+          }
+        }
+      ],
+      "promptTokens": 21310,
+      "completionTokens": 4902,
+      "totalTokens": 26212,
+      "costCents": 0.24139999999999998,
+      "modelTurns": 8,
+      "toolCallCount": 25
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  },
+  {
+    "episodeId": "revenue-reconciliation-hard-orgx-e8",
+    "worldId": "revenue-reconciliation-hard",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 35.37,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 186000,
+      "derivation": "Active monthly customers (Acme $2k, Beta $1.5k, Epsilon $1k, Eta $2.5k, Theta $2k net after 50% promo, Kappa $800, Nu $1.2k) × 12 ea + active annual contract values (Gamma $24k, Zeta $12k, Iota $18k); excluded duplicates, churned (Delta, Mu), superseded row (Eta old $1.5k), and free trial (Lambda $0)."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "verification_gate",
+          "step": 3,
+          "draft": {
+            "q3_arr": 186000,
+            "derivation": "Active monthly customers (Acme $2k, Beta $1.5k, Epsilon $1k, Eta $2.5k, Theta $2k net after 50% promo, Kappa $800, Nu $1.2k) × 12 ea + active annual contract values (Gamma $24k, Zeta $12k, Iota $18k); excluded duplicates, churned (Delta, Mu), superseded row (Eta old $1.5k), and free trial (Lambda $0)."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "get_arr_definitions"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 7,
+          "submission": {
+            "q3_arr": 186000,
+            "derivation": "Active monthly customers (Acme $2k, Beta $1.5k, Epsilon $1k, Eta $2.5k, Theta $2k net after 50% promo, Kappa $800, Nu $1.2k) × 12 ea + active annual contract values (Gamma $24k, Zeta $12k, Iota $18k); excluded duplicates, churned (Delta, Mu), superseded row (Eta old $1.5k), and free trial (Lambda $0)."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 1000*12 + 2500*12 + (4000*0.5)*12 + 800*12 + 0*12 + 1200*12 + 24000 + 12000 + 18000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 18000 + 24000 + 12000 + 12000 + 30000 + 24000 + 18000 + 9600 + 0 + 14400"
+          }
+        },
+        {
+          "step": 3,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Active monthly customers (Acme $2k, Beta $1.5k, Epsilon $1k, Eta $2.5k, Theta $2k net after 50% promo, Kappa $800, Nu $1.2k) × 12 ea + active annual contract values (Gamma $24k, Zeta $12k, Iota $18k); excluded duplicates, churned (Delta, Mu), superseded row (Eta old $1.5k), and free trial (Lambda $0)."
+          }
+        },
+        {
+          "step": 4,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 4,
+          "name": "get_arr_definitions",
+          "args": {}
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "2000 * 12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "1500 * 12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "1000 * 12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "2500 * 12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "(4000 * 0.5) * 12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "800 * 12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "0 * 12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "1200 * 12"
+          }
+        },
+        {
+          "step": 6,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 18000 + 24000 + 12000 + 12000 + 30000 + 24000 + 18000 + 9600 + 0 + 14400"
+          }
+        },
+        {
+          "step": 7,
+          "name": "submit",
+          "args": {
+            "q3_arr": 186000,
+            "derivation": "Active monthly customers (Acme $2k, Beta $1.5k, Epsilon $1k, Eta $2.5k, Theta $2k net after 50% promo, Kappa $800, Nu $1.2k) × 12 ea + active annual contract values (Gamma $24k, Zeta $12k, Iota $18k); excluded duplicates, churned (Delta, Mu), superseded row (Eta old $1.5k), and free trial (Lambda $0)."
+          }
+        }
+      ],
+      "promptTokens": 19647,
+      "completionTokens": 5087,
+      "totalTokens": 24734,
+      "costCents": 0.2403,
+      "modelTurns": 8,
+      "toolCallCount": 17
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 186000,
+      "expectedArr": 186000
+    }
+  }
+]

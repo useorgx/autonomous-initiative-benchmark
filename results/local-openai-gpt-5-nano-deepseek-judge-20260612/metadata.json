@@ -1,0 +1,103 @@
+{
+  "benchmarkWeek": "local-openai-gpt-5-nano-deepseek-judge-20260612",
+  "benchmarkVersion": "2026-q1",
+  "taskCount": 12,
+  "repeatCount": 1,
+  "domains": [
+    "cross_functional",
+    "design",
+    "engineering",
+    "marketing",
+    "ops",
+    "product",
+    "sales"
+  ],
+  "providers": [
+    "openai",
+    "openrouter"
+  ],
+  "models": [
+    "gpt-5-nano",
+    "deepseek/deepseek-v4-flash",
+    "deepseek/deepseek-v3.2",
+    "deepseek/deepseek-v4-pro"
+  ],
+  "runtimes": [
+    "node-24.13.0"
+  ],
+  "claims": [
+    "Local public-catalog run using OpenAI Responses API.",
+    "Artifacts were scored by independent OpenAI judge calls that did not generate the artifact.",
+    "Public quality scores use median criterion scores and flag material judge disagreement for human review."
+  ],
+  "generationMethod": {
+    "provider": "openai",
+    "model": "gpt-5-nano",
+    "reasoningEffort": "minimal",
+    "maxOutputTokens": 3000
+  },
+  "evaluationMethod": {
+    "independentJudges": true,
+    "judgePanel": [
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      }
+    ],
+    "judgeMaxOutputTokens": 8000,
+    "scoreAggregation": "median criterion score across completed independent judges",
+    "disagreementThresholdPoints": 8,
+    "humanReviewPolicy": "flag if any judge recommends review, any judge fails, or judge disagreement exceeds threshold"
+  },
+  "tokenUsage": {
+    "generation": {
+      "inputTokens": 0,
+      "cachedInputTokens": 0,
+      "outputTokens": 0,
+      "reasoningTokens": 0,
+      "totalTokens": 0,
+      "costCents": 0.599
+    },
+    "judging": {
+      "inputTokens": 55673,
+      "cachedInputTokens": 20032,
+      "outputTokens": 27413,
+      "reasoningTokens": 20389,
+      "totalTokens": 83086,
+      "costCents": 5.3579
+    },
+    "total": {
+      "inputTokens": 55673,
+      "cachedInputTokens": 20032,
+      "outputTokens": 27413,
+      "reasoningTokens": 20389,
+      "totalTokens": 83086,
+      "costCents": 5.9569
+    }
+  },
+  "assumptions": {
+    "modelSelection": "gpt-5-nano was selected for the cheapest complete OpenAI smoke run.",
+    "reasoningEffort": "minimal",
+    "maxOutputTokens": 3000,
+    "judgeProtocol": "Artifacts were scored by independent judge calls that did not generate the artifact."
+  },
+  "dataFiles": [
+    "summary.json",
+    "metadata.json",
+    "examples.json",
+    "tasks.json",
+    "scorecard.csv",
+    "judgments.json"
+  ]
+}

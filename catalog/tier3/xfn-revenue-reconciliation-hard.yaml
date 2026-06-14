@@ -1,0 +1,194 @@
+id: xfn-revenue-reconciliation-hard
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-06-12b"
+name: Board Revenue Reconciliation (Hard)
+description: >
+  Three sources disagree on ARR ahead of a board meeting: a board deck, a raw
+  billing export with planted data defects, and a finance memo. The correct
+  artifact requires a multi-hop reconciliation (duplicate, churn, annual
+  normalization, discount) landing on a single correct ARR, plus a precise
+  attribution of how each wrong source got its number. Criteria are hidden
+  from the generator.
+tier: tier3_hard
+domain: cross_functional
+repeatCount: 1
+contaminationRisk: low
+judgingProtocol: strict
+hideCriteriaFromGenerator: true
+
+rawPrompt: |
+  Board meeting is Monday and I have three different ARR numbers. I need you
+  to reconcile them tonight. Deliverable: the single correct ARR figure with
+  the math shown, an explanation of exactly how each of the other numbers got
+  to where it is, and a short board-ready summary I can read out if a director
+  asks why the deck changed. Don't hedge with a range — I need one number I
+  can defend.
+
+  ## Source A — Board deck (slide 7, drafted by RevOps last week)
+
+  "ARR: $477,600 (source: RevOps revenue dashboard, refreshed June 8)"
+
+  ## Source B — Billing system export (raw, pulled 2026-06-10)
+
+  Columns: row | customer_id | customer | plan | billing_period |
+  amount_per_period | period_start | churn_date | notes
+
+  1  | C-1001 | Brightloom            | Growth       | monthly | $1,200  | 2025-09-12 | —          |
+  2  | C-1002 | Cobalt Works          | Starter      | monthly | $400    | 2025-03-04 | —          |
+  3  | C-1003 | Acme Industrial       | Scale-Annual | annual  | $36,000 | 2026-01-15 | —          | paid upfront
+  4  | C-1004 | Dunmore & Reed        | Scale        | monthly | $2,800  | 2025-11-20 | —          |
+  5  | C-1005 | Eastlight Media       | Growth       | monthly | $1,200  | 2026-02-02 | —          |
+  6  | C-1006 | Fernwell Labs         | Starter      | monthly | $400    | 2025-07-18 | —          |
+  7  | C-1007 | Riverbarrow           | Growth       | monthly | $1,200  | 2024-10-09 | 2026-04-30 |
+  8  | C-1008 | Gradient Civil        | Growth       | monthly | $1,200  | 2025-05-27 | —          |
+  9  | C-1009 | Harbor & Vine         | Starter      | monthly | $400    | 2026-03-11 | —          |
+  10 | C-1010 | Northwind Logistics   | Ent-Annual   | annual  | $54,000 | 2025-12-01 | —          | paid upfront
+  11 | C-1011 | Ironquill Systems     | Scale        | monthly | $2,800  | 2024-08-15 | —          |
+  12 | C-1012 | Juniper Freight       | Growth       | monthly | $1,200  | 2025-10-06 | —          |
+  13 | C-1013 | Kestrel Systems       | Growth       | monthly | $1,200  | 2026-01-22 | —          |
+  14 | C-1014 | Lumen Tide            | Starter      | monthly | $400    | 2025-06-30 | —          |
+  15 | C-1015 | Saltmarsh Co          | Scale        | monthly | $2,800  | 2025-02-14 | 2026-05-15 |
+  16 | C-1016 | Mistral Foods         | Growth       | monthly | $1,200  | 2025-04-08 | —          |
+  17 | C-1017 | Bluepeak Health       | Scale-Annual | annual  | $48,000 | 2026-02-20 | —          | paid upfront
+  18 | C-1018 | Noxbright             | Starter      | monthly | $400    | 2026-04-01 | —          |
+  19 | C-1019 | Opaline Travel        | Scale        | monthly | $2,800  | 2025-08-25 | —          |
+  20 | C-1011 | Ironquill Systems     | Scale        | monthly | $2,800  | 2026-03-01 | —          | re-created in March schema migration
+  21 | C-1020 | Pinegate Legal        | Growth       | monthly | $1,200  | 2025-12-15 | —          |
+  22 | C-1021 | Quarry Analytics      | Scale        | monthly | $2,800  | 2026-05-05 | —          | see CRM note
+  23 | C-1022 | Trestleworks          | Starter      | monthly | $400    | 2026-05-19 | —          |
+  24 | C-1023 | Ferrostar Mining      | Scale-Annual | annual  | $30,000 | 2025-11-10 | —          | paid upfront
+  25 | C-1024 | Umberline             | Growth       | monthly | $1,200  | 2026-03-28 | —          |
+
+  Export footer: "status flags were dropped in the March billing schema
+  migration; churn_date is the authoritative cancellation field.
+  amount_per_period is the invoiced amount for the row's billing period."
+
+  AE note pasted from CRM (2026-05-05): "Quarry Analytics signed at 50% off
+  Scale list price for the first 24 months. Billing shows list ($2,800/mo);
+  the discount is applied as a quarterly credit memo on the AR side, so the
+  export's amount column does not reflect it."
+
+  ## Source C — Finance memo (from our controller, 2026-06-11)
+
+  "Subject: ARR position ahead of Monday. Reconciling from the signed-contract
+  base — countersigned agreements currently in force, annual agreements at
+  contract value — I get ARR of $446,400. I cannot tie out the deck's
+  $477,600 and suspect the RevOps dashboard. Recommend we present $446,400
+  on Monday unless someone can show me otherwise."
+
+initiativeSpec:
+  title: Board ARR reconciliation
+  description: Single defensible ARR figure with full discrepancy attribution
+  domains:
+    - cross_functional
+    - ops
+
+seedProvenance: >
+  Synthetic hard-tier v2 scenario with planted multi-defect billing data and
+  arithmetic ground truth, authored 2026-06-12. Contamination-visible.
+
+acceptanceCriteria:
+  - id: correct-arr
+    description: >
+      States the correct ARR of $429,600 (accept $428,000-$431,500) with the
+      math shown: 17 clean monthly customers at $20,400 MRR, plus Quarry at
+      its discounted $1,400/mo (active MRR $21,800, x12 = $261,600), plus
+      annual contracts at contract value ($36,000 + $54,000 + $48,000 +
+      $30,000 = $168,000). An answer of $446,400 means the Quarry discount
+      was missed; $463,200 means the duplicate Ironquill row was kept;
+      $477,600 means churned customers were kept; ~$2,277,600 or ~$2,376,000
+      means annual prepayments were multiplied by 12.
+    type: rubric
+    evaluator: llm_judge
+    weight: 3
+  - id: identifies-all-four-defects
+    description: >
+      Explicitly identifies all four data defects in the billing export: (1)
+      the duplicate row for customer_id C-1011 Ironquill Systems (rows 11 and
+      20, an artifact of the March schema migration, worth $33,600 ARR if
+      double-counted); (2) churned customers Riverbarrow (churn 2026-04-30)
+      and Saltmarsh Co (churn 2026-05-15) still listed, jointly $48,000 ARR;
+      (3) annual rows whose amount_per_period is a yearly upfront invoice
+      that must be counted once, not multiplied by 12; (4) Quarry Analytics
+      listed at $2,800/mo list price despite the 50% discount note ($1,400/mo
+      actual, a $16,800 ARR difference). Missing any one defect fails this
+      criterion.
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: attributes-deck-error
+    description: >
+      Explains the board deck's $477,600 by mechanism: it equals the correct
+      $429,600 plus exactly $48,000, i.e. the RevOps dashboard still counts
+      the two churned customers (Riverbarrow $14,400 + Saltmarsh $33,600 ARR)
+      because churn was not reflected, while it otherwise handled the
+      duplicate, the discount, and annual normalization correctly.
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: attributes-memo-error
+    description: >
+      Explains the finance memo's $446,400 by mechanism: it equals the
+      correct $429,600 plus exactly $16,800, i.e. finance correctly excluded
+      churned customers and the duplicate and counted annual contracts at
+      contract value, but valued Quarry Analytics at $2,800/mo list price
+      because the 50% discount lives in quarterly AR credit memos, not the
+      contract system.
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: annual-normalization-explicit
+    description: >
+      Explicitly states the normalization rule for annual prepayments: the
+      four annual contracts contribute their contract value once ($168,000
+      ARR total), and multiplying upfront annual invoices by 12 would be
+      wrong (it would add roughly $1.85M of phantom ARR).
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: board-ready-summary
+    description: >
+      Includes a short board-ready summary a founder could read aloud: the
+      one correct number ($429,600), why the deck must change, and a one-line
+      cause for each discrepancy, without hedging to a range.
+    type: rubric
+    evaluator: llm_judge
+    weight: 1
+
+decisionReadyCriteriaIds:
+  - correct-arr
+  - identifies-all-four-defects
+  - attributes-deck-error
+  - attributes-memo-error
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Hard-tier v2: correct ARR is $429,600; every single-mistake partial
+  reconciliation lands exactly on a planted decoy ($446,400 finance memo,
+  $463,200 duplicate kept, $477,600 board deck, $2.28M annual x12). Tests
+  multi-hop data forensics and error attribution under conflicting
+  authorities.
+knownFailureModes:
+  - Multiplies annual upfront invoices by 12 and reports ARR in the millions.
+  - Removes some defects but not all and lands on a decoy total ($446,400, $463,200, or $477,600) presented as correct.
+  - Sides with the finance memo because it sounds most rigorous instead of recomputing from the export.
+  - Reports a range or hedged estimate instead of one defensible number.
+  - Lists the defects but never explains the exact mechanism behind each source's wrong number.
+
+humanBaseline:
+  timeSeconds: 12600
+  costCents: 10500
+  qualityScore: 88
+  completeness: 1
+  artifactCount: 1
+  provenance: synthetic hard-tier v2 estimate, Jun 2026
+  methodology: expert_estimate
+  sourceSummary: Estimated from a senior RevOps/finance practitioner performing comparable pre-board ARR reconciliations.
+  sampleSize: 1
+  collectedAt: "2026-06-12"
+  operatorProfile: Senior RevOps or finance lead who owns ARR reporting
+
+constraints:
+  maxDurationMinutes: 35
+  maxCostCents: 500

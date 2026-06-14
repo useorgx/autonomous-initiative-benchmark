@@ -1,0 +1,13 @@
+task_id,run_id,mode,provider,model,domain,tier,autonomous_completed,duration_seconds,cost_cents,quality_score,completeness,scoring_source,judge_count,judge_disagreement_points,human_review_recommended,judge_cost_cents,human_baseline_seconds,human_quality_score
+eng-data-migration-refusal-hard,eng-data-migration-refusal-hard-r1,local_openai,openrouter,anthropic/claude-fable-5,engineering,tier3_hard,true,75.74,28.643,96,1,independent_judges,3,12,true,3.208,10800,87
+eng-data-migration-refusal-hard,eng-data-migration-refusal-hard-r2,local_openai,openrouter,anthropic/claude-fable-5,engineering,tier3_hard,true,77.87,28.728,100,1,independent_judges,3,0,false,1.8839,10800,87
+eng-zero-downtime-migration-hard,eng-zero-downtime-migration-hard-r1,local_openai,openrouter,anthropic/claude-fable-5,engineering,tier3_hard,true,101.81,41.249,94.25,1,independent_judges,3,17.24,true,2.3137,14400,90
+eng-zero-downtime-migration-hard,eng-zero-downtime-migration-hard-r2,local_openai,openrouter,anthropic/claude-fable-5,engineering,tier3_hard,true,124.23,49.864,85.98,1,independent_judges,3,14.48,true,2.1223,14400,90
+ops-churn-noise-forensics-hard,ops-churn-noise-forensics-hard-r1,local_openai,openrouter,anthropic/claude-fable-5,ops,tier3_hard,true,74.89,31.592,100,1,independent_judges,3,0,false,2.0215,16200,86
+ops-churn-noise-forensics-hard,ops-churn-noise-forensics-hard-r2,local_openai,openrouter,anthropic/claude-fable-5,ops,tier3_hard,true,70.51,31.727,100,1,independent_judges,3,0,false,1.5993,16200,86
+ops-incident-forensics-hard,ops-incident-forensics-hard-r1,local_openai,openrouter,anthropic/claude-fable-5,ops,tier3_hard,true,67.35,28.449,100,1,independent_judges,3,0,false,0.9953,14400,88
+ops-incident-forensics-hard,ops-incident-forensics-hard-r2,local_openai,openrouter,anthropic/claude-fable-5,ops,tier3_hard,true,59.69,25.189,100,1,independent_judges,3,0,false,1.0566,14400,88
+product-capacity-plan-hard,product-capacity-plan-hard-r1,local_openai,openrouter,anthropic/claude-fable-5,product,tier3_hard,true,75.5,32.514,82.72,1,independent_judges,3,3.71,true,1.2248,10800,87
+product-capacity-plan-hard,product-capacity-plan-hard-r2,local_openai,openrouter,anthropic/claude-fable-5,product,tier3_hard,true,102.8,44.189,100,1,independent_judges,3,0,false,1.6055,10800,87
+xfn-revenue-reconciliation-hard,xfn-revenue-reconciliation-hard-r1,local_openai,openrouter,anthropic/claude-fable-5,cross_functional,tier3_hard,true,76.47,35.914,100,1,independent_judges,3,0,false,1.7662,12600,88
+xfn-revenue-reconciliation-hard,xfn-revenue-reconciliation-hard-r2,local_openai,openrouter,anthropic/claude-fable-5,cross_functional,tier3_hard,true,75.58,34.739,89.84,1,independent_judges,3,30.48,true,1.0698,12600,88

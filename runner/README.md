@@ -96,3 +96,39 @@ Judged bundles include `judgments.json`, judge-derived task scores,
 criterion-level median scores, disagreement statistics, human-review flags,
 and token/cost metadata for generation and judging. The validator checks that
 bundles claiming independent judging actually include completed judge records.
+
+## Cross-provider judging
+
+Judge specs accept `[provider:]model[:reasoningEffort]`. Registered providers
+are `openai` (Responses API), `openrouter`, and `deepseek` (chat completions);
+each requires its own API key env var (`OPENAI_API_KEY`, `OPENROUTER_API_KEY`,
+`DEEPSEEK_API_KEY`). The `deepseek` preset runs a three-judge DeepSeek panel
+via OpenRouter so artifacts are never scored only by the vendor that generated
+them:
+
+```bash
+npm run judge:bundle -- results/<week> --judge-preset deepseek --judge-concurrency 4
+```
+
+## Importing live OrgX product runs
+
+`import-live-run.mjs` converts artifacts produced by a live OrgX run (Benchmark
+Lab, MCP delegation, agent-surface execution) into a standard unscored bundle,
+which the regular judge pipeline then scores:
+
+```bash
+npm run import:live -- --input runs.json --out <result-dir> --source orgx_live_product
+npm run judge:bundle -- results/<result-dir> --judge-preset deepseek
+```
+
+## Pairwise bundle comparison
+
+Absolute rubric scores saturate on the public catalog, so head-to-head claims
+should use pairwise preference judging. Each judge sees both artifacts for the
+same task in both orders (position-bias control), and a vote only counts when
+a judge's two orderings agree:
+
+```bash
+npm run compare:bundles -- results/<bundle-a> results/<bundle-b> \
+  --judge-preset deepseek --judge-concurrency 4 --out comparison.json
+```

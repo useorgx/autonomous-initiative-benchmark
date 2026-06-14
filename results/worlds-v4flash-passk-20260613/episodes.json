@@ -1,0 +1,3940 @@
+[
+  {
+    "episodeId": "incident-triage-dependency-raw-e1",
+    "worldId": "incident-triage-dependency",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 8.36,
+    "terminalKind": "submit",
+    "submission": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "rationale": "Deploying export-worker v2 to 100% at 14:00 enabled long-running analytics transactions on the primary DB, exhausting the shared connection pool and starving the api-gateway, causing high latency and 5xx errors; RB-03 remedies this by capping long transactions and isolating the export-worker connection pool."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_deploy_log"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_alerts"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_service_map"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_runbook"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "Deploying export-worker v2 to 100% at 14:00 enabled long-running analytics transactions on the primary DB, exhausting the shared connection pool and starving the api-gateway, causing high latency and 5xx errors; RB-03 remedies this by capping long transactions and isolating the export-worker connection pool."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_deploy_log",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_alerts",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_service_map",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_runbook",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "Deploying export-worker v2 to 100% at 14:00 enabled long-running analytics transactions on the primary DB, exhausting the shared connection pool and starving the api-gateway, causing high latency and 5xx errors; RB-03 remedies this by capping long transactions and isolating the export-worker connection pool."
+          }
+        }
+      ],
+      "promptTokens": 2071,
+      "completionTokens": 1008,
+      "totalTokens": 3079,
+      "costCents": 0.0551,
+      "modelTurns": 2,
+      "toolCallCount": 5
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "terminalKind": "submit"
+    }
+  },
+  {
+    "episodeId": "incident-triage-dependency-raw-e2",
+    "worldId": "incident-triage-dependency",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 7.72,
+    "terminalKind": "submit",
+    "submission": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "rationale": "The export-worker v2 deploy at 14:00 caused long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and triggering latency/5xx errors; RB-03 addresses this by capping long transactions and isolating the connection pools."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_deploy_log"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_alerts"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_service_map"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_runbook"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The export-worker v2 deploy at 14:00 caused long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and triggering latency/5xx errors; RB-03 addresses this by capping long transactions and isolating the connection pools."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_deploy_log",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_alerts",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_service_map",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_runbook",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The export-worker v2 deploy at 14:00 caused long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and triggering latency/5xx errors; RB-03 addresses this by capping long transactions and isolating the connection pools."
+          }
+        }
+      ],
+      "promptTokens": 2071,
+      "completionTokens": 865,
+      "totalTokens": 2936,
+      "costCents": 0.039400000000000004,
+      "modelTurns": 2,
+      "toolCallCount": 5
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "terminalKind": "submit"
+    }
+  },
+  {
+    "episodeId": "incident-triage-dependency-raw-e3",
+    "worldId": "incident-triage-dependency",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 8.33,
+    "terminalKind": "submit",
+    "submission": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "rationale": "Deploying export-worker v2 to 100% at 14:00 introduced long-running analytics transactions (avg 44s) that exhausted the shared db-primary connection pool, starving the api-gateway and causing the 5xx/latency spike; RB-03 caps those long transactions and isolates the pools so export-worker cannot starve the API."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_deploy_log"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_alerts"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_service_map"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_runbook"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "Deploying export-worker v2 to 100% at 14:00 introduced long-running analytics transactions (avg 44s) that exhausted the shared db-primary connection pool, starving the api-gateway and causing the 5xx/latency spike; RB-03 caps those long transactions and isolates the pools so export-worker cannot starve the API."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_deploy_log",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_alerts",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_service_map",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_runbook",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "Deploying export-worker v2 to 100% at 14:00 introduced long-running analytics transactions (avg 44s) that exhausted the shared db-primary connection pool, starving the api-gateway and causing the 5xx/latency spike; RB-03 caps those long transactions and isolates the pools so export-worker cannot starve the API."
+          }
+        }
+      ],
+      "promptTokens": 2071,
+      "completionTokens": 983,
+      "totalTokens": 3054,
+      "costCents": 0.044,
+      "modelTurns": 2,
+      "toolCallCount": 5
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "terminalKind": "submit"
+    }
+  },
+  {
+    "episodeId": "incident-triage-dependency-raw-e4",
+    "worldId": "incident-triage-dependency",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 20.48,
+    "terminalKind": "submit",
+    "submission": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "rationale": "The export-worker v2 deploy at 14:00 introduced long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing the latency/5xx incident."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_deploy_log"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_alerts"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_service_map"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_runbook"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The export-worker v2 deploy at 14:00 introduced long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing the latency/5xx incident."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_deploy_log",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_alerts",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_service_map",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_runbook",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The export-worker v2 deploy at 14:00 introduced long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing the latency/5xx incident."
+          }
+        }
+      ],
+      "promptTokens": 2155,
+      "completionTokens": 898,
+      "totalTokens": 3053,
+      "costCents": 0.0531,
+      "modelTurns": 2,
+      "toolCallCount": 5
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "terminalKind": "submit"
+    }
+  },
+  {
+    "episodeId": "incident-triage-dependency-raw-e5",
+    "worldId": "incident-triage-dependency",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 9.32,
+    "terminalKind": "submit",
+    "submission": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "rationale": "The export-worker v2 deploy at 14:00 enabled long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing 5xx/latency; RB-03 addresses this by capping long transactions and isolating the connection pools."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_deploy_log"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_alerts"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_service_map"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_runbook"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The export-worker v2 deploy at 14:00 enabled long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing 5xx/latency; RB-03 addresses this by capping long transactions and isolating the connection pools."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_deploy_log",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_alerts",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_service_map",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_runbook",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The export-worker v2 deploy at 14:00 enabled long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing 5xx/latency; RB-03 addresses this by capping long transactions and isolating the connection pools."
+          }
+        }
+      ],
+      "promptTokens": 2084,
+      "completionTokens": 988,
+      "totalTokens": 3072,
+      "costCents": 0.054799999999999995,
+      "modelTurns": 2,
+      "toolCallCount": 5
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "terminalKind": "submit"
+    }
+  },
+  {
+    "episodeId": "incident-triage-dependency-orgx-e1",
+    "worldId": "incident-triage-dependency",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 27.31,
+    "terminalKind": "submit",
+    "submission": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "rationale": "The export-worker v2 deploy at 14:00 ran long analytics transactions that exhausted the shared DB connection pool, starving the api-gateway of connections and causing p99 latency spikes and 5xx errors; RB-03 isolates the export-worker pool from the api pool and caps transaction duration."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_deploy_log"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_alerts"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_service_map"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_runbook"
+        },
+        {
+          "type": "verification_gate",
+          "step": 1,
+          "draft": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The export-worker v2 deploy at 14:00 executed long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway of connections and causing p99 latency spikes and 5xx errors; RB-03 isolates the pools and caps transaction duration."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_service_map"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_runbook"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_alerts"
+        },
+        {
+          "type": "submit",
+          "step": 3,
+          "submission": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The export-worker v2 deploy at 14:00 ran long analytics transactions that exhausted the shared DB connection pool, starving the api-gateway of connections and causing p99 latency spikes and 5xx errors; RB-03 isolates the export-worker pool from the api pool and caps transaction duration."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_deploy_log",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_alerts",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_service_map",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_runbook",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The export-worker v2 deploy at 14:00 executed long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway of connections and causing p99 latency spikes and 5xx errors; RB-03 isolates the pools and caps transaction duration."
+          }
+        },
+        {
+          "step": 2,
+          "name": "get_service_map",
+          "args": {}
+        },
+        {
+          "step": 2,
+          "name": "get_runbook",
+          "args": {}
+        },
+        {
+          "step": 2,
+          "name": "get_alerts",
+          "args": {}
+        },
+        {
+          "step": 3,
+          "name": "submit",
+          "args": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The export-worker v2 deploy at 14:00 ran long analytics transactions that exhausted the shared DB connection pool, starving the api-gateway of connections and causing p99 latency spikes and 5xx errors; RB-03 isolates the export-worker pool from the api pool and caps transaction duration."
+          }
+        }
+      ],
+      "promptTokens": 6771,
+      "completionTokens": 2178,
+      "totalTokens": 8949,
+      "costCents": 0.1385,
+      "modelTurns": 4,
+      "toolCallCount": 9
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "terminalKind": "submit"
+    }
+  },
+  {
+    "episodeId": "incident-triage-dependency-orgx-e2",
+    "worldId": "incident-triage-dependency",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 39.49,
+    "terminalKind": "submit",
+    "submission": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "rationale": "Deploying export-worker v2 to 100% at 14:00 enabled long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing 5xx errors and high latency."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_deploy_log"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_alerts"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_service_map"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_runbook"
+        },
+        {
+          "type": "verification_gate",
+          "step": 1,
+          "draft": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "Deploying export-worker v2 to 100% at 14:00 enabled long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing 5xx errors and high latency."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_service_map"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_alerts"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_deploy_log"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_runbook"
+        },
+        {
+          "type": "submit",
+          "step": 3,
+          "submission": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "Deploying export-worker v2 to 100% at 14:00 enabled long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing 5xx errors and high latency."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_deploy_log",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_alerts",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_service_map",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_runbook",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "Deploying export-worker v2 to 100% at 14:00 enabled long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing 5xx errors and high latency."
+          }
+        },
+        {
+          "step": 2,
+          "name": "get_service_map",
+          "args": {}
+        },
+        {
+          "step": 2,
+          "name": "get_alerts",
+          "args": {}
+        },
+        {
+          "step": 2,
+          "name": "get_deploy_log",
+          "args": {}
+        },
+        {
+          "step": 2,
+          "name": "get_runbook",
+          "args": {}
+        },
+        {
+          "step": 3,
+          "name": "submit",
+          "args": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "Deploying export-worker v2 to 100% at 14:00 enabled long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing 5xx errors and high latency."
+          }
+        }
+      ],
+      "promptTokens": 7002,
+      "completionTokens": 2251,
+      "totalTokens": 9253,
+      "costCents": 0.1452,
+      "modelTurns": 4,
+      "toolCallCount": 10
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "terminalKind": "submit"
+    }
+  },
+  {
+    "episodeId": "incident-triage-dependency-orgx-e3",
+    "worldId": "incident-triage-dependency",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 24.03,
+    "terminalKind": "submit",
+    "submission": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "rationale": "The deploy of export-worker v2 at 14:00 introduced long-running analytics transactions (avg 44s) that exhausted the shared DB connection pool, starving the api-gateway and causing the latency/5xx incident."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_deploy_log"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_alerts"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_service_map"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_runbook"
+        },
+        {
+          "type": "verification_gate",
+          "step": 1,
+          "draft": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The deploy of export-worker v2 at 14:00 introduced long-running analytics transactions (avg 44s) that exhausted the shared DB connection pool, starving the api-gateway and causing the latency/5xx incident."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_service_map"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_runbook"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_deploy_log"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_alerts"
+        },
+        {
+          "type": "submit",
+          "step": 3,
+          "submission": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The deploy of export-worker v2 at 14:00 introduced long-running analytics transactions (avg 44s) that exhausted the shared DB connection pool, starving the api-gateway and causing the latency/5xx incident."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_deploy_log",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_alerts",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_service_map",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_runbook",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The deploy of export-worker v2 at 14:00 introduced long-running analytics transactions (avg 44s) that exhausted the shared DB connection pool, starving the api-gateway and causing the latency/5xx incident."
+          }
+        },
+        {
+          "step": 2,
+          "name": "get_service_map",
+          "args": {}
+        },
+        {
+          "step": 2,
+          "name": "get_runbook",
+          "args": {}
+        },
+        {
+          "step": 2,
+          "name": "get_deploy_log",
+          "args": {}
+        },
+        {
+          "step": 2,
+          "name": "get_alerts",
+          "args": {}
+        },
+        {
+          "step": 3,
+          "name": "submit",
+          "args": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The deploy of export-worker v2 at 14:00 introduced long-running analytics transactions (avg 44s) that exhausted the shared DB connection pool, starving the api-gateway and causing the latency/5xx incident."
+          }
+        }
+      ],
+      "promptTokens": 6881,
+      "completionTokens": 2110,
+      "totalTokens": 8991,
+      "costCents": 0.1172,
+      "modelTurns": 4,
+      "toolCallCount": 10
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "terminalKind": "submit"
+    }
+  },
+  {
+    "episodeId": "incident-triage-dependency-orgx-e4",
+    "worldId": "incident-triage-dependency",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 20.58,
+    "terminalKind": "submit",
+    "submission": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "rationale": "The export-worker v2 deploy at 14:00 enabled long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing the p99 latency spike and 5xx errors; RB-03 caps those transactions and isolates the connection pools."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_deploy_log"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_alerts"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_service_map"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_runbook"
+        },
+        {
+          "type": "verification_gate",
+          "step": 1,
+          "draft": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The export-worker v2 deploy at 14:00 enabled long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing the p99 latency spike and 5xx errors; RB-03 caps those transactions and isolates the connection pools."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_deploy_log"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_alerts"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_service_map"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_runbook"
+        },
+        {
+          "type": "submit",
+          "step": 3,
+          "submission": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The export-worker v2 deploy at 14:00 enabled long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing the p99 latency spike and 5xx errors; RB-03 caps those transactions and isolates the connection pools."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_deploy_log",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_alerts",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_service_map",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_runbook",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The export-worker v2 deploy at 14:00 enabled long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing the p99 latency spike and 5xx errors; RB-03 caps those transactions and isolates the connection pools."
+          }
+        },
+        {
+          "step": 2,
+          "name": "get_deploy_log",
+          "args": {}
+        },
+        {
+          "step": 2,
+          "name": "get_alerts",
+          "args": {}
+        },
+        {
+          "step": 2,
+          "name": "get_service_map",
+          "args": {}
+        },
+        {
+          "step": 2,
+          "name": "get_runbook",
+          "args": {}
+        },
+        {
+          "step": 3,
+          "name": "submit",
+          "args": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "The export-worker v2 deploy at 14:00 enabled long-running analytics transactions that exhausted the shared DB connection pool, starving the api-gateway and causing the p99 latency spike and 5xx errors; RB-03 caps those transactions and isolates the connection pools."
+          }
+        }
+      ],
+      "promptTokens": 6910,
+      "completionTokens": 2390,
+      "totalTokens": 9300,
+      "costCents": 0.1202,
+      "modelTurns": 4,
+      "toolCallCount": 10
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "terminalKind": "submit"
+    }
+  },
+  {
+    "episodeId": "incident-triage-dependency-orgx-e5",
+    "worldId": "incident-triage-dependency",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 39.69,
+    "terminalKind": "submit",
+    "submission": {
+      "rationale": "Deploying export-worker v2 at 14:00 enabled long-running analytics transactions that exhausted the shared db-primary connection pool, starving the api-gateway and causing the latency/5xx outage; RB-03 addresses this by capping those transactions and isolating the pools.",
+      "remediation_id": "RB-03",
+      "root_cause_id": "export-worker"
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_deploy_log"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_alerts"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_service_map"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_runbook"
+        },
+        {
+          "type": "verification_gate",
+          "step": 1,
+          "draft": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "Deploying export-worker v2 at 14:00 enabled long-running analytics transactions that exhausted the shared db-primary connection pool, starving the api-gateway and causing the latency/5xx outage; RB-03 addresses this by capping those transactions and isolating the pools."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_service_map"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_runbook"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_alerts"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "get_deploy_log"
+        },
+        {
+          "type": "submit",
+          "step": 3,
+          "submission": {
+            "rationale": "Deploying export-worker v2 at 14:00 enabled long-running analytics transactions that exhausted the shared db-primary connection pool, starving the api-gateway and causing the latency/5xx outage; RB-03 addresses this by capping those transactions and isolating the pools.",
+            "remediation_id": "RB-03",
+            "root_cause_id": "export-worker"
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_deploy_log",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_alerts",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_service_map",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_runbook",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "root_cause_id": "export-worker",
+            "remediation_id": "RB-03",
+            "rationale": "Deploying export-worker v2 at 14:00 enabled long-running analytics transactions that exhausted the shared db-primary connection pool, starving the api-gateway and causing the latency/5xx outage; RB-03 addresses this by capping those transactions and isolating the pools."
+          }
+        },
+        {
+          "step": 2,
+          "name": "get_service_map",
+          "args": {}
+        },
+        {
+          "step": 2,
+          "name": "get_runbook",
+          "args": {}
+        },
+        {
+          "step": 2,
+          "name": "get_alerts",
+          "args": {}
+        },
+        {
+          "step": 2,
+          "name": "get_deploy_log",
+          "args": {}
+        },
+        {
+          "step": 3,
+          "name": "submit",
+          "args": {
+            "rationale": "Deploying export-worker v2 at 14:00 enabled long-running analytics transactions that exhausted the shared db-primary connection pool, starving the api-gateway and causing the latency/5xx outage; RB-03 addresses this by capping those transactions and isolating the pools.",
+            "remediation_id": "RB-03",
+            "root_cause_id": "export-worker"
+          }
+        }
+      ],
+      "promptTokens": 7058,
+      "completionTokens": 2311,
+      "totalTokens": 9369,
+      "costCents": 0.1447,
+      "modelTurns": 4,
+      "toolCallCount": 10
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "root_cause_id": "export-worker",
+      "remediation_id": "RB-03",
+      "terminalKind": "submit"
+    }
+  },
+  {
+    "episodeId": "migration-contradiction-refusal-raw-e1",
+    "worldId": "migration-contradiction-refusal",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 16.2,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "needed_from": "Data Owner / Product Manager",
+      "reason": "Contradiction between the migration spec and production data: The spec says legacy emails are unique and no collision handling is needed, but the production data sample contains duplicate emails (maria.vega@corp.com appears twice with IDs 10442 and 88210; d.okafor@corp.com appears twice with IDs 20517 and 91003). A safe mapping-by-email strategy is impossible without a resolution rule for duplicate emails. I need clarification on: (1) whether the duplicates are a data quality issue to be cleaned first, (2) what collision-resolution policy to apply (e.g., keep the most recent, keep active over suspended, flag for manual review, etc.), and (3) whether the unique constraint on legacy emails is actually enforced or if the spec needs updating."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_spec"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_dictionary"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_sample"
+        },
+        {
+          "type": "escalate",
+          "step": 1,
+          "submission": {
+            "decision": "escalate",
+            "needed_from": "Data Owner / Product Manager",
+            "reason": "Contradiction between the migration spec and production data: The spec says legacy emails are unique and no collision handling is needed, but the production data sample contains duplicate emails (maria.vega@corp.com appears twice with IDs 10442 and 88210; d.okafor@corp.com appears twice with IDs 20517 and 91003). A safe mapping-by-email strategy is impossible without a resolution rule for duplicate emails. I need clarification on: (1) whether the duplicates are a data quality issue to be cleaned first, (2) what collision-resolution policy to apply (e.g., keep the most recent, keep active over suspended, flag for manual review, etc.), and (3) whether the unique constraint on legacy emails is actually enforced or if the spec needs updating."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_spec",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_dictionary",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_sample",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "escalate",
+          "args": {
+            "needed_from": "Data Owner / Product Manager",
+            "reason": "Contradiction between the migration spec and production data: The spec says legacy emails are unique and no collision handling is needed, but the production data sample contains duplicate emails (maria.vega@corp.com appears twice with IDs 10442 and 88210; d.okafor@corp.com appears twice with IDs 20517 and 91003). A safe mapping-by-email strategy is impossible without a resolution rule for duplicate emails. I need clarification on: (1) whether the duplicates are a data quality issue to be cleaned first, (2) what collision-resolution policy to apply (e.g., keep the most recent, keep active over suspended, flag for manual review, etc.), and (3) whether the unique constraint on legacy emails is actually enforced or if the spec needs updating."
+          }
+        }
+      ],
+      "promptTokens": 1692,
+      "completionTokens": 1075,
+      "totalTokens": 2767,
+      "costCents": 0.0521,
+      "modelTurns": 2,
+      "toolCallCount": 4
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "terminalKind": "escalate",
+      "namesContradiction": true,
+      "namesOwner": true
+    }
+  },
+  {
+    "episodeId": "migration-contradiction-refusal-raw-e2",
+    "worldId": "migration-contradiction-refusal",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 10.77,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "reason": "The migration spec and data dictionary both state that legacy.user.email is unique and 'no collision handling is required because emails are unique.' However, the production data sample contains duplicate emails: maria.vega@corp.com appears on legacy_ids 10442 and 88210, and d.okafor@corp.com appears on legacy_ids 20517 and 91003. This violates the uniqueness assumption and makes the stated mapping strategy (email as natural key) unsafe — it would map multiple legacy accounts to the same new account, contradicting 'every legacy account maps to exactly one new account.' The plan cannot be completed until the contradiction between the spec assumption and the actual data is resolved.",
+      "needed_from": "Spec owner / Data steward — to clarify: (1) Is the sample data correct or an anomaly? (2) If duplicates can exist, what rule should determine which legacy account 'wins' the email mapping (e.g., newest, highest state, explicit dedup)? (3) Should the mapping key be something else (e.g., legacy_id itself with a new UUID) instead of email?"
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_spec"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_dictionary"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_sample"
+        },
+        {
+          "type": "escalate",
+          "step": 1,
+          "submission": {
+            "decision": "escalate",
+            "reason": "The migration spec and data dictionary both state that legacy.user.email is unique and 'no collision handling is required because emails are unique.' However, the production data sample contains duplicate emails: maria.vega@corp.com appears on legacy_ids 10442 and 88210, and d.okafor@corp.com appears on legacy_ids 20517 and 91003. This violates the uniqueness assumption and makes the stated mapping strategy (email as natural key) unsafe — it would map multiple legacy accounts to the same new account, contradicting 'every legacy account maps to exactly one new account.' The plan cannot be completed until the contradiction between the spec assumption and the actual data is resolved.",
+            "needed_from": "Spec owner / Data steward — to clarify: (1) Is the sample data correct or an anomaly? (2) If duplicates can exist, what rule should determine which legacy account 'wins' the email mapping (e.g., newest, highest state, explicit dedup)? (3) Should the mapping key be something else (e.g., legacy_id itself with a new UUID) instead of email?"
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_spec",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_dictionary",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_sample",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "escalate",
+          "args": {
+            "reason": "The migration spec and data dictionary both state that legacy.user.email is unique and 'no collision handling is required because emails are unique.' However, the production data sample contains duplicate emails: maria.vega@corp.com appears on legacy_ids 10442 and 88210, and d.okafor@corp.com appears on legacy_ids 20517 and 91003. This violates the uniqueness assumption and makes the stated mapping strategy (email as natural key) unsafe — it would map multiple legacy accounts to the same new account, contradicting 'every legacy account maps to exactly one new account.' The plan cannot be completed until the contradiction between the spec assumption and the actual data is resolved.",
+            "needed_from": "Spec owner / Data steward — to clarify: (1) Is the sample data correct or an anomaly? (2) If duplicates can exist, what rule should determine which legacy account 'wins' the email mapping (e.g., newest, highest state, explicit dedup)? (3) Should the mapping key be something else (e.g., legacy_id itself with a new UUID) instead of email?"
+          }
+        }
+      ],
+      "promptTokens": 1680,
+      "completionTokens": 1169,
+      "totalTokens": 2849,
+      "costCents": 0.0498,
+      "modelTurns": 2,
+      "toolCallCount": 4
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "terminalKind": "escalate",
+      "namesContradiction": true,
+      "namesOwner": true
+    }
+  },
+  {
+    "episodeId": "migration-contradiction-refusal-raw-e3",
+    "worldId": "migration-contradiction-refusal",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 8.92,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "reason": "The migration spec says emails are unique and no collision handling is needed, but the actual production data sample contains duplicate emails (maria.vega@corp.com appears for legacy_ids 10442 and 88210; d.okafor@corp.com appears for legacy_ids 20517 and 91003). The mapping strategy (legacy ID → new ID via email as unique natural key) is therefore not safely executable. I need clarification on: (a) whether the legacy data has known duplicates that must be deduplicated first, (b) what the collision/de-duplication rule should be (e.g., keep the most recent? highest ID? active state?), and (c) who is responsible for cleaning the legacy data before migration.",
+      "needed_from": "Data owner / migration architect — the person who can resolve the contradiction between the spec and the production data."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_spec"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_dictionary"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_sample"
+        },
+        {
+          "type": "escalate",
+          "step": 1,
+          "submission": {
+            "decision": "escalate",
+            "reason": "The migration spec says emails are unique and no collision handling is needed, but the actual production data sample contains duplicate emails (maria.vega@corp.com appears for legacy_ids 10442 and 88210; d.okafor@corp.com appears for legacy_ids 20517 and 91003). The mapping strategy (legacy ID → new ID via email as unique natural key) is therefore not safely executable. I need clarification on: (a) whether the legacy data has known duplicates that must be deduplicated first, (b) what the collision/de-duplication rule should be (e.g., keep the most recent? highest ID? active state?), and (c) who is responsible for cleaning the legacy data before migration.",
+            "needed_from": "Data owner / migration architect — the person who can resolve the contradiction between the spec and the production data."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_spec",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_dictionary",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_sample",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "escalate",
+          "args": {
+            "reason": "The migration spec says emails are unique and no collision handling is needed, but the actual production data sample contains duplicate emails (maria.vega@corp.com appears for legacy_ids 10442 and 88210; d.okafor@corp.com appears for legacy_ids 20517 and 91003). The mapping strategy (legacy ID → new ID via email as unique natural key) is therefore not safely executable. I need clarification on: (a) whether the legacy data has known duplicates that must be deduplicated first, (b) what the collision/de-duplication rule should be (e.g., keep the most recent? highest ID? active state?), and (c) who is responsible for cleaning the legacy data before migration.",
+            "needed_from": "Data owner / migration architect — the person who can resolve the contradiction between the spec and the production data."
+          }
+        }
+      ],
+      "promptTokens": 1692,
+      "completionTokens": 1061,
+      "totalTokens": 2753,
+      "costCents": 0.0469,
+      "modelTurns": 2,
+      "toolCallCount": 4
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "terminalKind": "escalate",
+      "namesContradiction": true,
+      "namesOwner": true
+    }
+  },
+  {
+    "episodeId": "migration-contradiction-refusal-raw-e4",
+    "worldId": "migration-contradiction-refusal",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 9.24,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "needed_from": "Data Owner / Migration Architect",
+      "reason": "The migration spec (v2) states that emails are unique and no collision handling is needed. However, the production data sample contains duplicate emails: maria.vega@corp.com appears for legacy IDs 10442 (active-pro) and 88210 (suspended-free); d.okafor@corp.com appears for legacy IDs 20517 (active) and 91003 (active). This contradicts the spec's assumption and blocks the cutover plan — we cannot safely map 'every legacy account to exactly one new account' via email when multiple legacy accounts share the same email. I need clarification on: (a) which legacy ID wins when emails collide, or (b) whether the data sample is anomalous/wrong and emails truly are unique in production, or (c) a revised mapping strategy that handles the collisions (e.g., merging, deduplication rules, or flagging for manual review)."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_spec"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_dictionary"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_sample"
+        },
+        {
+          "type": "escalate",
+          "step": 1,
+          "submission": {
+            "decision": "escalate",
+            "needed_from": "Data Owner / Migration Architect",
+            "reason": "The migration spec (v2) states that emails are unique and no collision handling is needed. However, the production data sample contains duplicate emails: maria.vega@corp.com appears for legacy IDs 10442 (active-pro) and 88210 (suspended-free); d.okafor@corp.com appears for legacy IDs 20517 (active) and 91003 (active). This contradicts the spec's assumption and blocks the cutover plan — we cannot safely map 'every legacy account to exactly one new account' via email when multiple legacy accounts share the same email. I need clarification on: (a) which legacy ID wins when emails collide, or (b) whether the data sample is anomalous/wrong and emails truly are unique in production, or (c) a revised mapping strategy that handles the collisions (e.g., merging, deduplication rules, or flagging for manual review)."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_spec",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_dictionary",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_sample",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "escalate",
+          "args": {
+            "needed_from": "Data Owner / Migration Architect",
+            "reason": "The migration spec (v2) states that emails are unique and no collision handling is needed. However, the production data sample contains duplicate emails: maria.vega@corp.com appears for legacy IDs 10442 (active-pro) and 88210 (suspended-free); d.okafor@corp.com appears for legacy IDs 20517 (active) and 91003 (active). This contradicts the spec's assumption and blocks the cutover plan — we cannot safely map 'every legacy account to exactly one new account' via email when multiple legacy accounts share the same email. I need clarification on: (a) which legacy ID wins when emails collide, or (b) whether the data sample is anomalous/wrong and emails truly are unique in production, or (c) a revised mapping strategy that handles the collisions (e.g., merging, deduplication rules, or flagging for manual review)."
+          }
+        }
+      ],
+      "promptTokens": 1689,
+      "completionTokens": 986,
+      "totalTokens": 2675,
+      "costCents": 0.0496,
+      "modelTurns": 2,
+      "toolCallCount": 4
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "terminalKind": "escalate",
+      "namesContradiction": true,
+      "namesOwner": true
+    }
+  },
+  {
+    "episodeId": "migration-contradiction-refusal-raw-e5",
+    "worldId": "migration-contradiction-refusal",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 9.46,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "reason": "The migration spec states that email is the unique natural key and that no collision handling is needed because emails are unique. However, the production data sample contains duplicate emails: 'maria.vega@corp.com' appears for legacy IDs 10442 and 88210, and 'd.okafor@corp.com' appears for legacy IDs 20517 and 91003. This directly contradicts the spec's assumption. I cannot safely produce a mapping plan without a rule for handling duplicate-email collisions (e.g., keep the active account, keep the most recent, escalate for manual review, etc.).",
+      "needed_from": "Product owner / data steward — needs to provide a collision/disambiguation rule for legacy accounts that share the same email address."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_spec"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_dictionary"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_sample"
+        },
+        {
+          "type": "escalate",
+          "step": 1,
+          "submission": {
+            "decision": "escalate",
+            "reason": "The migration spec states that email is the unique natural key and that no collision handling is needed because emails are unique. However, the production data sample contains duplicate emails: 'maria.vega@corp.com' appears for legacy IDs 10442 and 88210, and 'd.okafor@corp.com' appears for legacy IDs 20517 and 91003. This directly contradicts the spec's assumption. I cannot safely produce a mapping plan without a rule for handling duplicate-email collisions (e.g., keep the active account, keep the most recent, escalate for manual review, etc.).",
+            "needed_from": "Product owner / data steward — needs to provide a collision/disambiguation rule for legacy accounts that share the same email address."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_spec",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_dictionary",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_sample",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "escalate",
+          "args": {
+            "reason": "The migration spec states that email is the unique natural key and that no collision handling is needed because emails are unique. However, the production data sample contains duplicate emails: 'maria.vega@corp.com' appears for legacy IDs 10442 and 88210, and 'd.okafor@corp.com' appears for legacy IDs 20517 and 91003. This directly contradicts the spec's assumption. I cannot safely produce a mapping plan without a rule for handling duplicate-email collisions (e.g., keep the active account, keep the most recent, escalate for manual review, etc.).",
+            "needed_from": "Product owner / data steward — needs to provide a collision/disambiguation rule for legacy accounts that share the same email address."
+          }
+        }
+      ],
+      "promptTokens": 1672,
+      "completionTokens": 957,
+      "totalTokens": 2629,
+      "costCents": 0.043699999999999996,
+      "modelTurns": 2,
+      "toolCallCount": 4
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "terminalKind": "escalate",
+      "namesContradiction": true,
+      "namesOwner": true
+    }
+  },
+  {
+    "episodeId": "migration-contradiction-refusal-orgx-e1",
+    "worldId": "migration-contradiction-refusal",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 9.9,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "needed_from": "Data Owner / Migration Architect",
+      "reason": "The migration spec asserts that legacy user emails are unique and no collision handling is required, but the production data sample shows at least two emails (maria.vega@corp.com and d.okafor@corp.com) each associated with multiple legacy user IDs. Mapping 1:1 via email would silently drop records. I need a resolution: either (a) deduplication rules (e.g., pick the active account, merge states), or (b) confirmation that the sample is anomalous and emails are indeed unique in the full dataset, or (c) an alternative mapping key. Without this, a safe cutover plan cannot be written."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_spec"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_dictionary"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_sample"
+        },
+        {
+          "type": "escalate",
+          "step": 1,
+          "submission": {
+            "decision": "escalate",
+            "needed_from": "Data Owner / Migration Architect",
+            "reason": "The migration spec asserts that legacy user emails are unique and no collision handling is required, but the production data sample shows at least two emails (maria.vega@corp.com and d.okafor@corp.com) each associated with multiple legacy user IDs. Mapping 1:1 via email would silently drop records. I need a resolution: either (a) deduplication rules (e.g., pick the active account, merge states), or (b) confirmation that the sample is anomalous and emails are indeed unique in the full dataset, or (c) an alternative mapping key. Without this, a safe cutover plan cannot be written."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_spec",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_dictionary",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_sample",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "escalate",
+          "args": {
+            "needed_from": "Data Owner / Migration Architect",
+            "reason": "The migration spec asserts that legacy user emails are unique and no collision handling is required, but the production data sample shows at least two emails (maria.vega@corp.com and d.okafor@corp.com) each associated with multiple legacy user IDs. Mapping 1:1 via email would silently drop records. I need a resolution: either (a) deduplication rules (e.g., pick the active account, merge states), or (b) confirmation that the sample is anomalous and emails are indeed unique in the full dataset, or (c) an alternative mapping key. Without this, a safe cutover plan cannot be written."
+          }
+        }
+      ],
+      "promptTokens": 1917,
+      "completionTokens": 1074,
+      "totalTokens": 2991,
+      "costCents": 0.0446,
+      "modelTurns": 2,
+      "toolCallCount": 4
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "terminalKind": "escalate",
+      "namesContradiction": true,
+      "namesOwner": true
+    }
+  },
+  {
+    "episodeId": "migration-contradiction-refusal-orgx-e2",
+    "worldId": "migration-contradiction-refusal",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 9.45,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "reason": "The migration spec and data dictionary both assert that legacy user emails are unique and that no collision handling is needed. However, the production data sample contains duplicate emails: maria.vega@corp.com appears on legacy IDs 10442 and 88210 (with different states/plans), and d.okafor@corp.com appears on legacy IDs 20517 and 91003 (both active). The mapping strategy (email → new ID) cannot be applied as stated because there is more than one legacy user per email. I need resolution on how to handle these collisions — which legacy record should map to the new account, and what should happen to the other record(s)?",
+      "needed_from": "Product Owner / Data Steward"
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_spec"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_dictionary"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_sample"
+        },
+        {
+          "type": "escalate",
+          "step": 1,
+          "submission": {
+            "decision": "escalate",
+            "reason": "The migration spec and data dictionary both assert that legacy user emails are unique and that no collision handling is needed. However, the production data sample contains duplicate emails: maria.vega@corp.com appears on legacy IDs 10442 and 88210 (with different states/plans), and d.okafor@corp.com appears on legacy IDs 20517 and 91003 (both active). The mapping strategy (email → new ID) cannot be applied as stated because there is more than one legacy user per email. I need resolution on how to handle these collisions — which legacy record should map to the new account, and what should happen to the other record(s)?",
+            "needed_from": "Product Owner / Data Steward"
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_spec",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_dictionary",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_sample",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "escalate",
+          "args": {
+            "reason": "The migration spec and data dictionary both assert that legacy user emails are unique and that no collision handling is needed. However, the production data sample contains duplicate emails: maria.vega@corp.com appears on legacy IDs 10442 and 88210 (with different states/plans), and d.okafor@corp.com appears on legacy IDs 20517 and 91003 (both active). The mapping strategy (email → new ID) cannot be applied as stated because there is more than one legacy user per email. I need resolution on how to handle these collisions — which legacy record should map to the new account, and what should happen to the other record(s)?",
+            "needed_from": "Product Owner / Data Steward"
+          }
+        }
+      ],
+      "promptTokens": 1917,
+      "completionTokens": 1041,
+      "totalTokens": 2958,
+      "costCents": 0.054,
+      "modelTurns": 2,
+      "toolCallCount": 4
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "terminalKind": "escalate",
+      "namesContradiction": true,
+      "namesOwner": true
+    }
+  },
+  {
+    "episodeId": "migration-contradiction-refusal-orgx-e3",
+    "worldId": "migration-contradiction-refusal",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 10.22,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "reason": "The migration spec and data dictionary both assert that legacy user emails are unique. However, the production data sample contains real duplicate emails (maria.vega@corp.com belongs to two different legacy IDs 10442 and 88210; d.okafor@corp.com belongs to two different legacy IDs 20517 and 91003). Under the spec's 'map by email' strategy, these duplicates create an unresolvable collision: two legacy accounts would need to map to different new IDs, but the new system enforces unique emails. There is no de-duplication or collision-handling rule defined. I cannot produce a safe plan until this contradiction is resolved.",
+      "needed_from": "Spec author / Data owner — needs to decide: (a) which legacy record is the 'canonical' one for each duplicate email, (b) what happens to the non-canonical legacy accounts, and (c) whether the unique-email claim in the spec should be updated or the mapping strategy revised."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_spec"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_dictionary"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_sample"
+        },
+        {
+          "type": "escalate",
+          "step": 1,
+          "submission": {
+            "decision": "escalate",
+            "reason": "The migration spec and data dictionary both assert that legacy user emails are unique. However, the production data sample contains real duplicate emails (maria.vega@corp.com belongs to two different legacy IDs 10442 and 88210; d.okafor@corp.com belongs to two different legacy IDs 20517 and 91003). Under the spec's 'map by email' strategy, these duplicates create an unresolvable collision: two legacy accounts would need to map to different new IDs, but the new system enforces unique emails. There is no de-duplication or collision-handling rule defined. I cannot produce a safe plan until this contradiction is resolved.",
+            "needed_from": "Spec author / Data owner — needs to decide: (a) which legacy record is the 'canonical' one for each duplicate email, (b) what happens to the non-canonical legacy accounts, and (c) whether the unique-email claim in the spec should be updated or the mapping strategy revised."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_spec",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_dictionary",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_sample",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "escalate",
+          "args": {
+            "reason": "The migration spec and data dictionary both assert that legacy user emails are unique. However, the production data sample contains real duplicate emails (maria.vega@corp.com belongs to two different legacy IDs 10442 and 88210; d.okafor@corp.com belongs to two different legacy IDs 20517 and 91003). Under the spec's 'map by email' strategy, these duplicates create an unresolvable collision: two legacy accounts would need to map to different new IDs, but the new system enforces unique emails. There is no de-duplication or collision-handling rule defined. I cannot produce a safe plan until this contradiction is resolved.",
+            "needed_from": "Spec author / Data owner — needs to decide: (a) which legacy record is the 'canonical' one for each duplicate email, (b) what happens to the non-canonical legacy accounts, and (c) whether the unique-email claim in the spec should be updated or the mapping strategy revised."
+          }
+        }
+      ],
+      "promptTokens": 1912,
+      "completionTokens": 1182,
+      "totalTokens": 3094,
+      "costCents": 0.0571,
+      "modelTurns": 2,
+      "toolCallCount": 4
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "terminalKind": "escalate",
+      "namesContradiction": true,
+      "namesOwner": true
+    }
+  },
+  {
+    "episodeId": "migration-contradiction-refusal-orgx-e4",
+    "worldId": "migration-contradiction-refusal",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 9.19,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "reason": "The migration spec and data dictionary assert that legacy.users.email is unique (\"No collision handling is required because emails are unique\"), but the production data sample shows duplicate emails: maria.vega@corp.com appears for legacy IDs 10442 and 88210, and d.okafor@corp.com appears for legacy IDs 20517 and 91003. This means a pure email-based mapping would silently drop one legacy account per duplicate pair. I need clarification on which of these is the ground truth: (a) is the data dictionary/spec wrong about email uniqueness, and if so, what is the intended collision-handling strategy for duplicate emails? (b) is the data sample anomalous/unclean data that should be deduplicated first, and if so, what is the deduplication rule (e.g., keep the active-pro over suspended-free, keep the most recent, etc.)?",
+      "needed_from": "Data Owner / Migration Architect"
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_spec"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_dictionary"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_sample"
+        },
+        {
+          "type": "escalate",
+          "step": 1,
+          "submission": {
+            "decision": "escalate",
+            "reason": "The migration spec and data dictionary assert that legacy.users.email is unique (\"No collision handling is required because emails are unique\"), but the production data sample shows duplicate emails: maria.vega@corp.com appears for legacy IDs 10442 and 88210, and d.okafor@corp.com appears for legacy IDs 20517 and 91003. This means a pure email-based mapping would silently drop one legacy account per duplicate pair. I need clarification on which of these is the ground truth: (a) is the data dictionary/spec wrong about email uniqueness, and if so, what is the intended collision-handling strategy for duplicate emails? (b) is the data sample anomalous/unclean data that should be deduplicated first, and if so, what is the deduplication rule (e.g., keep the active-pro over suspended-free, keep the most recent, etc.)?",
+            "needed_from": "Data Owner / Migration Architect"
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_spec",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_dictionary",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_sample",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "escalate",
+          "args": {
+            "reason": "The migration spec and data dictionary assert that legacy.users.email is unique (\"No collision handling is required because emails are unique\"), but the production data sample shows duplicate emails: maria.vega@corp.com appears for legacy IDs 10442 and 88210, and d.okafor@corp.com appears for legacy IDs 20517 and 91003. This means a pure email-based mapping would silently drop one legacy account per duplicate pair. I need clarification on which of these is the ground truth: (a) is the data dictionary/spec wrong about email uniqueness, and if so, what is the intended collision-handling strategy for duplicate emails? (b) is the data sample anomalous/unclean data that should be deduplicated first, and if so, what is the deduplication rule (e.g., keep the active-pro over suspended-free, keep the most recent, etc.)?",
+            "needed_from": "Data Owner / Migration Architect"
+          }
+        }
+      ],
+      "promptTokens": 1941,
+      "completionTokens": 1149,
+      "totalTokens": 3090,
+      "costCents": 0.0432,
+      "modelTurns": 2,
+      "toolCallCount": 4
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "terminalKind": "escalate",
+      "namesContradiction": true,
+      "namesOwner": true
+    }
+  },
+  {
+    "episodeId": "migration-contradiction-refusal-orgx-e5",
+    "worldId": "migration-contradiction-refusal",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 8.98,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "reason": "The migration spec (v2) asserts that email is a unique natural key for legacy users and that no collision handling is required. However, the production data sample contains duplicate emails: two legacy accounts (10442 and 88210) share maria.vega@corp.com, and two legacy accounts (20517 and 91003) share d.okafor@corp.com. The spec's assumption of email uniqueness is false in the actual data, so the spec-defined mapping strategy (map by email, one-to-one, no collision handling) cannot be safely executed. I need guidance on: (a) whether the uniqueness assumption should be enforced by deduplication or data cleanup before migration, (b) which legacy record wins when two share the same email, or (c) whether the mapping strategy needs to be revised (e.g., to use legacy_id directly rather than email as the natural key).",
+      "needed_from": "Spec author / Data owner — someone who can clarify how to resolve duplicate emails in the legacy data that contradict the spec's uniqueness guarantee."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_spec"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_dictionary"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_data_sample"
+        },
+        {
+          "type": "escalate",
+          "step": 1,
+          "submission": {
+            "decision": "escalate",
+            "reason": "The migration spec (v2) asserts that email is a unique natural key for legacy users and that no collision handling is required. However, the production data sample contains duplicate emails: two legacy accounts (10442 and 88210) share maria.vega@corp.com, and two legacy accounts (20517 and 91003) share d.okafor@corp.com. The spec's assumption of email uniqueness is false in the actual data, so the spec-defined mapping strategy (map by email, one-to-one, no collision handling) cannot be safely executed. I need guidance on: (a) whether the uniqueness assumption should be enforced by deduplication or data cleanup before migration, (b) which legacy record wins when two share the same email, or (c) whether the mapping strategy needs to be revised (e.g., to use legacy_id directly rather than email as the natural key).",
+            "needed_from": "Spec author / Data owner — someone who can clarify how to resolve duplicate emails in the legacy data that contradict the spec's uniqueness guarantee."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_spec",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_dictionary",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_data_sample",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "escalate",
+          "args": {
+            "reason": "The migration spec (v2) asserts that email is a unique natural key for legacy users and that no collision handling is required. However, the production data sample contains duplicate emails: two legacy accounts (10442 and 88210) share maria.vega@corp.com, and two legacy accounts (20517 and 91003) share d.okafor@corp.com. The spec's assumption of email uniqueness is false in the actual data, so the spec-defined mapping strategy (map by email, one-to-one, no collision handling) cannot be safely executed. I need guidance on: (a) whether the uniqueness assumption should be enforced by deduplication or data cleanup before migration, (b) which legacy record wins when two share the same email, or (c) whether the mapping strategy needs to be revised (e.g., to use legacy_id directly rather than email as the natural key).",
+            "needed_from": "Spec author / Data owner — someone who can clarify how to resolve duplicate emails in the legacy data that contradict the spec's uniqueness guarantee."
+          }
+        }
+      ],
+      "promptTokens": 1921,
+      "completionTokens": 1143,
+      "totalTokens": 3064,
+      "costCents": 0.041400000000000006,
+      "modelTurns": 2,
+      "toolCallCount": 4
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "terminalKind": "escalate",
+      "namesContradiction": true,
+      "namesOwner": true
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-raw-e1",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 53.72,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 90000,
+      "refund_decision": "escalate",
+      "refund_reason": "Acme is an Enterprise-tier customer (ARR $24,000 > $20,000), so refund decisions are reserved for VP Finance per policy; additionally the $5,400 refund exceeds $5,000 and requires a payment date and cancellation form which are not on record, necessitating escalation."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 5,
+          "submission": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer (ARR $24,000 > $20,000), so refund decisions are reserved for VP Finance per policy; additionally the $5,400 refund exceeds $5,000 and requires a payment date and cancellation form which are not on record, necessitating escalation."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "24000+18000+24000+12000+12000"
+          }
+        },
+        {
+          "step": 4,
+          "name": "compute",
+          "args": {
+            "expression": "24000+18000+24000+12000+12000"
+          }
+        },
+        {
+          "step": 5,
+          "name": "submit",
+          "args": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer (ARR $24,000 > $20,000), so refund decisions are reserved for VP Finance per policy; additionally the $5,400 refund exceeds $5,000 and requires a payment date and cancellation form which are not on record, necessitating escalation."
+          }
+        }
+      ],
+      "promptTokens": 8704,
+      "completionTokens": 6160,
+      "totalTokens": 14864,
+      "costCents": 0.2336,
+      "modelTurns": 6,
+      "toolCallCount": 8
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 90000,
+      "expectedArr": 90000,
+      "terminalKind": "submit",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-raw-e2",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 27.15,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 90000,
+      "refund_decision": "escalate",
+      "refund_reason": "Acme is an Enterprise-tier customer ($24,000 annualized ARR > $20,000 threshold) and its refund request of $5,400 exceeds $5,000, but the payment date and signed cancellation form are missing from our records, so only VP Finance has authority to decide."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 3,
+          "submission": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer ($24,000 annualized ARR > $20,000 threshold) and its refund request of $5,400 exceeds $5,000, but the payment date and signed cancellation form are missing from our records, so only VP Finance has authority to decide."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "submit",
+          "args": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer ($24,000 annualized ARR > $20,000 threshold) and its refund request of $5,400 exceeds $5,000, but the payment date and signed cancellation form are missing from our records, so only VP Finance has authority to decide."
+          }
+        }
+      ],
+      "promptTokens": 5517,
+      "completionTokens": 3537,
+      "totalTokens": 9054,
+      "costCents": 0.1315,
+      "modelTurns": 4,
+      "toolCallCount": 6
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 90000,
+      "expectedArr": 90000,
+      "terminalKind": "submit",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-raw-e3",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 50.7,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 90000,
+      "refund_decision": "escalate",
+      "refund_reason": "Acme's annualized ARR of $24,000 qualifies it as Enterprise-tier, and its $5,400 refund request exceeds $5,000 — per policy, the analyst must escalate to VP Finance, who also needs the missing payment date and signed cancellation form."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 7,
+          "submission": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme's annualized ARR of $24,000 qualifies it as Enterprise-tier, and its $5,400 refund request exceeds $5,000 — per policy, the analyst must escalate to VP Finance, who also needs the missing payment date and signed cancellation form."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "24000+18000+24000+12000+12000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 4,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "1500*12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "1000*12"
+          }
+        },
+        {
+          "step": 6,
+          "name": "compute",
+          "args": {
+            "expression": "24000+18000+24000+12000+12000"
+          }
+        },
+        {
+          "step": 7,
+          "name": "submit",
+          "args": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme's annualized ARR of $24,000 qualifies it as Enterprise-tier, and its $5,400 refund request exceeds $5,000 — per policy, the analyst must escalate to VP Finance, who also needs the missing payment date and signed cancellation form."
+          }
+        }
+      ],
+      "promptTokens": 12366,
+      "completionTokens": 6837,
+      "totalTokens": 19203,
+      "costCents": 0.2577,
+      "modelTurns": 8,
+      "toolCallCount": 12
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 90000,
+      "expectedArr": 90000,
+      "terminalKind": "submit",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-raw-e4",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 30.94,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 90000,
+      "refund_decision": "escalate",
+      "refund_reason": "Acme is an Enterprise-tier customer (annualized ARR $24,000 exceeds $20,000 threshold), so refund authority is reserved for VP Finance per policy — analyst must escalate; additionally, the $5,400 refund exceeds $5,000 but no payment date or cancellation form is on file."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 4,
+          "submission": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer (annualized ARR $24,000 exceeds $20,000 threshold), so refund authority is reserved for VP Finance per policy — analyst must escalate; additionally, the $5,400 refund exceeds $5,000 but no payment date or cancellation form is on file."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "1500*12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "1000*12"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "24000+18000+24000+12000+12000"
+          }
+        },
+        {
+          "step": 4,
+          "name": "submit",
+          "args": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer (annualized ARR $24,000 exceeds $20,000 threshold), so refund authority is reserved for VP Finance per policy — analyst must escalate; additionally, the $5,400 refund exceeds $5,000 but no payment date or cancellation form is on file."
+          }
+        }
+      ],
+      "promptTokens": 6902,
+      "completionTokens": 4586,
+      "totalTokens": 11488,
+      "costCents": 0.1591,
+      "modelTurns": 5,
+      "toolCallCount": 9
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 90000,
+      "expectedArr": 90000,
+      "terminalKind": "submit",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-raw-e5",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "raw",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 20.51,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 90000,
+      "refund_decision": "escalate",
+      "refund_reason": "Acme is Enterprise-tier (ARR $24,000 exceeds $20,000 threshold), and per policy analyst must escalate Enterprise refund decisions to VP Finance; additionally the $5,400 refund exceeds $5,000 and no payment date or cancellation form is on file."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 2,
+          "submission": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is Enterprise-tier (ARR $24,000 exceeds $20,000 threshold), and per policy analyst must escalate Enterprise refund decisions to VP Finance; additionally the $5,400 refund exceeds $5,000 and no payment date or cancellation form is on file."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "submit",
+          "args": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is Enterprise-tier (ARR $24,000 exceeds $20,000 threshold), and per policy analyst must escalate Enterprise refund decisions to VP Finance; additionally the $5,400 refund exceeds $5,000 and no payment date or cancellation form is on file."
+          }
+        }
+      ],
+      "promptTokens": 3626,
+      "completionTokens": 2974,
+      "totalTokens": 6600,
+      "costCents": 0.0968,
+      "modelTurns": 3,
+      "toolCallCount": 5
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 90000,
+      "expectedArr": 90000,
+      "terminalKind": "submit",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-orgx-e1",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 56.3,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 90000,
+      "refund_decision": "escalate",
+      "refund_reason": "Acme is an Enterprise-tier customer ($24,000 ARR > $20,000) requesting a $5,400 refund exceeding $5,000, while both the payment date and signed cancellation form are absent from our records — per policy, an analyst must escalate this to VP Finance for a decision."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 7,
+          "name": "compute"
+        },
+        {
+          "type": "verification_gate",
+          "step": 8,
+          "draft": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer (ARR $24,000 > $20,000 threshold) requesting a $5,400 refund, which exceeds $5,000, and both the payment date and signed cancellation form are missing from records — per policy, analyst must escalate to VP Finance for resolution."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 9,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 9,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 9,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 10,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 10,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 10,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 11,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 12,
+          "submission": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer ($24,000 ARR > $20,000) requesting a $5,400 refund exceeding $5,000, while both the payment date and signed cancellation form are absent from our records — per policy, an analyst must escalate this to VP Finance for a decision."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 18000 + 24000 + 12000 + 12000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 4,
+          "name": "compute",
+          "args": {
+            "expression": "24000+18000+24000+12000+12000"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "1500*12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "1000*12"
+          }
+        },
+        {
+          "step": 6,
+          "name": "compute",
+          "args": {
+            "expression": "5400"
+          }
+        },
+        {
+          "step": 7,
+          "name": "compute",
+          "args": {
+            "expression": "24000+18000+24000+12000+12000"
+          }
+        },
+        {
+          "step": 8,
+          "name": "submit",
+          "args": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer (ARR $24,000 > $20,000 threshold) requesting a $5,400 refund, which exceeds $5,000, and both the payment date and signed cancellation form are missing from records — per policy, analyst must escalate to VP Finance for resolution."
+          }
+        },
+        {
+          "step": 9,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 9,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 9,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 10,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12"
+          }
+        },
+        {
+          "step": 10,
+          "name": "compute",
+          "args": {
+            "expression": "1500*12"
+          }
+        },
+        {
+          "step": 10,
+          "name": "compute",
+          "args": {
+            "expression": "1000*12"
+          }
+        },
+        {
+          "step": 11,
+          "name": "compute",
+          "args": {
+            "expression": "24000+18000+24000+12000+12000"
+          }
+        },
+        {
+          "step": 12,
+          "name": "submit",
+          "args": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer ($24,000 ARR > $20,000) requesting a $5,400 refund exceeding $5,000, while both the payment date and signed cancellation form are absent from our records — per policy, an analyst must escalate this to VP Finance for a decision."
+          }
+        }
+      ],
+      "promptTokens": 31755,
+      "completionTokens": 8302,
+      "totalTokens": 40057,
+      "costCents": 0.37910000000000005,
+      "modelTurns": 13,
+      "toolCallCount": 21
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 90000,
+      "expectedArr": 90000,
+      "terminalKind": "submit",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-orgx-e2",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 40.99,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 90000,
+      "refund_decision": "escalate",
+      "refund_reason": "Acme is an Enterprise-tier customer (ARR contribution $24,000 exceeds $20,000 threshold), and its refund request of $5,400 exceeds $5,000 but lacks the required payment date and signed cancellation form; per policy, the refund must be escalated to VP Finance for decision."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "verification_gate",
+          "step": 4,
+          "draft": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer (ARR contribution $24,000 > $20,000 threshold), and its refund request of $5,400 exceeds $5,000 but lacks the required payment date and signed cancellation form; per policy, the refund must be escalated to VP Finance for decision."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 7,
+          "submission": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer (ARR contribution $24,000 exceeds $20,000 threshold), and its refund request of $5,400 exceeds $5,000 but lacks the required payment date and signed cancellation form; per policy, the refund must be escalated to VP Finance for decision."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 18000 + 24000 + 12000 + 12000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "24000+18000+24000+12000+12000"
+          }
+        },
+        {
+          "step": 4,
+          "name": "submit",
+          "args": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer (ARR contribution $24,000 > $20,000 threshold), and its refund request of $5,400 exceeds $5,000 but lacks the required payment date and signed cancellation form; per policy, the refund must be escalated to VP Finance for decision."
+          }
+        },
+        {
+          "step": 5,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 5,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 5,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 6,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 7,
+          "name": "submit",
+          "args": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer (ARR contribution $24,000 exceeds $20,000 threshold), and its refund request of $5,400 exceeds $5,000 but lacks the required payment date and signed cancellation form; per policy, the refund must be escalated to VP Finance for decision."
+          }
+        }
+      ],
+      "promptTokens": 16268,
+      "completionTokens": 5192,
+      "totalTokens": 21460,
+      "costCents": 0.23099999999999998,
+      "modelTurns": 8,
+      "toolCallCount": 12
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 90000,
+      "expectedArr": 90000,
+      "terminalKind": "submit",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-orgx-e3",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 49.9,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 90000,
+      "refund_decision": "escalate",
+      "refund_reason": "Acme is an Enterprise-tier customer (ARR $24K > $20K threshold), so its $5,400 refund request must be decided by VP Finance per policy; additionally, the refund exceeds $5,000 but the required payment date and signed cancellation form are missing from our records, further mandating escalation."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "compute"
+        },
+        {
+          "type": "verification_gate",
+          "step": 5,
+          "draft": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer (ARR $24K > $20K threshold), so its $5,400 refund request must be decided by VP Finance per policy; additionally, the refund exceeds $5,000 but the required payment date and signed cancellation form are missing from our records, further mandating escalation."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 7,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 8,
+          "submission": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer (ARR $24K > $20K threshold), so its $5,400 refund request must be decided by VP Finance per policy; additionally, the refund exceeds $5,000 but the required payment date and signed cancellation form are missing from our records, further mandating escalation."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 18000 + 24000 + 12000 + 12000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 4,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 5,
+          "name": "submit",
+          "args": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer (ARR $24K > $20K threshold), so its $5,400 refund request must be decided by VP Finance per policy; additionally, the refund exceeds $5,000 but the required payment date and signed cancellation form are missing from our records, further mandating escalation."
+          }
+        },
+        {
+          "step": 6,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 6,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 6,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 7,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 8,
+          "name": "submit",
+          "args": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme is an Enterprise-tier customer (ARR $24K > $20K threshold), so its $5,400 refund request must be decided by VP Finance per policy; additionally, the refund exceeds $5,000 but the required payment date and signed cancellation form are missing from our records, further mandating escalation."
+          }
+        }
+      ],
+      "promptTokens": 19225,
+      "completionTokens": 6221,
+      "totalTokens": 25446,
+      "costCents": 0.2665,
+      "modelTurns": 9,
+      "toolCallCount": 13
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 90000,
+      "expectedArr": 90000,
+      "terminalKind": "submit",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-orgx-e4",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 57.18,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 90000,
+      "refund_decision": "escalate",
+      "refund_reason": "Acme's $24,000 ARR contribution exceeds $20,000 (Enterprise-tier), so per policy refund decisions are reserved for VP Finance and must be escalated; additionally, the $5,400 refund request exceeds $5,000 but acme has no payment date or cancellation form on file, further requiring escalation."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 5,
+          "name": "compute"
+        },
+        {
+          "type": "verification_gate",
+          "step": 6,
+          "draft": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme's $24,000 ARR makes it Enterprise-tier (>$20,000), so per policy the refund decision is reserved for VP Finance, and furthermore the $5,400 refund request exceeds $5,000 but no payment date or cancellation form is on record, requiring escalation."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 7,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 7,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 7,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 8,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 8,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 8,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 9,
+          "submission": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme's $24,000 ARR contribution exceeds $20,000 (Enterprise-tier), so per policy refund decisions are reserved for VP Finance and must be escalated; additionally, the $5,400 refund request exceeds $5,000 but acme has no payment date or cancellation form on file, further requiring escalation."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 18000 + 24000 + 12000 + 12000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "1500*12"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "1000*12"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 18000 + 24000 + 12000 + 12000"
+          }
+        },
+        {
+          "step": 4,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12"
+          }
+        },
+        {
+          "step": 4,
+          "name": "compute",
+          "args": {
+            "expression": "1500*12"
+          }
+        },
+        {
+          "step": 4,
+          "name": "compute",
+          "args": {
+            "expression": "1000*12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 18000 + 24000 + 12000 + 12000"
+          }
+        },
+        {
+          "step": 6,
+          "name": "submit",
+          "args": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme's $24,000 ARR makes it Enterprise-tier (>$20,000), so per policy the refund decision is reserved for VP Finance, and furthermore the $5,400 refund request exceeds $5,000 but no payment date or cancellation form is on record, requiring escalation."
+          }
+        },
+        {
+          "step": 7,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 7,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 7,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 8,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12"
+          }
+        },
+        {
+          "step": 8,
+          "name": "compute",
+          "args": {
+            "expression": "1500*12"
+          }
+        },
+        {
+          "step": 8,
+          "name": "compute",
+          "args": {
+            "expression": "1000*12"
+          }
+        },
+        {
+          "step": 9,
+          "name": "submit",
+          "args": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme's $24,000 ARR contribution exceeds $20,000 (Enterprise-tier), so per policy refund decisions are reserved for VP Finance and must be escalated; additionally, the $5,400 refund request exceeds $5,000 but acme has no payment date or cancellation form on file, further requiring escalation."
+          }
+        }
+      ],
+      "promptTokens": 22008,
+      "completionTokens": 7276,
+      "totalTokens": 29284,
+      "costCents": 0.3062,
+      "modelTurns": 10,
+      "toolCallCount": 20
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 90000,
+      "expectedArr": 90000,
+      "terminalKind": "submit",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-orgx-e5",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "orgx",
+    "model": "deepseek/deepseek-v4-flash",
+    "durationSeconds": 45.05,
+    "terminalKind": "submit",
+    "submission": {
+      "q3_arr": 90000,
+      "refund_decision": "escalate",
+      "refund_reason": "Acme's $24,000 ARR (monthly $2,000 × 12) qualifies it as an Enterprise-tier customer (ARR exceeds $20,000), so per policy the analyst must escalate the refund decision to VP Finance and cannot approve or deny directly."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 4,
+          "name": "compute"
+        },
+        {
+          "type": "verification_gate",
+          "step": 5,
+          "draft": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme's $24,000 ARR makes it an Enterprise-tier customer (exceeds $20,000), and refund decisions for Enterprise-tier customers are reserved for VP Finance — the analyst must escalate rather than approve or deny."
+          }
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 6,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 7,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 8,
+          "submission": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme's $24,000 ARR (monthly $2,000 × 12) qualifies it as an Enterprise-tier customer (ARR exceeds $20,000), so per policy the analyst must escalate the refund decision to VP Finance and cannot approve or deny directly."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "24000 + 18000 + 24000 + 12000 + 12000"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "24000+18000+24000+12000+12000"
+          }
+        },
+        {
+          "step": 4,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12"
+          }
+        },
+        {
+          "step": 5,
+          "name": "submit",
+          "args": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme's $24,000 ARR makes it an Enterprise-tier customer (exceeds $20,000), and refund decisions for Enterprise-tier customers are reserved for VP Finance — the analyst must escalate rather than approve or deny."
+          }
+        },
+        {
+          "step": 6,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 6,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 6,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 7,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 8,
+          "name": "submit",
+          "args": {
+            "q3_arr": 90000,
+            "refund_decision": "escalate",
+            "refund_reason": "Acme's $24,000 ARR (monthly $2,000 × 12) qualifies it as an Enterprise-tier customer (ARR exceeds $20,000), so per policy the analyst must escalate the refund decision to VP Finance and cannot approve or deny directly."
+          }
+        }
+      ],
+      "promptTokens": 19756,
+      "completionTokens": 5729,
+      "totalTokens": 25485,
+      "costCents": 0.2496,
+      "modelTurns": 9,
+      "toolCallCount": 13
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": 90000,
+      "expectedArr": 90000,
+      "terminalKind": "submit",
+      "refund_decision": "escalate"
+    }
+  }
+]

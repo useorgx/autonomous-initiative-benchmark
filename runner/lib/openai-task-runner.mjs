@@ -1,6 +1,7 @@
 import { performance } from 'node:perf_hooks';
 
 import { estimateCostCents } from './openai-pricing.mjs';
+import { chatUsageCostCents, getProvider, normalizeChatUsage, requireProviderKey } from './providers.mjs';
 import { clampNumber, normalizeCriterionScores, scoreCriteria } from './scoring.mjs';
 
 const MAX_ATTEMPTS = 5;
@@ -17,11 +18,15 @@ export async function runOpenAITask(task, runId, options) {
       const response = await createResponse(task, prompt, options);
       const durationSeconds = Number(((performance.now() - started) / 1000).toFixed(2));
       const parsed = parseJsonObject(extractResponseText(response));
+      const hidden = task.hideCriteriaFromGenerator === true;
       const artifactMarkdown = String(parsed.artifactMarkdown || '').trim();
       const criterionScores = normalizeCriterionScores(task, parsed.criterionScores);
-      const qualityScore = scoreCriteria(task.acceptanceCriteria, criterionScores);
+      const qualityScore = hidden ? 0 : scoreCriteria(task.acceptanceCriteria, criterionScores);
       const completeness = clampNumber(parsed.completeness ?? qualityScore / 100, 0, 1);
-      const validationError = validateRunResult(response, artifactMarkdown, completeness, qualityScore, options);
+      const validationError = validateRunResult(response, artifactMarkdown, completeness, qualityScore, {
+        ...options,
+        skipCriterionCheck: hidden,
+      });
 
       if (validationError) {
         lastError = validationError;
@@ -34,12 +39,12 @@ export async function runOpenAITask(task, runId, options) {
         taskId: task.id,
         status: response.status,
         model: options.model,
-        provider: 'openai',
+        provider: options.provider ?? 'openai',
         startedAt,
         completedAt: new Date().toISOString(),
         durationSeconds,
         usage: response.usage ?? {},
-        costCents: estimateCostCents(options.model, response.usage ?? {}),
+        costCents: response.costCents ?? estimateCostCents(options.model, response.usage ?? {}),
         qualityScore,
         completeness,
         autonomousCompleted: true,
@@ -70,65 +75,127 @@ function sleep(ms) {
 }
 
 async function createResponse(task, prompt, options) {
+  const providerName = options.provider ?? 'openai';
+  const provider = getProvider(providerName);
+  const apiKey = requireProviderKey(providerName);
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), options.timeoutMs);
 
+  const payload =
+    provider.api === 'responses'
+      ? {
+          model: options.model,
+          input: prompt,
+          reasoning: { effort: options.reasoningEffort ?? 'minimal' },
+          max_output_tokens: options.maxOutputTokens,
+          text: { format: buildOutputFormat(task) },
+        }
+      : {
+          model: options.model,
+          messages: [{ role: 'user', content: prompt }],
+          response_format: { type: 'json_object' },
+          reasoning: { effort: options.reasoningEffort ?? 'low' },
+          max_tokens: options.maxOutputTokens,
+        };
+
   try {
-    const response = await fetch('https://api.openai.com/v1/responses', {
+    const response = await fetch(provider.url, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        model: options.model,
-        input: prompt,
-        reasoning: { effort: 'minimal' },
-        max_output_tokens: options.maxOutputTokens,
-        text: { format: buildOutputFormat(task) },
-      }),
+      body: JSON.stringify(payload),
       signal: controller.signal,
     });
 
     const body = await response.text();
     if (!response.ok) {
-      throw new Error(`OpenAI API ${response.status}: ${body.slice(0, 1000)}`);
+      throw new Error(`${providerName} API ${response.status}: ${body.slice(0, 1000)}`);
     }
 
-    return JSON.parse(body);
+    const parsed = JSON.parse(body);
+    return provider.api === 'responses' ? parsed : normalizeChatResponse(parsed);
   } finally {
     clearTimeout(timeout);
   }
 }
 
+// Chat-completions response -> the subset of the Responses API shape this
+// module reads (status, output_text, usage, costCents).
+function normalizeChatResponse(response) {
+  const choice = response.choices?.[0];
+  const content = choice?.message?.content ?? '';
+  if (!content.trim()) {
+    throw new Error(
+      `chat generation returned empty content (finish_reason: ${choice?.finish_reason ?? 'unknown'})`
+    );
+  }
+  return {
+    status: 'completed',
+    output_text: content,
+    usage: normalizeChatUsage(response.usage ?? {}),
+    costCents: chatUsageCostCents(response.usage ?? {}),
+  };
+}
+
 function buildPrompt(task, minArtifactChars, lastError, attempt) {
-  const criteria = task.acceptanceCriteria
-    .map((criterion) => `- ${criterion.id} (${criterion.weight}): ${criterion.description}`)
-    .join('\n');
+  // Hard-tier tasks withhold acceptance criteria: the benchmark measures
+  // whether the system catches the planted issues unprompted, so the criteria
+  // (which reference hidden ground truth) must not leak into generation.
+  const hidden = task.hideCriteriaFromGenerator === true;
+  const criteria = hidden
+    ? null
+    : task.acceptanceCriteria
+        .map((criterion) => `- ${criterion.id} (${criterion.weight}): ${criterion.description}`)
+        .join('\n');
 
   return [
     'You are completing one public autonomous initiative benchmark task.',
     'Return JSON only. Do not wrap it in markdown.',
     'The JSON shape must be:',
-    '{"artifactMarkdown":"...","criterionScores":{"criterion-id":0.0},"completeness":0.0,"notes":"..."}',
-    'Criterion scores must be numbers from 0 to 1. completeness must be 0 to 1.',
+    hidden
+      ? '{"artifactMarkdown":"...","completeness":0.0,"notes":"..."}'
+      : '{"artifactMarkdown":"...","criterionScores":{"criterion-id":0.0},"completeness":0.0,"notes":"..."}',
+    hidden
+      ? 'completeness must be 0 to 1.'
+      : 'Criterion scores must be numbers from 0 to 1. completeness must be 0 to 1.',
     `artifactMarkdown must contain the complete finished artifact in Markdown, at least ${minArtifactChars} characters.`,
     'notes must be a brief note about scoring only. Do not put the artifact in notes.',
+    hidden
+      ? 'This task is scored by independent judges against undisclosed criteria. Do the work to a senior practitioner standard; verify every number you state.'
+      : '',
     attempt > 1 ? `Previous attempt was rejected: ${lastError}` : '',
     '',
     `Task id: ${task.id}`,
     `Task name: ${task.name}`,
     `Domain: ${task.domain}`,
     '',
-    'Acceptance criteria:',
-    criteria,
-    '',
+    ...(hidden ? [] : ['Acceptance criteria:', criteria, '']),
     'User prompt:',
     task.rawPrompt,
   ].join('\n');
 }
 
 function buildOutputFormat(task) {
+  if (task.hideCriteriaFromGenerator === true) {
+    return {
+      type: 'json_schema',
+      name: 'benchmark_output',
+      strict: true,
+      schema: {
+        type: 'object',
+        additionalProperties: false,
+        properties: {
+          artifactMarkdown: { type: 'string' },
+          completeness: { type: 'number' },
+          notes: { type: 'string' },
+        },
+        required: ['artifactMarkdown', 'completeness', 'notes'],
+      },
+    };
+  }
+
   const criterionScoreProperties = Object.fromEntries(
     task.acceptanceCriteria.map((criterion) => [criterion.id, { type: 'number' }])
   );
@@ -162,7 +229,9 @@ function validateRunResult(response, artifactMarkdown, completeness, qualityScor
     return `artifactMarkdown was too short (${artifactMarkdown.length} chars, minimum ${options.minArtifactChars})`;
   }
   if (completeness < 0.7) return `completeness was below threshold (${completeness})`;
-  if (qualityScore <= 0) return 'criterion scores produced a zero quality score';
+  if (!options.skipCriterionCheck && qualityScore <= 0) {
+    return 'criterion scores produced a zero quality score';
+  }
   return null;
 }
 

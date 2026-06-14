@@ -1,6 +1,7 @@
 import { performance } from 'node:perf_hooks';
 
 import { estimateCostCents } from './openai-pricing.mjs';
+import { chatUsageCostCents, getProvider, normalizeChatUsage, requireProviderKey } from './providers.mjs';
 import { clampNumber, normalizeCriterionScores, scoreCriteria } from './scoring.mjs';
 
 const MAX_ATTEMPTS = 5;
@@ -35,7 +36,7 @@ export async function runOpenAIJudge({ task, result, judgeSpec, judgeId, options
         judgeId,
         taskId: task.id,
         runId: result.runId,
-        provider: 'openai',
+        provider: judgeSpec.provider ?? 'openai',
         model: judgeSpec.model,
         reasoningEffort: judgeSpec.reasoningEffort,
         status: response.status,
@@ -43,7 +44,7 @@ export async function runOpenAIJudge({ task, result, judgeSpec, judgeId, options
         completedAt: new Date().toISOString(),
         durationSeconds: Number(((performance.now() - started) / 1000).toFixed(2)),
         usage: response.usage ?? {},
-        costCents: estimateCostCents(judgeSpec.model, response.usage ?? {}),
+        costCents: response.costCents ?? estimateCostCents(judgeSpec.model, response.usage ?? {}),
         qualityScore,
         completeness,
         criterionScores,
@@ -59,7 +60,7 @@ export async function runOpenAIJudge({ task, result, judgeSpec, judgeId, options
           judgeId,
           taskId: task.id,
           runId: result.runId,
-          provider: 'openai',
+          provider: judgeSpec.provider ?? 'openai',
           model: judgeSpec.model,
           reasoningEffort: judgeSpec.reasoningEffort,
           status: 'failed',
@@ -91,35 +92,78 @@ function sleep(ms) {
 }
 
 async function createJudgeResponse(prompt, judgeSpec, options) {
+  const providerName = judgeSpec.provider ?? 'openai';
+  const provider = getProvider(providerName);
+  const apiKey = requireProviderKey(providerName);
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), options.timeoutMs);
 
+  const payload =
+    provider.api === 'responses'
+      ? {
+          model: judgeSpec.model,
+          input: prompt,
+          reasoning: { effort: judgeSpec.reasoningEffort },
+          max_output_tokens: options.maxOutputTokens,
+          text: { format: buildJudgeOutputFormat(options.criterionIds) },
+        }
+      : {
+          model: judgeSpec.model,
+          // json_object mode does not enforce a schema, so the expected shape
+          // rides along in the prompt for chat providers.
+          messages: [{ role: 'user', content: `${prompt}\n\n${buildChatShapeHint(options.criterionIds)}` }],
+          response_format: { type: 'json_object' },
+          reasoning: { effort: judgeSpec.reasoningEffort },
+          max_tokens: options.maxOutputTokens,
+        };
+
   try {
-    const response = await fetch('https://api.openai.com/v1/responses', {
+    const response = await fetch(provider.url, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        model: judgeSpec.model,
-        input: prompt,
-        reasoning: { effort: judgeSpec.reasoningEffort },
-        max_output_tokens: options.maxOutputTokens,
-        text: { format: buildJudgeOutputFormat(options.criterionIds) },
-      }),
+      body: JSON.stringify(payload),
       signal: controller.signal,
     });
 
     const body = await response.text();
     if (!response.ok) {
-      throw new Error(`OpenAI API ${response.status}: ${body.slice(0, 1000)}`);
+      throw new Error(`${providerName} API ${response.status}: ${body.slice(0, 1000)}`);
     }
 
-    return JSON.parse(body);
+    const parsed = JSON.parse(body);
+    return provider.api === 'responses' ? parsed : normalizeChatResponse(parsed);
   } finally {
     clearTimeout(timeout);
   }
+}
+
+function buildChatShapeHint(criterionIds) {
+  const scoreKeys = criterionIds.map((criterionId) => `"${criterionId}": 0.0`).join(', ');
+  return [
+    'Respond with a single JSON object of exactly this shape:',
+    `{"criterionScores": {${scoreKeys}}, "completeness": 0.0, "confidence": 0.0, "rationale": "...", "redFlags": [], "humanReviewRecommended": false}`,
+  ].join('\n');
+}
+
+// Chat-completions response -> the subset of the Responses API shape the rest
+// of this module reads (status, output_text, usage, costCents).
+function normalizeChatResponse(response) {
+  const choice = response.choices?.[0];
+  const content = choice?.message?.content ?? '';
+  if (!content.trim()) {
+    throw new Error(
+      `chat judge returned empty content (finish_reason: ${choice?.finish_reason ?? 'unknown'})`
+    );
+  }
+  return {
+    status: 'completed',
+    output_text: content,
+    usage: normalizeChatUsage(response.usage ?? {}),
+    costCents: chatUsageCostCents(response.usage ?? {}),
+  };
 }
 
 function buildJudgePrompt(task, result, lastError, attempt) {
@@ -127,11 +171,32 @@ function buildJudgePrompt(task, result, lastError, attempt) {
     .map((criterion) => `- ${criterion.id} (${criterion.weight}): ${criterion.description}`)
     .join('\n');
 
+  // Strict protocol for hard-tier tasks: criteria reference planted ground
+  // truth the generator never saw. The judge verifies detection and arithmetic
+  // adversarially instead of rewarding plausible coverage.
+  const strict = task.judgingProtocol === 'strict';
+  const instructions = strict
+    ? [
+        'You are an adversarial benchmark judge for a hard-tier task. You did not generate the artifact.',
+        'The acceptance criteria below reference HIDDEN GROUND TRUTH (planted facts, traps, and required computations) that the generator was never shown.',
+        'For each criterion, verify the specific detection or computation yourself before scoring. Recompute every number.',
+        'Scoring discipline per criterion:',
+        '- 1.0 only when the artifact makes the exact required finding or computation, explicitly and correctly.',
+        '- 0.5 when it identifies the issue but with materially wrong numbers, hedged framing, or without evidence.',
+        '- 0.2 when it gestures at the area without the actual finding.',
+        '- 0.0 when it misses the issue, asserts the wrong narrative, or repeats a planted false claim.',
+        'Fluent, well-structured prose that misses the hidden findings MUST score near zero on those criteria. Do not grade on coverage, formatting, or confidence.',
+        'In redFlags, list every planted false claim the artifact repeated and every wrong number it asserted.',
+      ]
+    : [
+        'You are an independent benchmark judge. You did not generate the artifact.',
+        'Judge only the artifact against the provided task prompt and acceptance criteria.',
+        'Do not reward confident wording, length, or generic polish unless it satisfies a criterion.',
+        'Score each criterion from 0 to 1. Use 0.5 for partially correct, 0.8 for strong, and 1.0 only for excellent, concrete satisfaction.',
+      ];
+
   return [
-    'You are an independent benchmark judge. You did not generate the artifact.',
-    'Judge only the artifact against the provided task prompt and acceptance criteria.',
-    'Do not reward confident wording, length, or generic polish unless it satisfies a criterion.',
-    'Score each criterion from 0 to 1. Use 0.5 for partially correct, 0.8 for strong, and 1.0 only for excellent, concrete satisfaction.',
+    ...instructions,
     'Return JSON only. Do not wrap it in markdown.',
     attempt > 1 ? `Previous judging attempt was rejected: ${lastError}` : '',
     '',
@@ -142,7 +207,7 @@ function buildJudgePrompt(task, result, lastError, attempt) {
     'Original user prompt:',
     task.rawPrompt || task.description,
     '',
-    'Acceptance criteria:',
+    strict ? 'Acceptance criteria (hidden ground truth — verify each one yourself):' : 'Acceptance criteria:',
     criteria,
     '',
     'Artifact to judge:',

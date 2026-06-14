@@ -1,0 +1,683 @@
+{
+  "summary": {
+    "bundleA": "deepseek-v3.2-full-20260612",
+    "bundleB": "orgx-agent-surface-full-20260612",
+    "judgePanel": [
+      "openrouter:anthropic/claude-sonnet-4.6:medium"
+    ],
+    "sharedTasks": 15,
+    "taskVerdicts": {
+      "A": 0,
+      "B": 15,
+      "tie": 0
+    },
+    "rawVotes": {
+      "B": 30
+    },
+    "totalJudgeCostCents": 124.4211,
+    "perTask": [
+      {
+        "taskId": "design-artifact-viewer-mobile-remediation",
+        "votes": {
+          "A": 0,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "design-live-room-critique",
+        "votes": {
+          "A": 0,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "design-modal-mobile-interaction-spec",
+        "votes": {
+          "A": 0,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "marketing-launch-brief",
+        "votes": {
+          "A": 0,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "postmortem",
+        "votes": {
+          "A": 0,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "pr-description",
+        "votes": {
+          "A": 0,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "product-initiative-brief",
+        "votes": {
+          "A": 0,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "sales-outreach-sequence",
+        "votes": {
+          "A": 0,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "cross-functional-launch-plan",
+        "votes": {
+          "A": 0,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "design-live-room-responsive-system",
+        "votes": {
+          "A": 0,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "engineering-release-readiness-review",
+        "votes": {
+          "A": 0,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "marketing-proof-campaign-brief",
+        "votes": {
+          "A": 0,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "ops-escalation-playbook",
+        "votes": {
+          "A": 0,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "product-retention-experiment-plan",
+        "votes": {
+          "A": 0,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "sales-competitive-battlecard",
+        "votes": {
+          "A": 0,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 0
+        },
+        "verdict": "B"
+      }
+    ]
+  },
+  "judgments": [
+    {
+      "taskId": "design-artifact-viewer-mobile-remediation",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.88,
+      "rationale": "Artifact 2 outperforms Artifact 1 on every weighted criterion, often substantially.\n\n**practical-mobile-diagnosis (2):** Artifact 1 names failures with some plausible metrics but does not explain causality. Artifact 2 constructs five labeled structural diagnoses (D1–D5) that explain *why* each failure occurs — mode ambiguity (D1), information decay in a static header (D2), Fitts's Law in the thumb zone (D3), per-content-type renderer mismatch (D4), provenance interleaved with reading flow (D5). That analytical precision is what separates concrete diagnosis from generic responsive advice. Edge for 2.\n\n**viewer-information-architecture (2):** Artifact 1 proposes a bottom tab bar with Content/Details/Review, which is reasonable. Artifact 2 introduces a structurally sounder insight: review actions must be *outside* the tab structure in a persistent bottom bar so that 'decide' is reachable from any scroll depth in any tab. The 'trust strip' as a one-line compressed provenance answer (with tap to expand) elegantly reduces provenance tab traffic without hiding transparency. The URL-based tab state enabling deep-linked shared views is also a concrete IA rule Artifact 1 lacks. Edge for 2.\n\n**state-coverage (1.5):** Artifact 1 covers all four required states adequately. Artifact 2 adds sub-cases that are practically important: streaming/generating artifacts (approve disabled with reason); render failure vs. fetch failure (graceful raw fallback vs. blank pane, tabs remaining usable); action POST failure with input persistence; offline with cached-content readable; stale version conflict blocking approval. The position-restore and read-before-approve nudge add usable behavior to long-document state. Artifact 2 is materially more complete.\n\n**implementation-ready-guidance (2):** Artifact 1 provides component props and basic CSS rules. Artifact 2 adds a full component tree, an error-boundary contract that implements render-failure for all content types via one boundary, a state machine model for ReviewActionBar (single `mode` prop), a concrete gesture-conflict resolution strategy (ownership flag vs. heuristics), and an explicit performance budget (400ms chrome, 1s content, 60fps on 4-year-old Android baseline). Rollout phases with success metrics let engineering validate progress. Artifact 1 is missing all of this.\n\n**mobile-accessibility (1.5):** Both cover 44px targets, focus management, and ARIA tab roles. Artifact 2 is more rigorous: WCAG criterion citations make requirements testable; the trust strip is specified as a single combined accessible label rather than four orphan strings; diff +/- glyphs are aria-hidden with SR prefixes on lines; streaming content announcement is restricted to start/completion events only; generated-asset missing-alt is surfaced as a provenance warning; 200% text zoom is scoped correctly (code/diff regions are the one sanctioned horizontal-scroll exception). These are not cosmetic — they close real gaps.\n\nArtifact 1 is a competent plan and would be acceptable in isolation; Artifact 2 is superior on every scoring dimension.",
+      "costCents": 5.6304
+    },
+    {
+      "taskId": "design-artifact-viewer-mobile-remediation",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.92,
+      "rationale": "Across all five weighted criteria, Artifact 1 outperforms Artifact 2 in substance.\n\n**practical-mobile-diagnosis (2):** Artifact 1 names five labeled, causally-reasoned failures (D1–D5) with specific mechanisms: Fitts's Law applied to thumb zones, actual viewport-percentage measurements (~40%, ~23%), mode-ambiguity tied to the three-pane desktop model, per-content-type renderer breakdowns (side-by-side diff at 360px, 12–13px body text, etc.). Artifact 2 lists five symptoms with some metrics (25% header, 30% completion rate, 22% mis-tap) but stops at naming the problem without explaining root causes or why the current design produced them. Diagnosis depth favors Artifact 1 clearly.\n\n**viewer-information-architecture (2):** Artifact 1 defines three explicit named surfaces (Content/Activity/Info), explains why review actions belong in a *persistent bottom bar rather than any tab* (reachable regardless of reading position and scroll depth), introduces the trust strip as a compressed provenance signal, specifies URL-based tab persistence, and ties each IA decision back to a diagnosed failure. Artifact 2's three tabs (Content/Details/Review) bury the most consequential actions behind a dedicated tab that hides from non-reviewers and can disappear on scroll—exactly the failure the diagnosis flagged. The IA rationale in Artifact 1 is substantially stronger.\n\n**state-coverage (1.5):** Artifact 1 covers per-tab empty behavior (Activity still usable when content is empty), type-matched skeletons, progressive streaming renders with Approve-disabled state, per-type long-document strategies (outline sheet, diff unchanged-region collapsing, evidence virtualization), position restore, read-progress nudge on Approve, and five distinct error sub-cases (fetch failure, render failure, action failure, offline, stale version). Artifact 2 covers the four required states adequately but at lower fidelity—single empty action, generic pagination for diffs, no streaming state, no position restore.\n\n**implementation-ready-guidance (2):** Artifact 1 provides a complete component tree, explicit prop signatures, a named state machine (five modes for ReviewActionBar driven by a single `mode` prop), gesture-conflict resolution by ownership flag (not heuristics), fetch strategy (list-item cache for instant chrome), performance budgets (400 ms chrome interactive, 60 fps on 4-year-old Android baseline), rollout phases with measurable success metrics, and per-component error boundary strategy. Artifact 2 lists components with abbreviated props and one-line implementation notes; it names a third-party library (react-spring) without explaining the integration contract, and omits the performance budget and state machine structure engineers need.\n\n**mobile-accessibility (1.5):** Artifact 1 maps every requirement to a WCAG criterion (2.5.8, 1.3.2, 2.4.1, 4.1.2, 4.1.3, 2.4.3, 2.4.7, 1.4.3, 1.4.4, 1.4.10), specifies diff-line SR semantics ('+'/'-' aria-hidden, spoken prefixes), defines the trust strip as a single combined accessible label with a specific spoken string, specifies focus-trap and return-focus contracts for every sheet type, restricts streaming-content live-region announcements to start/completion only, and handles reduced-motion at the animation-timing level. Artifact 2 covers the standard checklist adequately but omits WCAG citations, diff-specific SR semantics, streaming aria-live constraints, and the trust strip label design—all areas where Artifact 1 gives testable, implementable requirements.",
+      "costCents": 5.8329
+    },
+    {
+      "taskId": "design-live-room-critique",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.87,
+      "rationale": "Artifact 2 is superior across all four weighted criteria.\n\n**diagnoses-hierarchy (2):** Artifact 2 names six distinct failure patterns (P1–P6) with design vocabulary: Figure/Ground failure, Von Restorff effect inversion, Gestalt continuity violation, stock-vs-flow confusion. The 'database-shaped UI: the schema leaked into the layout' framing precisely identifies the root cause. Artifact 1's diagnosis is accurate but shallower—it lists symptoms without naming underlying perceptual or cognitive mechanisms.\n\n**proposes-structure (2):** Both have ASCII wireframes, but Artifact 2's three-zone layout is more principled and more concrete. It specifies approximate pixel heights, commits to a single elevated surface, places the blocker *inside* Zone B rather than as a sibling section, and—critically—explicitly lists what is *deleted* from above the fold (outputs card, queue card, blockers as standalone). Artifact 1's two-column 'IMMEDIATE CONTEXT' split, with 'Latest Output' as a fourth cell, is more complex and less committed to a single focal hierarchy.\n\n**references-component-system (1.5):** Artifact 2 gives named props (`variant='live'`, `segments={tasks}`, `severity='warning'`), states a concrete component delta (−2 bespoke cards, +3 variants, +0 new), and names the exact fate of existing components (queue card and outputs card are deleted). Artifact 1 correctly advises reuse but stays generic ('existing expanded Task Card,' 'standard compact List Item') without specifying variant props or net component change.\n\n**high-taste (2):** Artifact 2 makes restraint the organizing principle rather than a footnote. 'Zero blockers = zero pixels' is the clearest possible statement of taste. The page goes from five containers to one elevated surface; nothing new is invented. Artifact 1 still proposes a time-in-task counter, a progress dot cluster, a two-column layout, and a Latest Output section—all additions that dilute the hero zone Artifact 1 itself argues for.",
+      "costCents": 3.4329
+    },
+    {
+      "taskId": "design-live-room-critique",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.88,
+      "rationale": "Artifact 1 outperforms on every weighted criterion. On diagnoses-hierarchy: it names six distinct failure modes with precise design vocabulary (Figure/Ground failure, Von Restorff inversion, Gestalt continuity, stock-vs-flow confusion, actor erasure), each tied to a specific user symptom. Artifact 2 lists four sensible but more generic observations without the same analytical depth. On proposes-structure: Artifact 1 commits to pixel-height budgets per zone, specifies exact content in each zone, explicitly names what is deleted from above the fold, and frames it around answering three ordered questions. Artifact 2's ASCII wireframe introduces a two-column 'IMMEDIATE CONTEXT' subgrid and a health-status badge ('On Track | At Risk') that were not in the original problem — the structure is less decisive and adds rather than subtracts. On references-component-system: Artifact 1 gives prop-level specifics (variant='live', segments={tasks} with currentIndex, severity='warning'), names the net component delta (−2 bespoke cards, +3 variants, +0 new), and explicitly describes which components are retired. Artifact 2 names the right component types but at a category level (Pill/Badge, List Item, Grid) without the same precision. On high-taste: Artifact 1 demonstrates genuine restraint — 'zero blockers = zero pixels,' 'one protagonist per screen,' explicit subtraction as the first move, and a 5-second acceptance test that enforces the principle behaviorally. Artifact 2 states 'radical restraint' but then adds an unprompted health indicator and a two-column layout, which is mild but real dashboard-chrome drift. Artifact 1 is the stronger review across all four criteria.",
+      "costCents": 3.3024
+    },
+    {
+      "taskId": "design-modal-mobile-interaction-spec",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.95,
+      "rationale": "Artifact 2 outperforms Artifact 1 on every weighted criterion.\n\n**taxonomy-clarity (2):** Artifact 2 uses structured job-to-be-done statements ('When I…, I want to…, so I can…'), maps each type to a mobile container, dismissal semantics, and reversibility in a single table, and adds risk-level behavioral rules explaining their downstream implications. Artifact 1 names types and risk levels but does not connect them tightly to container or dismissal policies.\n\n**mobile-interaction-specificity (2):** Artifact 2 specifies the VirtualKeyboard API and env(keyboard-inset-height) fallback, exact easing curves and animation durations, velocity/displacement thresholds for swipe-to-dismiss, scroll containment via overscroll-behavior:contain + overflow:hidden, four-direction safe-area handling, and landscape behavior. Artifact 1 covers the same topics but at surface level (e.g., 'keyboard shifts viewport' vs. a concrete implementation path).\n\n**action-hierarchy (1.5):** Artifact 2 defines five distinct action roles with coexistence rules, an explicit stacking-vs-paired layout trigger (label length >12 chars or 3 actions), Fitts's Law reasoning for thumb-closest primary placement, banned labels, and per-type dismissal semantics distinguishing defer from deny. Artifact 1's horizontal LTR hierarchy is clear but lacks the same precision.\n\n**state-and-accessibility-coverage (2):** Artifact 2 differentiates three loading sub-phases with Doherty-threshold timing (>400ms, >5s, >15s), three error surfaces (field, action, hard failure) each with distinct copy contracts, an aria-disabled (not disabled) rationale for disabled buttons, a 400ms destructive-tap lockout, and—critically—a computed contrast failure on the current #EF4444 danger button with a corrected value (#DC2626). It also specifies the inert attribute for background content, screen-reader test matrix, and 200% zoom behavior. Artifact 1 covers the same categories but without this specificity.\n\n**engineering-ready (1.5):** Artifact 2 provides a single ModalSurface component with a type enum, a config-map contract, a formal state machine, a PR checklist, motion tokens, telemetry events, and a portal-singleton that throws on duplicate mount. Artifact 1 offers a z-index value and a data-modal-type attribute but no component API or enforcement mechanism. The definition-of-done with device-specific viewport targets in Artifact 2 gives QA a concrete pass/fail gate absent in Artifact 1.",
+      "costCents": 5.3703
+    },
+    {
+      "taskId": "design-modal-mobile-interaction-spec",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.95,
+      "rationale": "Artifact 1 outperforms Artifact 2 on every weighted criterion in substance, not just depth.\n\n**taxonomy-clarity (2):** Artifact 1 defines six modal types with a full JTBD sentence, risk level, reversibility, container assignment, and dismissal semantics per row, plus cross-cutting risk-level rules (Low/Medium/High/Critical). It covers all six stated modal categories from the prompt including upgrade prompts. Artifact 2 covers only five types at a coarser level, omits upgrade prompts entirely, conflates approval with multi-step, and provides no dismissal-semantics nuance. Artifact 1 wins clearly here.\n\n**mobile-interaction-specificity (2):** Artifact 1 gives actionable implementation detail: exact easing curves (cubic-bezier(0,0,0,1)), VirtualKeyboard API / env(keyboard-inset-height) fallback, action-bar keyboard-ride behavior with timing, scroll containment with overscroll-behavior:contain to fix iOS Safari pull-to-refresh leaks, per-axis safe-area insets including landscape edge cases, and reduced-motion alternatives for every animation. Artifact 2 mentions these areas at headline level (keyboard animates to Large detent, safe area respected, velocity threshold 1200px/s) but provides nothing engineers can actually implement from without guessing. Artifact 1 wins decisively.\n\n**action-hierarchy (1.5):** Artifact 1 distinguishes five action roles with visual treatment, placement rules, stacking vs paired thresholds, verb-first label guidance, and explicit destructive-buffer rules (400ms lockout, forbidden positions). Artifact 2 contains a direct anti-pattern: 'Never stack vertically except as fallback'—which is exactly wrong for mobile where stacking to full width improves thumb reach. This is a substantive error against the criterion. Artifact 1 wins.\n\n**state-and-accessibility-coverage (2):** Artifact 1 covers four loading phases with Doherty-threshold timing and long-path recovery, three error scopes (field, action, hard failure) with specific copy guidance, aria-disabled rationale, exact contrast values with hex codes (catching a real failure at #EF4444 16px), screen-reader announcement scripts for VoiceOver/TalkBack, and focus-trap polyfill guidance. Artifact 2 covers each state at one sentence and lacks specificity on AT behavior, contrast, and focus-return edge cases. Artifact 1 wins.\n\n**engineering-ready (1.5):** Artifact 1 provides a component API (single ModalSurface, typed enum, config map), a formal state machine, motion tokens with exact values, a portal/singleton enforcement mechanism, telemetry event contracts, and a per-type definition of done checklist. Artifact 2 offers a z-index value and a data-modal-type attribute. Artifact 1 wins.\n\nArtifact 2 is coherently organized but functions as a high-level summary; it would require significant additional specification before engineering could build consistently from it. Artifact 1 is the superior spec on every substantive dimension the criteria measure.",
+      "costCents": 5.4663
+    },
+    {
+      "taskId": "marketing-launch-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.84,
+      "rationale": "Artifact 2 outperforms Artifact 1 on every weighted criterion in substance, not just depth.\n\n**has-positioning (2):** Artifact 2 names the real competitive alternatives (terminal tailing, LangSmith-style traces, Zoom screenshare, just trusting the PR), articulates the unique attribute precisely ('the actual artifact taking shape, not telemetry about the run'), and includes a JTBD statement. Artifact 1's positioning is well-structured but generic in its competitive framing ('static dashboards or post-hoc reports').\n\n**has-message-pillars (2):** Artifact 2's four pillars are formally scoped (no two overlap stated as a rule), each carries its own proof source and a channel-assignment list, making them genuinely reusable and traceable. Artifact 1's pillars are readable but softer — 'Transparency in Motion' and 'Velocity Through Visibility' overlap conceptually, and none are tied to specific proof or channel contexts.\n\n**has-channel-plan (1.5):** Both are channel-specific. Artifact 2 goes further by assigning each channel a distinct job ('Homepage: convert high-intent visitors via instant proof'; 'HN: authenticity, zero marketing language'), includes email segmentation by actual behavioral cohort with day-staggering, and adds an HN Show-HN strategy with explicit tactical guidance. Artifact 1's channel plan is solid but lacks the differentiated 'job' framing and behavioral email segmentation.\n\n**proof-emphasis (2):** Artifact 2 explicitly prioritizes five proof assets (P1–P5), assigns a strict rule ('no unattributed claims; every number traces to P1–P5 or is cut'), and builds the entire homepage and primary social CTA around the always-on public room. It also includes meta-proof (running the launch inside the feature, P5). Artifact 1 has comparable proof assets but does not systematize them or enforce attribution discipline.\n\n**has-cta (1):** Both are tiered. Artifact 2 adds a CTA hygiene rule ('never pair Watch live and Book a session on the same asset') and identifies the in-product share CTA as the referral compounding mechanic with an instrumentation note — making it more operationally usable.\n\nArtifact 1 is a capable brief and would serve adequately. Artifact 2 is meaningfully superior in substance on the criteria that carry the most weight.",
+      "costCents": 3.8064
+    },
+    {
+      "taskId": "marketing-launch-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.88,
+      "rationale": "Artifact 1 outperforms on every weighted criterion in substance:\n\n**has-positioning (2):** Artifact 1 applies an explicit structured framework (April Dunford), lists specific competitive alternatives (LangSmith traces, Zoom screenshare, PR review), articulates a unique attribute precisely ('the actual artifact taking shape, not telemetry'), and adds a JTBD trigger. Artifact 2 has a serviceable one-paragraph statement but no competitive dissection and softer differentiation ('transparent, credible, engaging' are generic).\n\n**has-message-pillars (2):** Artifact 1's four pillars are sharply non-overlapping — each captures a distinct claim (observability vs. audit/verification vs. shareability vs. team infrastructure), each lists specific proof and specific channels it maps to, making them genuinely reusable as standalone modules. Artifact 2's pillars have meaningful overlap ('Transparency in Motion' and 'Proof Not Promise' both address trust-building), and none include proof assignments or channel targeting, reducing reusability.\n\n**has-channel-plan (1.5):** Artifact 1 gives each channel a declared job, distinct tone/structure (e.g., zero marketing language on HN vs. PAS framing in re-engagement email), specific subject lines, timing cadence, and segmentation rationale. Artifact 2 has channel-specific sections but shallower differentiation — email has only two series without timing or structural variation, and social tactics are more generic.\n\n**proof-emphasis (2):** Both treat proof as central, but Artifact 1 operationalizes it more rigorously: names five prioritized proof assets (P1–P5), assigns each to specific channels, establishes a rule ('no unattributed claims; every number traces to P1–P5 or is cut'), and builds the always-on ungated demo room as the literal campaign centerpiece across all channels simultaneously. Artifact 2 lists good proof formats but doesn't wire them tightly into channels or establish quality controls.\n\n**has-cta (1):** Both have tiered CTA ladders. Artifact 1 adds CTA hygiene rules (never pair 'Watch live' and 'Book a session' on the same asset) and a referral/retention loop mechanic tied to instrumentation. Artifact 2's tiered structure is sound but thinner.\n\nArtifact 2 is a competent brief; Artifact 1 is substantially more executable and integrated on every dimension that the criteria weight most heavily.",
+      "costCents": 3.9564
+    },
+    {
+      "taskId": "postmortem",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.72,
+      "rationale": "Both artifacts are high quality and satisfy all criteria, but Artifact 2 earns a meaningful edge on the three highest-weighted criteria.\n\nRoot cause (weight 3): Both correctly identify connection pool exhaustion from long-running transactions. Artifact 2 adds a Five Whys chain that explains *why* the endpoint held a 45s transaction (streaming full result set inside a single synchronous transaction instead of paginating/async), which is the technical insight needed to prevent recurrence—not just describe what happened.\n\nAction items (weight 2): Both have specific, dated, owned items. Artifact 2 goes further in technical specificity: it prescribes PgBouncer in transaction-pooling mode with per-service budgets, sets concrete PostgreSQL timeouts (statement_timeout 30s, idle_in_transaction_session_timeout 60s), adds a canary gate based on connection utilization regression, and proposes a feature-flag kill switch. These are deployable prescriptions, not general directions. Artifact 1's items are solid but less technically precise.\n\nLessons learned (weight 1.5): Artifact 2's lessons go materially further. The canary lesson ('canary passed because we measured the wrong things') and the rollback lever lesson ('rollback was the only lever and the slowest acceptable one') are forward-looking insights about systemic gaps—exactly what lessons learned should be—rather than restatements of events.\n\nImpact (weight 1.5): Artifact 2 explicitly computes MTTD, MTTR, and notes the error-budget context (~20% of month's 43-minute budget consumed in one incident), adding useful quantified response metrics.\n\nThe executive summary and timeline are comparable between the two. The margin is real but not dramatic; Artifact 1 would be fully acceptable in most settings.",
+      "costCents": 3.7293
+    },
+    {
+      "taskId": "postmortem",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.82,
+      "rationale": "Artifact 1 outperforms on the three highest-weighted criteria. On has-root-cause (weight 3): both correctly identify the mechanism, but Artifact 1 adds a Five Whys chain that explicitly traces why the endpoint held a 45s transaction (streaming vs. paginating/async), why the canary didn't catch it, and why one endpoint could take down all others — giving a causally complete picture rather than just listing contributing factors. On has-action-items (weight 2): Artifact 1's seven items are more specific and actionable — it names PgBouncer transaction pooling, specifies exact timeout values (statement_timeout 30s, idle_in_transaction_session_timeout 60s), calls out a feature-flag kill switch, and explicitly blocks re-shipping the endpoint until the async redesign lands; Artifact 2's items are valid but less precisely scoped. On has-lessons (weight 1.5): Artifact 1's five lessons genuinely generalize beyond the incident — e.g., 'the canary only measures what you instrument,' 'rollback was the only lever and it was the slowest acceptable one,' 'alert on the resource, not just the downstream symptom' — whereas Artifact 2's lessons are more generic restatements of the same points. Both artifacts satisfy has-exec-summary, has-impact-quantified (Artifact 1 adds MTTD/MTTR), and has-timeline comparably.",
+      "costCents": 3.1998
+    },
+    {
+      "taskId": "pr-description",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.62,
+      "rationale": "Both artifacts satisfy all five criteria at a high level. The differentiating factors are small but consistent across the weighted criteria. On has-summary (weight 2): Artifact 2's three-sentence summary is tighter and more causally precise—it names the exact failure mode (500 error), the mechanism (null return), and the scope (grace-period check + middleware redirect + tests + jose bump) without redundancy. On has-changes-list (weight 1.5): Artifact 2's bullets include technically precise details (e.g., distinguishing the grace-period code path from the try/catch path, noting that non-expiry errors still re-throw) that map more directly to the actual diff hunks. On mentions-auth-tokens (weight 1.5): Both identify the token-refresh specifics well, but Artifact 2's framing ('null now signals refresh token no longer usable, re-authentication required') captures the semantic contract change more accurately. In deployment notes, Artifact 2 catches a genuinely important point that Artifact 1 misses entirely: the TypeScript signature change to Promise<TokenPair | null> is a breaking change for any internal callers, and the compiler will surface it. Artifact 1 explicitly calls this 'non-breaking,' which is incorrect for callers of the function. That factual inaccuracy in a weighted criterion (deployment notes) is a meaningful differentiator. Artifact 2's rollback note and user-traffic-impact caveat are also more actionable. Artifact 1's extra 'Security Considerations' section adds some value but is not required by any criterion and does not overcome the inaccuracy about breaking changes.",
+      "costCents": 2.6688
+    },
+    {
+      "taskId": "pr-description",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.78,
+      "rationale": "Both artifacts satisfy all five criteria, but Artifact 1 performs better on the two highest-weighted criteria (has-summary at 2 and has-changes-list and mentions-auth-tokens at 1.5 each). Specifically: (1) The changes list in Artifact 1 is more technically precise—it names the exact log messages ('Expired refresh token intercepted' vs 'Refresh token expired beyond grace period'), correctly distinguishes the two failure branches (TokenExpiredError catch vs isTokenExpiredBeyondGrace check), and explains the 're-throw' behavior for non-expiry errors. (2) Artifact 1 correctly identifies the TypeScript signature change as a *breaking change for internal callers* while Artifact 2 incorrectly labels the PR a 'non-breaking change'—a meaningful accuracy gap on a technically important point. (3) The summary in Artifact 1 better explains the causal chain (unhandled exception → 500 → now redirects), while Artifact 2 muddies it with 'failing silently' (the previous behavior actually threw loudly). (4) Artifact 2 has a structural oddity of an H1 header plus a separate '## Title' subsection, signaling poorer understanding of the PR format requirement. The testing instructions in both are adequate and roughly equivalent. Overall Artifact 1 is more accurate and specific on the criteria that carry the most weight.",
+      "costCents": 2.6928
+    },
+    {
+      "taskId": "product-initiative-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.87,
+      "rationale": "Artifact 2 outperforms Artifact 1 on every weighted criterion, with especially large gaps on the two highest-weight criteria.\n\nfounder-decision-moment (weight 2): Artifact 2 makes the one-session decision moment the literal organizing spine of the entire brief. It names it explicitly ('There is no second session'), lays out a minute-by-minute target session shape (0–3 min install, 3–7 min bootstrap, 7–15 min live room, 15–30 min conviction action), and filters every scope and workstream decision through one stated question: 'does it shorten and de-risk the path from install to that first live initiative room within a single session?' Artifact 1 names the concept ('First Session Yes') and sets a session-conversion metric, but treats it as a feature goal rather than the architectural center of gravity.\n\nhas-problem-statement (weight 2): Artifact 2 supplies a concrete founder-voiced failure narrative, identifies three distinct root-cause failure modes (setup friction, empty-room problem, no guided first win), and states a clear job-to-be-done. Artifact 1's problem statement is accurate but generalized ('fails to provide rapid tangible validation').\n\nhas-success-metrics (weight 2): Artifact 2 defines six metrics with definitions, estimated baselines, targets, and PostHog event source references, plus explicit guardrails and a note that baselines must be verified in week 1 before targets are locked. Artifact 1 has four solid metrics but lacks data sources, and its '60% TTFV reduction' target is underdefined without a baseline unit.\n\nhas-workstreams (weight 1.5): Both are sensible. Artifact 2 adds explicit owners, mandates, and key deliverables per lane, and correctly separates instrumentation (Lane D) as a hard prerequisite rather than bundling it into an existing lane.\n\nhas-scope (weight 1.5): Both are clear. Artifact 2's 'deliberately out of scope' framing and rationale for each exclusion adds clarity without meaningful length overhead.\n\nNo criterion favors Artifact 1.",
+      "costCents": 3.7563
+    },
+    {
+      "taskId": "product-initiative-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.92,
+      "rationale": "Artifact 1 outperforms on every weighted criterion, most decisively on the two highest-weight items.\n\nfounder-decision-moment (2pts): Artifact 1 treats the one-session conviction window as the organizing principle of the entire brief—'there is no second session' is stated explicitly, a minute-by-minute session table is provided (0–3, 3–7, 7–15, 15–30 min), and every scope and workstream decision is explicitly evaluated against 'does it shorten the path to the first live initiative room within one session?' Artifact 2 names the concept ('First Session Yes') but implements it primarily as a UI milestone inside the room, not as the structural core of the brief. Its proposed 'Founder Context Wizard' actually adds a setup step, contradicting the frictionless requirement, and its fallback 'canned demo initiatives' is precisely the hollow first-room experience the brief is supposed to eliminate.\n\nhas-problem-statement (2pts): Artifact 1 gives three named failure modes (setup friction, empty-room problem, no guided first win) with a realistic founder quote and a concrete job-to-be-done. Artifact 2's problem statement is accurate but generic—it doesn't decompose the failure modes.\n\nhas-success-metrics (2pts): Artifact 1 defines six metrics with event-level measurement sources (PostHog funnel events named), estimated baselines, numeric targets, and explicit guardrails. Artifact 2 has four metrics, two of which lack baselines ('reduce by 60%' without an anchor, NPS >30 without a baseline) and none cite measurement sources at the event level.\n\nhas-scope (1.5pts): Both define in/out of scope adequately. Artifact 1 adds rationale for exclusions ('deliberately—these are tempting'), which is useful for a founder decision document.\n\nhas-workstreams (1.5pts): Both are reasonable. Artifact 1 adds owners, mandates, key deliverables, and an explicit sequencing dependency (D→A,B→C→E), making it more actionable.\n\nNo criterion favors Artifact 2 in substance.",
+      "costCents": 3.7503
+    },
+    {
+      "taskId": "sales-outreach-sequence",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.88,
+      "rationale": "Artifact 2 outperforms on every weighted criterion in substance:\n\n**personalized-icp (2):** Artifact 2 is materially more specific to the ICP. It names the actual tool stack technical founders use (Linear, Notion, Cursor, Claude Code, GitHub), quantifies the pain (30-45 min per planning→execution→review cycle × 4-6 cycles/day), and uses ICP-native vocabulary ('founder-as-message-bus,' 'tab archaeology,' 'AI output review debt'). The personalization tokens require real pre-send research, which signals genuine founder-to-founder intent rather than spray outreach. Artifact 1 names the pain category but uses generic language ('AI projects,' 'lean team') that could fit any AI SaaS sequence.\n\n**proof-led-cta (2):** Both artifacts offer live proof, but Artifact 2's CTA architecture is stronger and better matched to the ICP. The tiered approach—async recording of *their actual initiative* (lowest friction for a skeptical technical founder) → 20-minute live build session → 3-min replay on LinkedIn—meets the founder where they are. The Email 1 hook ('send me one initiative, get a recording in 48 hours') is particularly well-calibrated: technical founders distrust calendar links but will engage with a concrete deliverable. Artifact 1's CTA (15-min walkthrough) is fine but undifferentiated.\n\n**objection-angle (1.5):** Artifact 2's reframe—'at 600 people there's a PM layer absorbing coordination cost; at 6 people that layer is *you*'—is a Challenger-style insight that directly attacks the 'we don't need enterprise process' objection common in founders at this size. The 'count your switches for one day' proof move transforms the objection into a measurable test rather than a debate. Artifact 1's 'it's not a replacement, it's an integration layer' angle is credible but predictable and doesn't shift the frame.\n\n**multi-step-sequence (1.5):** Both include all required steps. Artifact 2 adds explicit timing (Day 0/3/5), purpose-per-touch rationale, follow-up rules with triggers, and a multichannel map, making the sequence operationally coherent rather than just structurally complete.",
+      "costCents": 3.7104
+    },
+    {
+      "taskId": "sales-outreach-sequence",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.88,
+      "rationale": "Artifact 1 dominates on the two highest-weighted criteria. On personalized-icp (weight 2): it names the exact tools the ICP uses (Linear, Notion, Cursor, Claude Code, GitHub, Slack), frames pain in ICP-native language ('tab archaeology,' 'founder as message bus,' 'PR review debt'), and requires real research tokens to fill—none of which feel generic. Artifact 2 uses bracket placeholders, generic phrases like 'running a lean team,' and tool references that feel illustrative rather than studied. On proof-led-cta (weight 2): Artifact 1's proof moment is distinctive—'send me one initiative and I'll record a live-room run of it in 48 hours'—which is a lower-friction, higher-specificity ask than Artifact 2's standard '15-minute live walkthrough.' The recording-first CTA is particularly well-matched to technical founders who distrust sales calls. On objection-angle (weight 1.5): Artifact 1 embeds its primary objection ('you're selling me the disease as the cure') directly into Email 2, neutralizing it in the sequence itself rather than in a footnote, and the reframe is analytically credible ('net switches per day is measurable'). Artifact 2's handling of the Jira/Notion objection is reasonable but generic and untethered from the actual pain. On multi-step-sequence (weight 1.5): both complete all required steps; Artifact 2 has a minor rendering artifact ('Step不同的') but is otherwise structurally complete—no meaningful difference here. Artifact 1 wins across all weighted criteria with a clear margin on the two highest-weight ones.",
+      "costCents": 3.1644
+    },
+    {
+      "taskId": "cross-functional-launch-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.91,
+      "rationale": "Artifact 2 outperforms Artifact 1 on every weighted criterion, with especially large gaps on proof-orientation and sequencing.\n\ncovers-all-domains (2): Both cover all five workstreams. Artifact 2 goes further by assigning a named accountable owner, concrete deliverables with due dates, and testable acceptance criteria per workstream, making coverage more actionable than Artifact 1's narrative descriptions.\n\nsequencing (2): Artifact 2 provides a full milestone table with exact dates, explicit exit criteria, a dependency table with 'Depends on' columns, a DAG diagram, critical-path identification, and slack analysis per workstream. Artifact 1 offers week-range phases and two named dependencies—reasonable but substantially less rigorous. The constraint reasoning ('engineering is the constraint; design slippage past Jun 30 hits the critical path') in Artifact 2 is exactly the kind of believable sequencing the criterion targets.\n\nlaunch-readiness (1.5): Artifact 2's checklist is categorized by domain, assigns an owner per item, requires evidence links, and specifies pass/fail with pre-decided waiver logic. Artifact 1's checklist is practical but generic and lacks evidence requirements or pre-made decisions for common crunch scenarios.\n\nproof-orientation (2): This is the largest gap. Artifact 2 operationalizes the proof thesis recursively and non-negotiably: the launch itself runs as a live initiative inside the Room; marketing is explicitly barred from producing assets from mockups ('non-negotiable'); the launch-readiness bar is 'if the product can't prove the launch, the product isn't ready'; the plan document is itself a room artifact; the skepticism counter ('is this staged?') triggers a raw event-log publication, not a PR response. Artifact 1 mentions proof repeatedly but as a framing device rather than a structural constraint on every workstream.\n\nmeasurable-metrics (1.5): Artifact 2 ties every metric to a named instrumentation event (PostHog: room_viewed, dwell_120s, artifact_opened, demo_requested), defines the metric formula precisely (e.g., dwell_120s ∩ live event seen), includes a hard counter-metric (zero token-exposure incidents), and provides a Day-30 verdict rule that gates v2.1 scope decisions. Artifact 1's metrics are specific and reasonable but lack event-level definitions and decision rules.",
+      "costCents": 4.4694
+    },
+    {
+      "taskId": "cross-functional-launch-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.93,
+      "rationale": "Artifact 1 outperforms Artifact 2 on every weighted criterion.\n\n**covers-all-domains (2):** Artifact 1 gives each workstream its own table of named deliverables, explicit due dates, owners, and testable acceptance criteria. Artifact 2 provides one paragraph per workstream with no concrete outputs or owners—adequate in structure but thin in substance.\n\n**sequencing (2):** Artifact 1 has a numbered milestone table with calendar dates, explicit exit criteria, dependency links, a verified critical-path analysis, and an annotated DAG. Artifact 2 offers a 5-phase/14-week outline with only two stated dependencies and no exit criteria—believable at a glance but not actionable.\n\n**launch-readiness (1.5):** Artifact 1's checklist is organized by workstream, is binary pass/fail, requires evidence links, and includes an orchestration gate requiring the plan itself to be visible in the public room. Artifact 2's checklist has broader categories but no evidence requirements and no binary gatekeeping logic.\n\n**proof-orientation (2):** This is where the gap is largest. Artifact 1 builds the proof thesis into the operating model: no mockups allowed in any asset, launch runs *inside* the product, every artifact carries provenance metadata, the 'staged?' objection is treated as a first-class risk with a mitigation plan. Artifact 2 mentions 'wow factor' and a demo video but does not enforce proof-orientation as a hard constraint across workstreams.\n\n**measurable-metrics (1.5):** Artifact 1 defines specific PostHog events, numeric Day-30 targets for each metric, a counter-metric (zero token revocations tolerated), and a decision rule tied to metric outcomes. Artifact 2's metrics are less instrumented (one relies on a survey) and include a vague 'increase in conversion rate' with no baseline or target threshold.",
+      "costCents": 4.0974
+    },
+    {
+      "taskId": "design-live-room-responsive-system",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.92,
+      "rationale": "Artifact 2 outperforms Artifact 1 on every weighted criterion.\n\n**breakpoint-specificity (2):** Both cover all four breakpoints, but Artifact 2 supplies a token table with grid columns, gutters, page margins, and max-width per breakpoint, then gives specific measurements (e.g., 48px status strip at 375, 64px at 768+, 40vh max-height for the pinned action queue panel at 1024) rather than general layout ratios. Artifact 1's column percentages (66/33, 25/50/25) are serviceable but unmoored from a grid system.\n\n**durable-header-rules (2):** Artifact 2 defines exact heights at rest (56/64px), compressed state height (48px), the 12% viewport cap, per-element drop behavior in a P0–P5 table keyed to each breakpoint, the 'never wrap to two lines' rule, a single-primary-action invariant, and a 150ms ease-out transition. Artifact 1's header section gives a priority order and compression logic, but omits heights, transition specs, and the 'no second line' guarantee that makes the rule enforceable.\n\n**system-thinking (2):** Artifact 2 explicitly names anti-goals (over-containerization, equal-volume-everything, one-off screen fixes), defines a named-region contract with a fixed priority order that governs every future surface, establishes a three-type subpage contract (Page/Drawer/Modal) with per-breakpoint resolution rules, and prescribes a four-level progressive-disclosure ladder that new features must slot into. These are generative rules, not a room description. Artifact 1's layout rules are descriptive of the room but don't supply a framework that prevents subpage regressions.\n\n**artifact-and-blocker-flows (1.5):** Artifact 2 specifies blocker escalation timing (SLA threshold, bold age, top-of-list reorder), decision inline availability rules (≥768 inline, 375 full-screen with pinned footer), artifact Awaiting-vs-Recent sub-grouping, the 'review actions always pinned to viewer footer' invariant, and the 2-up preview grid at 1440. Artifact 1 covers the same flows more briefly without escalation logic or pinned-action rules.\n\n**implementation-checklist (1.5):** Artifact 2 provides a sequenced build order (tokens → grid primitives → header → rows → presentation layer → composition), specific implementation requirements (container queries, DOM order matching visual priority, centralized sticky-offset variables, list virtualization aria, CLS < 0.02, skeleton heights matching final row heights), a detailed QA matrix table keyed to each breakpoint with edge-case rows (200% zoom reflow, long-content stress, live-stream soak), and PR acceptance gates that enforce the spec forward. Artifact 1's checklist is accurate but generic and lacks the breakpoint matrix and forward-enforcement gates.",
+      "costCents": 5.3559
+    },
+    {
+      "taskId": "design-live-room-responsive-system",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.93,
+      "rationale": "Artifact 1 outperforms Artifact 2 on every weighted criterion in substance, not just depth.\n\n**breakpoint-specificity (2):** Artifact 1 gives exact grid column assignments, pixel heights (48px status strip, 56/64px header), open/collapsed defaults, and enumerated per-breakpoint enhancements (sparklines at 1440, icon rail at 1024). Artifact 2 gives percentage-based column splits and labels without specifying element behavior, open/collapse defaults, or region-level rules at each width.\n\n**durable-header-rules (2):** Artifact 1 defines P0–P5 priority with a 'drop from the right' rule, exact compressed heights (48px), transition timing (150ms ease-out, transform/opacity only), a single-primary-button invariant with Von Restorff rationale, sticky scoping (globally sticky only on mobile; region-sticky only in scroll containers), and explicit 'surface not card' language that directly addresses over-containerization. Artifact 2 says the header is 'static above 768px,' lists five priority tiers without drop logic, and gives no heights, timing, or compression behavior. Calling a sticky header non-sticky on desktop is an unusual choice left entirely unjustified.\n\n**system-thinking (2):** Artifact 1 explicitly frames itself as rules, not screens, and builds an anti-regression contract: three named presentation types (Page/Drawer/Modal) with a per-breakpoint resolution table, a region primitive with props (priority, collapsedAt, defaultLevel), a progressive disclosure ladder that new features must slot into, and acceptance gates requiring PR descriptions to state presentation type and region mapping. Artifact 2 describes a universal panel structure and says subpages 'inherit the same grid,' but provides no mechanism to enforce this and no taxonomy that prevents future one-off variations.\n\n**artifact-and-blocker-flows (1.5):** Artifact 1 specifies the two-sub-group artifact region (awaiting review vs. recent), review-actions-always-pinned-to-footer rule, artifact viewer sizing at each breakpoint, SLA-threshold escalation for blockers, inline vs. full-screen decision flow per breakpoint, and the rule that tap-to-resolve opens a sheet at 768 or a drawer at 1024 (keeping live activity visible). Artifact 2 covers the same topics with one sentence each and no per-breakpoint specificity for most flows.\n\n**implementation-checklist (1.5):** Artifact 1 provides a six-step ordered build sequence (tokens → grid primitives → header → row components → presentation primitives → compose), ~12 concrete implementation requirements (container queries, DOM order matching visual priority, virtualization aria attributes, CLS < 0.02), a 14-row QA matrix spanning all four breakpoints plus edge cases (200% zoom, iPad split-view, 10-min live-stream soak), and explicit acceptance gates for PR review. Artifact 2 has six handoff checklist items (mostly 'provide the Figma link') and seven QA items with no metrics, no matrix structure, and no acceptance gates.",
+      "costCents": 5.7969
+    },
+    {
+      "taskId": "engineering-release-readiness-review",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.88,
+      "rationale": "Artifact 2 outperforms Artifact 1 on every weighted criterion, and the gap is meaningful on each:\n\n**recommendation-quality (2):** Both give clear recommendations tied to risks, but Artifact 2 names five blocker conditions that must close before launch, gives a concrete timeline estimate (3–5 working days), and explicitly maps the blast radius story ('lost or churned paid customers on day one') to the recommendation. Artifact 1's 'Ship-with-Guardrails' is well-reasoned but framed as constraints alongside the launch rather than as hard blockers.\n\n**identifies-operational-risk (2):** Artifact 2 surfaces risks Artifact 1 misses or underweights: (a) idempotency gap — retried callbacks could create duplicate API keys or re-run secret initialization, a direct writing-state hazard that Artifact 1 never mentions; (b) the meta-risk that 'one-click fallback repair' is itself unverified new code shipping in the same release it is supposed to protect; (c) the orphaned-credentials security surface from abandoned pairing flows (STRIDE framing); (d) the absence of any pairing SLO or defined abort threshold, meaning the only detection mechanism pre-dashboard is support tickets from paying customers. Artifact 1 identifies the major risks but stays closer to the generic.\n\n**proposes-guardrails (2):** Artifact 2's guardrails are substantially more actionable: specific alert thresholds (success <95% over 10 min, p99 >2s), explicit ownership tags and time estimates per guardrail, the idempotency replay test as a named load-test requirement, the support runbook as a guardrail item (not just a mention), a removal date on the feature flag to prevent permanent debt, and the launch decision record to make accepted residual risks explicit. Artifact 1's guardrails are reasonable but lack thresholds and test specifications.\n\n**incident-thinking (1.5):** Artifact 2 demonstrates more mature incident engineering: pre-classifying SEV1 vs SEV2 (defined criteria, not left to debate during the incident); the 'trigger → action, no meeting required' decision rule; the state-cleanup obligation section noting that rolling back code does not roll back keys and secrets already written; and the 'migration is the rollback fork in the road' concept (the rollback path differs depending on whether the serial migration has already run). Artifact 1 covers incident command and postmortems but doesn't reach this level of pre-decided procedural specificity.",
+      "costCents": 4.0818
+    },
+    {
+      "taskId": "engineering-release-readiness-review",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.88,
+      "rationale": "Artifact 1 outperforms Artifact 2 on every weighted criterion by a meaningful margin.\n\n**recommendation-quality (2):** Artifact 1 gives a sharper, more defensible verdict—'DO NOT SHIP as planned; ship-with-guardrails only after 5 named blockers close'—and ties it explicitly to the compound failure mode: untested worker + no rollback + all paid workspaces + activation-blocking failure = paying customers churned on day one with no support capacity to absorb tickets. Artifact 2 reaches 'ship-with-guardrails' but the rationale is more generic and less viscerally connected to the specific blast radius.\n\n**identifies-operational-risk (2):** Artifact 1 surfaces non-obvious, scenario-specific risks that Artifact 2 misses entirely: (a) retry storms causing duplicate API key creation or double secret-init if callbacks are not idempotent, (b) orphaned live credentials from failed partial pairings (STRIDE elevation-of-privilege framing), (c) state that does NOT roll back with code (keys/secrets already written), (d) mixed-schema hazard if pairing requests arrive mid-serial-migration, and (e) the 'fallback repair' button failing precisely because it ships untested on the same release it is meant to protect. Artifact 2 names the gaps at a higher level of abstraction and misses the idempotency and credential-hygiene angles entirely.\n\n**proposes-guardrails (2):** Artifact 1 is far more concrete: five named blockers with owners and day estimates, specific rollout percentages (1%→5%→25%→100%), numerical alert thresholds (success <95% over 10 min, p99 >2s), the distinction between a config-pipeline kill switch vs. a slower code rollback, a removal date for the flag, no-Friday / no-handoff-window rules, and per-stage promotion criteria. Artifact 2 proposes reasonable guardrails (5% initial, 24h soak, runbooks) but provides no alert thresholds, no explicit abort criteria, and no kill-switch specification.\n\n**incident-thinking (1.5):** Artifact 1 demonstrates real pre-incident muscle: pre-classified SEV1/SEV2 with explicit trigger conditions, pre-decided rollback authority (on-call engineer acts without approval), 'kill switch first, code rollback second' sequencing with a time target (≤5 min), a migration fork-in-the-road analysis (rollback vs. roll-forward per stage), and a state-cleanup obligation that explicitly acknowledges keys and secrets survive a code rollback. Artifact 2 assigns an incident commander and notes post-mortem requirements but does not pre-decide triggers, does not address state cleanup, and does not reason about the migration rollback branch.",
+      "costCents": 4.1913
+    },
+    {
+      "taskId": "marketing-proof-campaign-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.91,
+      "rationale": "Artifact 2 outperforms Artifact 1 on every weighted criterion in substance, not just depth.\n\nProof-assets (weight 2): Artifact 1 names four proof types and calls them core, but stops there. Artifact 2 specifies six distinct proof assets (P1–P6) with individual specs, capture standards (real timestamps, failures left in, individual permalinks), and a hard rule—'no content ships in any channel unless it links to at least one asset below.' That operationalization is specifically what the criterion asks for: proofs as load-bearing structure, not decoration.\n\nChannel-specific (weight 2): Both plans differentiate channels, but Artifact 2 goes further. It assigns each channel an explicit job, distinguishes X from LinkedIn with different formats and voice (brand account vs. operator-voice posts), provides named blog post titles and an email sequence with actual subject lines and specific send timing rather than just content categories. The homepage spec—real live initiative room above the fold, every number linked to its source—is materially distinct from the blog, social, and email treatments. Artifact 1's channel sections are structurally similar to one another.\n\nAnti-pattern awareness (weight 1.5): Artifact 1 identifies the 'Magic Box' anti-pattern with per-channel notes. Artifact 2 names 'Demo Theater,' provides a per-channel table of exactly how it manifests and the guardrail for each, and adds an enforcement mechanism (pre-publish checklist item, marketing-lead veto). The mechanism matters because it makes avoidance actionable rather than aspirational.\n\nMeasurable (weight 1.5): Artifact 1 offers three primary metrics with targets, which is adequate. Artifact 2 provides four primary metrics with targets, action thresholds (e.g., '<25% at day 14 → rework homepage hero'), four diagnostic metrics, two pre-scale hypothesis tests with minimum sample sizes, an attribution model note, and kill/iterate logic that separates proof failure from offer failure. This is meaningfully more measurable and decision-useful.",
+      "costCents": 3.6264
+    },
+    {
+      "taskId": "marketing-proof-campaign-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.88,
+      "rationale": "Artifact 1 outperforms Artifact 2 on every weighted criterion in substance, not just depth.\n\n**proof-assets (weight 2):** Artifact 1 establishes six named, spec'd proof assets (P1–P6), states an explicit enforcement rule ('no content ships in any channel unless it links to at least one asset below'), defines capture standards (real timestamps, failures left in, individual permalinks), and makes P6 a compounding proof-generation machine. The proof layer is genuinely load-bearing. Artifact 2 correctly says proofs 'are the campaign content' and lists four asset types, but provides no capture standards, no enforcement mechanism, and no integration rule—making the commitment more rhetorical than operational.\n\n**channel-specific (weight 2):** Artifact 1 assigns each channel an explicit distinct job, format, CTA, and a named channel-specific rule, further differentiating X from LinkedIn within social and providing a four-touch sequenced email plan with specific subject lines and body rationale. Artifact 2 gives each channel a paragraph with format ideas, but the guidance is shallower and the distinctions are more surface-level (e.g., LinkedIn vs. X are not differentiated at all).\n\n**anti-pattern-awareness (weight 1.5):** Artifact 1 names 'Demo Theater,' explains per-channel manifestations with exact examples (looping animation posing as live, sped-up captures, feature-list emails), and adds an enforcement mechanism (pre-publish checklist, marketing-lead veto). Artifact 2 names the 'Magic Box' anti-pattern and provides per-channel notes, but without operational guardrails or an escalation path—the risk of the pattern reappearing is higher.\n\n**measurable (weight 1.5):** Artifact 1 defines four primary KPIs with numeric targets, diagnostic metrics, an attribution model, action thresholds triggering specific remedies, two pre-scale hypothesis tests, and kill/iterate criteria. Artifact 2 provides three primary metrics with targets and two qualitative secondary metrics—sufficient but materially thinner on decision rules and attribution design.\n\nArtifact 2 is coherent and directionally correct, but Artifact 1 is the clear winner in substance across all four criteria.",
+      "costCents": 3.6954
+    },
+    {
+      "taskId": "ops-escalation-playbook",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.91,
+      "rationale": "Artifact 2 outperforms Artifact 1 on every weighted criterion, often substantially.\n\n**blocker-specific (2pts):** Artifact 1 gives three separate escalation chains, but they read as structural repetition — same shape, different names. Artifact 2 explicitly explains *why* each blocker type routes differently (auth needs the credential holder, not a manager; billing is a spend-authority decision requiring a dollar figure before escalation; approval is about forcing a decision, not fixing anything technical). It also adds concrete lateral mechanics (e.g., parallel continue-work during auth; bounce-back rule if billing escalation lacks a cost estimate; default-decision rule to prevent the 18h approval scenario from recurring). That reasoning is directly what 'blocker-specific' requires.\n\n**sla-owner-clarity (2pts):** Artifact 1 has a clean severity/SLA table and a basic ownership model. Artifact 2 has a multi-row SLA matrix covering acknowledgement, first substantive action, auto-escalate cadence, status-update cadence, resolution target, and retro deadline — each with a named clock owner. It adds out-of-hours rules (SEV-1 clocks are 24/7; SEV-2/3 pause outside business hours) and a terminal non-response rule so the initiative cannot freeze because the founder's phone is off. The named-role table with specific spend-authority thresholds ($500/mo operations authority, $2k one-time emergency) is far more actionable than Artifact 1's generic role descriptions.\n\n**communication-ready (1.5pts):** Artifact 1 has three reusable templates that work but are largely blocker-agnostic. Artifact 2 has six templates, three of which are blocker-type-specific (auth request to integration admin with exact scope language; billing request with a three-option cost table structure; approval nudge that auto-invokes the default-decision rule). The templates are directly fill-in-the-bracket ready and embed the escalation logic into the language itself.\n\n**recovery-checklist (1.5pts):** Artifact 1's checklist is structured but generic — it could apply to any IT incident. Artifact 2's checklist is numbered, has branching type-specific resolution steps (R4-AUTH, R4-BILLING, R4-APPROVAL), explicitly separates verification from escalation (R5 requires re-running the failing task, not accepting 'vendor says it's fixed'), includes the 'continue-work' step to prevent people from idling (R3), and makes the recurrence-retro-to-tracked-task distinction (R9). Artifact 1 does not distinguish between verifying a fix and declaring it resolved.\n\nArtifact 1 is a competent playbook template. Artifact 2 is genuinely actionable for the described scenario and builds structural prevention (70% quota alerts, deputy requirement, default-decision rule, integration ownership register) that directly addresses the conditions that caused the original stall.",
+      "costCents": 4.428
+    },
+    {
+      "taskId": "ops-escalation-playbook",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.88,
+      "rationale": "Artifact 1 outperforms Artifact 2 on every weighted criterion:\n\n**blocker-specific (2pt):** Artifact 1 dedicates entire subsections (3A, 3B, 3C) to each blocker type with explicit rationale for why each path is structurally different (cross-escalate to credential holder for auth vs. spend-authority chain for billing vs. decision-rights chain for approvals). It even explains the failure mode unique to each. Artifact 2 also lists three separate paths but they're shallow escalation ladders with no mechanistic differentiation—the billing path oddly routes through a Head of Finance/CFO that doesn't match the founder-led startup context, and there's no explanation of why each path works differently.\n\n**sla-owner-clarity (2pt):** Artifact 1 provides a full SLA matrix (acknowledge / first action / auto-escalate / status update / resolve / retro) broken out by SEV level, explicit dollar-threshold spend authority, out-of-hours clock rules, and a terminal non-response rule so the initiative doesn't freeze if the founder is unreachable. Artifact 2 has a simple resolution SLA table and an escalation-step SLA table but omits out-of-hours handling, spend authority thresholds, and the non-response scenario.\n\n**communication-ready (1.5pt):** Artifact 1 supplies six copy-paste templates each mapped to a specific situation: generic opener, auth-specific credential request, billing-specific options-with-dollar-figures message, approval nudge with default-decision warning, status update on cadence, and resolution notice. Artifact 2 offers three generic templates (initial, escalation, resolution) with no type-specific language—the same escalation notification is used for all three blocker types.\n\n**recovery-checklist (1.5pt):** Artifact 1's checklist differentiates resolution steps by type (R4-AUTH, R4-BILLING, R4-APPROVAL), includes a 'continue-work' step to prevent people from idling, specifies named-verifier end-to-end re-run for verification, and has a recurrence-detection rule that triggers structural fixes. Artifact 2's checklist is a reasonable generic flow but is not differentiated by blocker type and lacks the verification-with-named-verifier step and recurrence logic.",
+      "costCents": 4.5195
+    },
+    {
+      "taskId": "product-retention-experiment-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.88,
+      "rationale": "Artifact 2 outperforms on every criterion, and decisively so on the two highest-weighted ones.\n\nbehavior-change (2): Artifact 2 diagnoses the root cause precisely — the first session is a 'spectator experience' with no open loop, producing an 'I've seen it' feeling rather than a reason to return. It names three observable behaviors (B1/B2/B3) each tied to a specific event, and separates mechanism metrics from outcome metrics. The causal chain (authorship stake + open loop → return trigger) is explicit and falsifiable. Artifact 1 identifies the right surface metric (D2RR) and a before/after behavior, but the mechanism (guided overlay with 3 action buttons) is a generic onboarding pattern without a specific theory for why watching versus doing changes the return signal.\n\nexperiment-specific (2): Artifact 2 designs three arms that isolate distinct mechanisms (A vs. B = in-session authorship effect; B vs. C = return-trigger effect of the brief). It explains why it didn't add a fourth arm and how to recover quasi-arm signal from within-arm skippers. Treatment specifics — decision at T+90s, real plan branch that visibly replays in the timeline, 'blocked on you' item guaranteed in the brief — are operational rather than conceptual. Pre-registered success thresholds (pp absolute, p-value) prevent post-hoc goal-shifting. Artifact 1's A/B is legitimate but the treatment (overlay with three buttons) lacks the causal specificity needed to interpret results.\n\nmeasurement-plan (2): Artifact 2 defines every new event with its key properties, writes the primary metric in hour-window (not calendar-day) terms to avoid timezone artifacts, distinguishes mechanism metrics from guardrails with explicit alert thresholds (e.g., 5pp abandonment, 3% unsubscribe), specifies diagnostic cuts (conditional on checkpoint completion vs. skip) with an interpretation rule ('if B3 moves without B1/B2, the treatment isn't why'), and defines a baseline-computation gate in week 0 as a blocking pre-launch deliverable. Artifact 1 has reasonable instrumentation but misses these precision layers.\n\nrollout-sequencing (1.5): Both are sensible. Artifact 2 adds stronger quantitative gates (7/10 dogfooders must articulate what their decision changed; overnight completion ≥70% before Arm C goes live; event-loss <1% in canary), a post-ship 30-day novelty-check rule, and three pre-committed decision branches at readout to prevent arbitrary interpretation. That said, Artifact 1's phased rollout is clear and practical, so the gap here is smaller than on the other criteria.",
+      "costCents": 4.4526
+    },
+    {
+      "taskId": "product-retention-experiment-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.93,
+      "rationale": "Artifact 1 outperforms on every weighted criterion. On behavior-change: it correctly diagnoses the root cause (passive spectator, no open loop, nothing pending on the founder) and targets three specific, observable behavioral events (B1: decision made ≥1 within 5 min; B2: session ends with open_loop_count ≥ 1; B3: room_revisit in hours [16,48]). Artifact 2 proposes 'post a kick-off status / add a link' micro-tasks, which misread the signal — technical founders are not passive because they lack guidance; they lack a reason to return because nothing is in flight that depends on them. On experiment-specific: Artifact 1 runs a three-arm design that isolates the in-session authorship mechanism (A vs. B) from the return-trigger mechanism (B vs. C), with a pre-registered MDE, per-arm sample size (~293), and explicit decision branches pre-committed before launch. Artifact 2 is a standard two-arm A/B test with no power calculation shown and vague success criteria. On measurement-plan: Artifact 1 provides a full instrumentation table with event names and key properties, SQL-testable metric definitions, guardrail alerts at specific thresholds (e.g., >5pp abandonment, >3% unsubscribe), and an hour-based return window to avoid timezone artifacts. Artifact 2 lists event names and mentions a chi-squared test but omits metric definitions, guardrail thresholds, and timezone handling. On rollout-sequencing: Artifact 1 has gated phases (Week 0 baseline + QA blocking launch, Week 1 dogfood with a pass/fail criterion, Week 2 canary for engineering health, Weeks 3–9 full enrollment, Week 10 pre-committed readout), while Artifact 2's phases are reasonable but lack gates and decision criteria. The only area where Artifact 2 is comparable is surface-level readability, but substance on every scored criterion belongs clearly to Artifact 1.",
+      "costCents": 4.0371
+    },
+    {
+      "taskId": "sales-competitive-battlecard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.87,
+      "rationale": "Artifact 2 outperforms on every weighted criterion. On explicit-comparison (weight 2, highest): Artifact 2 provides a structured six-dimension comparison table across all four alternatives plus granular narrative per competitor, including named specific behaviors ('Ask ChatGPT for a competitive analysis twice, three months apart: you get two unrelated documents'). Artifact 1 has good comparisons but no table and relies on broader claims. On proof-moments (weight 2): Artifact 2 gives six sequenced demo moments with explicit execution guidance, timing (~15 min total), and rationale for each ('Using their own context, not a canned demo, is the single highest-converting move'). Notably it includes the counterintuitive failure-path demo, which is the most credible move with technical buyers. Artifact 1 has three demos but uses 'dummy project' language, reducing specificity. On acknowledges-weakness (weight 1.5): Artifact 2 concedes 'Cursor wins, full stop' on inline completion, names raw chat as faster for throwaway tasks, flags solo-founder and process-allergic teams as weak fits, and explicitly warns against claiming polish parity. These are specific, tactical, and trust-building. Artifact 1's weaknesses are more abstract. On founder-talk-track (weight 1.5): Artifact 2's track is labeled 'verbatim-usable,' ends with a live-demo close ('Give me one real initiative on your plate right now'), and is followed by planted landmine questions that extend the track's utility. Artifact 1's track is serviceable but less specific and less closable. No criterion favors Artifact 1 materially.",
+      "costCents": 3.6204
+    },
+    {
+      "taskId": "sales-competitive-battlecard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "anthropic/claude-sonnet-4.6",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:anthropic/claude-sonnet-4.6:medium",
+      "winner": "B",
+      "confidence": 0.91,
+      "rationale": "Artifact 1 outperforms Artifact 2 on every weighted criterion.\n\nexplicit-comparison (weight 2): Artifact 1 has a six-dimension comparison table across all three alternatives with concrete, specific outputs ('A chat answer you copy-paste' vs. 'A reviewed artifact tied to an initiative'), then separate ranked narratives per competitor referencing specific product behavior. Artifact 2 names competitors but its comparisons stay at a higher level of abstraction ('We win on specificity and completeness') without anchoring claims to observable product differences.\n\nacknowledges-weakness (weight 1.5): Artifact 1 names six honest weaknesses with hard concessions: 'Cursor wins, full stop' for inline completion, 'OrgX is an early product in a new category — don't claim parity on polish,' and specific buyer profiles to disqualify. Artifact 2 lists four weaknesses, but they are weaker concessions — 'don't use it for find/replace' is a strawman, not a real competitive exposure. Artifact 1's willingness to say 'the alternatives win here' is significantly more credible to a technical buyer.\n\nproof-moments (weight 2): Artifact 1 provides six sequenced demo moments with strategic framing language, timing guidance (~15 minutes), and counterintuitive moves (deliberately showing a validation failure). Each demo explicitly counters a specific competitive alternative. Artifact 2 has three demo moments with decent specificity (GitHub issue → spec → code is good) but no sequencing rationale or framing language, and fewer moments to cover the full battlecard.\n\nfounder-talk-track (weight 1.5): Artifact 1's talk track is explicitly timed (~60 seconds), verbatim-usable, acknowledges the existing tools without attacking them, ends with a live-demo closing line tied to the prospect's own work, and is supplemented by four pre-loaded landmine questions. Artifact 2's track is shorter but less precise — the 'hyper-competent technical co-founder who only does the first draft' framing is muddled, and '5x faster' is unanchored. Artifact 2 lacks the competitive edge-of-seat moment that Artifact 1's closing line creates.",
+      "costCents": 4.5789
+    }
+  ]
+}

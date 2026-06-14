@@ -1,0 +1,100 @@
+{
+  "benchmarkWeek": "orgx-agent-surface-hard-20260612",
+  "benchmarkVersion": "2026-q1",
+  "taskCount": 3,
+  "repeatCount": 1,
+  "domains": [
+    "engineering",
+    "ops",
+    "product"
+  ],
+  "providers": [
+    "orgx",
+    "openrouter"
+  ],
+  "models": [
+    "claude-fable-5",
+    "deepseek/deepseek-v4-flash",
+    "deepseek/deepseek-v3.2",
+    "deepseek/deepseek-v4-pro"
+  ],
+  "runtimes": [
+    "node-24.13.0"
+  ],
+  "claims": [
+    "Local public-catalog run using OpenAI Responses API.",
+    "Artifacts were scored by independent OpenAI judge calls that did not generate the artifact.",
+    "Public quality scores use median criterion scores and flag material judge disagreement for human review."
+  ],
+  "generationMethod": {
+    "provider": "orgx",
+    "model": "claude-fable-5",
+    "reasoningEffort": null,
+    "maxOutputTokens": null,
+    "surface": "orgx_agent_surface_claude_code"
+  },
+  "evaluationMethod": {
+    "independentJudges": true,
+    "judgePanel": [
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      }
+    ],
+    "judgeMaxOutputTokens": 10000,
+    "scoreAggregation": "median criterion score across completed independent judges",
+    "disagreementThresholdPoints": 8,
+    "humanReviewPolicy": "flag if any judge recommends review, any judge fails, or judge disagreement exceeds threshold"
+  },
+  "tokenUsage": {
+    "generation": {
+      "inputTokens": 0,
+      "cachedInputTokens": 0,
+      "outputTokens": 0,
+      "reasoningTokens": 0,
+      "totalTokens": 0,
+      "costCents": 0
+    },
+    "judging": {
+      "inputTokens": 55776,
+      "cachedInputTokens": 9953,
+      "outputTokens": 18179,
+      "reasoningTokens": 16051,
+      "totalTokens": 73955,
+      "costCents": 3.1548
+    },
+    "total": {
+      "inputTokens": 55776,
+      "cachedInputTokens": 9953,
+      "outputTokens": 18179,
+      "reasoningTokens": 16051,
+      "totalTokens": 73955,
+      "costCents": 3.1548
+    }
+  },
+  "assumptions": {
+    "modelSelection": "claude-fable-5 was selected for the cheapest complete OpenAI smoke run.",
+    "reasoningEffort": "minimal",
+    "maxOutputTokens": null,
+    "judgeProtocol": "Artifacts were scored by independent judge calls that did not generate the artifact."
+  },
+  "dataFiles": [
+    "summary.json",
+    "metadata.json",
+    "examples.json",
+    "tasks.json",
+    "scorecard.csv",
+    "judgments.json"
+  ]
+}

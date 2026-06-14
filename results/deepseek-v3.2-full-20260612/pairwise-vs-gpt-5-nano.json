@@ -1,0 +1,1275 @@
+{
+  "summary": {
+    "bundleA": "local-openai-gpt-5-nano-full-complete",
+    "bundleB": "deepseek-v3.2-full-20260612",
+    "judgePanel": [
+      "openrouter:deepseek/deepseek-v4-flash:low",
+      "openrouter:deepseek/deepseek-v3.2:medium",
+      "openrouter:deepseek/deepseek-v4-pro:high"
+    ],
+    "sharedTasks": 12,
+    "taskVerdicts": {
+      "A": 1,
+      "B": 6,
+      "tie": 5
+    },
+    "rawVotes": {
+      "B": 47,
+      "tie": 7,
+      "A": 18
+    },
+    "totalJudgeCostCents": 22.4856,
+    "perTask": [
+      {
+        "taskId": "design-live-room-critique",
+        "votes": {
+          "A": 0,
+          "B": 6,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 3,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "marketing-launch-brief",
+        "votes": {
+          "A": 0,
+          "B": 6,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 3,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "postmortem",
+        "votes": {
+          "A": 1,
+          "B": 4,
+          "tie": 1
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 1,
+          "tie": 2
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "pr-description",
+        "votes": {
+          "A": 0,
+          "B": 1,
+          "tie": 5
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 0,
+          "tie": 3
+        },
+        "verdict": "tie"
+      },
+      {
+        "taskId": "product-initiative-brief",
+        "votes": {
+          "A": 3,
+          "B": 3,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 0,
+          "tie": 3
+        },
+        "verdict": "tie"
+      },
+      {
+        "taskId": "sales-outreach-sequence",
+        "votes": {
+          "A": 3,
+          "B": 3,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 0,
+          "tie": 3
+        },
+        "verdict": "tie"
+      },
+      {
+        "taskId": "cross-functional-launch-plan",
+        "votes": {
+          "A": 2,
+          "B": 3,
+          "tie": 1
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 0,
+          "tie": 3
+        },
+        "verdict": "tie"
+      },
+      {
+        "taskId": "engineering-release-readiness-review",
+        "votes": {
+          "A": 1,
+          "B": 5,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 2,
+          "tie": 1
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "marketing-proof-campaign-brief",
+        "votes": {
+          "A": 0,
+          "B": 6,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 3,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "ops-escalation-playbook",
+        "votes": {
+          "A": 4,
+          "B": 2,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 1,
+          "B": 0,
+          "tie": 2
+        },
+        "verdict": "A"
+      },
+      {
+        "taskId": "product-retention-experiment-plan",
+        "votes": {
+          "A": 3,
+          "B": 3,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 0,
+          "tie": 3
+        },
+        "verdict": "tie"
+      },
+      {
+        "taskId": "sales-competitive-battlecard",
+        "votes": {
+          "A": 1,
+          "B": 5,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 2,
+          "tie": 1
+        },
+        "verdict": "B"
+      }
+    ]
+  },
+  "judgments": [
+    {
+      "taskId": "design-live-room-critique",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.8,
+      "rationale": "Both artifacts diagnose hierarchy problems and propose above-the-fold structures, but Artifact 2 better satisfies ‘high-taste’ and ‘references-component-system’. Artifact 2 demonstrates stronger restraint: it avoids adding new custom components like HealthBadge or ActivityChipList, instead reusing existing Pill/Badge, Task Card, List Item, and Grid layout components with minimal modification. It also grounds its structure in layout and typographic scale rather than new chrome. Artifact 1 introduces several new component types (HealthBadge, ActivityChipList, MilestonesRow, etc.) and suggests an incremental rollout, which shows less re-use restraint. Both propose concrete structures, but Artifact 2’s is slightly more scannable and directly answers ‘who is working’ with a prominent hero zone for the current task and ownership. However, Artifact 1 offers a fuller component map and slightly more detail on hierarchy, so the difference is not large — hence confidence at 0.8 rather than higher.",
+      "costCents": 0.045
+    },
+    {
+      "taskId": "design-live-room-critique",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.85,
+      "rationale": "Artifact 1 provides a clearer, more precise diagnosis of hierarchy failures (e.g., 'No Primary Visual Anchor', 'Flat Presentation of Heterogeneous Data', 'Buried Ownership and Presence') which directly maps to the 'diagnoses-hierarchy' criterion. Its proposed above-the-fold structure is more concrete and immediately actionable (e.g., specific layout sketch with 'NOW WORKING' hero zone, two-column context area, status indicator placement), satisfying 'proposes-structure' more effectively. For 'references-component-system', Artifact 1 specifically names existing components (Pill/Badge, Task Card, List Item, Grid) and explains how to reuse them without modification, demonstrating system coherence; Artifact 2 invents new component names (HealthBadge, MilestonesRow, ActivityChipList) which implies custom development rather than reuse. Both show 'high-taste' and restraint, but Artifact 1's emphasis on 'Radical Restraint' and solving through layout and typography rather than adding widgets edges ahead. Overall, Artifact 1 feels more distilled and focused on the core problem, while Artifact 2 is more verbose and includes proposed new components that weaken the reuse criterion.",
+      "costCents": 0.0523
+    },
+    {
+      "taskId": "design-live-room-critique",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.6,
+      "rationale": "Both artifacts thoroughly diagnose hierarchy problems and propose concrete above-the-fold structures. Artifact 2 offers a slightly more streamlined and narrative-driven structure that directly answers user questions with radical restraint, avoiding unnecessary chrome. It also places stronger emphasis on reusing existing component variants rather than introducing new ones, better aligning with a mature design system and demonstrating higher taste. Though both are excellent, Artifact 2 edges out on the principles of restraint and component-system coherence.",
+      "costCents": 0.1433
+    },
+    {
+      "taskId": "design-live-room-critique",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.75,
+      "rationale": "Artifact 1 more clearly diagnoses hierarchy failures by pinpointing the scattered information architecture and lack of visual narrative with specific, actionable observations. It proposes a more concrete, restrained above-the-fold structure that follows a clear visual narrative and hero zone for current work, whereas Artifact 2's structure is more fragmented with left/right columns and a bottom band, adding potential chrome. Artifact 1 provides stronger reusable component guidance by explicitly advocating for reuse of existing components (Pill/Badge, Task Card, List Item) and avoiding new widgets, while Artifact 2 lists more custom-named components. Artifact 1 demonstrates higher taste through its principle of 'radical restraint' and a cleaner, more focused layout, whereas Artifact 2 includes more elements like an activity stream and quick actions that risk adding clutter.",
+      "costCents": 0.3702
+    },
+    {
+      "taskId": "design-live-room-critique",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.85,
+      "rationale": "Artifact 2 demonstrates superior performance on two weighted criteria: it shows higher taste and restraint by proposing a minimal, focused above‑the‑fold structure that avoids adding dashboard chrome, and it explicitly references reusing existing system components (e.g., existing task card, pill/badge, list component), aligning closely with the component‑system criterion. Both artifacts clearly diagnose hierarchy issues and propose concrete structures, so those criteria are a tie. The overall balance of criteria weights favors Artifact 2.",
+      "costCents": 0.329
+    },
+    {
+      "taskId": "design-live-room-critique",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Both artifacts clearly diagnose hierarchy failures and propose concrete above-the-fold structures. However, Artifact 1 explicitly reuses existing design system components (Pill/Badge, Task Card, List Item, Grid/Split Panel), while Artifact 2 introduces new bespoke components with no mention of reusing existing ones, meeting the 'references-component-system' criterion more directly. Artifact 1 also demonstrates stronger high-taste through radical restraint and a refusal to add dashboard chrome, whereas Artifact 2's addition of activity streams, milestone rows, and quick actions increases visual clutter. On the heavily weighted criteria of component reuse (1.5) and high-taste (2), Artifact 1 is clearly superior, and diagnoses/structure are essentially equivalent.",
+      "costCents": 0.4083
+    },
+    {
+      "taskId": "marketing-launch-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Both artifacts satisfy all five criteria. However, Artifact 2 has a stronger emphasis on proof as a conversion lever (criterion proof-emphasis, weight 2). It explicitly calls proof the 'central conversion lever' and designs concrete proof mechanisms like evergreen demo rooms, request-a-demo flow where the user's task is performed live, and a live launch event. The channel plan is also more channel-specific: for example, it tailors the email campaign into series and segments by user behavior, and the social plan includes a recurring 'Live Room Wednesday' tactic. The CTA strategy is tiered by commitment level with proof-first CTAs (e.g., 'Watch a Live Demo' before sign-up). While Artifact 1 has a solid channel plan and proof points, its proof emphasis is less central and its CTAs are more conventional. Artifact 2's positioning and message pillars are equally clear and distinct. Therefore, Artifact 2 better satisfies the weighted criteria overall.",
+      "costCents": 0.0478
+    },
+    {
+      "taskId": "marketing-launch-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.8,
+      "rationale": "Both artifacts satisfy positioning, message pillars, and CTA strategy comparably. However, Artifact 1 provides significantly more channel-specific recommendations (e.g., detailed homepage sections, email subject lines, social engagement tactics) and a stronger proof-emphasis approach (evergreen demo rooms, request-a-demo flow, live launch event) that treats live evidence as the central conversion lever. These strengths align with the higher-weighted criteria (has-channel-plan at 1.5, proof-emphasis at 2), making Artifact 1 the better overall artifact.",
+      "costCents": 0.0418
+    },
+    {
+      "taskId": "marketing-launch-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.7,
+      "rationale": "Both artifacts meet the core criteria, but Artifact 2 demonstrates a stronger integration of proof as a central conversion lever and provides more innovative, channel-specific tactics. Artifact 2's 'proof-emphasis' is more pronounced (e.g., evergreen demo rooms, request-a-demo flow, live launch event as a Live Room) and its channel plan is more detailed and tightly aligned with the feature's value (e.g., homepage live embed, social persistent links, in-app activation). Artifact 1 is solid but slightly less focused on proof as the primary conversion driver and its channel plan is more conventional. The tie-breaker is the superior performance on 'proof-emphasis' and 'has-channel-plan', which carry higher weight.",
+      "costCents": 0.1016
+    },
+    {
+      "taskId": "marketing-launch-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Artifact 1 excels in three key weighted criteria: 'proof-emphasis' (2) by making proof the central conversion lever with specific strategies like evergreen demo rooms and personalized live demos; 'has-channel-plan' (1.5) by providing highly channel-specific, actionable recommendations (e.g., homepage looping video, email series with segmented triggers, social 'Live Room Wednesday'); and 'has-cta' (1) with a tiered, commitment-level-based CTA strategy that is tightly integrated with proof points. Both artifacts satisfy 'has-positioning' (2) and 'has-message-pillars' (2) adequately, but Artifact 1's more detailed and distinctive pillars (e.g., 'Proof, Not Promise') give it a slight edge. Artifact 2 meets criteria but is more generic in channel plans and proof integration.",
+      "costCents": 0.1097
+    },
+    {
+      "taskId": "marketing-launch-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Artifact 2 provides a more detailed and channel-specific launch plan with distinct tactics for each channel (e.g., subject lines, segmentation, in-app modal), and it makes proof/demo the central conversion lever more effectively with personalized demo sessions, evergreen demo rooms, and a proof-first CTA. Both satisfy positioning, message pillars, and CTA criteria equally well, but the heavier-weighted criteria (channel plan and proof emphasis) clearly favor Artifact 2.",
+      "costCents": 0.3124
+    },
+    {
+      "taskId": "marketing-launch-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Artifact 1 excels in channel-specificity (e.g., homepage annotated video, email minimal design, social live room events, in-app activation, docs tutorial inside the feature) and makes proof/demo the central conversion lever (evergreen demos, request-by-task, launch event as live room, proof-first CTA). Artifact 2's channel plan is more generic and its proof emphasis is less woven throughout the brief. Both satisfy positioning, message pillars, and CTA requirements, but weighted criteria favor Artifact 1.",
+      "costCents": 0.3704
+    },
+    {
+      "taskId": "postmortem",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "tie",
+      "confidence": 1,
+      "rationale": "Both artifacts satisfy all weighted acceptance criteria equally well. They both include a concise executive summary, correctly identify root cause, quantify impact, list specific action items, provide a timeline, and offer lessons learned beyond restating events. No criterion is clearly better satisfied by one artifact over the other.",
+      "costCents": 0.0765
+    },
+    {
+      "taskId": "postmortem",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Both artifacts satisfy all required criteria (executive summary, root cause, quantified impact, action items, condensed timeline, lessons learned). However, Artifact 1 is stronger on several criteria. Its root cause analysis is more detailed, explaining the mechanism and contributing factors in depth (weight 3). Its action items are more specific and actionable, with clear ownership, due dates, and concrete technical remedies (e.g., dedicated connection pool, circuit breaker pattern) — aligning better with the weight-2 criterion. The lessons learned go further beyond restating facts, offering forward-looking principles like 'Design for Failure' and 'Operational Metrics are Part of the Feature' (weight 1.5). Artifact 2's action items are somewhat vaguer (e.g., 'implement DB pool safeguards' without specifying the mechanism) and its lessons learned are less developed. Both have acceptable summaries, timelines, and quantified impact, so the tie on those criteria does not change the decision. Overall, Artifact 1 more substantially meets the weighted criteria.",
+      "costCents": 0.0595
+    },
+    {
+      "taskId": "postmortem",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "A",
+      "confidence": 0.9,
+      "rationale": "Artifact 1 satisfies the weighted acceptance criteria better in substance. Both artifacts include executive summary, correct root cause, quantified impact, condensed timeline, and lessons learned. However, artifact 1's action items are more specific and actionable (e.g., 'implement DB pool safeguards' with explicit safeguards like 'max_db_connections, per-request transaction timeouts, automatic backoff on DB saturation'), whereas artifact 2's action items are somewhat more generic (e.g., 'implement a staging environment load test' and 'modify endpoint to use a dedicated pool'). Artifact 1's lessons learned also slightly better go beyond restating what happened by emphasizing rollouts must include database load testing scenarios, and endpoints should be guarded by timeouts and backpressure signals. Artifact 2's lessons learned are also good but slightly less specific. For the root cause criterion (weight 3), both correctly identify connection pool exhaustion from long-running transactions. Overall, artifact 1 edges out due to more concrete action items and slightly deeper lessons.",
+      "costCents": 0.212
+    },
+    {
+      "taskId": "postmortem",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.7,
+      "rationale": "Both artifacts satisfy all criteria, but Artifact 1 better addresses the weighted criteria of 'has-action-items' (2) and 'has-lessons' (1.5). Artifact 1's action items are more specific, immediately actionable, and have clear ownership and deadlines (e.g., 'modify endpoint to use dedicated connection pool' vs. 'implement DB pool safeguards'). Its lessons learned are more insightful, moving beyond restating the incident to cover holistic testing, design for failure, and operational metrics. Artifact 2's action items are slightly more vague and its lessons learned are less comprehensive. Both correctly identify root cause, include a timeline, quantify impact, and have an executive summary, making them close, but Artifact 1 has a clear edge in substance for the higher-weighted criteria.",
+      "costCents": 0.1393
+    },
+    {
+      "taskId": "postmortem",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.85,
+      "rationale": "Both artifacts satisfy all criteria, but Artifact 2 has slightly more substantive lessons learned that go beyond restating the incident, including insights on speed of mitigation and operational metrics as part of feature definition, which align with the 'go beyond restating' requirement. On other criteria, they are essentially equivalent, but the lessons give Artifact 2 an edge.",
+      "costCents": 1.247
+    },
+    {
+      "taskId": "postmortem",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.8,
+      "rationale": "Artifact 1 provides more specific action items (e.g., exact thresholds for alerts, dedicated connection pool) and a slightly more detailed root cause analysis with mechanisms and contributing factors. This makes it better satisfy the high-weighted 'has-action-items' criterion, while both equally meet the other criteria.",
+      "costCents": 0.5957
+    },
+    {
+      "taskId": "pr-description",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "tie",
+      "confidence": 0.95,
+      "rationale": "Both artifacts fully satisfy all weighted acceptance criteria. Each includes a clear title, a 2-3 sentence summary, a bullet list of specific changes, testing instructions, and correctly identifies the change as a token refresh fix. There is no substantive difference in meeting the criteria.",
+      "costCents": 0.0471
+    },
+    {
+      "taskId": "pr-description",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "tie",
+      "confidence": 0.95,
+      "rationale": "Both artifacts include a clear title, a 2-3 sentence summary, a specific bullet list of changes, testing instructions, and deployment notes. They both correctly identify the changes as a token refresh fix. The differences in formatting, detail, and additional sections (e.g., Security Considerations) do not affect the weighted acceptance criteria, as the core requirements are equally satisfied. Therefore, the artifacts are genuinely indistinguishable on the specified criteria.",
+      "costCents": 0.0558
+    },
+    {
+      "taskId": "pr-description",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "tie",
+      "confidence": 0.8,
+      "rationale": "Both artifacts fully satisfy all weighted acceptance criteria. Each provides a clear title, a 2-3 sentence summary, a specific bullet list of changes, testing instructions, and correctly identifies the change as a token refresh fix. While Artifact 2 includes additional sections like 'Security Considerations', the core criteria are met equally well by both. The minor differences in phrasing and organization are not significant enough to favor one over the other on the given criteria.",
+      "costCents": 0.0949
+    },
+    {
+      "taskId": "pr-description",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "tie",
+      "confidence": 0.5,
+      "rationale": "Both artifacts satisfy all weighted acceptance criteria equally well. Both include a clear title, a 2-3 sentence summary explaining what changed and why, a specific bullet list of changes, testing instructions, and correctly identify the change as a token refresh fix. While Artifact 1 has slightly more structured formatting and extra sections, and Artifact 2 is more concise, the core substance covering all criteria is equivalent. Neither artifact misses any required component.",
+      "costCents": 0.1327
+    },
+    {
+      "taskId": "pr-description",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "tie",
+      "confidence": 0.95,
+      "rationale": "Both artifacts include a clear, descriptive PR title focused on token refresh handling, a concise 2-3 sentence summary explaining what changed and why, a detailed bullet list of specific file-level changes, thorough testing instructions with both automated and manual scenarios, and correctly identify the change as a token refresh fix rather than general auth. No meaningful difference in substance across any weighted criteria.",
+      "costCents": 1.2168
+    },
+    {
+      "taskId": "pr-description",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.85,
+      "rationale": "Artifact 1 has a more specific title that clearly identifies the graceful handling of expired refresh tokens, a more detailed 2-3 sentence summary (covering previous problems and the improvement), and more comprehensive testing instructions with dedicated edge-case testing. Both artifacts satisfy all criteria, but Artifact 1 satisfies the title, summary, and testing criteria to a higher standard in substance.",
+      "costCents": 1.0825
+    },
+    {
+      "taskId": "product-initiative-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "A",
+      "confidence": 0.7,
+      "rationale": "Artifact 1 more explicitly addresses the founder decision moment with a dedicated section and specific design, while Artifact 2 embeds it less prominently. Both have strong problem statements and metrics, but Artifact 1's metrics are more precisely quantified. On scope and workstreams, both are clear and sensible, but the decision moment criterion (weight 2) gives Artifact 1 the edge.",
+      "costCents": 0.0377
+    },
+    {
+      "taskId": "product-initiative-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Artifact 1 better satisfies the weighted criteria overall. It has a clear problem statement tied to the founder's pain of needing rapid validation in one session (criterion 1). It includes strong, measurable success metrics like Session Conversion Rate and Time to First Value (criterion 2). It clearly delineates in-scope and out-of-scope work in a structured table (criterion 3). It recommends four sensible, distinct workstreams with owners and focus areas (criterion 4). Most importantly, it centers the one-session founder decision moment explicitly in the problem statement, trigger moment, metrics, and UX design—far more integrally than Artifact 2's add-on section (criterion 5). Artifact 2 is competent in all areas, but its founder decision moment is treated as a separate last section rather than woven throughout, and its metrics are slightly less tied to a true commitment signal. Hence Artifact 1 wins decisively.",
+      "costCents": 0.0315
+    },
+    {
+      "taskId": "product-initiative-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "A",
+      "confidence": 0.8,
+      "rationale": "Artifact 1 slightly outperforms Artifact 2 on weighted criteria. While both address the criteria, Artifact 1's problem statement is more specific to 'shortening time-to-decision' and 'one-session verdict.' Its success metrics are more directly tied to the decision moment (time to decision, confidence rating). Both have clear scope, but Artifact 1's workstreams are more comprehensive, including explicit risk mitigation and launch planning. Most decisively, Artifact 1 has a dedicated 'Founder Decision Moment' section that explicitly designs the one-session decision, fulfilling that high-weighted criterion more completely. Artifact 2's focus is strong, but its decision moment is more embedded in the overall flow.",
+      "costCents": 0.1222
+    },
+    {
+      "taskId": "product-initiative-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.85,
+      "rationale": "Artifact 1 more clearly satisfies the weighted criteria. It provides a more detailed problem statement tying the user pain to lost potential high-value users at the point of highest intent. Its success metrics are more directly focused on the in-session conversion (Session Conversion Rate) and time-to-first-value, which are concrete and aligned with the one-session decision moment. Artifact 1's scope is more precisely defined with a table and specific in/out items, while Artifact 2's scope is vaguer. Artifact 1's workstreams are more execution-oriented with clear owners, whereas Artifact 2's are somewhat overlapping and include planning as a separate workstream. Both recognize the founder decision moment as central, but Artifact 1 integrates it more deeply into the success metrics and overall approach.",
+      "costCents": 0.1225
+    },
+    {
+      "taskId": "product-initiative-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "A",
+      "confidence": 0.85,
+      "rationale": "Both artifacts satisfy the core criteria, but Artifact 1 handles the central founder decision moment more centrally and explicitly. Artifact 1 defines a dedicated 'Founder Decision Moment' section with a clear binary prompt, time-boxing, and immediate next-step paths, directly addressing the one-session verdict requirement. While Artifact 2 also recognizes the moment ('commit signal' actions), it distributes the focus across UI milestones and risks making the moment feel less sharp. Both briefs provide measurable success metrics, clear scope, and sensible workstreams, but Artifact 1's tighter alignment with the 'decide in one session whether OrgX is real' prompt gives it the edge.",
+      "costCents": 0.953
+    },
+    {
+      "taskId": "product-initiative-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Artifact 1 presents a more tightly focused brief centered on the one-session founder decision moment, with concrete, measurable success metrics (including baselines and targets), a detailed and clearly bounded scope, and actionable workstreams that directly address the friction. While Artifact 2 includes relevant elements, Artifact 1 better satisfies the weighted criteria by making the decision moment the core of the initiative and providing stronger operational metrics and workstreams.",
+      "costCents": 0.3779
+    },
+    {
+      "taskId": "sales-outreach-sequence",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "A",
+      "confidence": 0.8,
+      "rationale": "Artifact 1 more closely satisfies the acceptance criteria overall, especially the critical ones. It provides a more personalized ICP angle by not just stating but embodying the context-switching pain in the email's opening with specific phrasing like 'planning, execution, and review live AI outputs all live in different tools'. The CTA is tied to a concrete proof moment (a 15-minute live example of an AI sprint). The sequence is coherent across all three required steps. Objection handling is credible ('not ready to change tooling mid-sprint') with a specific low-risk pilot plan. Artifact 2, while competent, treats the pain more generically ('juggling multiple hats', 'drains focus'), its CTA is a more conventional 'live demo' offer, and its objection ('already use Jira/Notion') is less specific to the given ICP's stated pain point. On the weighted criteria, Artifact 1 wins on the two most important (personalized-icp and proof-led-cta), and is at least tied on the others.",
+      "costCents": 0.027
+    },
+    {
+      "taskId": "sales-outreach-sequence",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.7,
+      "rationale": "Both artifacts meet the minimum requirements with a coherent 3-step sequence and credible objection-handling angles. However, Artifact 1 is notably stronger on the higher-weighted criteria: it more vividly personalizes to the technical founder ICP (e.g., 'lean team,' 'juggling multiple hats') and ties the CTA to a more concrete, customized proof moment (using the founder's actual project). Artifact 2 is well-structured but feels slightly more generic and less tailored. The objection-handling angle in Artifact 1 also more directly addresses tool overload tied to context switching, while Artifact 2's pilot-based objection is credible but less tightly linked to the core pain. Hence Artifact 1 wins.",
+      "costCents": 0.0246
+    },
+    {
+      "taskId": "sales-outreach-sequence",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "A",
+      "confidence": 0.7,
+      "rationale": "Both artifacts satisfy the weighted acceptance criteria well. Artifact 1 slightly edges out in 'personalized-icp' due to more specific questions and language directly tied to the technical founder's context-switching pain. For 'objection-angle', Artifact 1 offers a more detailed and actionable pilot plan to address mid-sprint tooling changes. Artifact 2's 'proof-led-cta' is strong (offering to use the prospect's actual project), but Artifact 1's proof moment is also concrete and well-integrated. The 'multi-step-sequence' is coherent in both. Overall, Artifact 1 demonstrates marginally better substance across the criteria.",
+      "costCents": 0.1273
+    },
+    {
+      "taskId": "sales-outreach-sequence",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.7,
+      "rationale": "Both artifacts satisfy the criteria well, but Artifact 1 slightly outperforms Artifact 2 on the higher-weighted criteria. For 'personalized-icp' (weight 2), Artifact 1 uses more specific, vivid language addressing the technical founder's daily reality ('juggling multiple hats,' 'slows down iteration cycles') and integrates with tools like GitHub/Slack, making it feel less generic. For 'proof-led-cta' (weight 2), Artifact 1 emphasizes a demo customized to the prospect's actual project ('using your context'), which is marginally more concrete than Artifact 2's live proof moment. Both artifacts meet 'multi-step-sequence' (weight 1.5) and offer credible objection-handling angles (weight 1.5), though Artifact 1's objection about existing tools (Jira/Notion) may be slightly more common and directly addressed. The differences are subtle but give Artifact 1 a small edge overall.",
+      "costCents": 0.0885
+    },
+    {
+      "taskId": "sales-outreach-sequence",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "A",
+      "confidence": 0.8,
+      "rationale": "Artifact 1 more tightly personalizes to the ICP by asking specific, pain-quantifying questions ('How many hours per week does context switching steal...?') and referencing an industry placeholder, making the outreach feel like a genuine conversation with a technical founder. Its objection-handling angle ('not ready to change tooling mid-sprint') is addressed with a concrete, low-friction pilot plan, which is highly credible. Both artifacts provide a proof-led CTA with a live demo, but Artifact 1 maintains a consistent live-room proof moment across all steps. While Artifact 2 is also strong, Artifact 1's sharper personalization and pilot-oriented objection handling give it a slight edge under the weighted criteria.",
+      "costCents": 0.3741
+    },
+    {
+      "taskId": "sales-outreach-sequence",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.95,
+      "rationale": "Artifact 1 is more personalized to the ICP by vividly describing the technical founder's context switching across planning, execution, and reviewing AI outputs, while Artifact 2's messaging is more generic (e.g., using a placeholder [industry] and a less specific pain description). Artifact 1's proof-led CTA explicitly promises to use the prospect's actual project in a live, customized demo, whereas Artifact 2 merely offers a generic live example of a typical AI sprint. The multi-step sequence and objection-handling angles are comparable, but the higher-weighted criteria (personalization and proof-led CTA) clearly favor Artifact 1.",
+      "costCents": 0.3133
+    },
+    {
+      "taskId": "cross-functional-launch-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "A",
+      "confidence": 0.9,
+      "rationale": "Both artifacts cover all five domains (product, design, engineering, marketing, sales) and maintain strong proof-orientation. However, Artifact 1 has a more practical and detailed launch-readiness checklist (including operations, monitoring, rollback, customer support runbook) and slightly more granular, measurable post-launch metrics (e.g., activation rate within 72 hours, NPS target, zero security incidents). Its milestone sequence is also tighter and explicitly ties dependencies to cross-functional coordination. These advantages align better with the weighted criteria, particularly launch-readiness (weight 1.5) and measurable-metrics (weight 1.5).",
+      "costCents": 0.0714
+    },
+    {
+      "taskId": "cross-functional-launch-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Artifact 1 explicitly covers all five domains (product, design, engineering, marketing, sales) with distinct, actionable responsibilities. Its sequencing is more realistic and detailed (e.g., 14 weeks with clear phases and dependencies like design mockups required before engineering build). The launch readiness checklist is practical and checklist-style, covering specific items (e.g., security review, 48-hour reliability test, sales training). Both artifacts are strong on proof-orientation, but Artifact 1 keeps the 'proof' narrative more consistently woven into every section (executive summary, workstream tasks, risk mitigation, metrics). For measurable metrics, Artifact 1 provides concrete quantitative targets (e.g., 25% activation rate, 80% survey agreement, 99.5% uptime), which are more specific and measurable than Artifact 2's more general metrics (e.g., 'activation rate' without a target number, 'target > 8/10' but no time frame). Artifact 2's timeline (6 weeks) is less believable for a launch of this scope. Overall, Artifact 1 better satisfies the weighted acceptance criteria.",
+      "costCents": 0.0363
+    },
+    {
+      "taskId": "cross-functional-launch-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "A",
+      "confidence": 0.8,
+      "rationale": "Both artifacts are strong and cover all required domains. Artifact 1 performs better on the weighted acceptance criteria. For 'covers-all-domains' (2), both explicitly cover product, design, engineering, marketing, and sales. For 'sequencing' (2), Artifact 1 provides a more detailed, believable, and actionable week-by-week sequence with clear cross-functional alignment points. Artifact 2's sequence is plausible but more high-level and less integrated. For 'launch-readiness' (1.5), Artifact 1's checklist is more practical, operational, and comprehensive, covering security, ops, support, and metrics instrumentation. Artifact 2's checklist is good but lighter on operational details. For 'proof-orientation' (2), both anchor on proving real work, but Artifact 1 is more consistently focused on live, observable outputs and demonstrable outcomes in its executive summary, workstreams, and metrics. For 'measurable-metrics' (1.5), both offer measurable metrics, but Artifact 1's are more directly tied to the core objective of proving autonomous work (e.g., time-to-value, demonstrated outcomes), while Artifact 2's are strong but include more general business metrics. The differences are not massive, but Artifact 1 provides a more concrete, execution-oriented plan that better satisfies the criteria.",
+      "costCents": 0.0976
+    },
+    {
+      "taskId": "cross-functional-launch-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.8,
+      "rationale": "Both artifacts adequately cover the required domains, but Artifact 1 better satisfies the weighted criteria. It excels in 'sequencing' with a more detailed, believable 14-week timeline with clear dependencies between workstreams. Its 'launch-readiness checklist' is more practical, containing specific, testable criteria (e.g., '<2-second latency', '48-hour reliability test'). Artifact 1 is stronger in 'proof-orientation', consistently anchoring tasks (e.g., 'validate the \"proof\" narrative', 'feedback... on clarity of agent work') to the core objective of demonstrating real work. Its 'measurable-metrics' are more concrete and business-aligned (e.g., '25% of eligible customer accounts create... a link', '15% of new sales opportunities... cite the Live Room'). Artifact 2's criteria and milestones are present but more generic and less substantively developed.",
+      "costCents": 0.0789
+    },
+    {
+      "taskId": "cross-functional-launch-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "tie",
+      "confidence": 0.9,
+      "rationale": "Both artifacts fully satisfy all acceptance criteria: each explicitly covers product, design, engineering, marketing, and sales; provides a believable sequence of milestones and dependencies; includes a practical launch-readiness checklist; strongly anchors on proving real work and visible outputs; and includes measurable post-launch success metrics. There is no meaningful difference in substance.",
+      "costCents": 0.9549
+    },
+    {
+      "taskId": "cross-functional-launch-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Artifact 1 provides a more believable 14-week sequencing with clear dependencies, a more specific launch readiness checklist with concrete verifications (e.g., latency targets, 48-hour reliability test, pen test), and more deeply anchors the plan on the 'proof of real work' narrative across all workstreams and a dedicated proof-effectiveness survey metric. Artifact 2's 6-week plan is less realistic, and its checklist is more generic. Both cover all required domains and include measurable metrics, but Artifact 1 is stronger on sequencing, launch-readiness, and proof-orientation.",
+      "costCents": 0.9766
+    },
+    {
+      "taskId": "engineering-release-readiness-review",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "A",
+      "confidence": 0.85,
+      "rationale": "Both artifacts recommend 'ship with guardrails' and identify key risks (unproven retry logic, serial migration, lack of rollback checklist), but Artifact 1 provides a more comprehensive and specific analysis. It explicitly ties the recommendation to risks and guardrails with greater detail, lists additional verification/observability gaps (e.g., missing dashboards, alerting thresholds, soak tests), proposes a wider set of concrete guardrails (feature flags, load-testing SLOs, staged rollout, data integrity checks, security review), and includes more structured incident response expectations (RTO/RPO, runbooks, post-incident verification). Artifact 2 is competent but less granular. On incident-thinking, both demonstrate strong release/incident awareness, but Artifact 1's depth gives it a slight edge. Hence, Artifact 1 better satisfies the weighted criteria.",
+      "costCents": 0.0605
+    },
+    {
+      "taskId": "engineering-release-readiness-review",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Artifact 1 better satisfies the weighted criteria: it provides a clear recommendation tightly linked to specific risks (e.g., unproven retry logic, serial migration, lack of rollback checklist) and proposes concrete guardrails (e.g., 5% staged rollout, specific alerts, step-by-step rollback checklist). It identifies operational gaps with granular observability issues (retry loop detection, support triage telemetry) and demonstrates real incident thinking (Incident Commander assignment, post-mortem requirement). Artifact 2, while competent, presents more generic risks and guardrails, and its incident response lacks the same actionable specificity. Thus, Artifact 1 is superior in substance per the acceptance criteria.",
+      "costCents": 0.0438
+    },
+    {
+      "taskId": "engineering-release-readiness-review",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.75,
+      "rationale": "Both artifacts are strong, clearly recommending 'ship-with-guardrails' and addressing operational risks. However, Artifact 2 is more precise and operationally focused. It excels in 'identifies-operational-risk' by explicitly linking gaps like the missing rollback checklist to crisis-time delays and the lack of support telemetry. Its 'proposes-guardrails' are more concrete and immediately actionable (e.g., a 5% internal rollout for 24 hours, pre-defined escalation protocols for support). Artifact 2's 'incident-thinking' is superior, explicitly calling for an assigned Incident Commander at the first sign of trouble and prioritizing mitigation over root cause. Artifact 1 covers all criteria adequately but is slightly more generic in its guardrail descriptions and less sharp in connecting procedural gaps to incident response impact. Therefore, Artifact 2 better satisfies the weighted criteria.",
+      "costCents": 0.079
+    },
+    {
+      "taskId": "engineering-release-readiness-review",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.8,
+      "rationale": "Both artifacts are strong and meet the core criteria, but Artifact 1 demonstrates superior depth and specificity in operational risk analysis and concrete guardrail proposals. Artifact 1 explicitly ties its 'Ship-with-Guardrails' recommendation to specific, critical risks like the serial migration bottleneck and unproven retry logic under load. It identifies more granular verification gaps (e.g., migration rollback test, retry loop detection) and proposes more actionable, sequenced guardrails (e.g., phased feature flag rollout, immediate alerts, mandatory rollback checklist). Artifact 1's incident response expectations show more nuanced release thinking, prioritizing user impact mitigation and formal incident command. Artifact 2 covers similar topics but is more general, listing risks and guardrails with less specific linkage to the release's unique constraints and failure modes.",
+      "costCents": 0.3359
+    },
+    {
+      "taskId": "engineering-release-readiness-review",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.8,
+      "rationale": "Both memos make clear ship-with-guardrails recommendations tied to risks and propose concrete guardrails. Artifact 1 is stronger on proposing comprehensive guardrails, including specific SLOs (95th percentile latency, <1% failure rate) and detailed testing plans. However, Artifact 2 more sharply identifies operational risks directly linked to the support headcount constraint (support triage telemetry gap, retry storm detection) and demonstrates deeper incident-thinking: it explicitly calls for a formal Incident Commander, prioritizes rollback over root cause analysis, and mandates post-incident load-testing before re‑attempt. Given that the criteria weighting makes incident-thinking and precise operational‑risk identification decisive, Artifact 2 satisfies the requirements better overall.",
+      "costCents": 1.9046
+    },
+    {
+      "taskId": "engineering-release-readiness-review",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Artifact 1 provides a more focused, specific, and incident-aware assessment. Its guardrails are concrete (5% canary, explicit alerts, support escalation acknowledging headcount limits), its risk gap analysis identifies retry-loop detection and support triage telemetry tailored to the constraints, and its incident response expectations demonstrate genuine incident-command thinking (prioritize rollback over root cause, formal incident commander, post-mortem with load-testing as prerequisite). While Artifact 2 covers similar ground, it is more generic and less tightly tied to the unique release constraints, making Artifact 1 substantively stronger across all weighted criteria, especially proposes-guardrails and incident-thinking.",
+      "costCents": 0.9309
+    },
+    {
+      "taskId": "marketing-proof-campaign-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.85,
+      "rationale": "Both artifacts satisfy the core requirements, but Artifact 2 better meets the highest-weighted criteria. On proof-assets (weight 2), Artifact 2 treats proofs as the campaign's central content—each channel directly links to verifiable artifacts, and the content plan is built around publishing live outputs and audit logs, not just listing asset types. Artifact 1, while strong, includes proof assets as a separate section but does not integrate them as consistently into every channel (e.g., social posts are generic clips rather than mandatory artifact links). On channel-specific (weight 2), Artifact 2 provides distinct, actionable guidance per channel (homepage live dashboard, blog retrospectives, daily social micro-updates with proof links, artifact-focused email digests) with explicit design and tone principles, whereas Artifact 1's plans are more generic (e.g., blog series topics, social threads without mandatory proof links). On anti-pattern-awareness (weight 1.5), both call out hype-driven anti-patterns; Artifact 2's per-channel avoidance instructions add practical depth, but neither fails. On measurable (weight 1.5), both define quantifiable metrics; Artifact 2 includes specific targets (e.g., >25% engagement rate) that tie directly to proof-driven actions, making them slightly more concrete. The cumulative advantage on the two high-weight criteria makes Artifact 2 the better fit.",
+      "costCents": 0.1017
+    },
+    {
+      "taskId": "marketing-proof-campaign-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.8,
+      "rationale": "Both artifacts cover all required sections. However, Artifact 1 treats proofs as core campaign assets more thoroughly by specifying exact types (final artifact, audit log, brief, room transcript) and embedding them into every channel's guidance. Artifact 2 mentions proof assets but lists them more as supplementary items and mixes in 'demos of governance features' which dilute the focus on real, reviewable work. For channel-specific content (weight 2), Artifact 1 gives distinct, actionable directions for each channel (e.g., homepage live dashboard, blog retrospectives, social micro-updates with links, email digest), while Artifact 2 provides more generic descriptions that overlap (e.g., blog series and social both cover auditable automation without clear channel differentiation). Anti-pattern-awareness (weight 1.5) is present in both, but Artifact 1 names and operationalizes the 'magic box' anti-pattern per channel explicitly; Artifact 2 addresses it at a high level but does not channelize avoidance strategies. Measurability (weight 1.5): both define metrics, but Artifact 1's metrics are more directly tied to campaign actions (asset engagement rate, completion signal conversion, initiative starts) and avoid process-heavy metrics (e.g., 'decision lead time' in Artifact 2 feels less campaign-specific). Overall, Artifact 1 aligns more precisely with the higher-weighted criteria (proof-assets and channel-specific).",
+      "costCents": 0.0412
+    },
+    {
+      "taskId": "marketing-proof-campaign-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.85,
+      "rationale": "Both artifacts are strong, but Artifact 2 better satisfies the weighted criteria. On 'proof-assets' (weight 2), Artifact 2 is more explicit that proofs 'are the campaign content,' framing them as the primary evidence rather than supportive assets. Its list of proof assets (Final Artifact, Audit Log, etc.) is more tightly integrated into its content plan. For 'channel-specific' (weight 2), Artifact 2 provides sharper, more distinct guidance for each channel (e.g., homepage as a live dashboard, blog as initiative retrospectives), while Artifact 1's plans are more generic (e.g., 'short clips' on social). On 'anti-pattern-awareness' (weight 1.5), both effectively identify the hype-driven anti-pattern, but Artifact 2 provides a more concrete and channel-specific avoidance strategy (e.g., 'No hype text; let the evidence drive engagement'). For 'measurable' (weight 1.5), Artifact 2's success metrics are more directly tied to the campaign's core proof-driven thesis (e.g., 'Asset Engagement Rate'), whereas Artifact 1's metrics, while comprehensive, are more operational (e.g., 'Completion velocity'). Artifact 2's overall substance is more cohesively aligned with proving value through reviewable work.",
+      "costCents": 0.0707
+    },
+    {
+      "taskId": "marketing-proof-campaign-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.8,
+      "rationale": "Artifact 1 excels over Artifact 2 on the weighted criteria. For 'proof-assets' (weight 2), Artifact 1 provides a detailed, specific taxonomy (Final Artifact, Audit Log, Initiative Brief, Room Transcript) and treats them as the core content, while Artifact 2 lists more generic categories. For 'channel-specific' (weight 2), Artifact 1 delivers highly distinct guidance per channel (e.g., homepage dashboard, blog retrospectives, social micro-updates, email digests), whereas Artifact 2's plan is more generalized and repetitive across channels. Both artifacts demonstrate 'anti-pattern-awareness' (weight 1.5), explicitly naming and avoiding hype, but Artifact 1 provides more concrete, channel-specific avoidance tactics. On 'measurable' (weight 1.5), Artifact 1 defines clear, campaign-focused business metrics (Asset Engagement Rate, Conversion), while Artifact 2's metrics lean more towards internal product performance. Artifact 1's superior performance on the higher-weighted criteria determines the win.",
+      "costCents": 0.0689
+    },
+    {
+      "taskId": "marketing-proof-campaign-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.85,
+      "rationale": "Artifact 2 more strongly treats proofs as the campaign content itself (final artifact, audit log, brief, transcript are the primary assets, not just support). It provides distinctly different, channel-specific guidance (homepage is a live dashboard; blog is deep retrospectives; social is daily micro-updates with artifact links; email is a bi-weekly digest with artifact-focused subject lines). Artifact 1's channels are more generic (hero message, video, blog series, social clips, email nurture). Artifact 2 also defines a clearer anti-pattern ('Magic Box' hype) with explicit per-channel avoidance, and its success metrics (asset engagement rate, completion signal conversion) are more directly tied to observable proof and measurable outcomes than Artifact 1's. Although both satisfy the criteria somewhat, Artifact 2 edges out Artifact 1 on proof-as-assets, channel specificity, and anti-pattern awareness.",
+      "costCents": 0.3684
+    },
+    {
+      "taskId": "marketing-proof-campaign-brief",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.95,
+      "rationale": "Artifact 1 more strongly treats proof assets as the core campaign content with specific artifact types and integrates them into every channel plan. It provides more distinct, concrete channel-specific guidance (not just content lists but execution details) and includes anti-pattern avoidance tailored per channel. Its success metrics are explicitly campaign-focused with defined targets, whereas Artifact 2's metrics lean toward product performance. Overall, Artifact 1 better satisfies the weighted criteria.",
+      "costCents": 0.7085
+    },
+    {
+      "taskId": "ops-escalation-playbook",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "A",
+      "confidence": 0.9,
+      "rationale": "Artifact 1 better satisfies the weighted acceptance criteria. It provides blocker-specific recovery checklists for each of the three blocker types (integration, billing, approval), fulfilling the 'blocker-specific' and 'recovery-checklist' criteria more thoroughly. Its time-based SLAs are defined per blocker type, enhancing 'sla-owner-clarity' with explicit owners and times. Communication templates are more extensive and tailored to different scenarios. Artifact 2's recovery checklist is generic, and SLAs are severity-based, lacking the per-blocker specificity required. Therefore, Artifact 1 is the better artifact.",
+      "costCents": 0.0484
+    },
+    {
+      "taskId": "ops-escalation-playbook",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.7,
+      "rationale": "Artifact 1 better satisfies the highest-weighted criteria (blocker-specific and sla-owner-clarity) by providing structured escalation paths with clear time-based SLAs and ownership per blocker type, and comprehensive SLAs tied to severity levels. Artifact 2 has superior, blocker-specific recovery checklists, but its SLAs are less structured and do not cover severity levels as thoroughly. Communication templates are comparable. Given the weighting, Artifact 1 edges ahead.",
+      "costCents": 0.0513
+    },
+    {
+      "taskId": "ops-escalation-playbook",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "A",
+      "confidence": 0.85,
+      "rationale": "Artifact 1 better satisfies the weighted acceptance criteria. On 'blocker-specific (2)', Artifact 1 provides a more detailed, distinct flow for each blocker type (integration, billing, approval), including specific recovery steps and checklists for each. Artifact 2's flows are more generic and less tailored. For 'sla-owner-clarity (2)', Artifact 1 defines specific, time-based SLAs (e.g., '15 min acknowledgement; 2-hour resolution') and clear owners (Integration Lead, FinOps Lead, Approvals Coordinator) per blocker. Artifact 2 uses a severity-based SLA model that is less directly mapped to the specific blocker types from the prompt. For 'communication-ready (1.5)', both provide templates, but Artifact 1's are more varied and directly tied to different blocker types and audiences. For 'recovery-checklist (1.5)', Artifact 1 provides a practical, distinct checklist for each blocker type (e.g., 'Rotate credentials...' for integration), while Artifact 2 offers a more generic, single-checklist process. Artifact 1's substance is more precisely aligned with the task's request for a playbook distinguishing between integration, billing, and approval blockers.",
+      "costCents": 0.1001
+    },
+    {
+      "taskId": "ops-escalation-playbook",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Artifact 1 better satisfies the weighted acceptance criteria. For 'blocker-specific (2)', it provides a clear, separate escalation path for each of the three specified blocker types with distinct roles and time thresholds. Artifact 2's paths are less structured and integrated within broader steps. For 'sla-owner-clarity (2)', Artifact 1 defines a two-tiered SLA system (overall resolution and escalation timing) tied to severity levels, with explicit ownership per type and escalation authority. Artifact 2's SLAs are presented but are less systematic and clear on ownership handoffs. For 'communication-ready (1.5)', both provide templates, but Artifact 1's are more detailed, actionable, and tailored for different audiences (room announcement, direct escalation). For 'recovery-checklist (1.5)', Artifact 1 offers a unified, phased checklist applicable to any blocker, while Artifact 2 provides separate but less comprehensive checklists per type; Artifact 1's checklist is more practical for driving resolution from start to finish.",
+      "costCents": 0.0994
+    },
+    {
+      "taskId": "ops-escalation-playbook",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "A",
+      "confidence": 0.9,
+      "rationale": "Artifact 1 provides blocker-specific recovery checklists and direct per-type time-based SLAs and ownership, better meeting the recovery-checklist and sla-owner-clarity criteria. Both artifacts distinguish blocker types and offer communication templates, but Artifact 1's granularity and specificity offer a stronger fit.",
+      "costCents": 0.9531
+    },
+    {
+      "taskId": "ops-escalation-playbook",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "A",
+      "confidence": 0.95,
+      "rationale": "Artifact 2 better satisfies the weighted criteria. It distinguishes blocker types with dedicated escalation paths, steps, and per-blocker SLAs instead of relying on generic severity-based times. Ownership and time expectations are clearly defined for each blocker (Integration Lead 2h resolution, FinOps Lead 2h, Approvals Coordinator 6h decision). Communication templates are more numerous and scenario-specific. The recovery checklists are actionable and tailored to each blocker (credential rotation, credit replenishment, rapid alignment sessions), not just a generic list. Artifact 1 is solid but less specific on per-blocker SLAs and recovery steps.",
+      "costCents": 0.9461
+    },
+    {
+      "taskId": "product-retention-experiment-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "A",
+      "confidence": 0.65,
+      "rationale": "Both artifacts clearly address the task with concrete hypotheses, target behaviors, and experimental designs. Artifact 1 provides a more detailed measurement plan (event taxonomy, cohort tracking, power analysis) and a phased rollout sequence with specific percentages and validation stages, better satisfying the measurement-plan and rollout-sequencing criteria. Artifact 2 focuses on a more immediate behavior change (guided micro-task), but its measurement and rollout are simpler. Given the weights, Artifact 1's stronger instrumentation and rollout detail give it a slight edge.",
+      "costCents": 0.0366
+    },
+    {
+      "taskId": "product-retention-experiment-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Both artifacts target day-2 return rate with concrete behavior changes and testable experiments. However, Artifact 1 is stronger on the weighted criteria: behavior-change is more specific (micro-task completion vs. logging in to view recap); experiment-specific is more detailed (clear overlay design with progressive steps); measurement-plan includes explicit metrics, event logging, and a chi-squared test with sample size target; rollout-sequencing has clear phases with percentages and decision points. Artifact 2's measurement plan lacks statistical test specifics and its rollout sequence is somewhat ambiguous. Overall, Artifact 1 better satisfies the acceptance criteria.",
+      "costCents": 0.0654
+    },
+    {
+      "taskId": "product-retention-experiment-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "A",
+      "confidence": 0.8,
+      "rationale": "Both artifacts meet core criteria, but Artifact 1 demonstrates a stronger and more concrete alignment with the weighted acceptance criteria. For 'behavior-change (2)', Artifact 1 explicitly targets logging back in to engage with a recommended follow-up action, while Artifact 2's desired behavior of 'completing a micro-task' is a good intermediate step, but the final target behavior (returning the next day) is less directly connected to the intervention. For 'experiment-specific (2)', Artifact 1 defines two distinct, testable treatment conditions (recap only vs. recap + personalized action) against a control, offering more experimental rigor. Artifact 2's A/B test is clear but compares a single multi-faceted treatment to control. For 'measurement-plan (2)', both are strong, but Artifact 1 provides a more granular event taxonomy (e.g., RecapViewed, ActionRecommendedClicked) directly tied to its hypothesis components. For 'rollout-sequencing (1.5)', both are sensible, but Artifact 1's sequence is more phased and incremental, testing Treatment 1 before introducing Treatment 2. Artifact 2's plan is solid but has a simpler two-phase test rollout. Overall, Artifact 1's experiment design is more specific and its measurement more tightly coupled to the hypothesized mechanism, giving it a slight edge.",
+      "costCents": 0.0826
+    },
+    {
+      "taskId": "product-retention-experiment-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.8,
+      "rationale": "Both artifacts address the weighted criteria, but Artifact 1 more thoroughly satisfies them. For 'behavior-change' (2), Artifact 1 specifies a concrete micro-task (e.g., 'posting a first status') to complete within the room, creating a clear 'job to be done' for return. Artifact 2 focuses on returning to 'engage with a recommended follow-up action,' which is more abstract. For 'experiment-specific' (2), Artifact 1 details a single, clear A/B test with a specific treatment (interactive overlay with three action buttons) versus control. Artifact 2 describes an A/B/n with less-specific treatments (e.g., 'personalized recommended next action' with unspecified personalization logic). For 'measurement-plan' (2), Artifact 1 ties instrumentation directly to the hypothesis with specific event names (e.g., `guide_action_completed`) and a clear analysis plan (chi-squared test after ~500 users). Artifact 2 lists general metrics and events but is less precise in linking them to the treatment mechanism. For 'rollout-sequencing' (1.5), both are sensible, but Artifact 1 provides more concrete percentages and gates (e.g., 5% soft launch, 50% A/B test). Artifact 1 demonstrates a tighter, more measurable link between the intervention and the desired behavioral outcome.",
+      "costCents": 0.0829
+    },
+    {
+      "taskId": "product-retention-experiment-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "A",
+      "confidence": 0.6,
+      "rationale": "Both artifacts strongly satisfy the criteria, but Artifact 1 provides a more detailed measurement plan (event taxonomy, cohort tracking, specific metrics) and a more rigorous multi-arm experiment design with power analysis, giving it a slight edge in experiment-specific and measurement-plan criteria. Rollout sequencing and behavior-change are comparable.",
+      "costCents": 0.9035
+    },
+    {
+      "taskId": "product-retention-experiment-plan",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.8,
+      "rationale": "Artifact 1 provides a more concrete, tightly scoped behavior change (complete a guided micro-task within the room), and its experiment design maps directly to that behavior with a clear treatment (First Initiative Guide overlay) versus control. The measurement plan is detailed and tied to specific trackable events (guide_impression, guide_action_clicked, guide_action_completed) that directly test the hypothesis. The rollout sequence is phased, staged, and includes clear decision criteria. Artifact 2 focuses on a recap/nudge after room completion, which is more passive and less behaviorally concrete; its experiment design is described more generically (A/B/n with vague treatment descriptions), and the instrumentation plan lists event names without enough specificity on how they link to the hypothesis. While Artifact 2 meets the rollout-sequencing criterion adequately, Artifact 1 is superior on behavior-change, experiment-specificity, and measurement-plan, which carry higher combined weight.",
+      "costCents": 0.884
+    },
+    {
+      "taskId": "sales-competitive-battlecard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "A",
+      "confidence": 0.8,
+      "rationale": "Both artifacts meet all acceptance criteria well. Artifact 1 has a slight edge on 'proof-moments' (weight 2) with 6 concrete, detailed demo scenarios including audit trails, quality checks, and integration, vs. 3 in Artifact 2. The explicit comparisons and weakness acknowledgements are comparable. Both talk tracks are crisp, but the higher weight of proof-moments tilts the decision to Artifact 1.",
+      "costCents": 0.0601
+    },
+    {
+      "taskId": "sales-competitive-battlecard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.95,
+      "rationale": "Artifact 1 outperforms Artifact 2 on all weighted criteria. It provides more explicit and concrete comparisons (e.g., specificity vs. generic chatbots, scope vs. copilots, creation vs. workflow tools), more honest and specific weaknesses (trivial edits, creative exploration, real-time collaboration, no quality bar), more vivid and actionable proof moments (side-by-side comparison, connect-the-dots workflow, review simulation), and a more natural, founder-friendly talk track that sounds like it could be delivered in conversation. Artifact 2, while competent, is more generic and corporate, lacking the same level of detail and directness. Thus Artifact 1 clearly satisfies the acceptance criteria better in substance.",
+      "costCents": 0.0318
+    },
+    {
+      "taskId": "sales-competitive-battlecard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.8,
+      "rationale": "Both artifacts address the acceptance criteria, but Artifact 2 fulfills them more effectively. It provides more explicit comparisons (e.g., contrasting OrgX's 'complete, context-aware module' vs. ChatGPT's 'generic snippet'), offers more concrete and visually oriented proof moments (side-by-side comparison, 'Connect the Dots' workflow simulation), and presents a more compelling, concise founder talk track focused on team leverage and speed. Artifact 2 also acknowledges weaknesses with sharper clarity (e.g., 'You don't need a cannon to kill a fly'). Artifact 1 is solid and covers all criteria, but its comparisons and proof moments are slightly more abstract and less vivid for a founder audience.",
+      "costCents": 0.0774
+    },
+    {
+      "taskId": "sales-competitive-battlecard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.8,
+      "rationale": "Artifact 1 better satisfies the weighted acceptance criteria. On 'explicit-comparison' (weight 2), it offers clearer, more direct side-by-side contrasts against each alternative, while Artifact 2 uses more generic differentiators. For 'acknowledges-weakness' (1.5), Artifact 1 provides specific, concrete scenarios where OrgX is not the best fit, whereas Artifact 2's weaknesses are vaguer and more defensively framed. In 'proof-moments' (2), Artifact 1 describes three distinct, visual, and easy-to-grasp demonstrations of superiority; Artifact 2's moments are more procedural and focused on internal governance features. For 'founder-talk-track' (1.5), Artifact 1's track is more vivid, problem-focused, and uses relatable language for a founder, while Artifact 2's is more product-feature descriptive.",
+      "costCents": 0.0793
+    },
+    {
+      "taskId": "sales-competitive-battlecard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.85,
+      "rationale": "Artifact 2 provides sharper, more concrete category comparisons with specific differentiators (specificity/completeness vs. chatbots, feature-level vs. line-level for copilots, creation vs. coordination for workflow tools). It is more honest and specific about weaknesses (trivial edits, blank-page brainstorming, real-time collaboration, no review process teams). Its proof moments are more vivid and comparative (side-by-side demo, connect-the-dots workflow, review simulation). The founder talk track is crisper, more relatable, and ends with an immediate action hook. Artifact 1 is solid but stays more abstract on comparisons and demo moments, and its weaknesses are framed more as minor caveats rather than clear non-fit scenarios. Both meet all criteria, but Artifact 2 delivers stronger substance on explicit comparisons, acknowledges weaknesses more candidly, and provides tighter proof moments and talk track.",
+      "costCents": 0.8499
+    },
+    {
+      "taskId": "sales-competitive-battlecard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.95,
+      "rationale": "Artifact 1 delivers explicit, pointed comparisons against each alternative (e.g., 'ChatGPT is your brainstorming partner... OrgX is your first-pass senior engineer'), honestly lists concrete weaknesses (trivial edits, brainstorming, real-time collab, no quality bar), provides compelling, comparative demo moments (side-by-side output, connect-the-dots workflow, review simulation), and features a crisp, conversational founder talk track. Artifact 2 relies on governance-heavy language, weaker contrasts, and less vivid proof moments. Across all weighted criteria, Artifact 1 is superior.",
+      "costCents": 0.3127
+    }
+  ]
+}

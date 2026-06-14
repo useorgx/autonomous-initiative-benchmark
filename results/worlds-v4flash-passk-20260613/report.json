@@ -1,0 +1,183 @@
+{
+  "benchmark": "orgx-bench-v2-instrumented-worlds",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-v4-flash",
+  "k": 5,
+  "arms": [
+    "raw",
+    "orgx"
+  ],
+  "worldCount": 3,
+  "scoring": "deterministic validators only (no LLM judge)",
+  "perWorld": [
+    {
+      "worldId": "incident-triage-dependency",
+      "domain": "ops",
+      "arms": {
+        "raw": {
+          "n": 5,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 3039,
+          "meanCostCents": 0.049,
+          "meanToolCalls": 5,
+          "qualityPerKToken": 0.3291,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "orgx": {
+          "n": 5,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 9172,
+          "meanCostCents": 0.133,
+          "meanToolCalls": 9.8,
+          "qualityPerKToken": 0.109,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "migration-contradiction-refusal",
+      "domain": "engineering",
+      "arms": {
+        "raw": {
+          "n": 5,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 2735,
+          "meanCostCents": 0.048,
+          "meanToolCalls": 4,
+          "qualityPerKToken": 0.3657,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "orgx": {
+          "n": 5,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 3039,
+          "meanCostCents": 0.048,
+          "meanToolCalls": 4,
+          "qualityPerKToken": 0.329,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "revenue-refund-reconciliation",
+      "domain": "cross_functional",
+      "arms": {
+        "raw": {
+          "n": 5,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 12242,
+          "meanCostCents": 0.176,
+          "meanToolCalls": 8,
+          "qualityPerKToken": 0.0817,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "orgx": {
+          "n": 5,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 28346,
+          "meanCostCents": 0.286,
+          "meanToolCalls": 15.8,
+          "qualityPerKToken": 0.0353,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        }
+      }
+    }
+  ],
+  "uplift": {
+    "passAtK": {
+      "raw": 1,
+      "orgx": 1,
+      "uplift": 0
+    },
+    "passPowK": {
+      "raw": 1,
+      "orgx": 1,
+      "uplift": 0
+    },
+    "qualityPerKToken": {
+      "raw": 0.259,
+      "orgx": 0.158,
+      "uplift": -0.101
+    },
+    "meanTokens": {
+      "raw": 6005,
+      "orgx": 13519
+    },
+    "dimensions": {
+      "outcome": {
+        "raw": 1,
+        "orgx": 1,
+        "uplift": 0
+      },
+      "method": {
+        "raw": 1,
+        "orgx": 1,
+        "uplift": 0
+      },
+      "coordination": {
+        "raw": 1,
+        "orgx": 1,
+        "uplift": 0
+      },
+      "judgment": {
+        "raw": 1,
+        "orgx": 1,
+        "uplift": 0
+      },
+      "trust": {
+        "raw": 1,
+        "orgx": 1,
+        "uplift": 0
+      }
+    }
+  },
+  "generatedAt": "2026-06-13"
+}

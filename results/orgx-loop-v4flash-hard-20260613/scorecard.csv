@@ -1,0 +1,7 @@
+task_id,run_id,mode,provider,model,domain,tier,autonomous_completed,duration_seconds,cost_cents,quality_score,completeness,scoring_source,judge_count,judge_disagreement_points,human_review_recommended,judge_cost_cents,human_baseline_seconds,human_quality_score
+eng-data-migration-refusal-hard,eng-data-migration-refusal-hard-r1,local_openai,orgx-loop,deepseek/deepseek-v4-flash,engineering,tier3_hard,true,112.95,0.2997,46,0.19,independent_judges,3,24,true,1.7128,10800,87
+eng-zero-downtime-migration-hard,eng-zero-downtime-migration-hard-r1,local_openai,orgx-loop,deepseek/deepseek-v4-flash,engineering,tier3_hard,true,158.61,0.3895,79.08,0.8,independent_judges,3,6.9,true,1.2516,14400,90
+ops-churn-noise-forensics-hard,ops-churn-noise-forensics-hard-r1,local_openai,orgx-loop,deepseek/deepseek-v4-flash,ops,tier3_hard,true,119.83,0.3831,91.31,0.9,independent_judges,3,13.04,true,0.9692,16200,86
+ops-incident-forensics-hard,ops-incident-forensics-hard-r1,local_openai,orgx-loop,deepseek/deepseek-v4-flash,ops,tier3_hard,true,140.63,0.2351,100,1,independent_judges,3,0,false,0.6787,14400,88
+product-capacity-plan-hard,product-capacity-plan-hard-r1,local_openai,orgx-loop,deepseek/deepseek-v4-flash,product,tier3_hard,true,171.91,0.5262,69.63,0.2,independent_judges,3,18.52,true,0.616,10800,87
+xfn-revenue-reconciliation-hard,xfn-revenue-reconciliation-hard-r1,local_openai,orgx-loop,deepseek/deepseek-v4-flash,cross_functional,tier3_hard,true,183.95,0.4765,86.51,1,independent_judges,3,33.33,true,1.2745,12600,88

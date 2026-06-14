@@ -1,0 +1,103 @@
+{
+  "benchmark": "orgx-bench-v2-instrumented-worlds",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-v4-flash",
+  "k": 8,
+  "arms": [
+    "raw",
+    "orgx"
+  ],
+  "worldCount": 1,
+  "scoring": "deterministic validators only (no LLM judge)",
+  "perWorld": [
+    {
+      "worldId": "order-pipeline-horizon",
+      "domain": "ops",
+      "arms": {
+        "raw": {
+          "n": 8,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 23438,
+          "meanCostCents": 0.381,
+          "meanToolCalls": 17.875,
+          "qualityPerKToken": 0.0427,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "orgx": {
+          "n": 8,
+          "passAtK": 0.75,
+          "passPowK": 0,
+          "meanTokens": 70254,
+          "meanCostCents": 0.737,
+          "meanToolCalls": 40.5,
+          "qualityPerKToken": 0.0107,
+          "dimensions": {
+            "outcome": 0.75,
+            "method": 1,
+            "coordination": 0.75,
+            "judgment": 1,
+            "trust": 0.75
+          },
+          "failures": 0
+        }
+      }
+    }
+  ],
+  "uplift": {
+    "passAtK": {
+      "raw": 1,
+      "orgx": 0.75,
+      "uplift": -0.25
+    },
+    "passPowK": {
+      "raw": 1,
+      "orgx": 0,
+      "uplift": -1
+    },
+    "qualityPerKToken": {
+      "raw": 0.043,
+      "orgx": 0.011,
+      "uplift": -0.032
+    },
+    "meanTokens": {
+      "raw": 23438,
+      "orgx": 70254
+    },
+    "dimensions": {
+      "outcome": {
+        "raw": 1,
+        "orgx": 0.75,
+        "uplift": -0.25
+      },
+      "method": {
+        "raw": 1,
+        "orgx": 1,
+        "uplift": 0
+      },
+      "coordination": {
+        "raw": 1,
+        "orgx": 0.75,
+        "uplift": -0.25
+      },
+      "judgment": {
+        "raw": 1,
+        "orgx": 1,
+        "uplift": 0
+      },
+      "trust": {
+        "raw": 1,
+        "orgx": 0.75,
+        "uplift": -0.25
+      }
+    }
+  },
+  "generatedAt": "2026-06-13"
+}

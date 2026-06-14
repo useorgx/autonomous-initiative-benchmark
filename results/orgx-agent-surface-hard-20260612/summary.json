@@ -1,0 +1,37 @@
+{
+  "benchmarkWeek": "orgx-agent-surface-hard-20260612",
+  "benchmarkVersion": "2026-q1",
+  "generatedAt": "2026-06-12T21:32:31.910Z",
+  "source": "orgx_agent_surface_claude_code",
+  "gitSha": "d40c875",
+  "headlineMetrics": {
+    "vs_human_speedup": {
+      "value": 71.74,
+      "unit": "x"
+    },
+    "vs_human_quality_delta": {
+      "value": 8.58,
+      "unit": "points"
+    },
+    "autonomous_completion_rate": {
+      "value": 1,
+      "unit": "ratio"
+    },
+    "cost_per_task_cents": {
+      "value": 1.0516,
+      "unit": "cents"
+    },
+    "generation_cost_per_task_cents": {
+      "value": 0,
+      "unit": "cents"
+    },
+    "judging_cost_per_task_cents": {
+      "value": 1.0516,
+      "unit": "cents"
+    },
+    "human_review_recommended_rate": {
+      "value": 0.667,
+      "unit": "ratio"
+    }
+  }
+}

@@ -1,0 +1,149 @@
+id: product-capacity-plan-hard
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-06-12"
+name: Capacity Plan With Infeasible Ask (Hard)
+description: >
+  Two-quarter hiring and capacity plan where the stated request is infeasible
+  under the stated budget once attrition and recruiting fees are applied. The
+  correct artifact detects the infeasibility, quantifies the exact gap, and
+  proposes a minimal relaxation. Criteria are hidden from the generator.
+tier: tier3_hard
+domain: product
+repeatCount: 1
+contaminationRisk: low
+judgingProtocol: strict
+hideCriteriaFromGenerator: true
+
+rawPrompt: |
+  Draft the Q3+Q4 engineering capacity and hiring plan the CEO asked for. Be
+  concrete with numbers: budget arithmetic, headcount by quarter, effective
+  capacity, and a clear recommendation. If the plan as requested does not
+  work, say so precisely and propose the smallest change that makes it work.
+
+  ## Inputs
+
+  ### The ask (from CEO)
+  "We need to ship the Workspaces initiative by end of Q4. Hire three
+  mid-level engineers and one product designer, all starting at the beginning
+  of Q4. Keep total Q3+Q4 spend inside the approved envelope."
+
+  ### Budget
+  - Approved envelope for Q3+Q4 combined: $1,100,000
+  - The envelope covers fully-loaded compensation for engineering and design,
+    plus recruiting fees. Nothing else draws from it.
+
+  ### Current team and costs (fully loaded, per quarter)
+  - 4 senior engineers at $110,000 each per quarter
+  - Mid-level engineer: $85,000 per quarter
+  - Product designer: $80,000 per quarter
+  - External recruiter fee: $25,000 per hire, due in the hire's starting quarter
+
+  ### Known events
+  - Dana (senior engineer) has given notice and leaves on the last day of Q3.
+    The role will not be backfilled this year.
+  - New hires are historically ~50% productive in their first quarter
+    (onboarding, codebase ramp).
+
+  ### Context from finance (Slack)
+  - VP Finance: "Comp math roughly fits if Dana's departure lands as planned —
+    don't add anything beyond the CEO's list."
+
+  ### Workspaces initiative
+  - Engineering estimate: needs the equivalent of 2 additional fully-productive
+    engineers through Q4 on top of the current senior team's committed roadmap.
+
+initiativeSpec:
+  title: Q3+Q4 capacity and hiring plan
+  description: Decision-ready capacity plan with verified budget arithmetic
+  domains:
+    - product
+    - ops
+
+seedProvenance: >
+  Synthetic hard-tier pilot scenario with planted arithmetic ground truth,
+  authored 2026-06-12. Contamination-visible.
+
+acceptanceCriteria:
+  - id: detects-infeasibility
+    description: >
+      States clearly that the plan as requested exceeds the $1.1M envelope —
+      it is not approvable as asked.
+    type: rubric
+    evaluator: llm_judge
+    weight: 3
+  - id: correct-gap-arithmetic
+    description: >
+      Computes the correct totals: Q3 = 4x$110k = $440k; Q4 = 3 remaining
+      seniors ($330k) + 3 mids ($255k) + designer ($80k) = $665k; recruiting
+      fees 4 x $25k = $100k; total $1,205k, i.e. $105,000 over budget (accept
+      $95k-$115k). Must include Dana's departure in Q4 (a $215k overrun answer
+      means attrition was missed; a "roughly fits" answer means fees were missed).
+    type: rubric
+    evaluator: llm_judge
+    weight: 3
+  - id: minimal-relaxation
+    description: >
+      Proposes a minimal change that closes the gap exactly with arithmetic
+      shown — e.g. deferring the designer to Q1 saves $80k comp + $25k fee =
+      $105k, landing the plan exactly at $1,100k (equivalent-value
+      alternatives with correct math also accepted).
+    type: rubric
+    evaluator: llm_judge
+    weight: 2.5
+  - id: challenges-finance-claim
+    description: >
+      Pushes back on the VP Finance "roughly fits" message with numbers rather
+      than deferring to it.
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: ramp-capacity-honesty
+    description: >
+      Notes that with 50% first-quarter productivity, the three Q4 mid-level
+      hires deliver only ~1.5 effective FTE in Q4 against the initiative's
+      2-FTE need (and Dana's departure removes further senior capacity), and
+      addresses the resulting delivery risk for the end-of-Q4 ship date.
+    type: rubric
+    evaluator: llm_judge
+    weight: 2.5
+  - id: decision-ready-structure
+    description: >
+      Reads as a decision-ready plan: recommendation, headcount/budget table,
+      risks, and an explicit approval ask.
+    type: rubric
+    evaluator: llm_judge
+    weight: 1
+
+decisionReadyCriteriaIds:
+  - detects-infeasibility
+  - correct-gap-arithmetic
+  - minimal-relaxation
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Hard-tier pilot: the requested plan is infeasible by exactly $105k once
+  attrition and recruiting fees are applied. Tests constraint arithmetic and
+  the willingness to contradict an authority figure with numbers.
+knownFailureModes:
+  - Produces a confident plan that ignores recruiting fees or Dana's departure.
+  - Detects strain but never states the plan is infeasible as asked.
+  - Proposes vague cuts without exact gap-closing arithmetic.
+  - Treats the 50% ramp as a footnote instead of a delivery risk to the Q4 date.
+
+humanBaseline:
+  timeSeconds: 10800
+  costCents: 9000
+  qualityScore: 87
+  completeness: 1
+  artifactCount: 1
+  provenance: synthetic hard-tier pilot estimate, Jun 2026
+  methodology: expert_estimate
+  sourceSummary: Estimated from an experienced product/ops lead building comparable capacity plans.
+  sampleSize: 1
+  collectedAt: "2026-06-12"
+  operatorProfile: Product or operations lead who owns headcount planning
+
+constraints:
+  maxDurationMinutes: 30
+  maxCostCents: 500
