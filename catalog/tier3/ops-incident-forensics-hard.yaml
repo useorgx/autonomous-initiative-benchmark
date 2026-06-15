@@ -1,0 +1,145 @@
+id: ops-incident-forensics-hard
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-06-12"
+name: Incident Forensics Under Noise (Hard)
+description: >
+  Forensic postmortem over a noisy multi-signal incident bundle containing a
+  red-herring deploy, cross-region clock skew, an inflated impact claim, and an
+  unrelated co-occurring incident. Acceptance criteria reference hidden ground
+  truth and are withheld from the generator.
+tier: tier3_hard
+domain: ops
+repeatCount: 1
+contaminationRisk: low
+judgingProtocol: strict
+hideCriteriaFromGenerator: true
+
+rawPrompt: |
+  Write a forensic incident postmortem from the raw signals below. Management
+  has already circulated a narrative ("the 13:40 deploy broke checkout, we
+  lost $18k"). Your job is to establish what actually happened, with evidence
+  and corrected numbers. State the root cause, a corrected unified timeline,
+  the true customer impact in dollars, and remediation actions.
+
+  ## Raw signal bundle
+
+  ### Change log (UTC)
+  - 13:40 — Deploy api v3.2.0 to production, canary scope: 5% of API pods
+  - 13:47 — Feature flag `batch-export-v2` enabled for 100% of workspaces (flag service audit log)
+  - 13:52 — api v3.2.0 canary rolled back automatically (failed canary health check: p95 latency)
+  - 14:12 — Feature flag `batch-export-v2` disabled by on-call
+  - 14:30 — api v3.2.1 (hotfix of v3.2.0) deployed, canary passes
+
+  ### Alerts (timestamps as logged by each system)
+  - 13:49 UTC — PagerDuty: checkout API error rate > 5% (us-east monitoring)
+  - 15:49:12 — eu-central DB proxy log: "connection pool exhausted: 200/200 in use" (eu-central cluster logs local time)
+  - 13:55 UTC — PagerDuty: checkout API error rate > 10% (us-east monitoring)
+  - 14:05 UTC — PagerDuty: internal admin panel TLS certificate expired (admin.internal alerts)
+  - 14:15 UTC — checkout error rate back under 0.5%
+
+  ### Metrics excerpts
+  - Checkout API error rate: baseline 0.3%; 13:49-14:15 averaged 12%
+  - Checkout volume baseline this hour-of-day: 220 checkouts/hour, average order value $42
+  - DB long-running transactions: spike begins 13:48, transactions tagged `export_worker`, avg duration 41s
+  - api v3.2.0 canary pods served 5% of traffic between 13:40 and 13:52
+
+  ### Tickets / chatter
+  - OPS-2214: "Deploy v3.2.0 at 13:40 caused checkout outage. Estimated revenue impact $18,000. Need rollback postmortem."
+  - #incidents: "admin panel is also down?? is this related"
+  - #eng: "eu-central logs show pool exhaustion at 15:49, two hours AFTER the deploy — delayed effect?"
+
+  ### Notes
+  - eu-central hosts log in local server time (CEST, UTC+2). us-east systems log in UTC.
+  - The checkout flow takes a connection from the same pooler the export workers use.
+
+initiativeSpec:
+  title: Establish ground truth for the checkout incident
+  description: Forensic postmortem correcting the circulating narrative with evidence
+  domains:
+    - ops
+
+seedProvenance: >
+  Synthetic hard-tier pilot scenario with planted ground truth, authored 2026-06-12.
+  Contamination-visible; intended to validate strict grading, not for frontier claims.
+
+acceptanceCriteria:
+  - id: finds-flag-root-cause
+    description: >
+      Identifies the 13:47 `batch-export-v2` feature flag rollout (long-running
+      ~41s export transactions exhausting the shared connection pool) as the
+      root cause, not the v3.2.0 deploy.
+    type: rubric
+    evaluator: llm_judge
+    weight: 3
+  - id: exonerates-deploy
+    description: >
+      Explicitly exonerates the v3.2.0 deploy with evidence: 5% canary scope
+      cannot produce a 12% fleet-wide error rate, and errors persisted for ~23
+      minutes after the 13:52 rollback, only recovering after the flag was
+      disabled at 14:12.
+    type: rubric
+    evaluator: llm_judge
+    weight: 2.5
+  - id: resolves-clock-skew
+    description: >
+      Detects that the eu-central "15:49" pool-exhaustion log is CEST (UTC+2),
+      i.e. 13:49 UTC, aligning with the flag rollout — and rejects the
+      "delayed effect" theory in the #eng chatter.
+    type: rubric
+    evaluator: llm_judge
+    weight: 2.5
+  - id: separates-unrelated-incident
+    description: >
+      Identifies the 14:05 admin-panel TLS certificate expiry as an unrelated,
+      internal-only co-incident and excludes it from customer impact.
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: corrects-impact-math
+    description: >
+      Recomputes revenue impact from the given data — roughly 220/hr x 26min
+      window x 12% failure x $42 = approximately $480 (accept $350-$700) — and
+      explicitly challenges the $18,000 claim in OPS-2214.
+    type: rubric
+    evaluator: llm_judge
+    weight: 3
+  - id: actionable-remediation
+    description: >
+      Remediation addresses the actual failure class: pool isolation or
+      per-workload connection limits, transaction duration budgets, flag
+      rollout canarying or progressive delivery, and timezone-normalized logging.
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+
+decisionReadyCriteriaIds:
+  - finds-flag-root-cause
+  - corrects-impact-math
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Hard-tier pilot: criteria reference planted ground truth and are hidden from
+  the generator. Tests evidence-based reasoning under noise, not formatting.
+knownFailureModes:
+  - Accepts the deploy-caused-it narrative and writes a fluent but wrong postmortem.
+  - Misses the CEST clock skew and invents a delayed-failure mechanism.
+  - Repeats the $18k impact figure without recomputation.
+  - Folds the certificate expiry into the customer-facing incident.
+
+humanBaseline:
+  timeSeconds: 14400
+  costCents: 12000
+  qualityScore: 88
+  completeness: 1
+  artifactCount: 1
+  provenance: synthetic hard-tier pilot estimate, Jun 2026
+  methodology: expert_estimate
+  sourceSummary: Estimated from senior SRE/IC forensic review of comparable multi-signal incidents.
+  sampleSize: 1
+  collectedAt: "2026-06-12"
+  operatorProfile: Senior SRE with incident-command experience
+
+constraints:
+  maxDurationMinutes: 30
+  maxCostCents: 500

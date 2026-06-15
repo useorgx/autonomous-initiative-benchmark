@@ -1,0 +1,1236 @@
+[
+  {
+    "id": "design-live-room-critique",
+    "name": "Live Room Design Critique",
+    "tier": "tier1_quick",
+    "domain": "design",
+    "description": "Critique and improve a live execution-room interface with a focus on hierarchy, polish, and clarity.",
+    "acceptanceCriteria": [
+      {
+        "id": "diagnoses-hierarchy",
+        "description": "Clearly diagnoses information hierarchy failures",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "proposes-structure",
+        "description": "Proposes a concrete above-the-fold structure, not only vague advice",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "references-component-system",
+        "description": "Suggests how existing components should be reused or simplified",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "high-taste",
+        "description": "Demonstrates taste and restraint rather than adding more dashboard chrome",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 3000,
+      "costCents": 2200,
+      "qualityScore": 89,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "senior product design review estimate, Mar 2026",
+      "methodology": "expert_estimate",
+      "sourceSummary": "Redacted estimate from two senior product design reviews of the same prompt shape.",
+      "sampleSize": 2,
+      "collectedAt": "2026-03-07",
+      "operatorProfile": "Senior product designer with SaaS execution-room experience"
+    },
+    "constraints": {
+      "maxDurationMinutes": 8,
+      "maxCostCents": 125
+    },
+    "runs": [
+      {
+        "runId": "design-live-room-critique-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 10.53,
+        "costCents": 0.0668,
+        "usage": {},
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "diagnoses-hierarchy": 1,
+          "proposes-structure": 1,
+          "references-component-system": 1,
+          "high-taste": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 89.53,
+        "selfReportedCompleteness": 0.88,
+        "selfReportedCriterionScores": {
+          "diagnoses-hierarchy": 0.92,
+          "proposes-structure": 0.92,
+          "references-component-system": 0.85,
+          "high-taste": 0.88
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "diagnoses-hierarchy": 1,
+            "proposes-structure": 1,
+            "references-component-system": 1,
+            "high-taste": 1
+          },
+          "disagreementPoints": 20,
+          "maxCriterionDisagreementPoints": 20,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "judge quality disagreement >= 8 points",
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 0.31
+      }
+    ]
+  },
+  {
+    "id": "marketing-launch-brief",
+    "name": "Marketing Launch Brief",
+    "tier": "tier1_quick",
+    "domain": "marketing",
+    "description": "Produce a launch brief for a new AI product feature with audience, angle, channels, and proof points.",
+    "acceptanceCriteria": [
+      {
+        "id": "has-positioning",
+        "description": "Includes a clear positioning statement for the feature",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "has-message-pillars",
+        "description": "Defines message pillars that are distinct and reusable",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "has-channel-plan",
+        "description": "Includes channel-specific recommendations rather than one generic launch plan",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "proof-emphasis",
+        "description": "Uses proof, demo, or live evidence as a central conversion lever",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "has-cta",
+        "description": "Includes a clear CTA strategy",
+        "type": "binary",
+        "evaluator": "llm_judge",
+        "weight": 1
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 2700,
+      "costCents": 2100,
+      "qualityScore": 86,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "solo founder + fractional marketer estimate, Mar 2026",
+      "methodology": "hybrid",
+      "sourceSummary": "Combined estimate from founder-led launch planning and fractional marketer review.",
+      "sampleSize": 2,
+      "collectedAt": "2026-03-06",
+      "operatorProfile": "Founder plus B2B SaaS fractional marketing lead"
+    },
+    "constraints": {
+      "maxDurationMinutes": 8,
+      "maxCostCents": 125
+    },
+    "runs": [
+      {
+        "runId": "marketing-launch-brief-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 7.23,
+        "costCents": 0.0368,
+        "usage": {},
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "has-positioning": 1,
+          "has-message-pillars": 1,
+          "has-channel-plan": 1,
+          "proof-emphasis": 1,
+          "has-cta": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 100,
+        "selfReportedCompleteness": 0.85,
+        "selfReportedCriterionScores": {
+          "has-positioning": 1,
+          "has-message-pillars": 1,
+          "has-channel-plan": 1,
+          "proof-emphasis": 1,
+          "has-cta": 1
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-positioning": 1,
+            "has-message-pillars": 1,
+            "has-channel-plan": 1,
+            "proof-emphasis": 1,
+            "has-cta": 1
+          },
+          "disagreementPoints": 0,
+          "maxCriterionDisagreementPoints": 0,
+          "humanReviewRecommended": false,
+          "lowConfidenceReasons": []
+        },
+        "judgeCostCents": 0.2676
+      }
+    ]
+  },
+  {
+    "id": "postmortem",
+    "name": "Incident Postmortem",
+    "tier": "tier1_quick",
+    "domain": "ops",
+    "description": "Write a structured incident postmortem from a timeline of events. Tests ability to synthesize operational data into a clear narrative with root cause analysis and action items.",
+    "acceptanceCriteria": [
+      {
+        "id": "has-exec-summary",
+        "description": "Includes a concise executive summary (2-3 sentences)",
+        "type": "binary",
+        "evaluator": "llm_judge",
+        "weight": 1
+      },
+      {
+        "id": "has-root-cause",
+        "description": "Correctly identifies the root cause as connection pool exhaustion caused by the new analytics export endpoint's long-running transactions",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "judgePrompt": "Does the output correctly identify the root cause of the incident?\nThe correct root cause is: The new `/api/v2/analytics/export` endpoint\n(added in v2.41.0) opens long-running transactions (~45s each) that\nexhausted the PostgreSQL connection pool (100 max connections).\n\n## Output\n{{output}}\n\n## Criterion\n{{criterion}}",
+        "weight": 3
+      },
+      {
+        "id": "has-impact-quantified",
+        "description": "Impact section includes specific numbers (duration, users, revenue)",
+        "type": "binary",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "has-action-items",
+        "description": "Includes specific, actionable items (not vague recommendations)",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "judgePrompt": "Does the output include specific, actionable action items?\nGood action items should have: what to do, who owns it, and a deadline.\nVague items like \"improve monitoring\" without specifics score low.\n\n## Output\n{{output}}\n\n## Criterion\n{{criterion}}",
+        "weight": 2
+      },
+      {
+        "id": "has-timeline",
+        "description": "Includes a condensed timeline of key events",
+        "type": "binary",
+        "evaluator": "llm_judge",
+        "weight": 1
+      },
+      {
+        "id": "has-lessons",
+        "description": "Includes lessons learned that go beyond restating what happened",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 1800,
+      "costCents": 1500,
+      "qualityScore": 90,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "senior engineering manager postmortem estimate, Mar 2026",
+      "methodology": "expert_estimate",
+      "sourceSummary": "Baseline estimated from an experienced engineering manager writing a structured postmortem from the same inputs.",
+      "sampleSize": 1,
+      "collectedAt": "2026-03-05",
+      "operatorProfile": "Senior engineering manager with incident review responsibility"
+    },
+    "constraints": {
+      "maxDurationMinutes": 10,
+      "maxCostCents": 100
+    },
+    "runs": [
+      {
+        "runId": "postmortem-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 106.49,
+        "costCents": 0.0504,
+        "usage": {},
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "has-exec-summary": 1,
+          "has-root-cause": 1,
+          "has-impact-quantified": 1,
+          "has-action-items": 1,
+          "has-timeline": 1,
+          "has-lessons": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 100,
+        "selfReportedCompleteness": 1,
+        "selfReportedCriterionScores": {
+          "has-exec-summary": 1,
+          "has-root-cause": 1,
+          "has-impact-quantified": 1,
+          "has-action-items": 1,
+          "has-timeline": 1,
+          "has-lessons": 1
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-exec-summary": 1,
+            "has-root-cause": 1,
+            "has-impact-quantified": 1,
+            "has-action-items": 1,
+            "has-timeline": 1,
+            "has-lessons": 1
+          },
+          "disagreementPoints": 0,
+          "maxCriterionDisagreementPoints": 0,
+          "humanReviewRecommended": false,
+          "lowConfidenceReasons": []
+        },
+        "judgeCostCents": 0.6892
+      }
+    ]
+  },
+  {
+    "id": "pr-description",
+    "name": "PR Description from Diff",
+    "tier": "tier1_quick",
+    "domain": "engineering",
+    "description": "Write a comprehensive pull request description given a code diff and commit messages. The output should include a summary, list of changes, testing instructions, and any migration notes.",
+    "acceptanceCriteria": [
+      {
+        "id": "has-title",
+        "description": "Output includes a clear, descriptive PR title",
+        "type": "binary",
+        "evaluator": "llm_judge",
+        "judgePrompt": "Does the following output include a clear, descriptive one-line PR title that summarizes the change?\n\n## Output\n{{output}}\n\n## Criterion\n{{criterion}}",
+        "weight": 1
+      },
+      {
+        "id": "has-summary",
+        "description": "Output includes a 2-3 sentence summary explaining what changed and why",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "judgePrompt": "Does the output include a concise summary (2-3 sentences) that explains both WHAT changed and WHY?\n\n## Output\n{{output}}\n\n## Criterion\n{{criterion}}",
+        "weight": 2
+      },
+      {
+        "id": "has-changes-list",
+        "description": "Output includes a specific bullet list of changes",
+        "type": "binary",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "has-testing-instructions",
+        "description": "Output includes testing instructions",
+        "type": "binary",
+        "evaluator": "llm_judge",
+        "weight": 1
+      },
+      {
+        "id": "mentions-auth-tokens",
+        "description": "Output correctly identifies this as a token refresh fix, not a generic auth change",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 600,
+      "costCents": 500,
+      "qualityScore": 85,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "senior engineer PR authoring estimate, Mar 2026",
+      "methodology": "expert_estimate",
+      "sourceSummary": "Baseline estimated from a senior engineer writing a PR description from the same diff and commit context.",
+      "sampleSize": 1,
+      "collectedAt": "2026-03-05",
+      "operatorProfile": "Senior software engineer working in a code review workflow"
+    },
+    "constraints": {
+      "maxDurationMinutes": 5,
+      "maxCostCents": 50
+    },
+    "runs": [
+      {
+        "runId": "pr-description-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 9.76,
+        "costCents": 0.0306,
+        "usage": {},
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "has-title": 1,
+          "has-summary": 1,
+          "has-changes-list": 1,
+          "has-testing-instructions": 1,
+          "mentions-auth-tokens": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 100,
+        "selfReportedCompleteness": 0.92,
+        "selfReportedCriterionScores": {
+          "has-title": 1,
+          "has-summary": 1,
+          "has-changes-list": 1,
+          "has-testing-instructions": 1,
+          "mentions-auth-tokens": 1
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-title": 1,
+            "has-summary": 1,
+            "has-changes-list": 1,
+            "has-testing-instructions": 1,
+            "mentions-auth-tokens": 1
+          },
+          "disagreementPoints": 0,
+          "maxCriterionDisagreementPoints": 0,
+          "humanReviewRecommended": false,
+          "lowConfidenceReasons": []
+        },
+        "judgeCostCents": 0.2974
+      }
+    ]
+  },
+  {
+    "id": "product-initiative-brief",
+    "name": "Product Initiative Brief",
+    "tier": "tier1_quick",
+    "domain": "product",
+    "description": "Turn a founder request into a crisp initiative brief with goals, user, scope, metrics, and sequencing. Benchmarks product framing quality.",
+    "acceptanceCriteria": [
+      {
+        "id": "has-problem-statement",
+        "description": "Includes a clear product problem statement tied to the user pain",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "has-success-metrics",
+        "description": "Includes measurable success metrics, not vague goals",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "has-scope",
+        "description": "Clearly defines in-scope and out-of-scope work",
+        "type": "binary",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "has-workstreams",
+        "description": "Recommends sensible workstreams or execution lanes",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "founder-decision-moment",
+        "description": "Recognizes the one-session founder decision moment as central to the task",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 2400,
+      "costCents": 1800,
+      "qualityScore": 88,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "PM lead + founder review estimate, Mar 2026",
+      "methodology": "hybrid",
+      "sourceSummary": "Combined estimate from PM-led initiative framing and founder review of the same request.",
+      "sampleSize": 2,
+      "collectedAt": "2026-03-06",
+      "operatorProfile": "Product lead working with a technical founder on initiative framing"
+    },
+    "constraints": {
+      "maxDurationMinutes": 8,
+      "maxCostCents": 125
+    },
+    "runs": [
+      {
+        "runId": "product-initiative-brief-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 82.17,
+        "costCents": 0.048,
+        "usage": {},
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "has-problem-statement": 1,
+          "has-success-metrics": 1,
+          "has-scope": 1,
+          "has-workstreams": 1,
+          "founder-decision-moment": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 91.67,
+        "selfReportedCompleteness": 0.92,
+        "selfReportedCriterionScores": {
+          "has-problem-statement": 1,
+          "has-success-metrics": 1,
+          "has-scope": 0.75,
+          "has-workstreams": 0.75,
+          "founder-decision-moment": 1
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-problem-statement": 1,
+            "has-success-metrics": 1,
+            "has-scope": 1,
+            "has-workstreams": 1,
+            "founder-decision-moment": 1
+          },
+          "disagreementPoints": 0,
+          "maxCriterionDisagreementPoints": 0,
+          "humanReviewRecommended": false,
+          "lowConfidenceReasons": []
+        },
+        "judgeCostCents": 0.2483
+      }
+    ]
+  },
+  {
+    "id": "sales-outreach-sequence",
+    "name": "Sales Outreach Sequence",
+    "tier": "tier1_quick",
+    "domain": "sales",
+    "description": "Build a founder-quality outreach sequence for a specific ICP with message angles and proof-driven CTA.",
+    "acceptanceCriteria": [
+      {
+        "id": "personalized-icp",
+        "description": "The sequence feels specific to the ICP, not generic AI SaaS outreach",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "proof-led-cta",
+        "description": "The CTA is tied to a demo or live proof moment",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "multi-step-sequence",
+        "description": "Includes all required steps in a coherent sequence",
+        "type": "binary",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "objection-angle",
+        "description": "Includes a credible objection-handling angle",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 2100,
+      "costCents": 1600,
+      "qualityScore": 84,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "founder-led outbound estimate, Mar 2026",
+      "methodology": "expert_estimate",
+      "sourceSummary": "Estimate from founder-led outbound workflow for a three-step proof-first sequence.",
+      "sampleSize": 1,
+      "collectedAt": "2026-03-06",
+      "operatorProfile": "Founder-operator running early outbound without a dedicated SDR"
+    },
+    "constraints": {
+      "maxDurationMinutes": 8,
+      "maxCostCents": 125
+    },
+    "runs": [
+      {
+        "runId": "sales-outreach-sequence-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 6.71,
+        "costCents": 0.0432,
+        "usage": {},
+        "qualityScore": 94.29,
+        "completeness": 1,
+        "criterionScores": {
+          "personalized-icp": 0.8,
+          "proof-led-cta": 1,
+          "multi-step-sequence": 1,
+          "objection-angle": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 98.93,
+        "selfReportedCompleteness": 0.9,
+        "selfReportedCriterionScores": {
+          "personalized-icp": 1,
+          "proof-led-cta": 1,
+          "multi-step-sequence": 1,
+          "objection-angle": 0.95
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 94.29,
+          "completeness": 1,
+          "criterionScores": {
+            "personalized-icp": 0.8,
+            "proof-led-cta": 1,
+            "multi-step-sequence": 1,
+            "objection-angle": 1
+          },
+          "disagreementPoints": 1.43,
+          "maxCriterionDisagreementPoints": 20,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 0.6709
+      }
+    ]
+  },
+  {
+    "id": "cross-functional-launch-plan",
+    "name": "Cross-Functional Launch Plan",
+    "tier": "tier2_medium",
+    "domain": "cross_functional",
+    "description": "Create a decision-ready launch plan that coordinates product, design, engineering, marketing, and sales for a new live execution-room release.",
+    "acceptanceCriteria": [
+      {
+        "id": "covers-all-domains",
+        "description": "The plan explicitly covers product, design, engineering, marketing, and sales",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "sequencing",
+        "description": "Includes a believable sequence of milestones and dependencies",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "launch-readiness",
+        "description": "Includes a practical launch-readiness checklist",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "proof-orientation",
+        "description": "Keeps the launch anchored on proving real work and visible outputs",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "measurable-metrics",
+        "description": "Includes measurable post-launch success metrics",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 7200,
+      "costCents": 4800,
+      "qualityScore": 90,
+      "completeness": 1,
+      "artifactCount": 3,
+      "provenance": "founder + leads planning session estimate, Mar 2026",
+      "methodology": "hybrid",
+      "sourceSummary": "Estimate based on a founder-led planning session plus cross-functional lead review for the same launch brief.",
+      "sampleSize": 2,
+      "collectedAt": "2026-03-08",
+      "operatorProfile": "Founder, product lead, and functional leads coordinating a launch plan"
+    },
+    "constraints": {
+      "maxDurationMinutes": 20,
+      "maxCostCents": 250
+    },
+    "runs": [
+      {
+        "runId": "cross-functional-launch-plan-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 7.86,
+        "costCents": 0.0511,
+        "usage": {},
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "covers-all-domains": 1,
+          "sequencing": 1,
+          "launch-readiness": 1,
+          "proof-orientation": 1,
+          "measurable-metrics": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 98.33,
+        "selfReportedCompleteness": 0.95,
+        "selfReportedCriterionScores": {
+          "covers-all-domains": 1,
+          "sequencing": 1,
+          "launch-readiness": 0.9,
+          "proof-orientation": 1,
+          "measurable-metrics": 1
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "covers-all-domains": 1,
+            "sequencing": 1,
+            "launch-readiness": 1,
+            "proof-orientation": 1,
+            "measurable-metrics": 1
+          },
+          "disagreementPoints": 4.44,
+          "maxCriterionDisagreementPoints": 20,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 0.2829
+      }
+    ]
+  },
+  {
+    "id": "engineering-release-readiness-review",
+    "name": "Engineering Release Readiness Review",
+    "tier": "tier2_medium",
+    "domain": "engineering",
+    "description": "Review a release plan for technical risks, rollout gaps, verification coverage, and rollback readiness. Benchmarks engineering execution judgment, not only writing polish.",
+    "acceptanceCriteria": [
+      {
+        "id": "recommendation-quality",
+        "description": "Gives a clear release recommendation tied to specific risks and guardrails",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "identifies-operational-risk",
+        "description": "Identifies verification, observability, or rollback gaps instead of treating the task as a generic launch memo",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "proposes-guardrails",
+        "description": "Recommends concrete pre-launch guardrails or rollout constraints",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "incident-thinking",
+        "description": "Demonstrates real release/incident thinking rather than only implementation advice",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 3600,
+      "costCents": 2600,
+      "qualityScore": 89,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "senior engineering lead release review estimate, Mar 2026",
+      "methodology": "expert_estimate",
+      "sourceSummary": "Estimate from a senior engineering lead reviewing a comparable release-readiness packet.",
+      "sampleSize": 2,
+      "collectedAt": "2026-03-08",
+      "operatorProfile": "Senior engineering lead responsible for rollout and incident readiness"
+    },
+    "constraints": {
+      "maxDurationMinutes": 12,
+      "maxCostCents": 175
+    },
+    "runs": [
+      {
+        "runId": "engineering-release-readiness-review-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 9.02,
+        "costCents": 0.0514,
+        "usage": {},
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "recommendation-quality": 1,
+          "identifies-operational-risk": 1,
+          "proposes-guardrails": 1,
+          "incident-thinking": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 78.53,
+        "selfReportedCompleteness": 0.72,
+        "selfReportedCriterionScores": {
+          "recommendation-quality": 0.78,
+          "identifies-operational-risk": 0.82,
+          "proposes-guardrails": 0.85,
+          "incident-thinking": 0.66
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "recommendation-quality": 1,
+            "identifies-operational-risk": 1,
+            "proposes-guardrails": 1,
+            "incident-thinking": 1
+          },
+          "disagreementPoints": 0,
+          "maxCriterionDisagreementPoints": 0,
+          "humanReviewRecommended": false,
+          "lowConfidenceReasons": []
+        },
+        "judgeCostCents": 0.3296
+      }
+    ]
+  },
+  {
+    "id": "marketing-proof-campaign-brief",
+    "name": "Marketing Proof Campaign Brief",
+    "tier": "tier2_medium",
+    "domain": "marketing",
+    "description": "Build a campaign brief that uses real outputs, artifacts, and live evidence as the primary conversion mechanism. Benchmarks proof-led marketing judgment.",
+    "acceptanceCriteria": [
+      {
+        "id": "proof-assets",
+        "description": "Treats proofs, artifacts, and live execution as core campaign assets rather than optional embellishments",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "channel-specific",
+        "description": "Produces distinct content guidance per channel instead of one generic plan",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "anti-pattern-awareness",
+        "description": "Calls out at least one hype-driven anti-pattern and how to avoid it",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "measurable",
+        "description": "Defines measurable campaign success metrics",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 3300,
+      "costCents": 2400,
+      "qualityScore": 87,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "fractional growth lead campaign brief estimate, Mar 2026",
+      "methodology": "hybrid",
+      "sourceSummary": "Combined founder and fractional growth lead estimate for a proof-led launch campaign.",
+      "sampleSize": 2,
+      "collectedAt": "2026-03-08",
+      "operatorProfile": "B2B SaaS growth lead working with a founder on launch messaging"
+    },
+    "constraints": {
+      "maxDurationMinutes": 12,
+      "maxCostCents": 175
+    },
+    "runs": [
+      {
+        "runId": "marketing-proof-campaign-brief-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 6.76,
+        "costCents": 0.0416,
+        "usage": {},
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "proof-assets": 1,
+          "channel-specific": 1,
+          "anti-pattern-awareness": 1,
+          "measurable": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 100,
+        "selfReportedCompleteness": 1,
+        "selfReportedCriterionScores": {
+          "proof-assets": 1,
+          "channel-specific": 1,
+          "anti-pattern-awareness": 1,
+          "measurable": 1
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "proof-assets": 1,
+            "channel-specific": 1,
+            "anti-pattern-awareness": 1,
+            "measurable": 1
+          },
+          "disagreementPoints": 20,
+          "maxCriterionDisagreementPoints": 20,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "judge quality disagreement >= 8 points",
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 0.614
+      }
+    ]
+  },
+  {
+    "id": "ops-escalation-playbook",
+    "name": "Ops Escalation Playbook",
+    "tier": "tier2_medium",
+    "domain": "ops",
+    "description": "Create a practical escalation playbook for an initiative that is blocked by integrations, billing, and approval dependencies. Benchmarks operational clarity under constraint.",
+    "acceptanceCriteria": [
+      {
+        "id": "blocker-specific",
+        "description": "Distinguishes between integration, billing, and approval blockers instead of giving one generic escalation flow",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "sla-owner-clarity",
+        "description": "Defines time-based ownership and SLA expectations",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "communication-ready",
+        "description": "Includes reusable communication language or templates",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "recovery-checklist",
+        "description": "Includes a practical resolution checklist, not only escalation routing",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 3900,
+      "costCents": 2800,
+      "qualityScore": 88,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "ops lead escalation playbook estimate, Mar 2026",
+      "methodology": "expert_estimate",
+      "sourceSummary": "Estimate from an operations lead documenting an escalation policy for initiative blockers.",
+      "sampleSize": 2,
+      "collectedAt": "2026-03-08",
+      "operatorProfile": "Operations lead responsible for escalation and service continuity"
+    },
+    "constraints": {
+      "maxDurationMinutes": 12,
+      "maxCostCents": 175
+    },
+    "runs": [
+      {
+        "runId": "ops-escalation-playbook-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 12.58,
+        "costCents": 0.0782,
+        "usage": {},
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "blocker-specific": 1,
+          "sla-owner-clarity": 1,
+          "communication-ready": 1,
+          "recovery-checklist": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 89.29,
+        "selfReportedCompleteness": 0.9,
+        "selfReportedCriterionScores": {
+          "blocker-specific": 1,
+          "sla-owner-clarity": 1,
+          "communication-ready": 0.75,
+          "recovery-checklist": 0.75
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "blocker-specific": 1,
+            "sla-owner-clarity": 1,
+            "communication-ready": 1,
+            "recovery-checklist": 1
+          },
+          "disagreementPoints": 2.86,
+          "maxCriterionDisagreementPoints": 10,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 0.4304
+      }
+    ]
+  },
+  {
+    "id": "product-retention-experiment-plan",
+    "name": "Product Retention Experiment Plan",
+    "tier": "tier2_medium",
+    "domain": "product",
+    "description": "Turn a product signal into a decision-ready retention experiment plan with target behavior, instrumentation, and launch sequencing.",
+    "acceptanceCriteria": [
+      {
+        "id": "behavior-change",
+        "description": "Focuses on a concrete user behavior change, not just vague engagement improvement",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "experiment-specific",
+        "description": "Defines a real experiment with testable conditions instead of generic product ideas",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "measurement-plan",
+        "description": "Includes instrumentation or measurement details tied to the hypothesis",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "rollout-sequencing",
+        "description": "Includes a sensible rollout or validation sequence",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 3300,
+      "costCents": 2400,
+      "qualityScore": 88,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "PM retention experiment estimate, Mar 2026",
+      "methodology": "hybrid",
+      "sourceSummary": "Estimate from a PM-led retention planning workflow with founder input.",
+      "sampleSize": 2,
+      "collectedAt": "2026-03-08",
+      "operatorProfile": "Product manager focused on onboarding and activation experiments"
+    },
+    "constraints": {
+      "maxDurationMinutes": 12,
+      "maxCostCents": 175
+    },
+    "runs": [
+      {
+        "runId": "product-retention-experiment-plan-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 17.62,
+        "costCents": 0.0494,
+        "usage": {},
+        "qualityScore": 97.33,
+        "completeness": 0.95,
+        "criterionScores": {
+          "behavior-change": 1,
+          "experiment-specific": 0.9,
+          "measurement-plan": 1,
+          "rollout-sequencing": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 92.67,
+        "selfReportedCompleteness": 0.92,
+        "selfReportedCriterionScores": {
+          "behavior-change": 0.9,
+          "experiment-specific": 0.95,
+          "measurement-plan": 0.95,
+          "rollout-sequencing": 0.9
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 97.33,
+          "completeness": 0.95,
+          "criterionScores": {
+            "behavior-change": 1,
+            "experiment-specific": 0.9,
+            "measurement-plan": 1,
+            "rollout-sequencing": 1
+          },
+          "disagreementPoints": 12,
+          "maxCriterionDisagreementPoints": 30,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "judge quality disagreement >= 8 points",
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 0.461
+      }
+    ]
+  },
+  {
+    "id": "sales-competitive-battlecard",
+    "name": "Sales Competitive Battlecard",
+    "tier": "tier2_medium",
+    "domain": "sales",
+    "description": "Create a concise battlecard that helps a founder or GTM lead position OrgX against direct-model and agent-platform alternatives.",
+    "acceptanceCriteria": [
+      {
+        "id": "explicit-comparison",
+        "description": "Makes explicit category comparisons instead of vague positioning claims",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "acknowledges-weakness",
+        "description": "Honestly states where OrgX is weaker or not a fit",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "proof-moments",
+        "description": "Includes concrete proof or demo moments to show in the sales process",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "founder-talk-track",
+        "description": "Provides a concise talk track a founder could actually use",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 3600,
+      "costCents": 2500,
+      "qualityScore": 87,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "founder-led competitive positioning estimate, Mar 2026",
+      "methodology": "hybrid",
+      "sourceSummary": "Estimate from founder-led competitive narrative development with one GTM reviewer.",
+      "sampleSize": 2,
+      "collectedAt": "2026-03-08",
+      "operatorProfile": "Founder or first GTM hire creating a competitive battlecard for early sales"
+    },
+    "constraints": {
+      "maxDurationMinutes": 12,
+      "maxCostCents": 175
+    },
+    "runs": [
+      {
+        "runId": "sales-competitive-battlecard-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 8.16,
+        "costCents": 0.0515,
+        "usage": {},
+        "qualityScore": 95.71,
+        "completeness": 1,
+        "criterionScores": {
+          "explicit-comparison": 1,
+          "acknowledges-weakness": 0.8,
+          "proof-moments": 1,
+          "founder-talk-track": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 87.14,
+        "selfReportedCompleteness": 0.88,
+        "selfReportedCriterionScores": {
+          "explicit-comparison": 0.9,
+          "acknowledges-weakness": 0.7,
+          "proof-moments": 0.95,
+          "founder-talk-track": 0.9
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 95.71,
+          "completeness": 1,
+          "criterionScores": {
+            "explicit-comparison": 1,
+            "acknowledges-weakness": 0.8,
+            "proof-moments": 1,
+            "founder-talk-track": 1
+          },
+          "disagreementPoints": 10,
+          "maxCriterionDisagreementPoints": 20,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "judge quality disagreement >= 8 points",
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 0.7566
+      }
+    ]
+  }
+]

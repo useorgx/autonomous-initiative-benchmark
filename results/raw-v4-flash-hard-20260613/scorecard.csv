@@ -1,0 +1,13 @@
+task_id,run_id,mode,provider,model,domain,tier,autonomous_completed,duration_seconds,cost_cents,quality_score,completeness,scoring_source,judge_count,judge_disagreement_points,human_review_recommended,judge_cost_cents,human_baseline_seconds,human_quality_score
+eng-data-migration-refusal-hard,eng-data-migration-refusal-hard-r1,local_openai,openrouter,deepseek/deepseek-v4-flash,engineering,tier3_hard,true,35.4,0.0518,21,0,independent_judges,3,3,true,1.8423,10800,87
+eng-data-migration-refusal-hard,eng-data-migration-refusal-hard-r2,local_openai,openrouter,deepseek/deepseek-v4-flash,engineering,tier3_hard,true,50.99,0.0697,12.33,0,independent_judges,3,19,true,1.7657,10800,87
+eng-zero-downtime-migration-hard,eng-zero-downtime-migration-hard-r1,local_openai,openrouter,deepseek/deepseek-v4-flash,engineering,tier3_hard,true,38.21,0.1086,64.6,0.6,independent_judges,3,8.28,true,0.9601,14400,90
+eng-zero-downtime-migration-hard,eng-zero-downtime-migration-hard-r2,local_openai,openrouter,deepseek/deepseek-v4-flash,engineering,tier3_hard,true,131.6,0.1992,65.98,0.6,independent_judges,3,28.28,true,1.0954,14400,90
+ops-churn-noise-forensics-hard,ops-churn-noise-forensics-hard-r1,local_openai,openrouter,deepseek/deepseek-v4-flash,ops,tier3_hard,true,41.5,0.0972,94.93,0.9,independent_judges,3,15.22,true,0.7652,16200,86
+ops-churn-noise-forensics-hard,ops-churn-noise-forensics-hard-r2,local_openai,openrouter,deepseek/deepseek-v4-flash,ops,tier3_hard,true,27.54,0.0669,64.93,0.8,independent_judges,3,35.65,true,0.8279,16200,86
+ops-incident-forensics-hard,ops-incident-forensics-hard-r1,local_openai,openrouter,deepseek/deepseek-v4-flash,ops,tier3_hard,true,104.88,0.192,98.21,1,independent_judges,3,5.36,true,0.6125,14400,88
+ops-incident-forensics-hard,ops-incident-forensics-hard-r2,local_openai,openrouter,deepseek/deepseek-v4-flash,ops,tier3_hard,true,28.51,0.0596,91.07,0.9,independent_judges,3,17.86,true,0.7227,14400,88
+product-capacity-plan-hard,product-capacity-plan-hard-r1,local_openai,openrouter,deepseek/deepseek-v4-flash,product,tier3_hard,true,357.94,0.1573,82.72,1,independent_judges,3,3.71,true,1.1959,10800,87
+product-capacity-plan-hard,product-capacity-plan-hard-r2,local_openai,openrouter,deepseek/deepseek-v4-flash,product,tier3_hard,true,313.2,0.2537,90.12,1,independent_judges,3,20.37,true,1.2618,10800,87
+xfn-revenue-reconciliation-hard,xfn-revenue-reconciliation-hard-r1,local_openai,openrouter,deepseek/deepseek-v4-flash,cross_functional,tier3_hard,true,197.23,0.1494,55.56,0.8,independent_judges,3,100,true,0.6007,12600,88
+xfn-revenue-reconciliation-hard,xfn-revenue-reconciliation-hard-r2,local_openai,openrouter,deepseek/deepseek-v4-flash,cross_functional,tier3_hard,true,100,0.2142,8.57,0,independent_judges,3,25.71,true,1.4105,12600,88

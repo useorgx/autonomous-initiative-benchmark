@@ -1,0 +1,37 @@
+{
+  "benchmarkWeek": "raw-fable-5-hard-20260612",
+  "benchmarkVersion": "2026-q1",
+  "generatedAt": "2026-06-12T22:35:48.437Z",
+  "source": "local_openrouter_catalog_runner",
+  "gitSha": "d40c875",
+  "headlineMetrics": {
+    "vs_human_speedup": {
+      "value": 161.23,
+      "unit": "x"
+    },
+    "vs_human_quality_delta": {
+      "value": 8.07,
+      "unit": "points"
+    },
+    "autonomous_completion_rate": {
+      "value": 1,
+      "unit": "ratio"
+    },
+    "cost_per_task_cents": {
+      "value": 36.1387,
+      "unit": "cents"
+    },
+    "generation_cost_per_task_cents": {
+      "value": 34.3998,
+      "unit": "cents"
+    },
+    "judging_cost_per_task_cents": {
+      "value": 1.7389,
+      "unit": "cents"
+    },
+    "human_review_recommended_rate": {
+      "value": 0.417,
+      "unit": "ratio"
+    }
+  }
+}

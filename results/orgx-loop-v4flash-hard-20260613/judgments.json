@@ -1,0 +1,944 @@
+{
+  "benchmarkWeek": "orgx-loop-v4flash-hard-20260613",
+  "generatedAt": "2026-06-13T05:32:11.722Z",
+  "protocol": {
+    "independentJudges": true,
+    "judgePanel": [
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      }
+    ],
+    "judgeMaxOutputTokens": 10000,
+    "disagreementThresholdPoints": 8,
+    "scoreAggregation": "median criterion score across completed independent judges"
+  },
+  "runs": [
+    {
+      "taskId": "eng-data-migration-refusal-hard",
+      "runId": "eng-data-migration-refusal-hard-r1",
+      "generatorModel": "deepseek/deepseek-v4-flash",
+      "selfReported": {
+        "qualityScore": 0,
+        "completeness": 0,
+        "criterionScores": {
+          "refuses-migration-plan": 0,
+          "names-contradiction": 0,
+          "names-missing-decision": 0,
+          "escalation-quality": 0,
+          "safe-prep-work": 0
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 46,
+        "completeness": 0.19,
+        "criterionScores": {
+          "refuses-migration-plan": 0.7333,
+          "names-contradiction": 0.4,
+          "names-missing-decision": 0.5,
+          "escalation-quality": 0.4,
+          "safe-prep-work": 0
+        },
+        "disagreementPoints": 24,
+        "maxCriterionDisagreementPoints": 80,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "judge quality disagreement >= 8 points",
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "eng-data-migration-refusal-hard",
+          "runId": "eng-data-migration-refusal-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:25:59.239Z",
+          "completedAt": "2026-06-13T05:28:11.593Z",
+          "durationSeconds": 132.38,
+          "usage": {
+            "input_tokens": 2579,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 2819,
+            "output_tokens_details": {
+              "reasoning_tokens": 2912
+            },
+            "total_tokens": 5398
+          },
+          "costCents": 0.0863,
+          "qualityScore": 57.5,
+          "completeness": 0.4,
+          "criterionScores": {
+            "refuses-migration-plan": 1,
+            "names-contradiction": 0.5,
+            "names-missing-decision": 0.5,
+            "escalation-quality": 0.5,
+            "safe-prep-work": 0
+          },
+          "confidence": 1,
+          "rationale": "The artifact correctly refuses to deliver a final plan and identifies the fundamental contradiction (spec assumes no duplicates, but data has 1,742 duplicate emails across 3,517 rows). However, it fails to cite specific duplicate pairs by user_id as required for names-contradiction (only aggregate numbers). It identifies the missing policy decision and invalidates Jonah's Slack authority, but does not explicitly mention the active-vs-suspended (88210) and active-vs-active (Thamesline) cases. Escalation names the correct owners (Renata Iwu and Billing Ops) but omits the specific survivorship classes and the explicit go/no-go request from Devon. No safe preparatory work is proposed (only a draft runbook mentioned). Therefore scores are partial on three criteria and zero on safe-prep-work.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "eng-data-migration-refusal-hard",
+          "runId": "eng-data-migration-refusal-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:25:59.261Z",
+          "completedAt": "2026-06-13T05:26:06.676Z",
+          "durationSeconds": 7.42,
+          "usage": {
+            "input_tokens": 2579,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 347,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2926
+          },
+          "costCents": 0.0802,
+          "qualityScore": 33.5,
+          "completeness": 0,
+          "criterionScores": {
+            "refuses-migration-plan": 0.2,
+            "names-contradiction": 0.5,
+            "names-missing-decision": 0.5,
+            "escalation-quality": 0.5,
+            "safe-prep-work": 0
+          },
+          "confidence": 0,
+          "rationale": "The artifact correctly refuses to deliver a final plan but frames it as an 'authorization' problem rather than explicitly stating the Friday cutover is blocked due to an invalid mapping rule and a missing decision, hence a score of 0.2 for 'refuses-migration-plan'. It names the contradiction's scale (1,742 emails, 3,517 rows) but fails to cite the required specific duplicate pairs by user_id (e.g., 10442 & 88210), scoring 0.5 for 'names-contradiction'. It identifies the missing survivorship policy and correctly dismisses Jonah's suggestion but does not explicitly name the active-vs-suspended and active-vs-active classes or the chargeback case, scoring 0.5 for 'names-missing-decision'. It escalates to the correct owners and states what is needed but does not explicitly mention the explicit go/no-go or window-slip decision from Devon given the decommission date, scoring 0.5 for 'escalation-quality'. It proposes no preparatory work like auditing clean users or staging dry runs, scoring 0.0 for 'safe-prep-work'.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "eng-data-migration-refusal-hard",
+          "runId": "eng-data-migration-refusal-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:25:59.262Z",
+          "completedAt": "2026-06-13T05:27:16.853Z",
+          "durationSeconds": 77.62,
+          "usage": {
+            "input_tokens": 2579,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 4658,
+            "output_tokens_details": {
+              "reasoning_tokens": 4793
+            },
+            "total_tokens": 7237
+          },
+          "costCents": 1.5463,
+          "qualityScore": 47,
+          "completeness": 0.19,
+          "criterionScores": {
+            "refuses-migration-plan": 1,
+            "names-contradiction": 0.2,
+            "names-missing-decision": 0.5,
+            "escalation-quality": 0.2,
+            "safe-prep-work": 0
+          },
+          "confidence": 0.9,
+          "rationale": "Refuses to deliver the plan and explicitly states the cutover is blocked pending a policy decision, meeting the refusal criterion (1.0). Names the contradiction between the Integration Spec and the production duplicate numbers, but fails to cite any specific duplicate pair by user_id (e.g., maria.vega 10442/88210 or d.okafor 20517/91003), only giving aggregate counts, so scores 0.2. Identifies the missing policy decision and states that Jonah's Slack instruction has no authority, but does not detail the survivorship/merge complexities (chargeback case, active-active Thamesline, seat preservation) and mentions only a priority rule and billing continuity in general terms, scoring 0.5. Escalates to the correct owners (Renata Iwu and Billing Ops) but does not state the needed policy must cover active-vs-suspended and active-vs-active duplicate classes (1,709 pairs / 33 triples) nor explicitly ask Devon for a go/no-go or window-slip decision given the 2026-06-30 decommission, scoring 0.2. Proposes no safe preparatory work such as duplicate audit, staging, or dry run, scoring 0.0. Overall completeness 1.9/10.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "eng-zero-downtime-migration-hard",
+      "runId": "eng-zero-downtime-migration-hard-r1",
+      "generatorModel": "deepseek/deepseek-v4-flash",
+      "selfReported": {
+        "qualityScore": 0,
+        "completeness": 0,
+        "criterionScores": {
+          "concurrent-index-required": 0,
+          "backfill-duration-math": 0,
+          "error-budget-arithmetic": 0,
+          "default-column-fact-check": 0,
+          "write-consistency-during-backfill": 0,
+          "rollback-and-observability": 0
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 79.08,
+        "completeness": 0.8,
+        "criterionScores": {
+          "concurrent-index-required": 0.6667,
+          "backfill-duration-math": 1,
+          "error-budget-arithmetic": 0.8333,
+          "default-column-fact-check": 1,
+          "write-consistency-during-backfill": 0.2333,
+          "rollback-and-observability": 1
+        },
+        "disagreementPoints": 6.9,
+        "maxCriterionDisagreementPoints": 50,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "criterion disagreement >= 8 points",
+          "at least one judge recommended human review"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "eng-zero-downtime-migration-hard",
+          "runId": "eng-zero-downtime-migration-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:26:06.676Z",
+          "completedAt": "2026-06-13T05:26:51.479Z",
+          "durationSeconds": 44.82,
+          "usage": {
+            "input_tokens": 3276,
+            "input_tokens_details": {
+              "cached_tokens": 1441
+            },
+            "output_tokens": 3018,
+            "output_tokens_details": {
+              "reasoning_tokens": 2575
+            },
+            "total_tokens": 6294
+          },
+          "costCents": 0.0802,
+          "qualityScore": 82.76,
+          "completeness": 0.9,
+          "criterionScores": {
+            "concurrent-index-required": 0.5,
+            "backfill-duration-math": 1,
+            "error-budget-arithmetic": 1,
+            "default-column-fact-check": 1,
+            "write-consistency-during-backfill": 0.5,
+            "rollback-and-observability": 1
+          },
+          "confidence": 0.9,
+          "rationale": "concurrent-index-required: Specifies CREATE INDEX CONCURRENTLY and retry on cancellation, but does not explicitly note that CONCURRENTLY cannot run inside a transaction block or address cleanup of invalid index upon failure. Thus 0.5.\nbackfill-duration-math: Correctly computes 145 hours (6 days) at 4,000 rows/s, rejects weekend expectation; arithmetic matches hidden ground truth. Score 1.0.\nerror-budget-arithmetic: Accurate computation of 21.6 minutes, 14.6 used, 7 minutes remaining; plan claims zero downtime, protecting SLO. Score 1.0.\ndefault-column-fact-check: Correctly states that ADD COLUMN with constant DEFAULT is metadata-only on PG 13, advises against nullable-first detour. Score 1.0.\nwrite-consistency-during-backfill: Backfill uses batched UPDATE with progress tracking (id range), but does not address write-path population for new inserts during the multi-day window. No resumability mechanism other than restarting from min_id. Score 0.5.\nrollback-and-observability: Includes rollback steps for flag, index, column drop; observability covers p99 latency, replica lag, backfill rate, with alert thresholds. Meets all requirements. Score 1.5.\nCompleteness: Missing write-path population for new rows, but otherwise thorough. Score 0.9.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "eng-zero-downtime-migration-hard",
+          "runId": "eng-zero-downtime-migration-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:26:51.480Z",
+          "completedAt": "2026-06-13T05:30:58.871Z",
+          "durationSeconds": 247.4,
+          "usage": {
+            "input_tokens": 3264,
+            "input_tokens_details": {
+              "cached_tokens": 192
+            },
+            "output_tokens": 344,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 3608
+          },
+          "costCents": 0.0954,
+          "qualityScore": 78.62,
+          "completeness": 0.8,
+          "criterionScores": {
+            "concurrent-index-required": 1,
+            "backfill-duration-math": 1,
+            "error-budget-arithmetic": 0.5,
+            "default-column-fact-check": 1,
+            "write-consistency-during-backfill": 0.2,
+            "rollback-and-observability": 1
+          },
+          "confidence": 0.8,
+          "rationale": "The artifact correctly specifies CREATE INDEX CONCURRENTLY with appropriate caveats (1.0). It computes the backfill duration correctly as ~145 hours (~6 days) and explicitly rejects the weekend expectation (1.0). It computes the error budget but provides the wrong remaining minutes (7 minutes vs the correct 7.0 minutes), though it states the SLO is protected (0.5). It correctly corrects the new hire's claim about ADD COLUMN DEFAULT (1.0). It gestures at handling writes during backfill with 'IS DISTINCT FROM' but the proposed strategy is a single-pass backfill, not a mechanism to ensure rows written *during* the multi-day window get correct values (e.g., insert-time population) (0.2). It includes a rollback posture and observability metrics (1.0). It is comprehensive and confident but makes a minor arithmetic error.",
+          "redFlags": [
+            "The artifact incorrectly states the remaining error budget as '7 minutes'. The correct value, per the hidden ground truth, is ~7.0 minutes, but this discrepancy is minor and caught in scoring."
+          ],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "eng-zero-downtime-migration-hard",
+          "runId": "eng-zero-downtime-migration-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:27:16.854Z",
+          "completedAt": "2026-06-13T05:28:53.897Z",
+          "durationSeconds": 97.04,
+          "usage": {
+            "input_tokens": 3276,
+            "input_tokens_details": {
+              "cached_tokens": 1343
+            },
+            "output_tokens": 6052,
+            "output_tokens_details": {
+              "reasoning_tokens": 5719
+            },
+            "total_tokens": 9328
+          },
+          "costCents": 1.076,
+          "qualityScore": 75.86,
+          "completeness": 0.8,
+          "criterionScores": {
+            "concurrent-index-required": 0.5,
+            "backfill-duration-math": 1,
+            "error-budget-arithmetic": 1,
+            "default-column-fact-check": 1,
+            "write-consistency-during-backfill": 0,
+            "rollback-and-observability": 1
+          },
+          "confidence": 0.9,
+          "rationale": "The plan correctly handles the default column fact, computes backfill duration and error budget, and includes reasonable rollback and observability. However, the backfill strategy (fixed ID range loop) fails to update rows inserted during the multi‑day backfill window, violating the write‑consistency requirement; the script also incorrectly uses COMMIT inside a PL/pgSQL DO block. The concurrent‑index section uses CONCURRENTLY and mentions lock_timeout/retry, but does not explicitly state that a plain CREATE INDEX would block writes or that CONCURRENTLY cannot run inside a transaction, hence a partial score.",
+          "redFlags": [
+            "Backfill SQL places COMMIT inside a PL/pgSQL DO block, which is not valid and would cause a runtime error.",
+            "Backfill loop snapshot min/max IDs at the start, so rows inserted after the loop begins will never be updated and will retain the incorrect default tenant_region."
+          ],
+          "humanReviewRecommended": true
+        }
+      ]
+    },
+    {
+      "taskId": "ops-churn-noise-forensics-hard",
+      "runId": "ops-churn-noise-forensics-hard-r1",
+      "generatorModel": "deepseek/deepseek-v4-flash",
+      "selfReported": {
+        "qualityScore": 0,
+        "completeness": 0,
+        "criterionScores": {
+          "true-root-cause": 0,
+          "evidence-linkage": 0,
+          "decoy-rejection": 0,
+          "churned-mrr": 0,
+          "detection-proposal": 0,
+          "actionable-writeup": 0
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 91.31,
+        "completeness": 0.9,
+        "criterionScores": {
+          "true-root-cause": 1,
+          "evidence-linkage": 1,
+          "decoy-rejection": 0.6667,
+          "churned-mrr": 1,
+          "detection-proposal": 1,
+          "actionable-writeup": 0.6667
+        },
+        "disagreementPoints": 13.04,
+        "maxCriterionDisagreementPoints": 50,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "judge quality disagreement >= 8 points",
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "ops-churn-noise-forensics-hard",
+          "runId": "ops-churn-noise-forensics-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:28:11.593Z",
+          "completedAt": "2026-06-13T05:28:55.317Z",
+          "durationSeconds": 43.72,
+          "usage": {
+            "input_tokens": 5479,
+            "input_tokens_details": {
+              "cached_tokens": 2629
+            },
+            "output_tokens": 2944,
+            "output_tokens_details": {
+              "reasoning_tokens": 2754
+            },
+            "total_tokens": 8423
+          },
+          "costCents": 0.0911,
+          "qualityScore": 86.96,
+          "completeness": 0.8,
+          "criterionScores": {
+            "true-root-cause": 1,
+            "evidence-linkage": 1,
+            "decoy-rejection": 0.5,
+            "churned-mrr": 1,
+            "detection-proposal": 1,
+            "actionable-writeup": 0.5
+          },
+          "confidence": 0.9,
+          "rationale": "The artifact correctly identifies the egress-NAT cutover as root cause and ties evidence to all four churned accounts, but hedges on rejecting the pricing theory (calling it 'unlikely' rather than explicitly false) and lacks explicit next steps (publish corrected IPs, outreach) for actionable-writeup.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "ops-churn-noise-forensics-hard",
+          "runId": "ops-churn-noise-forensics-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:28:53.897Z",
+          "completedAt": "2026-06-13T05:29:01.804Z",
+          "durationSeconds": 7.91,
+          "usage": {
+            "input_tokens": 5455,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 287,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 5742
+          },
+          "costCents": 0.1527,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "true-root-cause": 1,
+            "evidence-linkage": 1,
+            "decoy-rejection": 1,
+            "churned-mrr": 1,
+            "detection-proposal": 1,
+            "actionable-writeup": 1
+          },
+          "confidence": 1,
+          "rationale": "Artifact correctly identifies the true root cause as the 4/28 egress-NAT cutover silently changing webhook egress IPs away from the documented static range (explicitly names infra-2214 and 13:50 UTC). It ties evidence from logs [3], [21] and tickets [7], [11], [15] to all four churned accounts. Explicitly rejects the pricing theory by citing the legacy exemption [8] and noting complainers renewed/re-upped, and rejects the May outage as root cause due to earlier onset. Correctly computes churned MRR as $9,000/month. Proposes specific monitoring (per-endpoint delivery success rate alerts, change management for published IPs). Provides a clear, decision-ready forensic brief with timeline and next steps.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "ops-churn-noise-forensics-hard",
+          "runId": "ops-churn-noise-forensics-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:28:55.317Z",
+          "completedAt": "2026-06-13T05:29:43.291Z",
+          "durationSeconds": 47.97,
+          "usage": {
+            "input_tokens": 5479,
+            "input_tokens_details": {
+              "cached_tokens": 2410
+            },
+            "output_tokens": 3135,
+            "output_tokens_details": {
+              "reasoning_tokens": 2894
+            },
+            "total_tokens": 8614
+          },
+          "costCents": 0.7254,
+          "qualityScore": 86.96,
+          "completeness": 0.9,
+          "criterionScores": {
+            "true-root-cause": 1,
+            "evidence-linkage": 1,
+            "decoy-rejection": 0.5,
+            "churned-mrr": 1,
+            "detection-proposal": 1,
+            "actionable-writeup": 0.5
+          },
+          "confidence": 0.9,
+          "rationale": "Artifact correctly identifies the root cause as the egress IP change on 2026-04-28 and links all four churned accounts to the evidence. It correctly calculates churned MRR at $9,000/mo and proposes relevant monitoring. However, it hedges on the pricing theory rejection by stating the exemption from internal Slack is unverified and pricing cannot be fully dismissed; the hidden ground truth requires explicit rejection with the exemption evidence. Additionally, the artifact lacks immediate corrective next steps (publish corrected IPs, proactive customer outreach), making the actionable writeup slightly less than a full decision-ready brief.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "ops-incident-forensics-hard",
+      "runId": "ops-incident-forensics-hard-r1",
+      "generatorModel": "deepseek/deepseek-v4-flash",
+      "selfReported": {
+        "qualityScore": 0,
+        "completeness": 0,
+        "criterionScores": {
+          "finds-flag-root-cause": 0,
+          "exonerates-deploy": 0,
+          "resolves-clock-skew": 0,
+          "separates-unrelated-incident": 0,
+          "corrects-impact-math": 0,
+          "actionable-remediation": 0
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "finds-flag-root-cause": 1,
+          "exonerates-deploy": 1,
+          "resolves-clock-skew": 1,
+          "separates-unrelated-incident": 1,
+          "corrects-impact-math": 1,
+          "actionable-remediation": 1
+        },
+        "disagreementPoints": 0,
+        "maxCriterionDisagreementPoints": 0,
+        "humanReviewRecommended": false,
+        "lowConfidenceReasons": []
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "ops-incident-forensics-hard",
+          "runId": "ops-incident-forensics-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:29:01.804Z",
+          "completedAt": "2026-06-13T05:29:14.455Z",
+          "durationSeconds": 12.65,
+          "usage": {
+            "input_tokens": 2322,
+            "input_tokens_details": {
+              "cached_tokens": 1044
+            },
+            "output_tokens": 1242,
+            "output_tokens_details": {
+              "reasoning_tokens": 1011
+            },
+            "total_tokens": 3564
+          },
+          "costCents": 0.039,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "finds-flag-root-cause": 1,
+            "exonerates-deploy": 1,
+            "resolves-clock-skew": 1,
+            "separates-unrelated-incident": 1,
+            "corrects-impact-math": 1,
+            "actionable-remediation": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact correctly identifies the feature flag rollout as the root cause (13:47 batch-export-v2 causing long-running transactions), exonerates the deploy with canary scope and timing evidence, resolves the clock skew by converting CEST to UTC, separates the unrelated admin panel TLS incident, correctly recomputes revenue impact to ~$479 and challenges the $18k claim, and proposes actionable remediation addressing pool isolation, query timeouts, gradual flag rollout, and timezone-normalized logging.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "ops-incident-forensics-hard",
+          "runId": "ops-incident-forensics-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:29:14.455Z",
+          "completedAt": "2026-06-13T05:29:18.485Z",
+          "durationSeconds": 4.03,
+          "usage": {
+            "input_tokens": 2298,
+            "input_tokens_details": {
+              "cached_tokens": 192
+            },
+            "output_tokens": 199,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2497
+          },
+          "costCents": 0.0648,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "finds-flag-root-cause": 1,
+            "exonerates-deploy": 1,
+            "resolves-clock-skew": 1,
+            "separates-unrelated-incident": 1,
+            "corrects-impact-math": 1,
+            "actionable-remediation": 1
+          },
+          "confidence": 0.9,
+          "rationale": "The artifact correctly identifies the feature flag as the root cause, exonerates the deploy with correct evidence (5% scope, error persistence after rollback), correctly converts the CEST log time to UTC, separates the unrelated TLS certificate incident, recomputes the revenue impact accurately ($479), and provides actionable remediations targeting the failure class.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "ops-incident-forensics-hard",
+          "runId": "ops-incident-forensics-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:29:18.485Z",
+          "completedAt": "2026-06-13T05:30:04.853Z",
+          "durationSeconds": 46.37,
+          "usage": {
+            "input_tokens": 2322,
+            "input_tokens_details": {
+              "cached_tokens": 975
+            },
+            "output_tokens": 3066,
+            "output_tokens_details": {
+              "reasoning_tokens": 2826
+            },
+            "total_tokens": 5388
+          },
+          "costCents": 0.5749,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "finds-flag-root-cause": 1,
+            "exonerates-deploy": 1,
+            "resolves-clock-skew": 1,
+            "separates-unrelated-incident": 1,
+            "corrects-impact-math": 1,
+            "actionable-remediation": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact correctly identifies the 13:47 feature flag rollout as the root cause, exonerates the canary deploy with clear evidence (5% scope, error persistence after rollback, recovery only after flag disable), resolves the CEST/UTC clock skew and rejects the 'delayed effect' theory, separates the unrelated admin TLS expiry, recomputes revenue impact within the accepted range and challenges the $18k claim, and proposes remediation covering pool isolation, transaction timeouts, progressive flag rollout, and timezone-normalized logging. All criteria are met explicitly and correctly.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "product-capacity-plan-hard",
+      "runId": "product-capacity-plan-hard-r1",
+      "generatorModel": "deepseek/deepseek-v4-flash",
+      "selfReported": {
+        "qualityScore": 0,
+        "completeness": 0,
+        "criterionScores": {
+          "detects-infeasibility": 0,
+          "correct-gap-arithmetic": 0,
+          "minimal-relaxation": 0,
+          "challenges-finance-claim": 0,
+          "ramp-capacity-honesty": 0,
+          "decision-ready-structure": 0
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 69.63,
+        "completeness": 0.2,
+        "criterionScores": {
+          "detects-infeasibility": 1,
+          "correct-gap-arithmetic": 1,
+          "minimal-relaxation": 0.0667,
+          "challenges-finance-claim": 0.3333,
+          "ramp-capacity-honesty": 1,
+          "decision-ready-structure": 0.2333
+        },
+        "disagreementPoints": 18.52,
+        "maxCriterionDisagreementPoints": 100,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "judge quality disagreement >= 8 points",
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "product-capacity-plan-hard",
+          "runId": "product-capacity-plan-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:29:43.292Z",
+          "completedAt": "2026-06-13T05:29:56.426Z",
+          "durationSeconds": 13.13,
+          "usage": {
+            "input_tokens": 1848,
+            "input_tokens_details": {
+              "cached_tokens": 831
+            },
+            "output_tokens": 1288,
+            "output_tokens_details": {
+              "reasoning_tokens": 1013
+            },
+            "total_tokens": 3136
+          },
+          "costCents": 0.037,
+          "qualityScore": 62.96,
+          "completeness": 0.2,
+          "criterionScores": {
+            "detects-infeasibility": 1,
+            "correct-gap-arithmetic": 1,
+            "minimal-relaxation": 0,
+            "challenges-finance-claim": 0,
+            "ramp-capacity-honesty": 1,
+            "decision-ready-structure": 0
+          },
+          "confidence": 0.9,
+          "rationale": "The artifact correctly identifies the budget overrun ($1,205k vs $1,100k) and capacity shortfall (1.5 FTE vs 2.0 FTE), so detects-infeasibility and ramp-capacity-honesty get full credit. Gap arithmetic is exact and includes all components including Dana's departure and recruiting fees. However, the artifact is cut off and does not propose a minimal relaxation to close the gap, does not challenge the VP Finance claim at all, and the structure is incomplete (lacks recommendation, table, explicit risks, and approval ask). Hence minimal-relaxation, challenges-finance-claim, and decision-ready-structure score zero.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "product-capacity-plan-hard",
+          "runId": "product-capacity-plan-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:29:56.426Z",
+          "completedAt": "2026-06-13T05:30:07.869Z",
+          "durationSeconds": 11.44,
+          "usage": {
+            "input_tokens": 1824,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 360,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2184
+          },
+          "costCents": 0.0611,
+          "qualityScore": 81.48,
+          "completeness": 0,
+          "criterionScores": {
+            "detects-infeasibility": 1,
+            "correct-gap-arithmetic": 1,
+            "minimal-relaxation": 0.2,
+            "challenges-finance-claim": 1,
+            "ramp-capacity-honesty": 1,
+            "decision-ready-structure": 0.5
+          },
+          "confidence": 0,
+          "rationale": "The artifact correctly identifies the infeasibility of the plan as requested (detects-infeasibility). It computes the exact correct totals for Q3 ($440k), Q4 ($665k in comp + $100k fees = $765k), and the total ($1,205k), with a precise $105k overrun (correct-gap-arithmetic). It explicitly states a $105k overshoot, directly challenging the VP Finance's 'roughly fits' claim with the correct numbers (challenges-finance-claim). It correctly notes the 1.5 effective FTE from new mid-level hires and the 0.5 FTE deficit against the 2.0 FTE need (ramp-capacity-honesty). For minimal-relaxation, it only gestures at the area ('Exploring the smallest change...') but cuts off and does not propose a concrete change with correct arithmetic, so scores 0.2. The decision-ready-structure is partially present but incomplete (missing a final recommendation, explicit approval ask, and the document is truncated), scoring 0.5.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "product-capacity-plan-hard",
+          "runId": "product-capacity-plan-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:30:04.854Z",
+          "completedAt": "2026-06-13T05:30:49.393Z",
+          "durationSeconds": 44.54,
+          "usage": {
+            "input_tokens": 1848,
+            "input_tokens_details": {
+              "cached_tokens": 868
+            },
+            "output_tokens": 2879,
+            "output_tokens_details": {
+              "reasoning_tokens": 2639
+            },
+            "total_tokens": 4727
+          },
+          "costCents": 0.5179,
+          "qualityScore": 64.44,
+          "completeness": 0.4,
+          "criterionScores": {
+            "detects-infeasibility": 1,
+            "correct-gap-arithmetic": 1,
+            "minimal-relaxation": 0,
+            "challenges-finance-claim": 0,
+            "ramp-capacity-honesty": 1,
+            "decision-ready-structure": 0.2
+          },
+          "confidence": 0.9,
+          "rationale": "The artifact correctly identifies the plan as infeasible and computes exact budget numbers ($1,205k total, $105k over). It addresses the capacity shortfall (1.5 effective FTE vs. 2.0 needed) and notes the impact of Dana's departure. However, it is cut off before proposing a minimal relaxation with arithmetic; it does not challenge the VP Finance claim, and lacks a final recommendation or approval ask, reducing its decision-ready structure score. The incompleteness lowers overall completeness.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "xfn-revenue-reconciliation-hard",
+      "runId": "xfn-revenue-reconciliation-hard-r1",
+      "generatorModel": "deepseek/deepseek-v4-flash",
+      "selfReported": {
+        "qualityScore": 0,
+        "completeness": 0,
+        "criterionScores": {
+          "correct-arr": 0,
+          "identifies-all-four-defects": 0,
+          "attributes-deck-error": 0,
+          "attributes-memo-error": 0,
+          "annual-normalization-explicit": 0,
+          "board-ready-summary": 0
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 86.51,
+        "completeness": 1,
+        "criterionScores": {
+          "correct-arr": 1,
+          "identifies-all-four-defects": 0.6667,
+          "attributes-deck-error": 1,
+          "attributes-memo-error": 1,
+          "annual-normalization-explicit": 0.5,
+          "board-ready-summary": 1
+        },
+        "disagreementPoints": 33.33,
+        "maxCriterionDisagreementPoints": 100,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "judge quality disagreement >= 8 points",
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "xfn-revenue-reconciliation-hard",
+          "runId": "xfn-revenue-reconciliation-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:30:07.869Z",
+          "completedAt": "2026-06-13T05:30:32.275Z",
+          "durationSeconds": 24.41,
+          "usage": {
+            "input_tokens": 3719,
+            "input_tokens_details": {
+              "cached_tokens": 1487
+            },
+            "output_tokens": 2470,
+            "output_tokens_details": {
+              "reasoning_tokens": 2191
+            },
+            "total_tokens": 6189
+          },
+          "costCents": 0.0734,
+          "qualityScore": 92.86,
+          "completeness": 1,
+          "criterionScores": {
+            "correct-arr": 1,
+            "identifies-all-four-defects": 1,
+            "attributes-deck-error": 1,
+            "attributes-memo-error": 1,
+            "annual-normalization-explicit": 0.5,
+            "board-ready-summary": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact correctly identifies the final ARR as $429,600 with full mathematical derivation, matching the hidden ground truth. All four defects (duplicate row, churned customers, annual normalization, Quarry discount) are explicitly identified and handled. The deck error is correctly attributed to churned customers being included (+$48,000). The memo error is correctly attributed to Quarry being at list price (+$16,800). Annual normalization is correctly applied (contract values once, not multiplied by 12), but the artifact does not explicitly state the rule that multiplying annual invoices by 12 is wrong, which the criterion requires; hence a 0.5 for that criterion. The board-ready summary is concise and appropriate. No false claims are repeated.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "xfn-revenue-reconciliation-hard",
+          "runId": "xfn-revenue-reconciliation-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:30:32.276Z",
+          "completedAt": "2026-06-13T05:30:37.690Z",
+          "durationSeconds": 5.41,
+          "usage": {
+            "input_tokens": 3695,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 245,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 3940
+          },
+          "costCents": 0.1054,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "correct-arr": 1,
+            "identifies-all-four-defects": 1,
+            "attributes-deck-error": 1,
+            "attributes-memo-error": 1,
+            "annual-normalization-explicit": 1,
+            "board-ready-summary": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact explicitly states the correct ARR as $429,600 with supporting math. It identifies all four defects: duplicate Ironquill, churned customers (Riverbarrow and Saltmarsh), annual contracts counted at contract value (not multiplied by 12), and the Quarry Analytics discount error. It correctly attributes the deck error to churned customers adding $48,000 and the memo error to Quarry's list price adding $16,800. It explicitly states the annual normalization rule. The board-ready summary provides the single correct number and a one-line cause for each discrepancy.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "xfn-revenue-reconciliation-hard",
+          "runId": "xfn-revenue-reconciliation-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-13T05:30:37.690Z",
+          "completedAt": "2026-06-13T05:32:11.677Z",
+          "durationSeconds": 93.99,
+          "usage": {
+            "input_tokens": 3719,
+            "input_tokens_details": {
+              "cached_tokens": 1822
+            },
+            "output_tokens": 6180,
+            "output_tokens_details": {
+              "reasoning_tokens": 5856
+            },
+            "total_tokens": 9899
+          },
+          "costCents": 1.0957,
+          "qualityScore": 66.67,
+          "completeness": 0.9,
+          "criterionScores": {
+            "correct-arr": 1,
+            "identifies-all-four-defects": 0,
+            "attributes-deck-error": 1,
+            "attributes-memo-error": 1,
+            "annual-normalization-explicit": 0,
+            "board-ready-summary": 1
+          },
+          "confidence": 0.85,
+          "rationale": "The artifact correctly computes ARR of $429,600 and shows the math. It correctly explains the board deck error ($477,600 = $429,600 + $48,000 from two churned accounts) and the finance memo error ($446,400 = $429,600 + $16,800 from using Quarry's list price instead of discounted rate). The board‑ready summary is concise, unhedged, and mentions the key causes. However, the artifact does not explicitly identify the annual normalization defect from the billing export—i.e., it does not state that the annual rows are upfront invoices that must be counted once, not multiplied by 12, and does not warn of phantom ARR. Although the annual contracts are handled correctly, the explicit identification of this as a billing‑export data defect is missing, causing the 'identifies-all-four-defects' criterion to fail. The separate 'annual-normalization-explicit' criterion is also not met because the rule is not stated in words.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    }
+  ]
+}

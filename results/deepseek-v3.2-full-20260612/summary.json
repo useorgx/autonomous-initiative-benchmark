@@ -1,0 +1,37 @@
+{
+  "benchmarkWeek": "deepseek-v3.2-full-20260612",
+  "benchmarkVersion": "2026-q1",
+  "generatedAt": "2026-06-12T19:04:48.723Z",
+  "source": "local_openrouter_catalog_runner",
+  "gitSha": "d40c875",
+  "headlineMetrics": {
+    "vs_human_speedup": {
+      "value": 60.87,
+      "unit": "x"
+    },
+    "vs_human_quality_delta": {
+      "value": 11.2,
+      "unit": "points"
+    },
+    "autonomous_completion_rate": {
+      "value": 1,
+      "unit": "ratio"
+    },
+    "cost_per_task_cents": {
+      "value": 0.7031,
+      "unit": "cents"
+    },
+    "generation_cost_per_task_cents": {
+      "value": 0.1165,
+      "unit": "cents"
+    },
+    "judging_cost_per_task_cents": {
+      "value": 0.5866,
+      "unit": "cents"
+    },
+    "human_review_recommended_rate": {
+      "value": 0.267,
+      "unit": "ratio"
+    }
+  }
+}

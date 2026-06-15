@@ -4,9 +4,10 @@ import path from 'node:path';
 import process from 'node:process';
 
 import { writeBundle } from './lib/bundle-writer.mjs';
-import { DEFAULT_PUBLIC_JUDGE_PANEL, judgeId, parseJudgeSpecs } from './lib/judge-specs.mjs';
+import { DEFAULT_PUBLIC_JUDGE_PANEL, judgeId, judgeSpecLabel, parseJudgeSpecs } from './lib/judge-specs.mjs';
 import { runOpenAIJudge } from './lib/openai-judge-runner.mjs';
 import { runOpenAITask } from './lib/openai-task-runner.mjs';
+import { requireProviderKey } from './lib/providers.mjs';
 import { parseSimpleYaml } from './lib/simple-yaml.mjs';
 
 const DEFAULT_MODEL = process.env.OPENAI_BENCHMARK_MODEL || 'gpt-5-nano';
@@ -15,7 +16,9 @@ const DEFAULT_MIN_ARTIFACT_CHARS = 700;
 const DEFAULT_TIMEOUT_MS = 240_000;
 
 const args = parseArgs(process.argv.slice(2));
+const provider = args.provider || 'openai';
 const model = args.model || DEFAULT_MODEL;
+const reasoningEffort = args.reasoningEffort || (provider === 'openai' ? 'minimal' : 'low');
 const preset = args.preset || 'full';
 const repeat = Number(args.repeat ?? 1);
 const limit = args.limit ? Number(args.limit) : null;
@@ -33,8 +36,13 @@ const resultId =
   args.out || `local-openai-${new Date().toISOString().replace(/[:.]/g, '').replace('T', '-').slice(0, 17)}Z`;
 const outDir = path.resolve(repoRoot, 'results', resultId);
 
-if (!process.env.OPENAI_API_KEY) {
-  console.error('OPENAI_API_KEY is required to run the OpenAI catalog benchmark.');
+try {
+  requireProviderKey(provider);
+  for (const judgeProvider of new Set(judgeSpecs.map((spec) => spec.provider ?? 'openai'))) {
+    requireProviderKey(judgeProvider);
+  }
+} catch (error) {
+  console.error(error instanceof Error ? error.message : String(error));
   process.exit(1);
 }
 
@@ -55,22 +63,32 @@ const runs = selectedTasks.flatMap((task) =>
 );
 
 console.log(
-  `Running ${runs.length} OpenAI benchmark run(s) across ${selectedTasks.length} task(s) with ${model}.`
+  `Running ${runs.length} benchmark run(s) across ${selectedTasks.length} task(s) with ${provider}:${model}.`
 );
 if (judgeSpecs.length) {
-  console.log(
-    `Judging each run with ${judgeSpecs
-      .map((spec) => `${spec.model}:${spec.reasoningEffort}`)
-      .join(', ')}.`
-  );
+  console.log(`Judging each run with ${judgeSpecs.map(judgeSpecLabel).join(', ')}.`);
 }
 
-const runnerOptions = { model, maxOutputTokens, minArtifactChars, timeoutMs };
-const results = await mapWithConcurrency(runs, concurrency, async ({ task, repeatIndex }, index) => {
+const runnerOptions = { provider, model, reasoningEffort, maxOutputTokens, minArtifactChars, timeoutMs };
+const settledResults = await mapWithConcurrency(runs, concurrency, async ({ task, repeatIndex }, index) => {
   const runId = `${task.id}-r${repeatIndex}`;
   console.log(`[${index + 1}/${runs.length}] ${runId}`);
-  return runOpenAITask(task, runId, runnerOptions);
+  try {
+    return await runOpenAITask(task, runId, runnerOptions);
+  } catch (error) {
+    // One run failing (e.g. a reasoning model returning an empty completion
+    // after all retries) should not discard every other completed run.
+    console.error(`[${index + 1}/${runs.length}] ${runId} FAILED: ${error instanceof Error ? error.message : error}`);
+    return null;
+  }
 });
+const results = settledResults.filter(Boolean);
+const failedCount = settledResults.length - results.length;
+if (failedCount) console.error(`${failedCount} run(s) failed and were dropped from the bundle.`);
+if (!results.length) {
+  console.error('All runs failed; not writing a bundle.');
+  process.exit(1);
+}
 
 const judgeRuns = judgeSpecs.length
   ? await runJudges({ tasks: selectedTasks, results, judgeSpecs })
@@ -93,14 +111,29 @@ await writeBundle({
         disagreementThresholdPoints,
       }
     : null,
+  generationMethod: {
+    provider,
+    model,
+    reasoningEffort,
+    maxOutputTokens,
+  },
+  source: provider === 'openai' ? 'local_openai_catalog_runner' : `local_${provider}_catalog_runner`,
 });
 
 console.log(`Wrote benchmark bundle: ${path.relative(repoRoot, outDir)}`);
 
 async function loadCatalogTasks(rootDir, selectedPreset) {
-  const tiers = selectedPreset === 'starter' ? ['tier1'] : ['tier1', 'tier2'];
-  if (!['starter', 'full'].includes(selectedPreset)) {
-    throw new Error(`Unsupported --preset "${selectedPreset}". Use starter or full.`);
+  const tiersByPreset = {
+    starter: ['tier1'],
+    full: ['tier1', 'tier2'],
+    hard: ['tier3'],
+    frontier: ['tier1', 'tier2', 'tier3'],
+  };
+  const tiers = tiersByPreset[selectedPreset];
+  if (!tiers) {
+    throw new Error(
+      `Unsupported --preset "${selectedPreset}". Use ${Object.keys(tiersByPreset).join(', ')}.`
+    );
   }
 
   const files = (
@@ -171,18 +204,14 @@ function parseArgs(argv) {
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
     if (arg === '--model') parsed.model = argv[++index];
+    else if (arg === '--provider') parsed.provider = argv[++index];
+    else if (arg === '--reasoning-effort') parsed.reasoningEffort = argv[++index];
     else if (arg === '--preset') parsed.preset = argv[++index];
     else if (arg === '--repeat') parsed.repeat = argv[++index];
     else if (arg === '--limit') parsed.limit = argv[++index];
     else if (arg === '--concurrency') parsed.concurrency = argv[++index];
     else if (arg === '--judge-models') parsed.judgeModels = argv[++index];
-    else if (arg === '--judge-preset') {
-      const preset = argv[++index];
-      parsed.judgeModels =
-        preset === 'public'
-          ? DEFAULT_PUBLIC_JUDGE_PANEL.map((spec) => `${spec.model}:${spec.reasoningEffort}`).join(',')
-          : preset;
-    }
+    else if (arg === '--judge-preset') parsed.judgeModels = argv[++index];
     else if (arg === '--judge-concurrency') parsed.judgeConcurrency = argv[++index];
     else if (arg === '--max-output-tokens') parsed.maxOutputTokens = argv[++index];
     else if (arg === '--judge-max-output-tokens') parsed.judgeMaxOutputTokens = argv[++index];

@@ -1,0 +1,97 @@
+{
+  "benchmarkWeek": "deepseek-v4-flash-hard-20260612",
+  "benchmarkVersion": "2026-q1",
+  "taskCount": 3,
+  "repeatCount": 1,
+  "domains": [
+    "engineering",
+    "ops",
+    "product"
+  ],
+  "providers": [
+    "openrouter"
+  ],
+  "models": [
+    "deepseek/deepseek-v4-flash",
+    "deepseek/deepseek-v3.2",
+    "deepseek/deepseek-v4-pro"
+  ],
+  "runtimes": [
+    "node-24.13.0"
+  ],
+  "claims": [
+    "Local public-catalog run using OpenAI Responses API.",
+    "Artifacts were scored by independent OpenAI judge calls that did not generate the artifact.",
+    "Public quality scores use median criterion scores and flag material judge disagreement for human review."
+  ],
+  "generationMethod": {
+    "provider": "openrouter",
+    "model": "deepseek/deepseek-v4-flash",
+    "reasoningEffort": "low",
+    "maxOutputTokens": 12000
+  },
+  "evaluationMethod": {
+    "independentJudges": true,
+    "judgePanel": [
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      }
+    ],
+    "judgeMaxOutputTokens": 10000,
+    "scoreAggregation": "median criterion score across completed independent judges",
+    "disagreementThresholdPoints": 8,
+    "humanReviewPolicy": "flag if any judge recommends review, any judge fails, or judge disagreement exceeds threshold"
+  },
+  "tokenUsage": {
+    "generation": {
+      "inputTokens": 2009,
+      "cachedInputTokens": 0,
+      "outputTokens": 13599,
+      "reasoningTokens": 9936,
+      "totalTokens": 15608,
+      "costCents": 0.4351
+    },
+    "judging": {
+      "inputTokens": 21885,
+      "cachedInputTokens": 10759,
+      "outputTokens": 21671,
+      "reasoningTokens": 18748,
+      "totalTokens": 43556,
+      "costCents": 2.6709
+    },
+    "total": {
+      "inputTokens": 23894,
+      "cachedInputTokens": 10759,
+      "outputTokens": 35270,
+      "reasoningTokens": 28684,
+      "totalTokens": 59164,
+      "costCents": 3.106
+    }
+  },
+  "assumptions": {
+    "modelSelection": "deepseek/deepseek-v4-flash was selected for the cheapest complete OpenAI smoke run.",
+    "reasoningEffort": "minimal",
+    "maxOutputTokens": 12000,
+    "judgeProtocol": "Artifacts were scored by independent judge calls that did not generate the artifact."
+  },
+  "dataFiles": [
+    "summary.json",
+    "metadata.json",
+    "examples.json",
+    "tasks.json",
+    "scorecard.csv",
+    "judgments.json"
+  ]
+}

@@ -1,0 +1,216 @@
+{
+  "benchmark": "orgx-bench-v2-instrumented-worlds",
+  "generatedAtNote": "timestamp stamped by caller",
+  "provider": "openrouter",
+  "model": "meta-llama/llama-3.1-8b-instruct",
+  "k": 6,
+  "arms": [
+    "raw",
+    "orgx2"
+  ],
+  "worldCount": 5,
+  "scoring": "deterministic validators only (no LLM judge)",
+  "perWorld": [
+    {
+      "worldId": "incident-triage-dependency",
+      "domain": "ops",
+      "arms": {
+        "raw": {
+          "n": 6,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 3208,
+          "meanCostCents": 0.007,
+          "meanToolCalls": 5,
+          "qualityPerKToken": 0.3118,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "orgx2": {
+          "n": 6,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 7478,
+          "meanCostCents": 0.017,
+          "meanToolCalls": 11,
+          "qualityPerKToken": 0.1337,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "migration-contradiction-refusal",
+      "domain": "engineering",
+      "arms": {
+        "raw": {
+          "n": 6,
+          "passAtK": 0.167,
+          "passPowK": 0,
+          "meanTokens": 1212,
+          "meanCostCents": 0.003,
+          "meanToolCalls": 5,
+          "qualityPerKToken": 0.1376,
+          "dimensions": {
+            "outcome": 0.167,
+            "method": 1,
+            "coordination": 0.167,
+            "judgment": 0.667,
+            "trust": 0.667
+          },
+          "failures": 0
+        },
+        "orgx2": {
+          "n": 6,
+          "passAtK": 0.333,
+          "passPowK": 0,
+          "meanTokens": 2821,
+          "meanCostCents": 0.007,
+          "meanToolCalls": 7.333,
+          "qualityPerKToken": 0.1182,
+          "dimensions": {
+            "outcome": 0.333,
+            "method": 1,
+            "coordination": 0.333,
+            "judgment": 0.833,
+            "trust": 0.833
+          },
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "order-pipeline-horizon",
+      "domain": "ops",
+      "arms": {
+        "raw": {
+          "n": 6,
+          "passAtK": 0,
+          "passPowK": 0,
+          "meanTokens": 2918,
+          "meanCostCents": 0.007,
+          "meanToolCalls": 10,
+          "qualityPerKToken": 0,
+          "dimensions": {
+            "outcome": 0,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 1,
+            "trust": 0
+          },
+          "failures": 0
+        },
+        "orgx2": {
+          "n": 6,
+          "passAtK": 0,
+          "passPowK": 0,
+          "meanTokens": 22653,
+          "meanCostCents": 0.05,
+          "meanToolCalls": 60,
+          "qualityPerKToken": 0,
+          "dimensions": {
+            "outcome": 0,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 1,
+            "trust": 0
+          },
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "revenue-reconciliation-hard",
+      "domain": "cross_functional",
+      "arms": {
+        "raw": {
+          "n": 6,
+          "passAtK": 0,
+          "passPowK": 0,
+          "meanTokens": 790,
+          "meanCostCents": 0.002,
+          "meanToolCalls": 4.667,
+          "qualityPerKToken": 0,
+          "dimensions": {
+            "outcome": 0,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 1,
+            "trust": 0
+          },
+          "failures": 0
+        },
+        "orgx2": {
+          "n": 6,
+          "passAtK": 0,
+          "passPowK": 0,
+          "meanTokens": 4846,
+          "meanCostCents": 0.011,
+          "meanToolCalls": 10.667,
+          "qualityPerKToken": 0,
+          "dimensions": {
+            "outcome": 0,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 1,
+            "trust": 0
+          },
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "revenue-refund-reconciliation",
+      "domain": "cross_functional",
+      "arms": {
+        "raw": {
+          "n": 6,
+          "passAtK": 0,
+          "passPowK": 0,
+          "meanTokens": 1630,
+          "meanCostCents": 0.004,
+          "meanToolCalls": 6,
+          "qualityPerKToken": 0,
+          "dimensions": {
+            "outcome": 0,
+            "method": 1,
+            "coordination": 0.167,
+            "judgment": 0.833,
+            "trust": 0.833
+          },
+          "failures": 0
+        },
+        "orgx2": {
+          "n": 6,
+          "passAtK": 0,
+          "passPowK": 0,
+          "meanTokens": 2764,
+          "meanCostCents": 0.006,
+          "meanToolCalls": 6,
+          "qualityPerKToken": 0,
+          "dimensions": {
+            "outcome": 0,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        }
+      }
+    }
+  ],
+  "uplift": null
+}

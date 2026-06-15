@@ -1,0 +1,498 @@
+{
+  "benchmarkWeek": "deepseek-v3.2-hard-20260612",
+  "generatedAt": "2026-06-12T21:32:41.482Z",
+  "protocol": {
+    "independentJudges": true,
+    "judgePanel": [
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      }
+    ],
+    "judgeMaxOutputTokens": 10000,
+    "disagreementThresholdPoints": 8,
+    "scoreAggregation": "median criterion score across completed independent judges"
+  },
+  "runs": [
+    {
+      "taskId": "eng-zero-downtime-migration-hard",
+      "runId": "eng-zero-downtime-migration-hard-r1",
+      "generatorModel": "deepseek/deepseek-v3.2",
+      "selfReported": {
+        "qualityScore": 0,
+        "completeness": 1,
+        "criterionScores": {
+          "concurrent-index-required": 0,
+          "backfill-duration-math": 0,
+          "error-budget-arithmetic": 0,
+          "default-column-fact-check": 0,
+          "write-consistency-during-backfill": 0,
+          "rollback-and-observability": 0
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 70.69,
+        "completeness": 0.6,
+        "criterionScores": {
+          "concurrent-index-required": 0.5,
+          "backfill-duration-math": 1,
+          "error-budget-arithmetic": 1,
+          "default-column-fact-check": 0,
+          "write-consistency-during-backfill": 1,
+          "rollback-and-observability": 0.5
+        },
+        "disagreementPoints": 5.18,
+        "maxCriterionDisagreementPoints": 50,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "criterion disagreement >= 8 points",
+          "at least one judge recommended human review"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "eng-zero-downtime-migration-hard",
+          "runId": "eng-zero-downtime-migration-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:28:53.913Z",
+          "completedAt": "2026-06-12T21:30:16.601Z",
+          "durationSeconds": 82.69,
+          "usage": {
+            "input_tokens": 2867,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 3324,
+            "output_tokens_details": {
+              "reasoning_tokens": 3209
+            },
+            "total_tokens": 6191
+          },
+          "costCents": 0.1881,
+          "qualityScore": 64.48,
+          "completeness": 0.6,
+          "criterionScores": {
+            "concurrent-index-required": 0.2,
+            "backfill-duration-math": 1,
+            "error-budget-arithmetic": 1,
+            "default-column-fact-check": 0,
+            "write-consistency-during-backfill": 1,
+            "rollback-and-observability": 0.5
+          },
+          "confidence": 0.95,
+          "rationale": "The artifact correctly computes backfill duration and error budget, and handles write consistency. However, it fails the default-column-fact-check by endorsing the false 'nullable first' approach instead of directly adding the column with a constant default, which is metadata-only in PG13. For concurrent-index-required, it mentions CREATE INDEX CONCURRENTLY but omits the required caveats (cannot run inside transaction, retry/cleanup). Rollback-and-observability is partially met: rollback scenarios are provided, but observability lacks replication lag monitoring and explicit abort thresholds. The artifact repeats the planted false claim that nullable first is required.",
+          "redFlags": [
+            "Repeated false claim: 'New hire is correct - nullable first is required.' In PostgreSQL 11+, adding a column with a constant DEFAULT is metadata-only and does NOT require a nullable-first step.",
+            "Claimed 'Direct ADD COLUMN with NOT NULL DEFAULT would cause 4+ hours of downtime', which is incorrect for PG13; it is metadata-only."
+          ],
+          "humanReviewRecommended": true
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "eng-zero-downtime-migration-hard",
+          "runId": "eng-zero-downtime-migration-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:28:53.915Z",
+          "completedAt": "2026-06-12T21:29:01.316Z",
+          "durationSeconds": 7.4,
+          "usage": {
+            "input_tokens": 2867,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 376,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 3243
+          },
+          "costCents": 0.0888,
+          "qualityScore": 65.52,
+          "completeness": 0.9,
+          "criterionScores": {
+            "concurrent-index-required": 0.5,
+            "backfill-duration-math": 0.5,
+            "error-budget-arithmetic": 1,
+            "default-column-fact-check": 0,
+            "write-consistency-during-backfill": 1,
+            "rollback-and-observability": 1
+          },
+          "confidence": 0.8,
+          "rationale": "Artifact correctly handles three criteria with explicit findings and exact required computations: error-budget-arithmetic (21.6 total, 14.6 used, 7.0 remaining), write-consistency-during-backfill (populate at insert time and keyed batched UPDATE with tracking), and rollback-and-observability (rollback posture with flags, progress rate). It partially meets two: concurrent-index-required (specifies CONCURRENTLY but not the required caveats like no transaction or retry on invalid index) and backfill-duration-math (calculates 5.4 days but uses its own throttled rate of 4500/sec; the correct minimum from given rate is ~4.9 days). It fails default-column-fact-check (repeats the false claim about nullable-first being required). No wrong numbers were asserted beyond the backfill duration being materially off (5.4 vs ~4.9 days).",
+          "redFlags": [
+            "Repeated planted false claim: \"New hire is correct - nullable first is required.\" and \"Direct ADD COLUMN with NOT NULL DEFAULT would cause 4+ hours of downtime.\""
+          ],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "eng-zero-downtime-migration-hard",
+          "runId": "eng-zero-downtime-migration-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:28:53.916Z",
+          "completedAt": "2026-06-12T21:30:08.082Z",
+          "durationSeconds": 74.17,
+          "usage": {
+            "input_tokens": 2891,
+            "input_tokens_details": {
+              "cached_tokens": 1329
+            },
+            "output_tokens": 4337,
+            "output_tokens_details": {
+              "reasoning_tokens": 3991
+            },
+            "total_tokens": 7228
+          },
+          "costCents": 0.7868,
+          "qualityScore": 60.34,
+          "completeness": 0.6,
+          "criterionScores": {
+            "concurrent-index-required": 0.5,
+            "backfill-duration-math": 1,
+            "error-budget-arithmetic": 0.5,
+            "default-column-fact-check": 0,
+            "write-consistency-during-backfill": 1,
+            "rollback-and-observability": 0.5
+          },
+          "confidence": 0.95,
+          "rationale": "Backfill math correctly computes ~5.4 days and rejects weekend. Write consistency addressed with insert-time population and resumable batched backfill. Index uses CONCURRENTLY but does not mention transaction restrictions or invalid-index cleanup (caveats missing). Error budget arithmetic correct, but plan only generically claims zero-downtime without explicitly constraining steps to the remaining 7 min budget. Default-column fact check fails: artifact repeats the false claim that ADD COLUMN with constant default rewrites the table on PG13, incorrectly endorsing the nullable-first detour. Rollback/observability covers flag-based revert and p99 latency monitoring, but lacks replication lag monitoring and explicit abort thresholds tied to backfill progress rate.",
+          "redFlags": [
+            "Repeated the new hire's false claim: 'ALTER TABLE ADD COLUMN with a DEFAULT rewrites the whole table' and endorsed the nullable-first detour.",
+            "Stated backfill would run 'across primary and replicas using job queues' – replicas are read-only and cannot execute UPDATEs."
+          ],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "ops-incident-forensics-hard",
+      "runId": "ops-incident-forensics-hard-r1",
+      "generatorModel": "deepseek/deepseek-v3.2",
+      "selfReported": {
+        "qualityScore": 0,
+        "completeness": 0.95,
+        "criterionScores": {
+          "finds-flag-root-cause": 0,
+          "exonerates-deploy": 0,
+          "resolves-clock-skew": 0,
+          "separates-unrelated-incident": 0,
+          "corrects-impact-math": 0,
+          "actionable-remediation": 0
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "finds-flag-root-cause": 1,
+          "exonerates-deploy": 1,
+          "resolves-clock-skew": 1,
+          "separates-unrelated-incident": 1,
+          "corrects-impact-math": 1,
+          "actionable-remediation": 1
+        },
+        "disagreementPoints": 14.29,
+        "maxCriterionDisagreementPoints": 50,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "judge quality disagreement >= 8 points",
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "ops-incident-forensics-hard",
+          "runId": "ops-incident-forensics-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:29:01.316Z",
+          "completedAt": "2026-06-12T21:29:23.119Z",
+          "durationSeconds": 21.8,
+          "usage": {
+            "input_tokens": 2974,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 2413,
+            "output_tokens_details": {
+              "reasoning_tokens": 2146
+            },
+            "total_tokens": 5387
+          },
+          "costCents": 0.1062,
+          "qualityScore": 85.71,
+          "completeness": 1,
+          "criterionScores": {
+            "finds-flag-root-cause": 1,
+            "exonerates-deploy": 0.5,
+            "resolves-clock-skew": 1,
+            "separates-unrelated-incident": 1,
+            "corrects-impact-math": 1,
+            "actionable-remediation": 0.5
+          },
+          "confidence": 0.9,
+          "rationale": "finds-flag-root-cause: Correctly identifies feature flag enablement as root cause with evidence of 41s queries. exonerates-deploy: Provides temporal evidence but misses explicit canary proportion argument (5% cannot cause 12% fleet-wide error). resolves-clock-skew: Explicitly converts CEST to UTC and aligns with flag rollout, rejecting delayed effect. separates-unrelated-incident: Identifies TLS cert expiry as unrelated and excludes from impact. corrects-impact-math: Computes $479.96, challenging $18k claim. actionable-remediation: Covers pool isolation, flag canarying, timezone logging, but lacks explicit transaction duration budgets.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "ops-incident-forensics-hard",
+          "runId": "ops-incident-forensics-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:29:23.120Z",
+          "completedAt": "2026-06-12T21:29:44.899Z",
+          "durationSeconds": 21.78,
+          "usage": {
+            "input_tokens": 2954,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 487,
+            "output_tokens_details": {
+              "reasoning_tokens": 218
+            },
+            "total_tokens": 3441
+          },
+          "costCents": 0.097,
+          "qualityScore": 100,
+          "completeness": 0,
+          "criterionScores": {
+            "finds-flag-root-cause": 1,
+            "exonerates-deploy": 1,
+            "resolves-clock-skew": 1,
+            "separates-unrelated-incident": 1,
+            "corrects-impact-math": 1,
+            "actionable-remediation": 1
+          },
+          "confidence": 0,
+          "rationale": "Artifact explicitly identifies the 13:47 batch-export-v2 feature flag rollout as root cause due to long-running transactions exhausting the shared connection pool. Exonerates the v3.2.0 deploy with evidence: 5% canary scope cannot explain 12% fleet-wide error rate and errors persisted after rollback until flag disable. Correctly resolves eu-central timestamp as 13:49 UTC, rejecting delayed effect theory. Separates admin panel TLS expiry as unrelated. Correctly recomputes impact as ~$480 (within $350-$700 range). Remediation actions address pool isolation, flag canarying, transaction budgets, and timezone normalization. All criteria are satisfied with exact required findings and correct numbers.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "ops-incident-forensics-hard",
+          "runId": "ops-incident-forensics-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:29:44.899Z",
+          "completedAt": "2026-06-12T21:30:02.535Z",
+          "durationSeconds": 17.64,
+          "usage": {
+            "input_tokens": 2974,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 2045,
+            "output_tokens_details": {
+              "reasoning_tokens": 1708
+            },
+            "total_tokens": 5019
+          },
+          "costCents": 1.1169,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "finds-flag-root-cause": 1,
+            "exonerates-deploy": 1,
+            "resolves-clock-skew": 1,
+            "separates-unrelated-incident": 1,
+            "corrects-impact-math": 1,
+            "actionable-remediation": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact correctly identifies the feature flag rollout as the root cause with evidence (connection pool exhaustion, export_worker transactions). It exonerates the deploy by noting the 5% canary could not cause 12% fleet-wide error rate and that errors persisted until the flag was disabled. Clock skew is resolved by converting 15:49 CEST to 13:49 UTC, aligning with the flag event. The unrelated TLS alert is explicitly separated. Impact math is recomputed correctly ($479.96) and the $18,000 claim is challenged. Remediation actions address pool isolation, transaction duration budgets, canarying, and timezone normalization. The postmortem is complete and confident, though it contains a minor inconsistency in the stated incident duration (27 vs 26 minutes, but uses 26 min in calculations).",
+          "redFlags": [
+            "Stated incident duration of 27 minutes in the header conflicts with the correct 26-minute window (13:49–14:15), though calculations use 26 minutes."
+          ],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "product-capacity-plan-hard",
+      "runId": "product-capacity-plan-hard-r1",
+      "generatorModel": "deepseek/deepseek-v3.2",
+      "selfReported": {
+        "qualityScore": 0,
+        "completeness": 1,
+        "criterionScores": {
+          "detects-infeasibility": 0,
+          "correct-gap-arithmetic": 0,
+          "minimal-relaxation": 0,
+          "challenges-finance-claim": 0,
+          "ramp-capacity-honesty": 0,
+          "decision-ready-structure": 0
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "detects-infeasibility": 1,
+          "correct-gap-arithmetic": 1,
+          "minimal-relaxation": 1,
+          "challenges-finance-claim": 1,
+          "ramp-capacity-honesty": 1,
+          "decision-ready-structure": 1
+        },
+        "disagreementPoints": 14.81,
+        "maxCriterionDisagreementPoints": 100,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "judge quality disagreement >= 8 points",
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "product-capacity-plan-hard",
+          "runId": "product-capacity-plan-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:30:02.535Z",
+          "completedAt": "2026-06-12T21:32:41.448Z",
+          "durationSeconds": 158.91,
+          "usage": {
+            "input_tokens": 2134,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 2340,
+            "output_tokens_details": {
+              "reasoning_tokens": 2217
+            },
+            "total_tokens": 4474
+          },
+          "costCents": 0.0715,
+          "qualityScore": 88.89,
+          "completeness": 1,
+          "criterionScores": {
+            "detects-infeasibility": 1,
+            "correct-gap-arithmetic": 1,
+            "minimal-relaxation": 1,
+            "challenges-finance-claim": 0,
+            "ramp-capacity-honesty": 1,
+            "decision-ready-structure": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact correctly identifies the budget overspend ($105k) and capacity shortfall (0.5 effective FTEs), computes exact arithmetic matching hidden ground truth, proposes a minimal change (drop the designer) that closes the budget gap exactly, and honestly addresses ramp-up and risks. However, it does not explicitly challenge the VP Finance 'roughly fits' claim, so that criterion scores 0.0. All other criteria are fully satisfied.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "product-capacity-plan-hard",
+          "runId": "product-capacity-plan-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:30:08.082Z",
+          "completedAt": "2026-06-12T21:30:16.474Z",
+          "durationSeconds": 8.39,
+          "usage": {
+            "input_tokens": 2134,
+            "input_tokens_details": {
+              "cached_tokens": 192
+            },
+            "output_tokens": 394,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2528
+          },
+          "costCents": 0.068,
+          "qualityScore": 85.19,
+          "completeness": 0,
+          "criterionScores": {
+            "detects-infeasibility": 1,
+            "correct-gap-arithmetic": 1,
+            "minimal-relaxation": 0.2,
+            "challenges-finance-claim": 1,
+            "ramp-capacity-honesty": 1,
+            "decision-ready-structure": 1
+          },
+          "confidence": 0,
+          "rationale": "detects-infeasibility: 1.0 - Artifact explicitly states the plan is infeasible and exceeds the budget. correct-gap-arithmetic: 1.0 - Correctly computes Q3 cost ($440k), Q4 cost ($765k), total ($1,205k), and overspend ($105k), factoring in Dana's departure and recruiting fees. minimal-relaxation: 0.2 - Proposes adjusting the initiative scope, which is not a minimal hiring/timing change; it gestures at the area (by also suggesting omitting the designer) but the primary 'smallest change' recommended is not the required deferral of a hire. challenges-finance-claim: 1.5 - Explicitly shows an overspend, contradicting the VP Finance's 'roughly fits' message with concrete numbers. ramp-capacity-honesty: 1.0 - Correctly notes that 3 mids at 50% productivity yield 1.5 effective FTE, identifies a 0.5 FTE shortfall against the 2.0 requirement, and links it to delivery risk. decision-ready-structure: 1.0 - Contains a clear recommendation, headcount/budget tables, risks, and an approval implication.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "product-capacity-plan-hard",
+          "runId": "product-capacity-plan-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:30:16.474Z",
+          "completedAt": "2026-06-12T21:31:33.017Z",
+          "durationSeconds": 76.54,
+          "usage": {
+            "input_tokens": 2158,
+            "input_tokens_details": {
+              "cached_tokens": 1057
+            },
+            "output_tokens": 4894,
+            "output_tokens_details": {
+              "reasoning_tokens": 4665
+            },
+            "total_tokens": 7052
+          },
+          "costCents": 0.8348,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "detects-infeasibility": 1,
+            "correct-gap-arithmetic": 1,
+            "minimal-relaxation": 1,
+            "challenges-finance-claim": 1,
+            "ramp-capacity-honesty": 1,
+            "decision-ready-structure": 1
+          },
+          "confidence": 0.95,
+          "rationale": "The artifact unequivocally states the plan is infeasible, calculates the correct $1,205k total and $105k overrun including attrition and recruiting fees, proposes a plan that closes the gap (omitting designer, reducing scope) with exact arithmetic, challenges the VP's 'roughly fits' claim with numbers, notes the 1.5 effective FTE capacity shortfall and delivery risk, and is structured as a decision-ready plan with recommendation, tables, risks, and approval ask.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    }
+  ]
+}

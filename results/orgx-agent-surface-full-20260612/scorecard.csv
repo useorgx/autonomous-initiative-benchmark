@@ -1,0 +1,16 @@
+task_id,run_id,mode,provider,model,domain,tier,autonomous_completed,duration_seconds,cost_cents,quality_score,completeness,scoring_source,judge_count,judge_disagreement_points,human_review_recommended,judge_cost_cents,human_baseline_seconds,human_quality_score
+design-artifact-viewer-mobile-remediation,design-artifact-viewer-mobile-remediation-r1,local_openai,orgx,claude-fable-5,design,tier1_quick,true,130,,100,1,independent_judges,3,20,true,1.2236,3600,91
+design-live-room-critique,design-live-room-critique-r1,local_openai,orgx,claude-fable-5,design,tier1_quick,true,67,,100,1,independent_judges,3,7.33,true,0.5738,3000,89
+design-modal-mobile-interaction-spec,design-modal-mobile-interaction-spec-r1,local_openai,orgx,claude-fable-5,design,tier1_quick,true,147,,100,1,independent_judges,3,6.67,true,1.5377,3900,90
+marketing-launch-brief,marketing-launch-brief-r1,local_openai,orgx,claude-fable-5,marketing,tier1_quick,true,81,,100,1,independent_judges,3,1.18,true,0.6235,2700,86
+postmortem,postmortem-r1,local_openai,orgx,claude-fable-5,ops,tier1_quick,true,56,,100,1,independent_judges,3,0,false,0.7493,1800,90
+pr-description,pr-description-r1,local_openai,orgx,claude-fable-5,engineering,tier1_quick,true,28,,100,1,independent_judges,3,0,false,0.7752,600,85
+product-initiative-brief,product-initiative-brief-r1,local_openai,orgx,claude-fable-5,product,tier1_quick,true,74,,100,1,independent_judges,3,0,false,1.078,2400,88
+sales-outreach-sequence,sales-outreach-sequence-r1,local_openai,orgx,claude-fable-5,sales,tier1_quick,true,65,,100,1,independent_judges,3,0,false,0.598,2100,84
+cross-functional-launch-plan,cross-functional-launch-plan-r1,local_openai,orgx,claude-fable-5,cross_functional,tier2_medium,true,114,,100,1,independent_judges,3,0,false,0.5395,7200,90
+design-live-room-responsive-system,design-live-room-responsive-system-r1,local_openai,orgx,claude-fable-5,design,tier2_medium,true,136,,100,1,independent_judges,3,0,false,0.9812,7200,92
+engineering-release-readiness-review,engineering-release-readiness-review-r1,local_openai,orgx,claude-fable-5,engineering,tier2_medium,true,80,,100,1,independent_judges,3,0,false,0.4844,3600,89
+marketing-proof-campaign-brief,marketing-proof-campaign-brief-r1,local_openai,orgx,claude-fable-5,marketing,tier2_medium,true,98,,100,1,independent_judges,3,0,false,0.8318,3300,87
+ops-escalation-playbook,ops-escalation-playbook-r1,local_openai,orgx,claude-fable-5,ops,tier2_medium,true,107,,100,1,independent_judges,3,0,false,0.5792,3900,88
+product-retention-experiment-plan,product-retention-experiment-plan-r1,local_openai,orgx,claude-fable-5,product,tier2_medium,true,105,,100,1,independent_judges,3,5,false,0.7636,3300,88
+sales-competitive-battlecard,sales-competitive-battlecard-r1,local_openai,orgx,claude-fable-5,sales,tier2_medium,true,85,,100,1,independent_judges,3,21.43,true,1.2066,3600,87

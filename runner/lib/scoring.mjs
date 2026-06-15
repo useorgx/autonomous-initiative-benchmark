@@ -19,8 +19,13 @@ export function aggregateJudgments(task, judgments, disagreementThresholdPoints 
   const completedJudgments = judgments.filter((judgment) => judgment.status === 'completed');
   const criterionScores = {};
 
+  // Strict-protocol tasks aggregate with the mean: median lets two lenient
+  // judges fully outvote one strict judge, which re-saturates the top of the
+  // scale exactly where hard-tier tasks need discrimination.
+  const aggregate = task.judgingProtocol === 'strict' ? (values) => roundScore(avg(values)) : median;
+
   for (const criterion of task.acceptanceCriteria ?? []) {
-    criterionScores[criterion.id] = median(
+    criterionScores[criterion.id] = aggregate(
       completedJudgments.map((judgment) => Number(judgment.criterionScores?.[criterion.id] ?? 0))
     );
   }

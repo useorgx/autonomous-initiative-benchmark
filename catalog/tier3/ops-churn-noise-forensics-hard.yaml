@@ -1,0 +1,318 @@
+id: ops-churn-noise-forensics-hard
+version: "1.0"
+benchmarkVersion: "2026-q1"
+catalogVersion: "2026-06-12b"
+name: Churn Root Cause Under Noise (Hard)
+description: >
+  Six weeks of deliberately unordered tickets, logs, NPS verbatims, and Slack
+  around a four-logo churn event. The true root cause is referenced only
+  obliquely by a handful of items; loud decoys (a pricing backlash, a
+  resolved outage, an exec pet theory) point elsewhere. The correct artifact
+  names the real cause and onset date, ties it to the churned accounts,
+  rejects the decoys with evidence, and quantifies churned MRR. Criteria are
+  hidden from the generator.
+tier: tier3_hard
+domain: ops
+repeatCount: 1
+contaminationRisk: low
+judgingProtocol: strict
+hideCriteriaFromGenerator: true
+
+rawPrompt: |
+  I run ops at Trellis (B2B data-sync platform). We lost four accounts in
+  five weeks and renewal season starts in July. People have theories. I
+  pulled everything I could find — support tickets, log fragments, NPS
+  verbatims, Slack — into one dump below. It is not sorted and most of it is
+  probably irrelevant. I need: the actual root cause with evidence, when it
+  started, which lost accounts it explains and how, what it cost us in MRR,
+  an honest assessment of the other explanations going around, and what
+  monitoring would have caught this before customers did.
+
+  ## The dump (unsorted)
+
+  [1] Slack #exec, 2026-06-03, Marta (VP Sales): "It's obviously the April
+  price increase. All four logos we lost went dark right after it landed.
+  Customers don't always tell you it's price — they just leave. We should
+  roll it back before renewal season."
+
+  [2] Ticket #4731, 2026-04-21, Brightside Partners (CRM panel: Growth+,
+  $4,200/mo): "An 18% increase with 30 days notice is insulting. Escalate me
+  to someone who can make exceptions." Three follow-ups, all heated.
+
+  [3] Log fragment, webhook-dispatcher, 2026-04-28 (UTC):
+    13:50:12 INFO  deploy marker: egress-nat-cutover complete (infra-2214)
+    14:22:31 WARN  delivery attempt https://hooks.hartwellgroup.com/trellis -> ETIMEDOUT (attempt 1/5)
+    14:22:48 WARN  delivery attempt https://events.ostranderlog.com/inbound -> ETIMEDOUT (attempt 1/5)
+    14:24:09 WARN  delivery attempt https://automations.velarobotics.io/hooks -> ETIMEDOUT (attempt 1/5)
+    (note: same endpoints returned 200 OK throughout 04-27)
+
+  [4] NPS verbatim, 2026-05-20, score 1, ops lead at Vela Robotics (CRM
+  panel: Scale, $3,100/mo): "Integrations silently died for three weeks and
+  support kept pointing at the status page. Nobody could tell us what
+  changed. We have already rebuilt the pipeline on another vendor."
+
+  [5] Ticket #4688, 2026-04-20, Calloway Print: password reset email goes to
+  spam. Resolved same day.
+
+  [6] Status page, 2026-05-12: "Major incident: primary database failover
+  failure. Full platform outage 09:14-12:16 UTC (3h02m). Resolved.
+  Postmortem to follow."
+
+  [7] Ticket #4821, 2026-05-04, Hartwell Group (CRM panel: Scale, $2,400/mo):
+  "Our warehouse sync hasn't fired since last Tuesday. Your status page says
+  operational and our endpoint is healthy — nothing changed on our side.
+  This sync drives our morning pick lists." Agent reply: "All systems are
+  operational. Please re-check your receiving endpoint." Customer reply,
+  2026-05-06: "Asked and answered. It is your side. Escalating to our CTO."
+
+  [8] Slack #customer-success, 2026-04-22, Priya: "reminder: the legacy-2024
+  pricing cohort is exempt from the April increase — that's Hartwell Group,
+  Ostrander Logistics, Vela Robotics, Pinnacle Claims, Calloway Print, and
+  Tatum & Co. Their rates don't change."
+
+  [9] Ticket #4990, 2026-05-14, Tatum & Co: "Three hours of downtime Tuesday
+  killed our reporting day. What are you doing about it?" Resolution note:
+  SLA credit applied 2026-05-16; customer accepted; renewed 12 months on
+  2026-06-01.
+
+  [10] NPS verbatim, 2026-05-02, score 9, Marigold Supply: "Support is fast
+  and the new mapping UI saved us hours. Keep it up."
+
+  [11] Ticket #4903, 2026-05-11, Ostrander Logistics (CRM panel: Growth,
+  $1,850/mo): "Our IT reviewed the firewall and sees inbound attempts from
+  IP addresses that are not on the vendor allowlist we configured from your
+  docs page. Events stopped arriving end of April. Which addresses should we
+  expect?" Escalated to engineering 2026-05-12. No resolution note on file.
+
+  [12] Slack #platform-eng, 2026-04-30, sre.dmitri: "did our webhook egress
+  IPs change with the VPC move on Tuesday? seeing a cluster of
+  delivery-timeout alerts since then, mostly the same dozen endpoints.
+  probably customer-side firewalls. parking it for now." (no replies)
+
+  [13] Ticket #4755, 2026-04-24, Kelco Manufacturing (CRM panel: Growth,
+  $2,750/mo): "If the 18% increase stands we will be evaluating
+  alternatives at renewal." Account manager note: "loud but engaged —
+  usage up 22% MoM."
+
+  [14] Postmortem excerpt, 2026-05-15, INC-0512: "Failover failed due to a
+  stale replication slot. Full outage 3h02m on May 12. 40 affected
+  enterprise accounts received SLA credits. Action items: failover drill
+  cadence, replication monitoring. No data loss."
+
+  [15] Ticket #5012, 2026-05-26, Pinnacle Claims (CRM panel: Growth,
+  $1,650/mo): "The claims automation that consumes your webhooks has been
+  dead since end of April. We have asked four times what changed and gotten
+  boilerplate. We are cancelling at the end of the billing cycle."
+
+  [16] Slack #customer-success, 2026-06-02, Priya: "churn update for the
+  board pack: Hartwell Group confirmed churn eff. 6/30. Ostrander Logistics
+  confirmed, eff. 6/15. Vela Robotics gave notice 5/22. Pinnacle Claims
+  term ends 6/30, will not renew. Four logos. Worst stretch since 2023."
+
+  [17] Ticket #4870, 2026-05-07, Marigold Supply: CSV export mangles UTF-8
+  accents. Workaround provided; fix shipped 2026-05-21.
+
+  [18] Slack #sales, 2026-05-30, Marta: "silver lining — Brightside Partners
+  just signed the annual renewal at the new price after all that noise.
+  Kelco added 5 seats yesterday too."
+
+  [19] NPS verbatim, 2026-05-28, score 3, Meridian Health: "The May outage
+  shook our confidence. Moving some workloads back in-house for now."
+
+  [20] CS note, 2026-06-05: "Meridian Health downgraded from $2,000/mo to
+  $1,200/mo effective July, citing the May 12 outage and budget. Retention
+  call held; not a churn risk this quarter."
+
+  [21] Log fragment, webhook-dispatcher, 2026-05-18 (UTC):
+    07:02:44 INFO  endpoint https://hooks.hartwellgroup.com/trellis: 5/5 retries exhausted, parking deliveries (suppressing repeat alerts; first failure 2026-04-28)
+    07:02:45 INFO  endpoint https://claims.pinnacleclaims.com/wh: 5/5 retries exhausted, parking deliveries (suppressing repeat alerts; first failure 2026-04-28)
+
+  [22] Ticket #4699, 2026-04-20, Dorset Rail: feature request — column-level
+  sync filters. Logged to roadmap.
+
+  [23] Slack #support-escalations, 2026-05-08, agent.tomas: "anyone else
+  getting 'we stopped receiving events' tickets? that's the second one this
+  week. status page is green and our send queue is draining fine, so I've
+  been closing them as customer-side config."
+
+  [24] Social mention, 2026-04-23, @opsfrustrated: "Trellis raising prices
+  18% while their competitors are cutting. Read the room." 214 likes.
+
+  [25] Ticket #5044, 2026-06-01, Calloway Print: mobile app push
+  notifications delayed ~10 min. Known issue, fix scheduled.
+
+  [26] Slack #exec, 2026-06-04, CEO: "agree it tracks with the pricing
+  timeline. Marta, can you pull the MRR impact of the increase?" CFO:
+  "before we roll anything back I want the churn numbers cut by cause."
+
+  [27] NPS verbatim, 2026-05-09, score 6, Tatum & Co: "Outage hurt but the
+  credits and comms were handled professionally."
+
+  [28] Archived docs snapshot (docs.trellis.io/webhooks/allowlisting, last
+  updated 2024-11): "If your firewall restricts inbound traffic, allowlist
+  Trellis's static egress IPs: 34.96.18.4 through 34.96.18.7. These
+  addresses are stable and changes will be announced 90 days in advance."
+
+  [29] Ticket #4940, 2026-05-16, Dorset Rail: SSO login loop after IdP cert
+  rotation. Resolved 2026-05-17, customer-side cert issue.
+
+  [30] Slack #platform-eng, 2026-05-29, infra retro notes: "infra-2214
+  egress-nat cutover (4/28) closed out. No incidents attributed. Cost
+  savings on NAT gateways confirmed at ~$3.1k/mo."
+
+  [31] Ticket #4762, 2026-04-25, Stonecroft Insurance: "Can we get the
+  April invoice re-issued with our new PO number?" Resolved 2026-04-26.
+
+  [32] NPS verbatim, 2026-05-30, score 8, Dorset Rail: "Solid product.
+  The SSO hiccup was on our side and your team still helped us debug it."
+
+  [33] Slack #customer-success, 2026-05-19, Priya: "heads up — Vela
+  Robotics declined the QBR invite. Their champion said, quote, 'there is
+  no point until someone explains what happened to our event feed.' I
+  don't have an answer for them. Does anyone?" (two eyes emoji, no
+  replies)
+
+  [34] Ticket #4951, 2026-05-17, Marigold Supply: "Love the new mapping UI
+  but the tooltip on nested fields is cut off on smaller screens." Logged
+  as cosmetic bug.
+
+  [35] Slack #sales, 2026-06-06, Marta: "for Friday's exec review I'm
+  presenting the churn slide as pricing-driven. CS, send me anything that
+  contradicts that by EOD Thursday or it ships as-is."
+
+  [36] Log fragment, api-gateway, 2026-05-12 (UTC):
+    09:14:02 ERROR upstream db-primary unreachable, failover initiated
+    09:21:40 ERROR failover aborted: stale replication slot
+    12:16:55 INFO  service restored, backlog draining
+    (correlates with INC-0512; unrelated subsystems recovered by 12:30)
+
+  [37] Ticket #4884, 2026-05-08, Aurora Freight: "Considering moving from
+  monthly to annual billing — what discount applies?" Routed to sales.
+
+  [38] CS note, 2026-04-29: "Hartwell Group health score dropped from 82
+  to 61 overnight per the usage model — API event consumption down ~90%
+  day-over-day starting 4/28. Flagged for the next sync; could be a
+  seasonal lull on their side."
+
+initiativeSpec:
+  title: Churn root cause forensics
+  description: Evidence-backed root cause, churned MRR quantification, and detection proposal
+  domains:
+    - ops
+    - engineering
+
+seedProvenance: >
+  Synthetic hard-tier v2 scenario with planted sparse signal, decoy
+  narratives, and MRR ground truth, authored 2026-06-12.
+  Contamination-visible.
+
+acceptanceCriteria:
+  - id: true-root-cause
+    description: >
+      Names the true root cause: the 2026-04-28 egress-NAT/VPC cutover
+      (deploy marker infra-2214, 13:50 UTC) silently changed Trellis's
+      webhook egress IP addresses away from the documented static range
+      (34.96.18.4-7), so customers whose firewalls allowlisted the
+      documented IPs stopped receiving webhook deliveries — breaking their
+      downstream automations while the status page stayed green. States the
+      onset date as 2026-04-28 (accept April 28 plus or minus one day).
+      Pricing, the May 12 outage, or generic "integration issues" as the
+      named cause fails this criterion.
+    type: rubric
+    evaluator: llm_judge
+    weight: 3
+  - id: evidence-linkage
+    description: >
+      Ties all four churned accounts (Hartwell Group, Ostrander Logistics,
+      Vela Robotics, Pinnacle Claims) to the root cause via the oblique
+      evidence: dispatcher timeouts to Hartwell/Ostrander/Vela endpoints
+      starting 14:22 UTC on 4/28 (item 3), ticket #4821 ("hasn't fired
+      since last Tuesday" = 4/28), ticket #4903 (IPs not on the allowlist
+      built from the docs page), the May 20 Vela NPS verbatim, ticket #5012
+      ("dead since end of April"), and the May 18 retry-exhaustion log
+      naming first failure 2026-04-28. At least four of these items must be
+      cited and mapped to the specific accounts.
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: decoy-rejection
+    description: >
+      Explicitly rejects, with evidence, (a) the VP Sales pricing theory —
+      all four churned accounts were in the exempt legacy-2024 cohort (item
+      8) so the increase never applied to them, none filed a pricing
+      complaint, and the loud pricing complainers Brightside ($4,200/mo
+      renewed annual) and Kelco ($2,750/mo added seats) were retained — and
+      (b) the May 12 outage — it postdates Hartwell's May 4 ticket and the
+      4/28 failure onset, was resolved and credited, and its affected
+      accounts (Tatum & Co, Meridian Health) did not churn.
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: churned-mrr
+    description: >
+      Quantifies churned MRR as $9,000/month (accept $8,900-$9,100),
+      computed as Hartwell $2,400 + Ostrander $1,850 + Vela $3,100 +
+      Pinnacle $1,650, i.e. $108,000 annualized. An answer of $11,000
+      means Meridian's $2,000 downgrade was wrongly counted as churn;
+      $9,800 means the $800 downgrade delta was mixed in; ~$6,950 means
+      the pricing complainers were summed instead.
+    type: rubric
+    evaluator: llm_judge
+    weight: 2
+  - id: detection-proposal
+    description: >
+      Proposes detection that would have caught this within days of April
+      28: per-endpoint webhook delivery success-rate monitoring with alerts
+      on sustained delivery failure (the dispatcher already logs timeouts
+      and retry exhaustion but suppresses repeats), treating clustered
+      delivery failures as an incident even when the status page is green,
+      and change management for the published egress IPs (the docs promised
+      90 days notice for changes that were never announced).
+    type: rubric
+    evaluator: llm_judge
+    weight: 1.5
+  - id: actionable-writeup
+    description: >
+      Reads as a decision-ready forensic brief: a reconstructed timeline
+      from the 4/28 cutover through each account's escalation and churn, a
+      clear evidence-vs-theory section, and concrete next steps (publish
+      corrected egress IPs, proactive outreach to remaining allowlist
+      customers).
+    type: rubric
+    evaluator: llm_judge
+    weight: 1
+
+decisionReadyCriteriaIds:
+  - true-root-cause
+  - decoy-rejection
+  - churned-mrr
+
+autonomousCompletionRequired: true
+notesForPublication: >
+  Hard-tier v2: sparse-signal forensics. Only a handful of items obliquely
+  reference the 4/28 egress IP change; the pricing backlash, the resolved
+  May 12 outage, and a confident exec theory are decoys that explain zero
+  churned accounts. Churned MRR ground truth is $9,000/mo.
+knownFailureModes:
+  - Adopts the VP Sales pricing theory because it is stated confidently and endorsed by the CEO.
+  - Blames the May 12 outage despite the onset predating it and affected accounts being retained.
+  - Names "webhook reliability issues" generically without the egress IP mechanism or the 4/28 onset.
+  - Counts Meridian's downgrade as churn and reports $11,000 MRR lost.
+  - Summarizes every theme in the dump instead of committing to one evidenced root cause.
+
+humanBaseline:
+  timeSeconds: 16200
+  costCents: 13500
+  qualityScore: 86
+  completeness: 1
+  artifactCount: 1
+  provenance: synthetic hard-tier v2 estimate, Jun 2026
+  methodology: expert_estimate
+  sourceSummary: Estimated from a senior CS-ops/incident analyst performing comparable cross-source churn forensics.
+  sampleSize: 1
+  collectedAt: "2026-06-12"
+  operatorProfile: Senior operations or customer-success analyst who owns churn postmortems
+
+constraints:
+  maxDurationMinutes: 45
+  maxCostCents: 500

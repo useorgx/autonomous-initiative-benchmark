@@ -1,0 +1,338 @@
+{
+  "summary": {
+    "bundleA": "deepseek-v3.2-hard-20260612",
+    "bundleB": "orgx-agent-surface-hard-20260612",
+    "judgePanel": [
+      "openrouter:deepseek/deepseek-v4-flash:low",
+      "openrouter:deepseek/deepseek-v3.2:medium",
+      "openrouter:deepseek/deepseek-v4-pro:high"
+    ],
+    "sharedTasks": 3,
+    "taskVerdicts": {
+      "A": 0,
+      "B": 3,
+      "tie": 0
+    },
+    "rawVotes": {
+      "B": 17,
+      "A": 1
+    },
+    "totalJudgeCostCents": 9.727,
+    "perTask": [
+      {
+        "taskId": "eng-zero-downtime-migration-hard",
+        "votes": {
+          "A": 0,
+          "B": 6,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 3,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "ops-incident-forensics-hard",
+        "votes": {
+          "A": 0,
+          "B": 6,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 3,
+          "tie": 0
+        },
+        "verdict": "B"
+      },
+      {
+        "taskId": "product-capacity-plan-hard",
+        "votes": {
+          "A": 1,
+          "B": 5,
+          "tie": 0
+        },
+        "consistentVotes": {
+          "A": 0,
+          "B": 2,
+          "tie": 1
+        },
+        "verdict": "B"
+      }
+    ]
+  },
+  "judgments": [
+    {
+      "taskId": "eng-zero-downtime-migration-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.95,
+      "rationale": "Artifact 2 correctly handles the default column addition (PG 11+ metadata-only), while Artifact 1 incorrectly recommends nullable-first. Artifact 2 provides more detailed backfill math with peak/off-peak rates and acknowledges that not all rows need updates, rejects the weekend expectation with precise arithmetic, and includes drift sweep for write consistency during backfill. It also covers concurrent index caveats (invalid index detection/retry) more thoroughly and offers richer observability/rollback procedures. Artifact 1 has factual errors and less comprehensive handling of the acceptance criteria.",
+      "costCents": 0.1529
+    },
+    {
+      "taskId": "eng-zero-downtime-migration-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.95,
+      "rationale": "Artifact 1 performs better on every weighted criterion. It correctly refutes the new hire's claim that the column must be nullable first (criterion: default-column-fact-check), while Artifact 2 incorrectly assumes nullable is required, making it factually wrong. For concurrent-index-required, Artifact 1 discusses CONCURRENTLY caveats (cannot run inside transaction, retry/cleanup on invalid index) whereas Artifact 2 only mentions the command. For backfill-duration-math, Artifact 1 provides a more detailed and realistic timeline (peak/off-peak throttling, ~7 days worst case) and explicitly rejects the weekend with arithmetic; Artifact 2 gives a simpler 5.4-day estimate but lacks the phased schedule. For error-budget-arithmetic, both compute the 7-minute remaining budget, but Artifact 1 explicitly ties each step's risk to that budget (lock_timeout, off-peak scheduling) and computes failed requests per blocked minute, whereas Artifact 2 merely states the number. For write-consistency-during-backfill, Artifact 1 ensures correctness by deploying app stamping before backfill and using a watermark + drift sweep; Artifact 2 relies on backfilling only NULL rows, which is less robust and doesn't explicitly handle rows inserted during the backfill window. For rollback-and-observability, Artifact 1 provides more comprehensive observability signals with thresholds/actions and detailed per-phase rollback procedures, while Artifact 2 has simpler rollback scenarios and fewer monitoring details. Overall, Artifact 1 is more thorough, factually correct, and better aligned with all criteria.",
+      "costCents": 0.1698
+    },
+    {
+      "taskId": "eng-zero-downtime-migration-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.85,
+      "rationale": "Artifact 2 better satisfies the weighted acceptance criteria: 1. **concurrent-index-required**: Both specify CREATE INDEX CONCURRENTLY, but Artifact 2 explicitly handles INVALID index detection and cleanup with DROP INDEX CONCURRENTLY, while Artifact 1 only mentions 'retry/cleanup' without specifics. 2. **backfill-duration-math**: Both compute ~4.86 days at 5,000/sec and reject the weekend, but Artifact 2 provides a more detailed throttle schedule (peak/off-peak rates) and calculates worst-case 6.94 days, plus highlights that only rows with tenants.region <> 'us-east' need updates—demonstrating deeper analysis. 3. **error-budget-arithmetic**: Both compute 7.0 minutes remaining, but Artifact 2 explicitly quantifies risk (480,000 failed requests per blocked minute) and ties each step to the budget via lock_timeout and retry discipline. 4. **default-column-fact-check**: Artifact 2 correctly states that ADD COLUMN with constant DEFAULT is metadata-only on PG 13 and that 'nullable first' is counterproductive, while Artifact 1 incorrectly claims 'nullable first is required,' showing a factual error. 5. **write-consistency-during-backfill**: Both address consistency, but Artifact 2 includes a 'drift sweep' for tenant region changes during migration via a change-capture queue, which is more robust. 6. **rollback-and-observability**: Artifact 2's observability is more detailed with specific thresholds and auto-pause triggers, and its rollback posture is safer (pause backfill instantly, drop index concurrently). Artifact 1's rollback includes a risky 'complete schema reversal' with 4+ hours of downtime, which contradicts zero-downtime goals. Overall, Artifact 2 exhibits superior technical accuracy, more comprehensive safety mechanisms, and clearer handling of edge cases.",
+      "costCents": 0.2827
+    },
+    {
+      "taskId": "eng-zero-downtime-migration-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.95,
+      "rationale": "Artifact 1 is substantially superior across all weighted acceptance criteria. It correctly handles the concurrent-index-required criterion with detailed CONCURRENTLY usage and invalid index cleanup. It provides precise backfill-duration-math, explicitly rejecting the weekend expectation with clear arithmetic (4.86 days at the red line, 6.94 days with throttling). It calculates the error-budget-arithmetic (7.0 minutes remaining) and constrains the plan accordingly. It accurately fact-checks the default-column claim: PostgreSQL 13's ADD COLUMN NOT NULL DEFAULT is metadata-only, making the 'nullable first' detour unnecessary and harmful. It addresses write-consistency-during-backfill with a comprehensive phased approach (stamping new writes, backfilling old, drift sweep). It offers robust rollback-and-observability with flag-based cutover, detailed monitoring, and pause-as-rollback. Artifact 2 contains several critical errors: it incorrectly states 'nullable first is required' (violating default-column-fact-check), provides overly optimistic backfill math (5.4 days vs. 1's more realistic 6.94), omits detailed error-budget reasoning, and lacks the depth of safety mechanisms and observability. Artifact 1's thoroughness and correctness across all criteria make it the clear winner.",
+      "costCents": 0.2573
+    },
+    {
+      "taskId": "eng-zero-downtime-migration-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.95,
+      "rationale": "Artifact 2 correctly corrects the new hire's claim (ADD COLUMN constant DEFAULT is metadata-only on PG 13) and does not waste a nullable-first step. It wraps DDL with lock_timeout to protect the 7-minute error budget, explicitly handles CONCURRENTLY caveats (invalid index cleanup), ensures write consistency with a deploy watermark and drift sweep, and has comprehensive observability with abort thresholds. Artifact 1 mistakenly adopts the nullable-first approach, lacks budget-constrained lock discipline, and is weaker overall.",
+      "costCents": 2.5564
+    },
+    {
+      "taskId": "eng-zero-downtime-migration-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 1,
+      "rationale": "Artifact 1 correctly addresses all criteria with detailed arithmetic and safe design. It explicitly refutes the new hire's misconception that ADD COLUMN with DEFAULT rewrites the table (PG 13 metadata-only), avoiding an unnecessary nullable-first detour. It provides resumable backfill with progress tracking, watermarking to avoid over-updating, and drift sweep for changes during backfill. Error budget is computed (7.0 min remaining) and every DDL step uses lock_timeout and off-peak windows to stay within that. Rollback is additive and flag-based with instant revert. Artifact 2 incorrectly endorses the nullable-first approach, lacks robust backfill resumability, and does not constrain operations to the remaining error budget as rigorously.",
+      "costCents": 0.6235
+    },
+    {
+      "taskId": "ops-incident-forensics-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.85,
+      "rationale": "Artifact 2 better satisfies the weighted criteria. Both correctly identify the flag as root cause and correct the impact math, but Artifact 2 explicitly exonerates the v3.2.0 deploy with clear evidence (timing gap, rollback didn't fix, blast radius mismatch, recovery tracks flag) whereas Artifact 1 still implies the deploy introduced latent buggy code. Artifact 2 also provides more actionable remediation with specific owners, priorities, and deadlines. On the other criteria (clock skew, separate unrelated incident), both are adequate, but Artifact 2 is more thorough. Thus Artifact 2 is the stronger artifact overall.",
+      "costCents": 0.0668
+    },
+    {
+      "taskId": "ops-incident-forensics-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.95,
+      "rationale": "Artifact 1 clearly satisfies the weighted criteria better. It identifies the batch-export-v2 flag rollout as root cause (criterion: finds-flag-root-cause, weight 3) and exonerates the deploy with strong evidence: 5% canary cannot produce 12% error rate, errors persisted after rollback, recovery tracks flag disable (exonerates-deploy, weight 2.5). It explicitly resolves the clock-skew by converting the CEST timestamp to UTC, debunking the delayed-effect theory (resolves-clock-skew, weight 2.5). It separates the unrelated TLS incident clearly (separates-unrelated-incident, weight 1.5). The corrected revenue impact calculation (~$480, range $468-$480) is precise and directly challenges the $18k claim (corrects-impact-math, weight 3). Remediation actions are concrete, systemic, and address pool isolation, flag rollout guardrails, normalized logging, etc. (actionable-remediation, weight 1.5). Artifact 2, while correct on many points, incorrectly states a latent code defect in v3.2.0 that 'remained active in stable pods' — this undermines its exoneration of the deploy (criterion weight 2.5), and its impact math ($479.96) is correct but not as thoroughly explained or as explicitly refutes the $18k narrative. Artifact 2 also has weaker resolution of the clock-skew (mentions it but less explicitly) and less comprehensive remediation. Artifact 1 is superior on all higher-weight criteria, especially the deploy exoneration and impact correction.",
+      "costCents": 0.0624
+    },
+    {
+      "taskId": "ops-incident-forensics-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.85,
+      "rationale": "Artifact 2 more precisely and comprehensively satisfies the weighted acceptance criteria. It delivers superior substance in: 1) **finds-flag-root-cause (3)**: Explicitly and repeatedly identifies the flag as the root cause with a tight causal chain and rules out the deploy via multiple falsifying observations. 2) **exonerates-deploy (2.5)**: Presents a stronger, more detailed argument exonerating the deploy using four distinct, clearly enumerated pieces of evidence (timing gap, rollback didn't fix, blast radius mismatch, recovery tracks flag). It also honestly acknowledges a caveat regarding the hotfix, demonstrating a more nuanced analysis. 3) **resolves-clock-skew (2.5)**: Correctly converts and explains the timezone discrepancy, explicitly rejecting the 'delayed effect' theory. 4) **separates-unrelated-incident (1.5)**: Clearly identifies the admin panel certificate expiry as a coincidence and unrelated. 5) **corrects-impact-math (3)**: Provides a meticulous, step-by-step calculation showing both excess failures over baseline and an upper bound, explicitly deconstructs the origin of the erroneous $18k figure, and provides a stronger theoretical maximum cap. 6) **actionable-remediation (1.5)**: Offers more concrete, prioritized, and owner-assigned action items directly targeting the failure modes (progressive flag rollout, pool isolation, alerting, timestamp normalization). While Artifact 1 covers all criteria adequately, Artifact 2's analysis is more rigorous, detailed, and directly confrontational with the incorrect management narrative, making it the better artifact on substance.",
+      "costCents": 0.1885
+    },
+    {
+      "taskId": "ops-incident-forensics-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Artifact 1 is decisively stronger on the weighted acceptance criteria. It correctly and definitively identifies the feature flag rollout as the root cause and exonerates the deploy by citing key evidence (5% canary vs. 12% fleet-wide error, error persistence after rollback). It explicitly resolves the clock skew by converting CEST to UTC and rejecting the 'delayed effect' theory. It clearly separates the TLS expiry as an unrelated incident. Its impact math is correct (~$480) and explicitly challenges the $18,000 figure. The remediation actions are detailed and address the precise failure class (progressive flag rollout, pool isolation, etc.). Artifact 2 meets many criteria but is flawed in substance: it incorrectly asserts v3.2.0 contained a 'latent code defect' and an 'unoptimized query,' which is not supported by the provided signals and undermines the exoneration of the deploy. Its impact calculation also yields ~$480, not the $1,603.44 stated in its summary, introducing an internal inconsistency. While Artifact 2 addresses clock skew and unrelated incidents, Artifact 1 is more rigorous, consistent, and accurate across all high-weighted criteria.",
+      "costCents": 0.1857
+    },
+    {
+      "taskId": "ops-incident-forensics-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Artifact 2 provides a more detailed and convincing exoneration of the deploy with four explicit observations (timing gap, rollback didn't fix, blast radius mismatch, recovery tracks flag) and addresses the canary as a victim. Its remediation actions are more comprehensive and specific (e.g., table with DRIs, progressive rollout, pool isolation, replay of deploy diff). Both artifacts correctly identify the root cause, resolve clock skew, separate the TLS incident, and correct the impact math, but Artifact 2's forensic depth and actionable remediation give it a slight edge.",
+      "costCents": 1.2841
+    },
+    {
+      "taskId": "ops-incident-forensics-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.95,
+      "rationale": "Artifact 1 unequivocally identifies the 13:47 feature-flag enablement as root cause (criterion 1, weight 3) and systematically exonerates the v3.2.0 deploy with canary scope, rollback timing, and recovery data (criterion 2, weight 2.5). It resolves the timezone skew with a dedicated normalized timeline and rejects the delayed-effect theory (criterion 3, weight 2.5). The admin-panel TLS expiry is explicitly separated as unrelated internal noise (criterion 4, weight 1.5). Impact math is correctly recomputed to ~$470 and the $18k claim is directly challenged (criterion 5, weight 3). Remediation covers pool isolation, progressive flag rollout, and timezone normalization, though slightly weaker on explicit transaction timeouts, but still strong (criterion 6, weight 1.5). Artifact 2 also covers many of these points but introduces an unsupported latent-code-defect argument that partially blames the deploy, weakening exoneration, and is less forceful in challenging the $18k narrative. Artifact 1 is clearly superior on the weighted criteria.",
+      "costCents": 0.7453
+    },
+    {
+      "taskId": "product-capacity-plan-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "A",
+      "confidence": 0.85,
+      "rationale": "Both artifacts correctly detect infeasibility and compute the budget arithmetic (Q3=$440k, Q4=$765k, total=$1,205k, $105k over budget). Artifact 1 proposes the minimal change—dropping the product designer (saving $80k comp + $25k fee = $105k)—to land exactly at the $1.1M envelope, aligning with the minimal-relaxation example in the criteria. Artifact 2's recommended Plan A requests a $60k envelope increase and changes start dates, which is a more substantial deviation. While Artifact 2 excels at challenging the VP Finance claim (lower weight 1.5) and has a more decision‑ready structure (weight 1), Artifact 1 scores higher on the highest‑weighted criteria: correct gap arithmetic (3), detects infeasibility (3), and minimal relaxation (2.5). Both address ramp capacity honestly, but the minimal relaxation criterion is the decisive differentiator given its weight and the explicit example in the rubric.",
+      "costCents": 0.1857
+    },
+    {
+      "taskId": "product-capacity-plan-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      "judgeIndex": 0,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-flash:low",
+      "winner": "B",
+      "confidence": 0.95,
+      "rationale": "Both artifacts correctly detect infeasibility and compute the budget overrun. Artifact 1 excels in challenging the VP Finance claim with specific numbers, provides a thorough ramp-capacity analysis (including the impact of 50% productivity and Dana's departure), and is structured as a decision-ready plan with clear tables, risks, and approval ask. Artifact 2 lacks explicit pushback on the finance claim, is less detailed on capacity risks, and its structure is leaner. On minimal relaxation, both present viable options, but Artifact 1's additional depth and attention to the broader constraints make it substantially stronger overall.",
+      "costCents": 0.1122
+    },
+    {
+      "taskId": "product-capacity-plan-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Artifact 2 better satisfies the weighted acceptance criteria. It clearly detects infeasibility and correctly computes the budget overrun as $105k. It provides a more precise and detailed minimal relaxation, considering alternative start dates to optimize for the capacity requirement, and explicitly calculates the exact envelope increase needed. It directly challenges the VP Finance claim with specific numbers. It provides a thorough capacity analysis, highlighting the shortfall under both strict and lenient readings of the 'through Q4' requirement. Finally, its structure is more explicitly decision-ready, with a clear bottom-line-up-front, enumerated decisions, and risk tables. Artifact 1's minimal relaxation (removing the designer) correctly hits the budget but fails to address the capacity shortfall, making its plan 'workable' only by assuming the scope requirement can be reduced, which is a more significant change than adjusting hiring timing.",
+      "costCents": 0.1591
+    },
+    {
+      "taskId": "product-capacity-plan-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      "judgeIndex": 1,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v3.2:medium",
+      "winner": "B",
+      "confidence": 0.95,
+      "rationale": "Artifact 1 more comprehensively satisfies the weighted acceptance criteria: It clearly detects infeasibility on both budget and capacity grounds, provides correct gap arithmetic ($105k over), explicitly challenges the VP Finance claim with numbers, and addresses ramp-capacity honesty by quantifying the shortfall and discussing delivery risk. Its minimal-relaxation proposal (Plan A) adjusts hiring timing and headcount to meet the 2.0 FTE requirement with a small envelope increase, backed by exhaustive arithmetic showing why in-envelope solutions cannot meet the need. Artifact 2 also detects infeasibility and provides correct arithmetic, but its proposed relaxation involves changing the Workspaces scope rather than adjusting the hiring plan—a less direct and less minimal change. Artifact 2 also omits challenging the finance claim and is less detailed on capacity risks and decision-ready structure.",
+      "costCents": 0.2354
+    },
+    {
+      "taskId": "product-capacity-plan-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ab",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.9,
+      "rationale": "Artifact 2 provides a more comprehensive analysis, clearly detects infeasibility, includes correct gap arithmetic, challenges the VP Finance's claim with numbers, honestly addresses ramp capacity shortfall without altering the Workspaces requirement, and proposes a minimal relaxation (envelope increase) with thorough proof. Artifact 1 also notes infeasibility and does the arithmetic correctly, but its recommendation reduces the scope requirement (less minimal), omits the finance challenge, and has a less decision-ready structure. Overall, Artifact 2 better satisfies the weighted criteria.",
+      "costCents": 1.5521
+    },
+    {
+      "taskId": "product-capacity-plan-hard",
+      "judgeSpec": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      },
+      "judgeIndex": 2,
+      "order": "ba",
+      "judge": "openrouter:deepseek/deepseek-v4-pro:high",
+      "winner": "B",
+      "confidence": 0.95,
+      "rationale": "Artifact 1 clearly states infeasibility, provides correct arithmetic, pushes back on the VP Finance claim, thoroughly addresses ramp capacity honesty (including Dana's departure and in-envelope maximum), and proposes a valid minimal change (Plan A with $60k envelope increase) that meets both budget and capacity. It is decision-ready with risks and explicit approval asks. Artifact 2 closes the budget gap but then adjusts the Workspaces scope to 1.5 FTE, which does not meet the original requirement, and it ignores the finance claim, making its solution less honest and less actionable.",
+      "costCents": 0.9071
+    }
+  ]
+}

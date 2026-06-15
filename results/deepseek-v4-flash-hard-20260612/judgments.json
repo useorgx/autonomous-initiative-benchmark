@@ -1,0 +1,488 @@
+{
+  "benchmarkWeek": "deepseek-v4-flash-hard-20260612",
+  "generatedAt": "2026-06-12T21:38:01.801Z",
+  "protocol": {
+    "independentJudges": true,
+    "judgePanel": [
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      }
+    ],
+    "judgeMaxOutputTokens": 10000,
+    "disagreementThresholdPoints": 8,
+    "scoreAggregation": "median criterion score across completed independent judges"
+  },
+  "runs": [
+    {
+      "taskId": "eng-zero-downtime-migration-hard",
+      "runId": "eng-zero-downtime-migration-hard-r1",
+      "generatorModel": "deepseek/deepseek-v4-flash",
+      "selfReported": {
+        "qualityScore": 0,
+        "completeness": 1,
+        "criterionScores": {
+          "concurrent-index-required": 0,
+          "backfill-duration-math": 0,
+          "error-budget-arithmetic": 0,
+          "default-column-fact-check": 0,
+          "write-consistency-during-backfill": 0,
+          "rollback-and-observability": 0
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "concurrent-index-required": 1,
+          "backfill-duration-math": 1,
+          "error-budget-arithmetic": 1,
+          "default-column-fact-check": 1,
+          "write-consistency-during-backfill": 1,
+          "rollback-and-observability": 1
+        },
+        "disagreementPoints": 29.31,
+        "maxCriterionDisagreementPoints": 50,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "judge quality disagreement >= 8 points",
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "eng-zero-downtime-migration-hard",
+          "runId": "eng-zero-downtime-migration-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:35:43.639Z",
+          "completedAt": "2026-06-12T21:36:24.002Z",
+          "durationSeconds": 40.36,
+          "usage": {
+            "input_tokens": 2785,
+            "input_tokens_details": {
+              "cached_tokens": 2432
+            },
+            "output_tokens": 4017,
+            "output_tokens_details": {
+              "reasoning_tokens": 3502
+            },
+            "total_tokens": 6802
+          },
+          "costCents": 0.1189,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "concurrent-index-required": 1,
+            "backfill-duration-math": 1,
+            "error-budget-arithmetic": 1,
+            "default-column-fact-check": 1,
+            "write-consistency-during-backfill": 1,
+            "rollback-and-observability": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact explicitly specifies CREATE INDEX CONCURRENTLY, notes that plain CREATE INDEX would block writes on the hot 2.1B-row table, and acknowledges the caveat (cannot run inside a transaction — though not elaborated, the mention of retry/cleanup is implicit in the observability section stating DROP INDEX CONCURRENTLY as rollback and monitoring progress). The backfill duration math is computed correctly: 2.1e9 / 5000 = 420000s = 116.7h ≈ 4.9 days, and the artifact explicitly rejects the weekend expectation with these numbers. Error budget arithmetic is exact: 99.95% over 30 days = 21.6 min, minus 14.6 min consumed = 7.0 minutes remaining, and the plan constrains each step (especially writes) to not risk exceeding this budget (backfill throttled, ALTER TABLE is metadata-only, no blocking). The default-column-fact-check correctly states that ADD COLUMN with a constant DEFAULT in PostgreSQL 13 is metadata-only (no table rewrite), and corrects the nullable-first detour by adding the column with NOT NULL DEFAULT directly. Write-consistency-during-backfill is ensured by the pseudocode that uses FOR UPDATE SKIP LOCKED and joins to tenants to get correct region for each batch, plus the background worker runs continuously, is resumable, and progress tracking is included. Rollback and observability are comprehensive: rollback steps for column, index, backfill, cutover are all described; observability includes p99 insert latency alarm, backfill progress query, index progress view, replication lag, lock_timeout, and throttling fallback. The artifact states no false claims and asserts no wrong numbers. All hidden findings are either explicitly addressed or sufficiently implied by the given plan.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "eng-zero-downtime-migration-hard",
+          "runId": "eng-zero-downtime-migration-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:35:43.640Z",
+          "completedAt": "2026-06-12T21:35:51.491Z",
+          "durationSeconds": 7.85,
+          "usage": {
+            "input_tokens": 2785,
+            "input_tokens_details": {
+              "cached_tokens": 1088
+            },
+            "output_tokens": 417,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 3202
+          },
+          "costCents": 0.0741,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "concurrent-index-required": 1,
+            "backfill-duration-math": 1,
+            "error-budget-arithmetic": 1,
+            "default-column-fact-check": 1,
+            "write-consistency-during-backfill": 1,
+            "rollback-and-observability": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact explicitly and correctly satisfies every hidden criterion. For concurrent-index-required: It specifies CREATE INDEX CONCURRENTLY, notes a plain index would block writes, and mentions observability. For backfill-duration-math: It correctly computes 2.1B rows / 5k rows/sec = 420,000 seconds (~116.7 hours, ~4.9 days) and explicitly rejects the weekend expectation with this arithmetic. For error-budget-arithmetic: It correctly computes 99.95% SLO over 30 days = 21.6 minutes, subtracts 14.6 minutes consumed, and states 7.0 minutes remain, constraining the plan to avoid violating this. For default-column-fact-check: It correctly states that in PostgreSQL 13, ADD COLUMN with a constant DEFAULT is a metadata-only change and adds the column directly, correcting the new hire's claim. For write-consistency-during-backfill: It ensures rows written during backfill get correct values via application code setting region on insert (implied by 'new inserts use the same default (until application code sets the correct region)') and the backfill worker updates only rows where `tenant_region <> t.region`. For rollback-and-observability: It includes a rollback posture (drop column, drop index concurrently) and observability (p99 insert latency, backfill progress, index progress, replication lag, abort thresholds).",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "eng-zero-downtime-migration-hard",
+          "runId": "eng-zero-downtime-migration-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:35:43.641Z",
+          "completedAt": "2026-06-12T21:37:14.633Z",
+          "durationSeconds": 90.99,
+          "usage": {
+            "input_tokens": 2809,
+            "input_tokens_details": {
+              "cached_tokens": 1264
+            },
+            "output_tokens": 5358,
+            "output_tokens_details": {
+              "reasoning_tokens": 5077
+            },
+            "total_tokens": 8167
+          },
+          "costCents": 0.9404,
+          "qualityScore": 70.69,
+          "completeness": 0.65,
+          "criterionScores": {
+            "concurrent-index-required": 0.5,
+            "backfill-duration-math": 1,
+            "error-budget-arithmetic": 1,
+            "default-column-fact-check": 0.5,
+            "write-consistency-during-backfill": 0.5,
+            "rollback-and-observability": 0.5
+          },
+          "confidence": 0.85,
+          "rationale": "The plan uses CONCURRENTLY for the index but omits transaction caveats and explicit blocking risk note. Backfill math correctly rejects weekend expectation. Error budget computed correctly and constrains plan. Adds column with default as metadata-only, but does not explicitly correct the new hire's nullable-first detour. Write-consistency is partially addressed (insert-time population mentioned, backfill batched) but lacks progress tracking/resumability. Rollback posture is solid (index drop safe, column stays) but cutover rollback does not mention a feature flag, and read verification is not explicit; observability is strong with p99, replication lag, throttling. Overall plan is competent but missing some key details.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "ops-incident-forensics-hard",
+      "runId": "ops-incident-forensics-hard-r1",
+      "generatorModel": "deepseek/deepseek-v4-flash",
+      "selfReported": {
+        "qualityScore": 0,
+        "completeness": 1,
+        "criterionScores": {
+          "finds-flag-root-cause": 0,
+          "exonerates-deploy": 0,
+          "resolves-clock-skew": 0,
+          "separates-unrelated-incident": 0,
+          "corrects-impact-math": 0,
+          "actionable-remediation": 0
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "finds-flag-root-cause": 1,
+          "exonerates-deploy": 1,
+          "resolves-clock-skew": 1,
+          "separates-unrelated-incident": 1,
+          "corrects-impact-math": 1,
+          "actionable-remediation": 1
+        },
+        "disagreementPoints": 14.29,
+        "maxCriterionDisagreementPoints": 50,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "judge quality disagreement >= 8 points",
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "ops-incident-forensics-hard",
+          "runId": "ops-incident-forensics-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:35:51.491Z",
+          "completedAt": "2026-06-12T21:36:10.517Z",
+          "durationSeconds": 19.03,
+          "usage": {
+            "input_tokens": 2303,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 509,
+            "output_tokens_details": {
+              "reasoning_tokens": 255
+            },
+            "total_tokens": 2812
+          },
+          "costCents": 0.0442,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "finds-flag-root-cause": 1,
+            "exonerates-deploy": 1,
+            "resolves-clock-skew": 1,
+            "separates-unrelated-incident": 1,
+            "corrects-impact-math": 1,
+            "actionable-remediation": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact meets all acceptance criteria with precision. It identifies the feature flag rollout as root cause, exonerates the deploy using evidence of 5% canary and error persistence after rollback, correctly resolves the eu-central clock skew by converting 15:49 CEST to 13:49 UTC, separates the admin TLS incident as unrelated, recomputes revenue impact as ~$480 using the provided data (220/hr, 26 min, 12% error, $42 AOV), and proposes remediation targeting pool isolation, transaction monitoring, and flag canarying. No false claims or wrong numbers are present.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "ops-incident-forensics-hard",
+          "runId": "ops-incident-forensics-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:36:10.517Z",
+          "completedAt": "2026-06-12T21:36:19.040Z",
+          "durationSeconds": 8.52,
+          "usage": {
+            "input_tokens": 2303,
+            "input_tokens_details": {
+              "cached_tokens": 1152
+            },
+            "output_tokens": 282,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2585
+          },
+          "costCents": 0.0556,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "finds-flag-root-cause": 1,
+            "exonerates-deploy": 1,
+            "resolves-clock-skew": 1,
+            "separates-unrelated-incident": 1,
+            "corrects-impact-math": 1,
+            "actionable-remediation": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact correctly identifies the 13:47 'batch-export-v2' flag as the root cause. It explicitly exonerates the v3.2.0 deploy with the correct evidence (5% canary scope, errors persisting after rollback). It correctly resolves the timezone skew for the 15:49 CEST log, aligning it to 13:49 UTC. It separates the 14:05 admin-panel TLS certificate as unrelated. It recomputes the revenue impact to ~$479, which is within the $350-$700 acceptance range. The remediation actions address the correct failure class (pool isolation, flag canarying, monitoring, timezone normalization). All required hidden findings are present, exact, and correct.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "ops-incident-forensics-hard",
+          "runId": "ops-incident-forensics-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:36:19.040Z",
+          "completedAt": "2026-06-12T21:37:10.135Z",
+          "durationSeconds": 51.1,
+          "usage": {
+            "input_tokens": 2327,
+            "input_tokens_details": {
+              "cached_tokens": 930
+            },
+            "output_tokens": 3222,
+            "output_tokens_details": {
+              "reasoning_tokens": 3002
+            },
+            "total_tokens": 5549
+          },
+          "costCents": 0.6022,
+          "qualityScore": 85.71,
+          "completeness": 0.8,
+          "criterionScores": {
+            "finds-flag-root-cause": 1,
+            "exonerates-deploy": 1,
+            "resolves-clock-skew": 0.5,
+            "separates-unrelated-incident": 1,
+            "corrects-impact-math": 1,
+            "actionable-remediation": 0.5
+          },
+          "confidence": 1,
+          "rationale": "Artifact correctly identifies root cause, exonerates deploy with evidence, separates unrelated TLS incident, and computes impact math correctly. However, while it converts the eu-central timestamp, it does not explicitly reject the 'delayed effect' theory from #eng chatter, only implying correction; thus half point. Remediation addresses pool isolation and transaction monitoring but misses flag rollout canarying/progressive delivery and timezone-normalized logging; half point. Overall comprehensive, no false claims repeated.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "product-capacity-plan-hard",
+      "runId": "product-capacity-plan-hard-r1",
+      "generatorModel": "deepseek/deepseek-v4-flash",
+      "selfReported": {
+        "qualityScore": 0,
+        "completeness": 1,
+        "criterionScores": {
+          "detects-infeasibility": 0,
+          "correct-gap-arithmetic": 0,
+          "minimal-relaxation": 0,
+          "challenges-finance-claim": 0,
+          "ramp-capacity-honesty": 0,
+          "decision-ready-structure": 0
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "detects-infeasibility": 1,
+          "correct-gap-arithmetic": 1,
+          "minimal-relaxation": 1,
+          "challenges-finance-claim": 1,
+          "ramp-capacity-honesty": 1,
+          "decision-ready-structure": 1
+        },
+        "disagreementPoints": 14.81,
+        "maxCriterionDisagreementPoints": 50,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "judge quality disagreement >= 8 points",
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "product-capacity-plan-hard",
+          "runId": "product-capacity-plan-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:36:24.003Z",
+          "completedAt": "2026-06-12T21:36:52.487Z",
+          "durationSeconds": 28.48,
+          "usage": {
+            "input_tokens": 2183,
+            "input_tokens_details": {
+              "cached_tokens": 1920
+            },
+            "output_tokens": 3801,
+            "output_tokens_details": {
+              "reasoning_tokens": 3414
+            },
+            "total_tokens": 5984
+          },
+          "costCents": 0.1105,
+          "qualityScore": 90.74,
+          "completeness": 1,
+          "criterionScores": {
+            "detects-infeasibility": 1,
+            "correct-gap-arithmetic": 1,
+            "minimal-relaxation": 0.5,
+            "challenges-finance-claim": 1,
+            "ramp-capacity-honesty": 1,
+            "decision-ready-structure": 1
+          },
+          "confidence": 0.95,
+          "rationale": "The artifact correctly identifies the budget overrun ($105k over $1.1M envelope) and provides the exact arithmetic (Q3 $440k, Q4 seniors $330k, mids $255k, designer $80k, fees $100k = $1,205k). It also notes the 50% first-quarter productivity leading to only 1.5 effective FTE from the three mids and explicitly flags the shortfall against the 2-FTE need, while acknowledging Dana's departure reduces senior capacity. It pushes back on the VP Finance 'roughly fits' claim by showing the overrun. The proposed relaxation (defer designer to Q1) correctly saves $105k ($80k comp + $25k fee) to hit $1,100k exactly, but then adds an extra 'reallocate one senior for 0.5 FTE' that was not part of the minimal relaxation criterion — the required minimal change would be only the designer deferral. The extra reallocation goes beyond what was asked, so I deduct to 0.5 for minimal-relaxation because the artifact proposes an unnecessary additional change. Decision-ready structure is solid with table, risks, recommendation, and explicit ask. Red flags: none; no planted false claims repeated, no wrong numbers asserted.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "product-capacity-plan-hard",
+          "runId": "product-capacity-plan-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:36:52.487Z",
+          "completedAt": "2026-06-12T21:36:59.693Z",
+          "durationSeconds": 7.21,
+          "usage": {
+            "input_tokens": 2183,
+            "input_tokens_details": {
+              "cached_tokens": 1024
+            },
+            "output_tokens": 337,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2520
+          },
+          "costCents": 0.0563,
+          "qualityScore": 85.19,
+          "completeness": 0.9,
+          "criterionScores": {
+            "detects-infeasibility": 1,
+            "correct-gap-arithmetic": 1,
+            "minimal-relaxation": 1,
+            "challenges-finance-claim": 0.5,
+            "ramp-capacity-honesty": 0.5,
+            "decision-ready-structure": 1
+          },
+          "confidence": 0.95,
+          "rationale": "The artifact correctly states the plan is infeasible and computes the exact budget overage of $105,000 (Q3: $440k, Q4: $330k+$255k+$80k=$665k, fees $100k, total $1,205k). It proposes a minimal relaxation (deferring the designer, saving $80k+$25k=$105k) that lands exactly on $1,100k, with supporting arithmetic. It partially challenges the finance claim by showing numbers but also states 'No additional hires are added, respecting the VP Finance's guidance,' which slightly hedges. On ramp-capacity-honesty, it notes the 1.5 FTE shortfall and Dana's departure but then proposes a senior reallocation (0.5 FTE) to close the gap, which is a solution rather than solely highlighting the delivery risk; the capacity math is correct, but the framing addresses risk less directly than the criterion requires.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "product-capacity-plan-hard",
+          "runId": "product-capacity-plan-hard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T21:36:59.693Z",
+          "completedAt": "2026-06-12T21:38:01.763Z",
+          "durationSeconds": 62.07,
+          "usage": {
+            "input_tokens": 2207,
+            "input_tokens_details": {
+              "cached_tokens": 949
+            },
+            "output_tokens": 3728,
+            "output_tokens_details": {
+              "reasoning_tokens": 3498
+            },
+            "total_tokens": 5935
+          },
+          "costCents": 0.6687,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "detects-infeasibility": 1,
+            "correct-gap-arithmetic": 1,
+            "minimal-relaxation": 1,
+            "challenges-finance-claim": 1,
+            "ramp-capacity-honesty": 1,
+            "decision-ready-structure": 1
+          },
+          "confidence": 0.95,
+          "rationale": "The plan clearly states the $105k overage, correctly accounting for Dana's departure and all costs. It proposes deferring the designer to exactly meet the budget, and reallocates a senior to address the 0.5‑FTE capacity gap. The VP's 'roughly fits' claim is implicitly contradicted by the numbers, and the ramp‑up productivity shortfall is explicitly flagged. The document is structured as a decision‑ready recommendation with tables, risks, and an implied approval ask.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    }
+  ]
+}

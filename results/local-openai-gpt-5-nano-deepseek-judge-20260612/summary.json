@@ -1,0 +1,37 @@
+{
+  "benchmarkWeek": "local-openai-gpt-5-nano-deepseek-judge-20260612",
+  "benchmarkVersion": "2026-q1",
+  "generatedAt": "2026-06-12T17:32:58.018Z",
+  "source": "local_openai_catalog_runner",
+  "gitSha": "d40c875",
+  "headlineMetrics": {
+    "vs_human_speedup": {
+      "value": 131.63,
+      "unit": "x"
+    },
+    "vs_human_quality_delta": {
+      "value": 11.36,
+      "unit": "points"
+    },
+    "autonomous_completion_rate": {
+      "value": 1,
+      "unit": "ratio"
+    },
+    "cost_per_task_cents": {
+      "value": 0.4964,
+      "unit": "cents"
+    },
+    "generation_cost_per_task_cents": {
+      "value": 0.0499,
+      "unit": "cents"
+    },
+    "judging_cost_per_task_cents": {
+      "value": 0.4465,
+      "unit": "cents"
+    },
+    "human_review_recommended_rate": {
+      "value": 0.583,
+      "unit": "ratio"
+    }
+  }
+}

@@ -1,0 +1,1757 @@
+{
+  "benchmarkWeek": "local-openai-gpt-5-nano-deepseek-judge-20260612",
+  "generatedAt": "2026-06-12T17:32:58.039Z",
+  "protocol": {
+    "independentJudges": true,
+    "judgePanel": [
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "reasoningEffort": "low"
+      },
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "reasoningEffort": "medium"
+      },
+      {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-pro",
+        "reasoningEffort": "high"
+      }
+    ],
+    "judgeMaxOutputTokens": 8000,
+    "disagreementThresholdPoints": 8,
+    "scoreAggregation": "median criterion score across completed independent judges"
+  },
+  "runs": [
+    {
+      "taskId": "design-live-room-critique",
+      "runId": "design-live-room-critique-r1",
+      "generatorModel": "gpt-5-nano",
+      "selfReported": {
+        "qualityScore": 89.53,
+        "completeness": 0.88,
+        "criterionScores": {
+          "diagnoses-hierarchy": 0.92,
+          "proposes-structure": 0.92,
+          "references-component-system": 0.85,
+          "high-taste": 0.88
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "diagnoses-hierarchy": 1,
+          "proposes-structure": 1,
+          "references-component-system": 1,
+          "high-taste": 1
+        },
+        "disagreementPoints": 20,
+        "maxCriterionDisagreementPoints": 20,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "judge quality disagreement >= 8 points",
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "design-live-room-critique",
+          "runId": "design-live-room-critique-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:29:57.584Z",
+          "completedAt": "2026-06-12T17:30:07.099Z",
+          "durationSeconds": 9.51,
+          "usage": {
+            "input_tokens": 1876,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 1058,
+            "output_tokens_details": {
+              "reasoning_tokens": 734
+            },
+            "total_tokens": 2934
+          },
+          "costCents": 0.0535,
+          "qualityScore": 80,
+          "completeness": 0.8,
+          "criterionScores": {
+            "diagnoses-hierarchy": 0.8,
+            "proposes-structure": 0.8,
+            "references-component-system": 0.8,
+            "high-taste": 0.8
+          },
+          "confidence": 0.9,
+          "rationale": "diagnoses-hierarchy: Clearly identifies hierarchy failures (top-level status missing, no micro-to-macro path, visual inconsistency, ownership and time signals absent). Strong but not exhaustive (e.g., could have deeper specificity on precise visual weight comparison). proposes-structure: Concrete above-the-fold layout with columns, specific components (HealthBadge, TitleBlock, TaskCard, etc.). Not overly vague. Two-column approach is well-defined. references-component-system: Recommends specific reusable components with interface details (props, states, reusability across initiatives). Strong match to criterion. high-taste: Avoids adding chrome, emphasizes restraint (limited borders, color discipline, typographic scale, motion restraint, no dashboard 'bling'). Matches criterion well. All scores are 0.8 because the artifact is thorough and well-reasoned but not beyond-expectation on any single criterion (no 1.0 justification). completeness: Covers all required sections plus extras; minor missing: not explicitly naming a 'component system' that existed prior, but the guidance is sufficient. confidence: High. No red flags.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "design-live-room-critique",
+          "runId": "design-live-room-critique-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:29:57.600Z",
+          "completedAt": "2026-06-12T17:30:03.728Z",
+          "durationSeconds": 6.13,
+          "usage": {
+            "input_tokens": 1876,
+            "input_tokens_details": {
+              "cached_tokens": 64
+            },
+            "output_tokens": 203,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2079
+          },
+          "costCents": 0.0557,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "diagnoses-hierarchy": 1,
+            "proposes-structure": 1,
+            "references-component-system": 1,
+            "high-taste": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact thoroughly satisfies all criteria. It clearly diagnoses hierarchy failures (e.g., 'Failure to convey top-level status,' 'No clear path from micro to macro'). It proposes a concrete above-the-fold structure with specific columns and component placement. It references a component system by naming specific reusable components (HealthBadge, TaskCard, etc.) and guidance for their use. It demonstrates high taste and restraint by advocating for 'limit chrome,' 'lean typography,' 'color discipline,' and a focus on signal over clutter.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "design-live-room-critique",
+          "runId": "design-live-room-critique-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:29:57.600Z",
+          "completedAt": "2026-06-12T17:30:07.955Z",
+          "durationSeconds": 10.35,
+          "usage": {
+            "input_tokens": 1900,
+            "input_tokens_details": {
+              "cached_tokens": 893
+            },
+            "output_tokens": 780,
+            "output_tokens_details": {
+              "reasoning_tokens": 595
+            },
+            "total_tokens": 2680
+          },
+          "costCents": 0.2008,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "diagnoses-hierarchy": 1,
+            "proposes-structure": 1,
+            "references-component-system": 1,
+            "high-taste": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact clearly diagnoses hierarchy failures with concrete examples (missing top-level status, no micro-to-macro path, missing ownership and time signals). It proposes a detailed above-the-fold layout with specific zones and a component map, not vague advice. It provides explicit reusable component guidance for each needed element, including state handling and tokens. It demonstrates restraint with a minimal-chrome approach, disciplined color use, and a calm typographic scale, avoiding dashboard clutter. All acceptance criteria are fully and concretely satisfied.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "marketing-launch-brief",
+      "runId": "marketing-launch-brief-r1",
+      "generatorModel": "gpt-5-nano",
+      "selfReported": {
+        "qualityScore": 100,
+        "completeness": 0.85,
+        "criterionScores": {
+          "has-positioning": 1,
+          "has-message-pillars": 1,
+          "has-channel-plan": 1,
+          "proof-emphasis": 1,
+          "has-cta": 1
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "has-positioning": 1,
+          "has-message-pillars": 1,
+          "has-channel-plan": 1,
+          "proof-emphasis": 1,
+          "has-cta": 1
+        },
+        "disagreementPoints": 0,
+        "maxCriterionDisagreementPoints": 0,
+        "humanReviewRecommended": false,
+        "lowConfidenceReasons": []
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "marketing-launch-brief",
+          "runId": "marketing-launch-brief-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:29:57.601Z",
+          "completedAt": "2026-06-12T17:30:06.070Z",
+          "durationSeconds": 8.47,
+          "usage": {
+            "input_tokens": 1162,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 527,
+            "output_tokens_details": {
+              "reasoning_tokens": 392
+            },
+            "total_tokens": 1689
+          },
+          "costCents": 0.031,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-positioning": 1,
+            "has-message-pillars": 1,
+            "has-channel-plan": 1,
+            "proof-emphasis": 1,
+            "has-cta": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact includes a clear positioning statement, four distinct and reusable message pillars, channel-specific recommendations for homepage, email, social, and docs, a dedicated section on proof points and live evidence as a central conversion lever, and a clear CTA strategy with primary and secondary calls to action. All acceptance criteria are fully satisfied.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "marketing-launch-brief",
+          "runId": "marketing-launch-brief-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:03.728Z",
+          "completedAt": "2026-06-12T17:31:16.533Z",
+          "durationSeconds": 72.8,
+          "usage": {
+            "input_tokens": 1162,
+            "input_tokens_details": {
+              "cached_tokens": 64
+            },
+            "output_tokens": 1088,
+            "output_tokens_details": {
+              "reasoning_tokens": 1046
+            },
+            "total_tokens": 2250
+          },
+          "costCents": 0.0707,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-positioning": 1,
+            "has-message-pillars": 1,
+            "has-channel-plan": 1,
+            "proof-emphasis": 1,
+            "has-cta": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact contains a clear, audience-specific positioning statement. It defines four distinct, reusable message pillars. The channel plan provides specific, differentiated tactics for homepage, email, social, and docs. Proof points/demos are central to the plan, featuring live and recorded evidence as a core conversion lever. A clear CTA strategy with primary and secondary calls to action is included. All criteria are fully and concretely satisfied.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "marketing-launch-brief",
+          "runId": "marketing-launch-brief-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:06.070Z",
+          "completedAt": "2026-06-12T17:30:16.270Z",
+          "durationSeconds": 10.2,
+          "usage": {
+            "input_tokens": 1186,
+            "input_tokens_details": {
+              "cached_tokens": 474
+            },
+            "output_tokens": 715,
+            "output_tokens_details": {
+              "reasoning_tokens": 561
+            },
+            "total_tokens": 1901
+          },
+          "costCents": 0.1659,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-positioning": 1,
+            "has-message-pillars": 1,
+            "has-channel-plan": 1,
+            "proof-emphasis": 1,
+            "has-cta": 1
+          },
+          "confidence": 1,
+          "rationale": "The brief includes all required sections with clear, specific content. Positioning statement is strong, pillars are distinct, channel plan is tailored, proof points are central, and CTA strategy is detailed. No issues.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "postmortem",
+      "runId": "postmortem-r1",
+      "generatorModel": "gpt-5-nano",
+      "selfReported": {
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "has-exec-summary": 1,
+          "has-root-cause": 1,
+          "has-impact-quantified": 1,
+          "has-action-items": 1,
+          "has-timeline": 1,
+          "has-lessons": 1
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "has-exec-summary": 1,
+          "has-root-cause": 1,
+          "has-impact-quantified": 1,
+          "has-action-items": 1,
+          "has-timeline": 1,
+          "has-lessons": 1
+        },
+        "disagreementPoints": 0,
+        "maxCriterionDisagreementPoints": 0,
+        "humanReviewRecommended": false,
+        "lowConfidenceReasons": []
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "postmortem",
+          "runId": "postmortem-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:07.100Z",
+          "completedAt": "2026-06-12T17:30:32.777Z",
+          "durationSeconds": 25.68,
+          "usage": {
+            "input_tokens": 1863,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 810,
+            "output_tokens_details": {
+              "reasoning_tokens": 721
+            },
+            "total_tokens": 2673
+          },
+          "costCents": 0.0488,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-exec-summary": 1,
+            "has-root-cause": 1,
+            "has-impact-quantified": 1,
+            "has-action-items": 1,
+            "has-timeline": 1,
+            "has-lessons": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact fully satisfies all acceptance criteria. Executive summary is concise (3 sentences), root cause correctly identifies connection pool exhaustion due to long-running transactions, impact includes specific numbers (duration, users, revenue), action items are specific with owners and due dates, timeline is condensed, and lessons learned provide actionable insights beyond restating events. No issues detected.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "postmortem",
+          "runId": "postmortem-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:07.955Z",
+          "completedAt": "2026-06-12T17:30:12.666Z",
+          "durationSeconds": 4.71,
+          "usage": {
+            "input_tokens": 1863,
+            "input_tokens_details": {
+              "cached_tokens": 704
+            },
+            "output_tokens": 210,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2073
+          },
+          "costCents": 0.0473,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-exec-summary": 1,
+            "has-root-cause": 1,
+            "has-impact-quantified": 1,
+            "has-action-items": 1,
+            "has-timeline": 1,
+            "has-lessons": 1
+          },
+          "confidence": 0.8,
+          "rationale": "The artifact satisfies all acceptance criteria precisely and concretely. The executive summary is concise and accurate. The root cause is correctly identified. The impact includes all specified numbers. The action items are specific, have owners and due dates. The condensed timeline is provided. The lessons learned extend beyond restating the incident (e.g., load testing scenarios, backpressure signals, pre-defined dashboards). There are no missing elements from the requested structure.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "postmortem",
+          "runId": "postmortem-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:12.666Z",
+          "completedAt": "2026-06-12T17:30:21.729Z",
+          "durationSeconds": 9.06,
+          "usage": {
+            "input_tokens": 1883,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 931,
+            "output_tokens_details": {
+              "reasoning_tokens": 800
+            },
+            "total_tokens": 2814
+          },
+          "costCents": 0.5931,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-exec-summary": 1,
+            "has-root-cause": 1,
+            "has-impact-quantified": 1,
+            "has-action-items": 1,
+            "has-timeline": 1,
+            "has-lessons": 1
+          },
+          "confidence": 1,
+          "rationale": "All acceptance criteria are fully satisfied with specific, quantified information, correct root cause, actionable items, timeline, and substantive lessons.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "pr-description",
+      "runId": "pr-description-r1",
+      "generatorModel": "gpt-5-nano",
+      "selfReported": {
+        "qualityScore": 100,
+        "completeness": 0.92,
+        "criterionScores": {
+          "has-title": 1,
+          "has-summary": 1,
+          "has-changes-list": 1,
+          "has-testing-instructions": 1,
+          "mentions-auth-tokens": 1
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "has-title": 1,
+          "has-summary": 1,
+          "has-changes-list": 1,
+          "has-testing-instructions": 1,
+          "mentions-auth-tokens": 1
+        },
+        "disagreementPoints": 0,
+        "maxCriterionDisagreementPoints": 0,
+        "humanReviewRecommended": false,
+        "lowConfidenceReasons": []
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "pr-description",
+          "runId": "pr-description-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:16.271Z",
+          "completedAt": "2026-06-12T17:30:36.178Z",
+          "durationSeconds": 19.91,
+          "usage": {
+            "input_tokens": 1357,
+            "input_tokens_details": {
+              "cached_tokens": 1152
+            },
+            "output_tokens": 809,
+            "output_tokens_details": {
+              "reasoning_tokens": 621
+            },
+            "total_tokens": 2166
+          },
+          "costCents": 0.0275,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-title": 1,
+            "has-summary": 1,
+            "has-changes-list": 1,
+            "has-testing-instructions": 1,
+            "mentions-auth-tokens": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact fully satisfies all acceptance criteria. It provides a clear title describing the token refresh fix, a concise 2-3 sentence summary explaining the why, a detailed bullet list of specific changes per file, comprehensive testing instructions including both automated and manual steps, and prominently identifies the changes as a token refresh fix (not a generic auth change). No red flags or missing elements.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "pr-description",
+          "runId": "pr-description-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:21.730Z",
+          "completedAt": "2026-06-12T17:30:26.299Z",
+          "durationSeconds": 4.57,
+          "usage": {
+            "input_tokens": 1357,
+            "input_tokens_details": {
+              "cached_tokens": 640
+            },
+            "output_tokens": 206,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 1563
+          },
+          "costCents": 0.0348,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-title": 1,
+            "has-summary": 1,
+            "has-changes-list": 1,
+            "has-testing-instructions": 1,
+            "mentions-auth-tokens": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact fully satisfies all criteria. It has a clear, descriptive title ('Refine token refresh flow and add integration tests for token refresh'). The summary is 2-3 sentences explaining what changed and why. The bullet list of changes is specific and references the modified files. Testing instructions are concrete and actionable. The output correctly and specifically identifies the changes as related to 'token refresh' and 'refresh tokens,' meeting the specific criterion of not being a generic auth change.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "pr-description",
+          "runId": "pr-description-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:26.299Z",
+          "completedAt": "2026-06-12T17:30:41.355Z",
+          "durationSeconds": 15.06,
+          "usage": {
+            "input_tokens": 1381,
+            "input_tokens_details": {
+              "cached_tokens": 593
+            },
+            "output_tokens": 1127,
+            "output_tokens_details": {
+              "reasoning_tokens": 953
+            },
+            "total_tokens": 2508
+          },
+          "costCents": 0.2351,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-title": 1,
+            "has-summary": 1,
+            "has-changes-list": 1,
+            "has-testing-instructions": 1,
+            "mentions-auth-tokens": 1
+          },
+          "confidence": 1,
+          "rationale": "All criteria are fully satisfied: the title is clear and descriptive, the summary is exactly 3 sentences explaining what and why, the changes list is specific and bullet-formatted, testing instructions are detailed and actionable, and the description correctly identifies the change as a token refresh fix rather than a generic auth change.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "product-initiative-brief",
+      "runId": "product-initiative-brief-r1",
+      "generatorModel": "gpt-5-nano",
+      "selfReported": {
+        "qualityScore": 91.67,
+        "completeness": 0.92,
+        "criterionScores": {
+          "has-problem-statement": 1,
+          "has-success-metrics": 1,
+          "has-scope": 0.75,
+          "has-workstreams": 0.75,
+          "founder-decision-moment": 1
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "has-problem-statement": 1,
+          "has-success-metrics": 1,
+          "has-scope": 1,
+          "has-workstreams": 1,
+          "founder-decision-moment": 1
+        },
+        "disagreementPoints": 0,
+        "maxCriterionDisagreementPoints": 0,
+        "humanReviewRecommended": false,
+        "lowConfidenceReasons": []
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "product-initiative-brief",
+          "runId": "product-initiative-brief-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:32.777Z",
+          "completedAt": "2026-06-12T17:30:40.260Z",
+          "durationSeconds": 7.48,
+          "usage": {
+            "input_tokens": 1446,
+            "input_tokens_details": {
+              "cached_tokens": 1152
+            },
+            "output_tokens": 796,
+            "output_tokens_details": {
+              "reasoning_tokens": 573
+            },
+            "total_tokens": 2242
+          },
+          "costCents": 0.0293,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-problem-statement": 1,
+            "has-success-metrics": 1,
+            "has-scope": 1,
+            "has-workstreams": 1,
+            "founder-decision-moment": 1
+          },
+          "confidence": 0.9,
+          "rationale": "The artifact fully satisfies all acceptance criteria. The problem statement is clearly tied to the user pain of not being able to assess OrgX's viability in a single session. Success metrics are specific, measurable, and tied to time, confidence, completion, conversion, and support load. In-scope/out-of-scope are distinct and actionable. Workstreams are logical and cover design, trust signals, analytics, risk mitigation, and launch. The founder decision moment is explicitly centered as a one-session, time-boxed decision with explicit options, directly addressing the core task. No red flags or missing required sections.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "product-initiative-brief",
+          "runId": "product-initiative-brief-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:36.179Z",
+          "completedAt": "2026-06-12T17:30:41.541Z",
+          "durationSeconds": 5.36,
+          "usage": {
+            "input_tokens": 1446,
+            "input_tokens_details": {
+              "cached_tokens": 320
+            },
+            "output_tokens": 172,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 1618
+          },
+          "costCents": 0.04,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-problem-statement": 1,
+            "has-success-metrics": 1,
+            "has-scope": 1,
+            "has-workstreams": 1,
+            "founder-decision-moment": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact fully satisfies all acceptance criteria. It includes a clear problem statement tied to user pain, specific and measurable success metrics, well-defined in-scope and out-of-scope boundaries, sensible and actionable workstreams, and places central emphasis on the one-session founder decision moment.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "product-initiative-brief",
+          "runId": "product-initiative-brief-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:40.260Z",
+          "completedAt": "2026-06-12T17:30:49.584Z",
+          "durationSeconds": 9.32,
+          "usage": {
+            "input_tokens": 1470,
+            "input_tokens_details": {
+              "cached_tokens": 617
+            },
+            "output_tokens": 725,
+            "output_tokens_details": {
+              "reasoning_tokens": 575
+            },
+            "total_tokens": 2195
+          },
+          "costCents": 0.179,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "has-problem-statement": 1,
+            "has-success-metrics": 1,
+            "has-scope": 1,
+            "has-workstreams": 1,
+            "founder-decision-moment": 1
+          },
+          "confidence": 1,
+          "rationale": "The brief fully addresses all acceptance criteria with specific, measurable, and well-structured sections. The problem statement is clear, success metrics are measurable, scope is well-defined, workstreams are sensible, and the founder decision moment is explicitly highlighted as central.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "sales-outreach-sequence",
+      "runId": "sales-outreach-sequence-r1",
+      "generatorModel": "gpt-5-nano",
+      "selfReported": {
+        "qualityScore": 98.93,
+        "completeness": 0.9,
+        "criterionScores": {
+          "personalized-icp": 1,
+          "proof-led-cta": 1,
+          "multi-step-sequence": 1,
+          "objection-angle": 0.95
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 94.29,
+        "completeness": 1,
+        "criterionScores": {
+          "personalized-icp": 0.8,
+          "proof-led-cta": 1,
+          "multi-step-sequence": 1,
+          "objection-angle": 1
+        },
+        "disagreementPoints": 1.43,
+        "maxCriterionDisagreementPoints": 20,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "sales-outreach-sequence",
+          "runId": "sales-outreach-sequence-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:41.355Z",
+          "completedAt": "2026-06-12T17:30:52.848Z",
+          "durationSeconds": 11.49,
+          "usage": {
+            "input_tokens": 1292,
+            "input_tokens_details": {
+              "cached_tokens": 607
+            },
+            "output_tokens": 1018,
+            "output_tokens_details": {
+              "reasoning_tokens": 805
+            },
+            "total_tokens": 2310
+          },
+          "costCents": 0.0279,
+          "qualityScore": 94.29,
+          "completeness": 1,
+          "criterionScores": {
+            "personalized-icp": 0.8,
+            "proof-led-cta": 1,
+            "multi-step-sequence": 1,
+            "objection-angle": 1
+          },
+          "confidence": 1,
+          "rationale": "The sequence is strongly personalized to the ICP (technical founder, context-switching pain in AI work) with specific references to live initiative rooms. The CTA is explicitly tied to a 15-minute live proof moment, satisfying the proof-led criterion. All required steps (Email 1, follow-up email, LinkedIn message, objection-handling angle, and proof-led CTA) are present and coherently sequenced. The objection-handling angle is credible, offering a low-risk pilot plan. Minor placeholders are standard and expected. Overall excellent satisfaction of criteria.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "sales-outreach-sequence",
+          "runId": "sales-outreach-sequence-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:41.541Z",
+          "completedAt": "2026-06-12T17:30:48.195Z",
+          "durationSeconds": 6.65,
+          "usage": {
+            "input_tokens": 1268,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 207,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 1475
+          },
+          "costCents": 0.0408,
+          "qualityScore": 92.86,
+          "completeness": 1,
+          "criterionScores": {
+            "personalized-icp": 0.9,
+            "proof-led-cta": 1,
+            "multi-step-sequence": 1,
+            "objection-angle": 0.8
+          },
+          "confidence": 0.9,
+          "rationale": "The artifact fully satisfies the task. It includes all three required steps (two emails, one LinkedIn message), a specific objection-handling angle, and a proof-led CTA. The sequence is highly specific to the ICP (technical founder, context switching in AI work, small startup size). The CTA is excellent and concrete, tied to a live demonstration of the product. The objection-handling angle is credible and tailored to the startup context, offering a low-risk pilot. The sequence is coherent and logically flows from problem to proof.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "sales-outreach-sequence",
+          "runId": "sales-outreach-sequence-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:48.196Z",
+          "completedAt": "2026-06-12T17:31:16.043Z",
+          "durationSeconds": 27.85,
+          "usage": {
+            "input_tokens": 1268,
+            "input_tokens_details": {
+              "cached_tokens": 1024
+            },
+            "output_tokens": 1708,
+            "output_tokens_details": {
+              "reasoning_tokens": 1476
+            },
+            "total_tokens": 2976
+          },
+          "costCents": 0.6022,
+          "qualityScore": 94.29,
+          "completeness": 1,
+          "criterionScores": {
+            "personalized-icp": 0.8,
+            "proof-led-cta": 1,
+            "multi-step-sequence": 1,
+            "objection-angle": 1
+          },
+          "confidence": 0.9,
+          "rationale": "The sequence is specifically tailored to a technical founder's pain of context switching across AI planning, execution, and review, using language like 'AI sprints', 'runbooks', and 'shipping fast' that resonates with the ICP. The CTA explicitly offers a concrete 15-minute live proof moment showing a real AI sprint orchestrated in one room. The sequence includes all required steps (Email 1, Follow-up email, LinkedIn message) in a coherent flow. The objection-handling angle credibly addresses the 'change tooling mid-sprint' concern with a low-friction two-cycle pilot plan, specific integration connectors, and success metrics.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "cross-functional-launch-plan",
+      "runId": "cross-functional-launch-plan-r1",
+      "generatorModel": "gpt-5-nano",
+      "selfReported": {
+        "qualityScore": 98.33,
+        "completeness": 0.95,
+        "criterionScores": {
+          "covers-all-domains": 1,
+          "sequencing": 1,
+          "launch-readiness": 0.9,
+          "proof-orientation": 1,
+          "measurable-metrics": 1
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "covers-all-domains": 1,
+          "sequencing": 1,
+          "launch-readiness": 1,
+          "proof-orientation": 1,
+          "measurable-metrics": 1
+        },
+        "disagreementPoints": 4.44,
+        "maxCriterionDisagreementPoints": 20,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "cross-functional-launch-plan",
+          "runId": "cross-functional-launch-plan-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:49.584Z",
+          "completedAt": "2026-06-12T17:31:10.090Z",
+          "durationSeconds": 20.51,
+          "usage": {
+            "input_tokens": 1503,
+            "input_tokens_details": {
+              "cached_tokens": 1152
+            },
+            "output_tokens": 747,
+            "output_tokens_details": {
+              "reasoning_tokens": 482
+            },
+            "total_tokens": 2250
+          },
+          "costCents": 0.0278,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "covers-all-domains": 1,
+            "sequencing": 1,
+            "launch-readiness": 1,
+            "proof-orientation": 1,
+            "measurable-metrics": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact fully satisfies all acceptance criteria. It explicitly covers all five domains (product, design, engineering, marketing, sales) with distinct workstreams. The milestones form a believable sequence of five weekly steps with clear dependencies (e.g., API contracts, data source availability). The launch readiness checklist is practical and includes concrete items for each domain plus security, operations, and metrics tracking. The entire plan is anchored on proving real work—the executive summary, risks, post-launch metrics all center on demonstrating live, shareable outputs (hierarchy, agent state, artifacts). Post-launch metrics are specific, quantitative, and measurable (activation rate, time-to-value, uptime, error rate, NPS). No red flags. Human review not needed.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "cross-functional-launch-plan",
+          "runId": "cross-functional-launch-plan-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:30:52.848Z",
+          "completedAt": "2026-06-12T17:32:31.461Z",
+          "durationSeconds": 98.61,
+          "usage": {
+            "input_tokens": 1503,
+            "input_tokens_details": {
+              "cached_tokens": 320
+            },
+            "output_tokens": 1003,
+            "output_tokens_details": {
+              "reasoning_tokens": 970
+            },
+            "total_tokens": 2506
+          },
+          "costCents": 0.073,
+          "qualityScore": 95.56,
+          "completeness": 1,
+          "criterionScores": {
+            "covers-all-domains": 1,
+            "sequencing": 0.8,
+            "launch-readiness": 1,
+            "proof-orientation": 1,
+            "measurable-metrics": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact fully covers all required domains (product, design, engineering, marketing, sales) with explicit workstreams. The sequencing includes believable milestones and weeks, though dependencies could be more explicitly tied to the sequence. The launch-readiness checklist is practical and cross-functional. The entire plan is anchored on proving real work through live, observable, shareable outputs. The success metrics are concrete, measurable, and well-aligned with the proof-oriented objective.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "cross-functional-launch-plan",
+          "runId": "cross-functional-launch-plan-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:31:10.090Z",
+          "completedAt": "2026-06-12T17:31:19.645Z",
+          "durationSeconds": 9.55,
+          "usage": {
+            "input_tokens": 1527,
+            "input_tokens_details": {
+              "cached_tokens": 687
+            },
+            "output_tokens": 749,
+            "output_tokens_details": {
+              "reasoning_tokens": 570
+            },
+            "total_tokens": 2276
+          },
+          "costCents": 0.1821,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "covers-all-domains": 1,
+            "sequencing": 1,
+            "launch-readiness": 1,
+            "proof-orientation": 1,
+            "measurable-metrics": 1
+          },
+          "confidence": 1,
+          "rationale": "All criteria fully met. The plan explicitly details product, design, engineering, marketing, and sales workstreams. Milestones are sequenced over six weeks with clear dependencies. Launch-readiness checklist is practical and covers all critical areas. The plan consistently focuses on proving real work through live, shareable outputs. Post-launch metrics include specific, measurable targets (activation rate, time-to-value, error rate, NPS score, etc.).",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "engineering-release-readiness-review",
+      "runId": "engineering-release-readiness-review-r1",
+      "generatorModel": "gpt-5-nano",
+      "selfReported": {
+        "qualityScore": 78.53,
+        "completeness": 0.72,
+        "criterionScores": {
+          "recommendation-quality": 0.78,
+          "identifies-operational-risk": 0.82,
+          "proposes-guardrails": 0.85,
+          "incident-thinking": 0.66
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "recommendation-quality": 1,
+          "identifies-operational-risk": 1,
+          "proposes-guardrails": 1,
+          "incident-thinking": 1
+        },
+        "disagreementPoints": 0,
+        "maxCriterionDisagreementPoints": 0,
+        "humanReviewRecommended": false,
+        "lowConfidenceReasons": []
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "engineering-release-readiness-review",
+          "runId": "engineering-release-readiness-review-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:31:16.043Z",
+          "completedAt": "2026-06-12T17:32:19.495Z",
+          "durationSeconds": 63.45,
+          "usage": {
+            "input_tokens": 1615,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 918,
+            "output_tokens_details": {
+              "reasoning_tokens": 816
+            },
+            "total_tokens": 2533
+          },
+          "costCents": 0.0362,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "recommendation-quality": 1,
+            "identifies-operational-risk": 1,
+            "proposes-guardrails": 1,
+            "incident-thinking": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact provides a clear executive recommendation ('Ship with guardrails') that is explicitly tied to specific risks and proposed guardrails. It thoroughly identifies operational risks such as untested retry logic, serial migration, lack of rollback plan, and observability gaps, rather than delivering a generic launch memo. It proposes concrete pre-launch guardrails including feature flags, load testing, staged rollout, rollback checklist, and enhanced monitoring. The incident-thinking section demonstrates real release/incident response planning with specific rollback timeframes, runbooks, and recovery objectives. All required memo sections are covered comprehensively.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "engineering-release-readiness-review",
+          "runId": "engineering-release-readiness-review-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:31:16.533Z",
+          "completedAt": "2026-06-12T17:31:21.702Z",
+          "durationSeconds": 5.17,
+          "usage": {
+            "input_tokens": 1615,
+            "input_tokens_details": {
+              "cached_tokens": 384
+            },
+            "output_tokens": 218,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 1833
+          },
+          "costCents": 0.0453,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "recommendation-quality": 1,
+            "identifies-operational-risk": 1,
+            "proposes-guardrails": 1,
+            "incident-thinking": 1
+          },
+          "confidence": 0.9,
+          "rationale": "The artifact provides a clear 'ship with guardrails' recommendation directly linked to the listed risks and proposed mitigations. It identifies specific operational risks from the implementation notes (e.g., dependency on unproven worker, untested retry logic, serial migration, lack of rollback checklist) rather than presenting generic launch advice. It proposes concrete pre-launch guardrails such as feature flags, load-testing plans, and staged rollouts. It demonstrates incident thinking through detailed rollback plans, recovery objectives, and expectations for incident runbooks, directly addressing the constraints and known gaps.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "engineering-release-readiness-review",
+          "runId": "engineering-release-readiness-review-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:31:19.645Z",
+          "completedAt": "2026-06-12T17:31:35.197Z",
+          "durationSeconds": 15.55,
+          "usage": {
+            "input_tokens": 1639,
+            "input_tokens_details": {
+              "cached_tokens": 770
+            },
+            "output_tokens": 1165,
+            "output_tokens_details": {
+              "reasoning_tokens": 964
+            },
+            "total_tokens": 2804
+          },
+          "costCents": 0.2481,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "recommendation-quality": 1,
+            "identifies-operational-risk": 1,
+            "proposes-guardrails": 1,
+            "incident-thinking": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact provides a clear 'Ship with guardrails' recommendation directly tied to specific risks and guardrails. It thoroughly identifies verification, observability, and rollback gaps, avoiding generic advice. The recommended pre-launch guardrails are concrete (feature flags, load-testing SLOs, staged rollout, rollback checklist). The rollback and incident response section demonstrates real incident thinking (RTO/RPO, runbooks, 15-min disable). All required memo sections are thoroughly addressed.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "marketing-proof-campaign-brief",
+      "runId": "marketing-proof-campaign-brief-r1",
+      "generatorModel": "gpt-5-nano",
+      "selfReported": {
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "proof-assets": 1,
+          "channel-specific": 1,
+          "anti-pattern-awareness": 1,
+          "measurable": 1
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "proof-assets": 1,
+          "channel-specific": 1,
+          "anti-pattern-awareness": 1,
+          "measurable": 1
+        },
+        "disagreementPoints": 20,
+        "maxCriterionDisagreementPoints": 20,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "judge quality disagreement >= 8 points",
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "marketing-proof-campaign-brief",
+          "runId": "marketing-proof-campaign-brief-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:31:21.702Z",
+          "completedAt": "2026-06-12T17:31:31.231Z",
+          "durationSeconds": 9.53,
+          "usage": {
+            "input_tokens": 1292,
+            "input_tokens_details": {
+              "cached_tokens": 607
+            },
+            "output_tokens": 923,
+            "output_tokens_details": {
+              "reasoning_tokens": 740
+            },
+            "total_tokens": 2215
+          },
+          "costCents": 0.0261,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "proof-assets": 1,
+            "channel-specific": 1,
+            "anti-pattern-awareness": 1,
+            "measurable": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact fully addresses all acceptance criteria. Proof-assets are treated as core campaign assets with a dedicated section and integration across channels. Channel-specific guidance provides distinct content for homepage, blog, social, and email. The anti-pattern is clearly identified (hype-driven demos) with concrete avoidance strategies. Success metrics are quantifiable and tied to campaign objectives. The artifact includes all required sections from the task prompt, demonstrating completeness.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "marketing-proof-campaign-brief",
+          "runId": "marketing-proof-campaign-brief-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:31:31.231Z",
+          "completedAt": "2026-06-12T17:31:50.090Z",
+          "durationSeconds": 18.86,
+          "usage": {
+            "input_tokens": 1273,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 1300,
+            "output_tokens_details": {
+              "reasoning_tokens": 1031
+            },
+            "total_tokens": 2573
+          },
+          "costCents": 0.1917,
+          "qualityScore": 80,
+          "completeness": 0.8,
+          "criterionScores": {
+            "proof-assets": 0.8,
+            "channel-specific": 0.8,
+            "anti-pattern-awareness": 0.8,
+            "measurable": 0.8
+          },
+          "confidence": 0.8,
+          "rationale": "The artifact meets all criteria strongly. For 'proof-assets', it explicitly lists multiple proof assets (e.g., live progress streams, audit-ready artifacts, dashboards) and treats them as core campaign assets. For 'channel-specific', it provides distinct content guidance for homepage, blog, social, and email, each with specific types of content and CTAs. For 'anti-pattern-awareness', it identifies the hype-driven demo anti-pattern and provides concrete avoidance strategies (auditable milestones, real artifacts, timestamps). For 'measurable', it defines multiple success metrics (velocity, integrity score, decision lead time, etc.). Completeness is high as all required sections are covered adequately. Confidence is moderate because the artifact is well-structured and addresses the prompt. No red flags are present, and human review is not needed as the artifact clearly satisfies the criteria.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "marketing-proof-campaign-brief",
+          "runId": "marketing-proof-campaign-brief-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:31:35.197Z",
+          "completedAt": "2026-06-12T17:31:53.262Z",
+          "durationSeconds": 18.07,
+          "usage": {
+            "input_tokens": 1288,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 916,
+            "output_tokens_details": {
+              "reasoning_tokens": 750
+            },
+            "total_tokens": 2204
+          },
+          "costCents": 0.3962,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "proof-assets": 1,
+            "channel-specific": 1,
+            "anti-pattern-awareness": 1,
+            "measurable": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact fully satisfies all acceptance criteria. The proof assets are treated as core and woven throughout the campaign plan. The content plan provides distinct, tailored guidance for each channel (homepage, blog, social, email). The anti-pattern is clearly identified as hype-driven non-auditable demos and concrete avoidance strategies are given. Success metrics are specific, measurable, and relevant. All required sections are present and well-developed.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "ops-escalation-playbook",
+      "runId": "ops-escalation-playbook-r1",
+      "generatorModel": "gpt-5-nano",
+      "selfReported": {
+        "qualityScore": 89.29,
+        "completeness": 0.9,
+        "criterionScores": {
+          "blocker-specific": 1,
+          "sla-owner-clarity": 1,
+          "communication-ready": 0.75,
+          "recovery-checklist": 0.75
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 100,
+        "completeness": 1,
+        "criterionScores": {
+          "blocker-specific": 1,
+          "sla-owner-clarity": 1,
+          "communication-ready": 1,
+          "recovery-checklist": 1
+        },
+        "disagreementPoints": 2.86,
+        "maxCriterionDisagreementPoints": 10,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "ops-escalation-playbook",
+          "runId": "ops-escalation-playbook-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:31:50.091Z",
+          "completedAt": "2026-06-12T17:32:08.041Z",
+          "durationSeconds": 17.95,
+          "usage": {
+            "input_tokens": 2162,
+            "input_tokens_details": {
+              "cached_tokens": 2048
+            },
+            "output_tokens": 660,
+            "output_tokens_details": {
+              "reasoning_tokens": 369
+            },
+            "total_tokens": 2822
+          },
+          "costCents": 0.0181,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "blocker-specific": 1,
+            "sla-owner-clarity": 1,
+            "communication-ready": 1,
+            "recovery-checklist": 1
+          },
+          "confidence": 1,
+          "rationale": "The artifact fully satisfies all acceptance criteria. The playbook distinguishes integration, billing (free-credit), and approval blockers with separate paths each with specific owners, steps, and escalation routes (criterion: blocker-specific, excellent, score 1.0). It defines time-based SLAs (acknowledgement and resolution windows) and clear ownership per blocker type, plus escalation cadences (criterion: sla-owner-clarity, excellent, score 1.0). It provides reusable communication templates for escalation, status updates, stakeholder notification, and executive brief (criterion: communication-ready, excellent, score 1.0). It includes practical resolution checklists (A/B/C) for each blocker type, not just routing instructions (criterion: recovery-checklist, excellent, score 1.0). The playbook is complete with trigger conditions, severity levels, roles summary, and runbook notes. No red flags; human review not needed.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "ops-escalation-playbook",
+          "runId": "ops-escalation-playbook-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:31:53.262Z",
+          "completedAt": "2026-06-12T17:32:11.231Z",
+          "durationSeconds": 17.97,
+          "usage": {
+            "input_tokens": 2145,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 379,
+            "output_tokens_details": {
+              "reasoning_tokens": 190
+            },
+            "total_tokens": 2524
+          },
+          "costCents": 0.0715,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "blocker-specific": 1,
+            "sla-owner-clarity": 1,
+            "communication-ready": 1,
+            "recovery-checklist": 1
+          },
+          "confidence": 0.9,
+          "rationale": "The artifact fully satisfies all acceptance criteria. It explicitly distinguishes between integration, billing (credit), and approval blockers with separate escalation flows, steps, and checklists. Time-based SLAs and ownership are clearly defined for each blocker type, with acknowledgment and resolution times. Communication templates are provided and reusable for different scenarios. Recovery checklists are practical and specific to each blocker type, going beyond escalation routing. The playbook is comprehensive and directly addresses the scenario requirements.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "ops-escalation-playbook",
+          "runId": "ops-escalation-playbook-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:32:08.041Z",
+          "completedAt": "2026-06-12T17:32:23.169Z",
+          "durationSeconds": 15.13,
+          "usage": {
+            "input_tokens": 2145,
+            "input_tokens_details": {
+              "cached_tokens": 2048
+            },
+            "output_tokens": 926,
+            "output_tokens_details": {
+              "reasoning_tokens": 646
+            },
+            "total_tokens": 3071
+          },
+          "costCents": 0.3408,
+          "qualityScore": 97.14,
+          "completeness": 0.95,
+          "criterionScores": {
+            "blocker-specific": 1,
+            "sla-owner-clarity": 0.9,
+            "communication-ready": 1,
+            "recovery-checklist": 1
+          },
+          "confidence": 0.95,
+          "rationale": "The playbook explicitly differentiates between integration auth, free-credit exhaustion, and pending approval blockers, providing separate escalation paths, owners, and resolution steps for each. Time-based SLAs are clearly defined per blocker type (e.g., 15-minute acknowledgement, 2-hour resolution for auth/credit, 1-hour ack/6-hour decision for approval) with named owners (Integration Lead, FinOps Lead, Approvals Coordinator). Communication templates are reusable and cover escalation notes, daily status, approval requests, and executive briefs. Recovery checklists are practical, step-by-step, and blocker-specific, going beyond mere routing to include verification, testing, monitoring, and documentation. The only minor gap is that the SLA section mentions a 'general escalation cadence' with 'Level 2: 1 business day' which is slightly vague, but the per-blocker SLAs are specific.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "product-retention-experiment-plan",
+      "runId": "product-retention-experiment-plan-r1",
+      "generatorModel": "gpt-5-nano",
+      "selfReported": {
+        "qualityScore": 92.67,
+        "completeness": 0.92,
+        "criterionScores": {
+          "behavior-change": 0.9,
+          "experiment-specific": 0.95,
+          "measurement-plan": 0.95,
+          "rollout-sequencing": 0.9
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 97.33,
+        "completeness": 0.95,
+        "criterionScores": {
+          "behavior-change": 1,
+          "experiment-specific": 0.9,
+          "measurement-plan": 1,
+          "rollout-sequencing": 1
+        },
+        "disagreementPoints": 12,
+        "maxCriterionDisagreementPoints": 30,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "judge quality disagreement >= 8 points",
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "product-retention-experiment-plan",
+          "runId": "product-retention-experiment-plan-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:32:11.231Z",
+          "completedAt": "2026-06-12T17:32:24.262Z",
+          "durationSeconds": 13.03,
+          "usage": {
+            "input_tokens": 1453,
+            "input_tokens_details": {
+              "cached_tokens": 1152
+            },
+            "output_tokens": 824,
+            "output_tokens_details": {
+              "reasoning_tokens": 505
+            },
+            "total_tokens": 2277
+          },
+          "costCents": 0.0214,
+          "qualityScore": 89.33,
+          "completeness": 0.9,
+          "criterionScores": {
+            "behavior-change": 1,
+            "experiment-specific": 0.6,
+            "measurement-plan": 1,
+            "rollout-sequencing": 1
+          },
+          "confidence": 0.9,
+          "rationale": "behavior-change: Clearly targets a concrete user behavior (logging back in within 24 hours to engage with a recommended follow-up action) and defines secondary behaviors, not just vague engagement. Score 1.0. experiment-specific: The plan defines three testable conditions (Control, Treatment 1, Treatment 2) with specific treatments and a clear population, duration, and success criteria. However, Treatment 2 bundles a recap, personalized recommendation, AND a 24-hour push notification, which combines multiple changes; the push notification is a different modality that could confound isolation of the core nudge. This reduces specificity slightly. Score 0.6. measurement-plan: Provides detailed events, cohort tracking, metric definitions, and instrumentation requirements directly tied to the hypothesis. Score 1.0. rollout-sequencing: Includes four clear phases with internal QA, pilot, incremental rollout, and full deployment, plus validation gates. Score 1.0. completeness: All six required sections are present and well-articulated. Minor confound in Treatment 2 design. Score 0.9.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "product-retention-experiment-plan",
+          "runId": "product-retention-experiment-plan-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:32:19.495Z",
+          "completedAt": "2026-06-12T17:32:25.265Z",
+          "durationSeconds": 5.77,
+          "usage": {
+            "input_tokens": 1453,
+            "input_tokens_details": {
+              "cached_tokens": 64
+            },
+            "output_tokens": 281,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 1734
+          },
+          "costCents": 0.0476,
+          "qualityScore": 85.33,
+          "completeness": 1,
+          "criterionScores": {
+            "behavior-change": 0.9,
+            "experiment-specific": 0.9,
+            "measurement-plan": 0.8,
+            "rollout-sequencing": 0.8
+          },
+          "confidence": 0.9,
+          "rationale": "The artifact satisfies the acceptance criteria concretely. For 'behavior-change', it specifies a primary behavior (logging back in within 24 hours to engage with a recommended action) and a secondary behavior, focusing clearly on changing a specific user action. For 'experiment-specific', it defines a real A/B/n test with distinct, testable conditions (control, Treatment 1, Treatment 2) and concrete success criteria. For 'measurement-plan', it provides detailed instrumentation events, metric definitions, and a cohort tracking plan directly tied to testing the hypothesis. For 'rollout-sequencing', it offers a sensible, phased rollout from internal QA to pilot to incremental and full deployment, including validation checks. The scores are slightly below 1.0 because, while excellent, there is minor room for even more granular detail (e.g., specific power analysis numbers, exact event schemas) to be considered perfect.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "product-retention-experiment-plan",
+          "runId": "product-retention-experiment-plan-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:32:23.169Z",
+          "completedAt": "2026-06-12T17:32:41.344Z",
+          "durationSeconds": 18.17,
+          "usage": {
+            "input_tokens": 1453,
+            "input_tokens_details": {
+              "cached_tokens": 1280
+            },
+            "output_tokens": 1079,
+            "output_tokens_details": {
+              "reasoning_tokens": 826
+            },
+            "total_tokens": 2532
+          },
+          "costCents": 0.392,
+          "qualityScore": 97.33,
+          "completeness": 0.95,
+          "criterionScores": {
+            "behavior-change": 1,
+            "experiment-specific": 0.9,
+            "measurement-plan": 1,
+            "rollout-sequencing": 1
+          },
+          "confidence": 0.95,
+          "rationale": "The plan clearly targets a specific user behavior (day-2 return after first room completion) and defines a concrete change via automated recaps and personalized next steps. The experiment design specifies testable conditions with an A/B/n structure, control and two treatment variants, clear hypotheses, key metrics, and success criteria. The instrumentation plan is detailed, listing specific events, cohort tracking, metric definitions, and infrastructure requirements, all tied to the hypothesis. The rollout sequence is multi-phased with internal QA, pilot at limited percentage, incremental expansion, and full deployment, including validation checks at each stage. Minor improvements could include more explicit power analysis inputs or handling of non-inferiority scenarios, but overall the plan solidly meets all acceptance criteria in a concrete and actionable manner.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    },
+    {
+      "taskId": "sales-competitive-battlecard",
+      "runId": "sales-competitive-battlecard-r1",
+      "generatorModel": "gpt-5-nano",
+      "selfReported": {
+        "qualityScore": 87.14,
+        "completeness": 0.88,
+        "criterionScores": {
+          "explicit-comparison": 0.9,
+          "acknowledges-weakness": 0.7,
+          "proof-moments": 0.95,
+          "founder-talk-track": 0.9
+        }
+      },
+      "aggregate": {
+        "judgeCount": 3,
+        "qualityScore": 95.71,
+        "completeness": 1,
+        "criterionScores": {
+          "explicit-comparison": 1,
+          "acknowledges-weakness": 0.8,
+          "proof-moments": 1,
+          "founder-talk-track": 1
+        },
+        "disagreementPoints": 10,
+        "maxCriterionDisagreementPoints": 20,
+        "humanReviewRecommended": true,
+        "lowConfidenceReasons": [
+          "judge quality disagreement >= 8 points",
+          "criterion disagreement >= 8 points"
+        ]
+      },
+      "judges": [
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-flash:low:j1",
+          "taskId": "sales-competitive-battlecard",
+          "runId": "sales-competitive-battlecard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-flash",
+          "reasoningEffort": "low",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:32:24.263Z",
+          "completedAt": "2026-06-12T17:32:31.912Z",
+          "durationSeconds": 7.65,
+          "usage": {
+            "input_tokens": 1517,
+            "input_tokens_details": {
+              "cached_tokens": 1152
+            },
+            "output_tokens": 773,
+            "output_tokens_details": {
+              "reasoning_tokens": 523
+            },
+            "total_tokens": 2290
+          },
+          "costCents": 0.0287,
+          "qualityScore": 90,
+          "completeness": 1,
+          "criterionScores": {
+            "explicit-comparison": 0.8,
+            "acknowledges-weakness": 0.8,
+            "proof-moments": 1,
+            "founder-talk-track": 1
+          },
+          "confidence": 0.95,
+          "rationale": "The artifact fully satisfies all required sections. Explicit-comparison: clearly contrasts OrgX against each alternative (chat tools, copilots, workflow automation) with concrete points, not vague claims. Acknowledges-weakness: honestly states where OrgX is not a best fit (basic chat-only needs, lightweight no-governance teams, early prototype phase). Proof-moments: lists 6 concrete, showable demo moments (e.g., end-to-end lifecycle demo, artifact quality checks, audit trail, integration proof) that are actionable for a sales demo. Founder-talk-track: provides one crisp, concise, founder-usable talk track that is not generic boilerplate. Completeness: all six required sections are present and substantive. No red flags; human review not needed.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v3.2:medium:j2",
+          "taskId": "sales-competitive-battlecard",
+          "runId": "sales-competitive-battlecard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v3.2",
+          "reasoningEffort": "medium",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:32:25.265Z",
+          "completedAt": "2026-06-12T17:32:31.490Z",
+          "durationSeconds": 6.22,
+          "usage": {
+            "input_tokens": 1517,
+            "input_tokens_details": {
+              "cached_tokens": 64
+            },
+            "output_tokens": 269,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 1786
+          },
+          "costCents": 0.0488,
+          "qualityScore": 91.43,
+          "completeness": 1,
+          "criterionScores": {
+            "explicit-comparison": 1,
+            "acknowledges-weakness": 0.8,
+            "proof-moments": 1,
+            "founder-talk-track": 0.8
+          },
+          "confidence": 0.9,
+          "rationale": "The artifact fully meets the explicit-comparison criterion by directly naming and contrasting OrgX against each of the provided alternatives (Claude/ChatGPT, Cursor/copilots, workflow automation tools) across multiple sections. It partially meets the acknowledges-weakness criterion by honestly stating scenarios where OrgX is weaker (e.g., basic chat needs, low-friction automation, small teams with no governance), but the language ('may feel cheaper,' 'may feel faster') slightly softens the weakness, preventing a perfect score. The artifact fully meets the proof-moments criterion by providing six specific, concrete, and actionable demo moments tied to the sales process. The founder-talk-track criterion is strongly met with a concise, benefit-focused, and usable script, though it could be slightly more direct about the competitive alternatives.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        },
+        {
+          "judgeId": "openrouter:deepseek/deepseek-v4-pro:high:j3",
+          "taskId": "sales-competitive-battlecard",
+          "runId": "sales-competitive-battlecard-r1",
+          "provider": "openrouter",
+          "model": "deepseek/deepseek-v4-pro",
+          "reasoningEffort": "high",
+          "status": "completed",
+          "startedAt": "2026-06-12T17:32:31.462Z",
+          "completedAt": "2026-06-12T17:32:58.015Z",
+          "durationSeconds": 26.55,
+          "usage": {
+            "input_tokens": 1517,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 1193,
+            "output_tokens_details": {
+              "reasoning_tokens": 1155
+            },
+            "total_tokens": 2710
+          },
+          "costCents": 0.6791,
+          "qualityScore": 100,
+          "completeness": 1,
+          "criterionScores": {
+            "explicit-comparison": 1,
+            "acknowledges-weakness": 1,
+            "proof-moments": 1,
+            "founder-talk-track": 1
+          },
+          "confidence": 0.95,
+          "rationale": "The artifact explicitly compares OrgX to each of the three given alternatives with concrete differentiators. It honestly lists scenarios where OrgX is weaker or not a fit. The proof moments section provides six specific, demonstrable examples for a sales process. The founder talk track is concise, direct, and usable by a founder selling to technical teams. All six required sections are present and well-addressed.",
+          "redFlags": [],
+          "humanReviewRecommended": false
+        }
+      ]
+    }
+  ]
+}

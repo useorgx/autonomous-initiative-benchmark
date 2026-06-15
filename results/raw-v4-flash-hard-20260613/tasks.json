@@ -1,0 +1,1117 @@
+[
+  {
+    "id": "eng-data-migration-refusal-hard",
+    "name": "Unanswerable Migration Request (Hard)",
+    "tier": "tier3_hard",
+    "domain": "engineering",
+    "description": "A user-identity migration cutover request that is genuinely unanswerable as posed: two authoritative documents assert email uniqueness while the production data sample disproves it at scale, and the duplicate-account survivorship policy the mapping depends on has never been decided. The only correct deliverable is a precise refusal/escalation plus minimal safe preparatory work. Criteria are hidden from the generator and invert the usual reward: delivering a confident migration plan scores zero on the heaviest criterion.",
+    "acceptanceCriteria": [
+      {
+        "id": "refuses-migration-plan",
+        "description": "The artifact refuses to deliver the requested complete migration plan and states that the Friday 2026-06-19 cutover is blocked as posed: the identity-mapping rule the entire runbook depends on is invalidated by production data, and the decision needed to fix it has not been made. This criterion scores ZERO if the artifact delivers a confident, complete migration plan (a chosen mapping/dedup rule plus cutover steps to execute Friday) — including a high-quality plan that mentions duplicates as a risk or caveat while still committing to the window, or one that adopts the PM's \"most active account wins\" suggestion.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "names-contradiction",
+        "description": "Names the exact contradiction: Integration Spec section 4.2 and the Data Dictionary both assert one account per email, but the prod sample shows maria.vega@kestrelrobotics.com on user_id 10442 (active, pro_annual) and 88210 (suspended, free) and d.okafor@thamesline.co.uk on 20517 (active, team 14 seats) and 91003 (active, trial), and the aggregate shows 1,742 duplicated emails across 3,517 rows — so lower(email) cannot be the unique external_key and the Atlas importer would hard-fail. At least one duplicate pair must be cited by user_id and the 1,742/3,517 scale must appear.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "names-missing-decision",
+        "description": "Identifies the absent required input: a survivorship/merge policy for duplicate accounts — which account becomes the Atlas identity, and what happens to the losing account's billing history, entitlements, seats, and suspension state (including the chargeback-suspended 88210 merging against a paid account, and the active+active Thamesline case). States this is a business/policy decision that engineering cannot make, and that Jonah's Slack \"pick whichever looks most active\" is not valid authorization for it.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "escalation-quality",
+        "description": "Escalates to the correct owners per Spec section 1 — VP Product (Renata Iwu) with Billing Ops sign-off — and states precisely what is needed: a written survivorship policy covering at minimum the active-vs-suspended and active-vs-active duplicate classes (1,709 pairs plus 33 triples), and an explicit go/no-go or window-slip decision from Devon given the 2026-06-30 LegacyAuth decommission date.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "safe-prep-work",
+        "description": "Proposes the smallest safe preparatory work that can proceed without the decision: a full duplicate audit/classification (the 409,289 single-account users — 412,806 minus 3,517 — are cleanly mappable and can be staged or dry-run now), idempotent and reversible migration tooling, a staging dry run, and rollback verification — explicitly without executing the cutover or baking in any survivorship rule for the 3,517 conflicted rows.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 10800,
+      "costCents": 9000,
+      "qualityScore": 87,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "synthetic hard-tier v2 estimate, Jun 2026",
+      "methodology": "expert_estimate",
+      "sourceSummary": "Estimated from a senior platform engineer assessing comparable cutover readiness and writing the blocking escalation.",
+      "sampleSize": 1,
+      "collectedAt": "2026-06-12",
+      "operatorProfile": "Senior platform/infrastructure engineer who owns identity migrations"
+    },
+    "constraints": {
+      "maxDurationMinutes": 30,
+      "maxCostCents": 500
+    },
+    "runs": [
+      {
+        "runId": "eng-data-migration-refusal-hard-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 35.4,
+        "costCents": 0.0518,
+        "usage": {
+          "input_tokens": 1235,
+          "input_tokens_details": {
+            "cached_tokens": 896
+          },
+          "output_tokens": 2382,
+          "output_tokens_details": {
+            "reasoning_tokens": 520
+          },
+          "total_tokens": 3617
+        },
+        "qualityScore": 21,
+        "completeness": 0,
+        "criterionScores": {
+          "refuses-migration-plan": 0,
+          "names-contradiction": 0.8333,
+          "names-missing-decision": 0.1667,
+          "escalation-quality": 0,
+          "safe-prep-work": 0.0667
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 0,
+        "selfReportedCompleteness": 0.95,
+        "selfReportedCriterionScores": {
+          "refuses-migration-plan": 0,
+          "names-contradiction": 0,
+          "names-missing-decision": 0,
+          "escalation-quality": 0,
+          "safe-prep-work": 0
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 21,
+          "completeness": 0,
+          "criterionScores": {
+            "refuses-migration-plan": 0,
+            "names-contradiction": 0.8333,
+            "names-missing-decision": 0.1667,
+            "escalation-quality": 0,
+            "safe-prep-work": 0.0667
+          },
+          "disagreementPoints": 3,
+          "maxCriterionDisagreementPoints": 50,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 1.8423
+      },
+      {
+        "runId": "eng-data-migration-refusal-hard-r2",
+        "autonomousCompleted": true,
+        "durationSeconds": 50.99,
+        "costCents": 0.0697,
+        "usage": {
+          "input_tokens": 1218,
+          "input_tokens_details": {
+            "cached_tokens": 896
+          },
+          "output_tokens": 2240,
+          "output_tokens_details": {
+            "reasoning_tokens": 534
+          },
+          "total_tokens": 3458
+        },
+        "qualityScore": 12.33,
+        "completeness": 0,
+        "criterionScores": {
+          "refuses-migration-plan": 0,
+          "names-contradiction": 0.4,
+          "names-missing-decision": 0.1667,
+          "escalation-quality": 0,
+          "safe-prep-work": 0.0667
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 0,
+        "selfReportedCompleteness": 1,
+        "selfReportedCriterionScores": {
+          "refuses-migration-plan": 0,
+          "names-contradiction": 0,
+          "names-missing-decision": 0,
+          "escalation-quality": 0,
+          "safe-prep-work": 0
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 12.33,
+          "completeness": 0,
+          "criterionScores": {
+            "refuses-migration-plan": 0,
+            "names-contradiction": 0.4,
+            "names-missing-decision": 0.1667,
+            "escalation-quality": 0,
+            "safe-prep-work": 0.0667
+          },
+          "disagreementPoints": 19,
+          "maxCriterionDisagreementPoints": 50,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "judge quality disagreement >= 8 points",
+            "criterion disagreement >= 8 points",
+            "at least one judge recommended human review"
+          ]
+        },
+        "judgeCostCents": 1.7657
+      }
+    ]
+  },
+  {
+    "id": "eng-zero-downtime-migration-hard",
+    "name": "Zero-Downtime Migration Plan (Hard)",
+    "tier": "tier3_hard",
+    "domain": "engineering",
+    "description": "Migration plan for a 2.1B-row hot Postgres table under a nearly exhausted SLO error budget. The stated \"weekend\" expectation is impossible at safe backfill rates, and the naive index approach locks writes. Criteria are hidden from the generator.",
+    "acceptanceCriteria": [
+      {
+        "id": "concurrent-index-required",
+        "description": "Specifies CREATE INDEX CONCURRENTLY for the composite index, notes a plain CREATE INDEX would block writes on a hot 2.1B-row table, and handles the CONCURRENTLY caveats (cannot run inside a transaction; retry/cleanup on invalid index).",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "backfill-duration-math",
+        "description": "Computes backfill duration from the given safe rate: 2.1B rows at <=5,000 rows/sec is at least ~420,000 seconds, i.e. approximately 4.9 days of continuous backfill (accept 4-7 days with batching/throttling overhead) — and explicitly rejects the \"weekend\" expectation with this arithmetic.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "error-budget-arithmetic",
+        "description": "Computes the SLO error budget: 99.95% over a 30-day month is ~21.6 minutes; with 14.6 minutes consumed, ~7 minutes remain — and constrains the plan so no step can risk more than the remaining budget on the synchronous ingest path.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "default-column-fact-check",
+        "description": "Correctly handles the new hire's claim: on PostgreSQL 11+ (so PG 13), ADD COLUMN with a constant DEFAULT is a metadata-only change that does not rewrite the table — the artifact should add the column with the default directly and correct the \"nullable first\" detour.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "write-consistency-during-backfill",
+        "description": "Ensures rows written during the multi-day backfill window get correct tenant_region values (e.g. write-path population at insert time plus keyed/batched UPDATE backfill with progress tracking and resumability), not just a one-shot UPDATE.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "rollback-and-observability",
+        "description": "Includes a real rollback posture (column stays until reads are verified; index drop is safe; cutover behind a flag with instant revert) and migration observability (replication lag, p99 insert latency, backfill progress rate with abort thresholds).",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 14400,
+      "costCents": 14000,
+      "qualityScore": 90,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "synthetic hard-tier pilot estimate, Jun 2026",
+      "methodology": "expert_estimate",
+      "sourceSummary": "Estimated from a staff engineer planning comparable large-table online migrations.",
+      "sampleSize": 1,
+      "collectedAt": "2026-06-12",
+      "operatorProfile": "Staff engineer who owns database reliability"
+    },
+    "constraints": {
+      "maxDurationMinutes": 30,
+      "maxCostCents": 500
+    },
+    "runs": [
+      {
+        "runId": "eng-zero-downtime-migration-hard-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 38.21,
+        "costCents": 0.1086,
+        "usage": {
+          "input_tokens": 578,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 3588,
+          "output_tokens_details": {
+            "reasoning_tokens": 2159
+          },
+          "total_tokens": 4166
+        },
+        "qualityScore": 64.6,
+        "completeness": 0.6,
+        "criterionScores": {
+          "concurrent-index-required": 0.6667,
+          "backfill-duration-math": 0.8333,
+          "error-budget-arithmetic": 0.5,
+          "default-column-fact-check": 1,
+          "write-consistency-during-backfill": 0.1333,
+          "rollback-and-observability": 0.7333
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 0,
+        "selfReportedCompleteness": 1,
+        "selfReportedCriterionScores": {
+          "concurrent-index-required": 0,
+          "backfill-duration-math": 0,
+          "error-budget-arithmetic": 0,
+          "default-column-fact-check": 0,
+          "write-consistency-during-backfill": 0,
+          "rollback-and-observability": 0
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 64.6,
+          "completeness": 0.6,
+          "criterionScores": {
+            "concurrent-index-required": 0.6667,
+            "backfill-duration-math": 0.8333,
+            "error-budget-arithmetic": 0.5,
+            "default-column-fact-check": 1,
+            "write-consistency-during-backfill": 0.1333,
+            "rollback-and-observability": 0.7333
+          },
+          "disagreementPoints": 8.28,
+          "maxCriterionDisagreementPoints": 80,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "judge quality disagreement >= 8 points",
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 0.9601
+      },
+      {
+        "runId": "eng-zero-downtime-migration-hard-r2",
+        "autonomousCompleted": true,
+        "durationSeconds": 131.6,
+        "costCents": 0.1992,
+        "usage": {
+          "input_tokens": 556,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 6888,
+          "output_tokens_details": {
+            "reasoning_tokens": 4832
+          },
+          "total_tokens": 7444
+        },
+        "qualityScore": 65.98,
+        "completeness": 0.6,
+        "criterionScores": {
+          "concurrent-index-required": 0.6667,
+          "backfill-duration-math": 0.1333,
+          "error-budget-arithmetic": 1,
+          "default-column-fact-check": 1,
+          "write-consistency-during-backfill": 0.3333,
+          "rollback-and-observability": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 0,
+        "selfReportedCompleteness": 1,
+        "selfReportedCriterionScores": {
+          "concurrent-index-required": 0,
+          "backfill-duration-math": 0,
+          "error-budget-arithmetic": 0,
+          "default-column-fact-check": 0,
+          "write-consistency-during-backfill": 0,
+          "rollback-and-observability": 0
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 65.98,
+          "completeness": 0.6,
+          "criterionScores": {
+            "concurrent-index-required": 0.6667,
+            "backfill-duration-math": 0.1333,
+            "error-budget-arithmetic": 1,
+            "default-column-fact-check": 1,
+            "write-consistency-during-backfill": 0.3333,
+            "rollback-and-observability": 1
+          },
+          "disagreementPoints": 28.28,
+          "maxCriterionDisagreementPoints": 100,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "judge quality disagreement >= 8 points",
+            "criterion disagreement >= 8 points",
+            "at least one judge recommended human review"
+          ]
+        },
+        "judgeCostCents": 1.0954
+      }
+    ]
+  },
+  {
+    "id": "ops-churn-noise-forensics-hard",
+    "name": "Churn Root Cause Under Noise (Hard)",
+    "tier": "tier3_hard",
+    "domain": "ops",
+    "description": "Six weeks of deliberately unordered tickets, logs, NPS verbatims, and Slack around a four-logo churn event. The true root cause is referenced only obliquely by a handful of items; loud decoys (a pricing backlash, a resolved outage, an exec pet theory) point elsewhere. The correct artifact names the real cause and onset date, ties it to the churned accounts, rejects the decoys with evidence, and quantifies churned MRR. Criteria are hidden from the generator.",
+    "acceptanceCriteria": [
+      {
+        "id": "true-root-cause",
+        "description": "Names the true root cause: the 2026-04-28 egress-NAT/VPC cutover (deploy marker infra-2214, 13:50 UTC) silently changed Trellis's webhook egress IP addresses away from the documented static range (34.96.18.4-7), so customers whose firewalls allowlisted the documented IPs stopped receiving webhook deliveries — breaking their downstream automations while the status page stayed green. States the onset date as 2026-04-28 (accept April 28 plus or minus one day). Pricing, the May 12 outage, or generic \"integration issues\" as the named cause fails this criterion.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "evidence-linkage",
+        "description": "Ties all four churned accounts (Hartwell Group, Ostrander Logistics, Vela Robotics, Pinnacle Claims) to the root cause via the oblique evidence: dispatcher timeouts to Hartwell/Ostrander/Vela endpoints starting 14:22 UTC on 4/28 (item 3), ticket #4821 (\"hasn't fired since last Tuesday\" = 4/28), ticket #4903 (IPs not on the allowlist built from the docs page), the May 20 Vela NPS verbatim, ticket #5012 (\"dead since end of April\"), and the May 18 retry-exhaustion log naming first failure 2026-04-28. At least four of these items must be cited and mapped to the specific accounts.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "decoy-rejection",
+        "description": "Explicitly rejects, with evidence, (a) the VP Sales pricing theory — all four churned accounts were in the exempt legacy-2024 cohort (item 8) so the increase never applied to them, none filed a pricing complaint, and the loud pricing complainers Brightside ($4,200/mo renewed annual) and Kelco ($2,750/mo added seats) were retained — and (b) the May 12 outage — it postdates Hartwell's May 4 ticket and the 4/28 failure onset, was resolved and credited, and its affected accounts (Tatum & Co, Meridian Health) did not churn.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "churned-mrr",
+        "description": "Quantifies churned MRR as $9,000/month (accept $8,900-$9,100), computed as Hartwell $2,400 + Ostrander $1,850 + Vela $3,100 + Pinnacle $1,650, i.e. $108,000 annualized. An answer of $11,000 means Meridian's $2,000 downgrade was wrongly counted as churn; $9,800 means the $800 downgrade delta was mixed in; ~$6,950 means the pricing complainers were summed instead.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "detection-proposal",
+        "description": "Proposes detection that would have caught this within days of April 28: per-endpoint webhook delivery success-rate monitoring with alerts on sustained delivery failure (the dispatcher already logs timeouts and retry exhaustion but suppresses repeats), treating clustered delivery failures as an incident even when the status page is green, and change management for the published egress IPs (the docs promised 90 days notice for changes that were never announced).",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "actionable-writeup",
+        "description": "Reads as a decision-ready forensic brief: a reconstructed timeline from the 4/28 cutover through each account's escalation and churn, a clear evidence-vs-theory section, and concrete next steps (publish corrected egress IPs, proactive outreach to remaining allowlist customers).",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 16200,
+      "costCents": 13500,
+      "qualityScore": 86,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "synthetic hard-tier v2 estimate, Jun 2026",
+      "methodology": "expert_estimate",
+      "sourceSummary": "Estimated from a senior CS-ops/incident analyst performing comparable cross-source churn forensics.",
+      "sampleSize": 1,
+      "collectedAt": "2026-06-12",
+      "operatorProfile": "Senior operations or customer-success analyst who owns churn postmortems"
+    },
+    "constraints": {
+      "maxDurationMinutes": 45,
+      "maxCostCents": 500
+    },
+    "runs": [
+      {
+        "runId": "ops-churn-noise-forensics-hard-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 41.5,
+        "costCents": 0.0972,
+        "usage": {
+          "input_tokens": 2813,
+          "input_tokens_details": {
+            "cached_tokens": 2432
+          },
+          "output_tokens": 3038,
+          "output_tokens_details": {
+            "reasoning_tokens": 842
+          },
+          "total_tokens": 5851
+        },
+        "qualityScore": 94.93,
+        "completeness": 0.9,
+        "criterionScores": {
+          "true-root-cause": 1,
+          "evidence-linkage": 1,
+          "decoy-rejection": 1,
+          "churned-mrr": 0.8333,
+          "detection-proposal": 0.8333,
+          "actionable-writeup": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 0,
+        "selfReportedCompleteness": 0.95,
+        "selfReportedCriterionScores": {
+          "true-root-cause": 0,
+          "evidence-linkage": 0,
+          "decoy-rejection": 0,
+          "churned-mrr": 0,
+          "detection-proposal": 0,
+          "actionable-writeup": 0
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 94.93,
+          "completeness": 0.9,
+          "criterionScores": {
+            "true-root-cause": 1,
+            "evidence-linkage": 1,
+            "decoy-rejection": 1,
+            "churned-mrr": 0.8333,
+            "detection-proposal": 0.8333,
+            "actionable-writeup": 1
+          },
+          "disagreementPoints": 15.22,
+          "maxCriterionDisagreementPoints": 50,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "judge quality disagreement >= 8 points",
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 0.7652
+      },
+      {
+        "runId": "ops-churn-noise-forensics-hard-r2",
+        "autonomousCompleted": true,
+        "durationSeconds": 27.54,
+        "costCents": 0.0669,
+        "usage": {
+          "input_tokens": 2813,
+          "input_tokens_details": {
+            "cached_tokens": 2432
+          },
+          "output_tokens": 1955,
+          "output_tokens_details": {
+            "reasoning_tokens": 505
+          },
+          "total_tokens": 4768
+        },
+        "qualityScore": 64.93,
+        "completeness": 0.8,
+        "criterionScores": {
+          "true-root-cause": 0.8333,
+          "evidence-linkage": 0.8333,
+          "decoy-rejection": 0.2333,
+          "churned-mrr": 0.1667,
+          "detection-proposal": 1,
+          "actionable-writeup": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 0,
+        "selfReportedCompleteness": 1,
+        "selfReportedCriterionScores": {
+          "true-root-cause": 0,
+          "evidence-linkage": 0,
+          "decoy-rejection": 0,
+          "churned-mrr": 0,
+          "detection-proposal": 0,
+          "actionable-writeup": 0
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 64.93,
+          "completeness": 0.8,
+          "criterionScores": {
+            "true-root-cause": 0.8333,
+            "evidence-linkage": 0.8333,
+            "decoy-rejection": 0.2333,
+            "churned-mrr": 0.1667,
+            "detection-proposal": 1,
+            "actionable-writeup": 1
+          },
+          "disagreementPoints": 35.65,
+          "maxCriterionDisagreementPoints": 50,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "judge quality disagreement >= 8 points",
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 0.8279
+      }
+    ]
+  },
+  {
+    "id": "ops-incident-forensics-hard",
+    "name": "Incident Forensics Under Noise (Hard)",
+    "tier": "tier3_hard",
+    "domain": "ops",
+    "description": "Forensic postmortem over a noisy multi-signal incident bundle containing a red-herring deploy, cross-region clock skew, an inflated impact claim, and an unrelated co-occurring incident. Acceptance criteria reference hidden ground truth and are withheld from the generator.",
+    "acceptanceCriteria": [
+      {
+        "id": "finds-flag-root-cause",
+        "description": "Identifies the 13:47 `batch-export-v2` feature flag rollout (long-running ~41s export transactions exhausting the shared connection pool) as the root cause, not the v3.2.0 deploy.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "exonerates-deploy",
+        "description": "Explicitly exonerates the v3.2.0 deploy with evidence: 5% canary scope cannot produce a 12% fleet-wide error rate, and errors persisted for ~23 minutes after the 13:52 rollback, only recovering after the flag was disabled at 14:12.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2.5
+      },
+      {
+        "id": "resolves-clock-skew",
+        "description": "Detects that the eu-central \"15:49\" pool-exhaustion log is CEST (UTC+2), i.e. 13:49 UTC, aligning with the flag rollout — and rejects the \"delayed effect\" theory in the #eng chatter.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2.5
+      },
+      {
+        "id": "separates-unrelated-incident",
+        "description": "Identifies the 14:05 admin-panel TLS certificate expiry as an unrelated, internal-only co-incident and excludes it from customer impact.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "corrects-impact-math",
+        "description": "Recomputes revenue impact from the given data — roughly 220/hr x 26min window x 12% failure x $42 = approximately $480 (accept $350-$700) — and explicitly challenges the $18,000 claim in OPS-2214.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "actionable-remediation",
+        "description": "Remediation addresses the actual failure class: pool isolation or per-workload connection limits, transaction duration budgets, flag rollout canarying or progressive delivery, and timezone-normalized logging.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 14400,
+      "costCents": 12000,
+      "qualityScore": 88,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "synthetic hard-tier pilot estimate, Jun 2026",
+      "methodology": "expert_estimate",
+      "sourceSummary": "Estimated from senior SRE/IC forensic review of comparable multi-signal incidents.",
+      "sampleSize": 1,
+      "collectedAt": "2026-06-12",
+      "operatorProfile": "Senior SRE with incident-command experience"
+    },
+    "constraints": {
+      "maxDurationMinutes": 30,
+      "maxCostCents": 500
+    },
+    "runs": [
+      {
+        "runId": "ops-incident-forensics-hard-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 104.88,
+        "costCents": 0.192,
+        "usage": {
+          "input_tokens": 750,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 4530,
+          "output_tokens_details": {
+            "reasoning_tokens": 3679
+          },
+          "total_tokens": 5280
+        },
+        "qualityScore": 98.21,
+        "completeness": 1,
+        "criterionScores": {
+          "finds-flag-root-cause": 1,
+          "exonerates-deploy": 1,
+          "resolves-clock-skew": 1,
+          "separates-unrelated-incident": 1,
+          "corrects-impact-math": 1,
+          "actionable-remediation": 0.8333
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 0,
+        "selfReportedCompleteness": 1,
+        "selfReportedCriterionScores": {
+          "finds-flag-root-cause": 0,
+          "exonerates-deploy": 0,
+          "resolves-clock-skew": 0,
+          "separates-unrelated-incident": 0,
+          "corrects-impact-math": 0,
+          "actionable-remediation": 0
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 98.21,
+          "completeness": 1,
+          "criterionScores": {
+            "finds-flag-root-cause": 1,
+            "exonerates-deploy": 1,
+            "resolves-clock-skew": 1,
+            "separates-unrelated-incident": 1,
+            "corrects-impact-math": 1,
+            "actionable-remediation": 0.8333
+          },
+          "disagreementPoints": 5.36,
+          "maxCriterionDisagreementPoints": 50,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 0.6125
+      },
+      {
+        "runId": "ops-incident-forensics-hard-r2",
+        "autonomousCompleted": true,
+        "durationSeconds": 28.51,
+        "costCents": 0.0596,
+        "usage": {
+          "input_tokens": 774,
+          "input_tokens_details": {
+            "cached_tokens": 387
+          },
+          "output_tokens": 2797,
+          "output_tokens_details": {
+            "reasoning_tokens": 1520
+          },
+          "total_tokens": 3571
+        },
+        "qualityScore": 91.07,
+        "completeness": 0.9,
+        "criterionScores": {
+          "finds-flag-root-cause": 1,
+          "exonerates-deploy": 0.6667,
+          "resolves-clock-skew": 0.8333,
+          "separates-unrelated-incident": 1,
+          "corrects-impact-math": 1,
+          "actionable-remediation": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 0,
+        "selfReportedCompleteness": 1,
+        "selfReportedCriterionScores": {
+          "finds-flag-root-cause": 0,
+          "exonerates-deploy": 0,
+          "resolves-clock-skew": 0,
+          "separates-unrelated-incident": 0,
+          "corrects-impact-math": 0,
+          "actionable-remediation": 0
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 91.07,
+          "completeness": 0.9,
+          "criterionScores": {
+            "finds-flag-root-cause": 1,
+            "exonerates-deploy": 0.6667,
+            "resolves-clock-skew": 0.8333,
+            "separates-unrelated-incident": 1,
+            "corrects-impact-math": 1,
+            "actionable-remediation": 1
+          },
+          "disagreementPoints": 17.86,
+          "maxCriterionDisagreementPoints": 50,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "judge quality disagreement >= 8 points",
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 0.7227
+      }
+    ]
+  },
+  {
+    "id": "product-capacity-plan-hard",
+    "name": "Capacity Plan With Infeasible Ask (Hard)",
+    "tier": "tier3_hard",
+    "domain": "product",
+    "description": "Two-quarter hiring and capacity plan where the stated request is infeasible under the stated budget once attrition and recruiting fees are applied. The correct artifact detects the infeasibility, quantifies the exact gap, and proposes a minimal relaxation. Criteria are hidden from the generator.",
+    "acceptanceCriteria": [
+      {
+        "id": "detects-infeasibility",
+        "description": "States clearly that the plan as requested exceeds the $1.1M envelope — it is not approvable as asked.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "correct-gap-arithmetic",
+        "description": "Computes the correct totals: Q3 = 4x$110k = $440k; Q4 = 3 remaining seniors ($330k) + 3 mids ($255k) + designer ($80k) = $665k; recruiting fees 4 x $25k = $100k; total $1,205k, i.e. $105,000 over budget (accept $95k-$115k). Must include Dana's departure in Q4 (a $215k overrun answer means attrition was missed; a \"roughly fits\" answer means fees were missed).",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "minimal-relaxation",
+        "description": "Proposes a minimal change that closes the gap exactly with arithmetic shown — e.g. deferring the designer to Q1 saves $80k comp + $25k fee = $105k, landing the plan exactly at $1,100k (equivalent-value alternatives with correct math also accepted).",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2.5
+      },
+      {
+        "id": "challenges-finance-claim",
+        "description": "Pushes back on the VP Finance \"roughly fits\" message with numbers rather than deferring to it.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "ramp-capacity-honesty",
+        "description": "Notes that with 50% first-quarter productivity, the three Q4 mid-level hires deliver only ~1.5 effective FTE in Q4 against the initiative's 2-FTE need (and Dana's departure removes further senior capacity), and addresses the resulting delivery risk for the end-of-Q4 ship date.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2.5
+      },
+      {
+        "id": "decision-ready-structure",
+        "description": "Reads as a decision-ready plan: recommendation, headcount/budget table, risks, and an explicit approval ask.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 10800,
+      "costCents": 9000,
+      "qualityScore": 87,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "synthetic hard-tier pilot estimate, Jun 2026",
+      "methodology": "expert_estimate",
+      "sourceSummary": "Estimated from an experienced product/ops lead building comparable capacity plans.",
+      "sampleSize": 1,
+      "collectedAt": "2026-06-12",
+      "operatorProfile": "Product or operations lead who owns headcount planning"
+    },
+    "constraints": {
+      "maxDurationMinutes": 30,
+      "maxCostCents": 500
+    },
+    "runs": [
+      {
+        "runId": "product-capacity-plan-hard-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 357.94,
+        "costCents": 0.1573,
+        "usage": {
+          "input_tokens": 559,
+          "input_tokens_details": {
+            "cached_tokens": 268
+          },
+          "output_tokens": 7828,
+          "output_tokens_details": {
+            "reasoning_tokens": 6852
+          },
+          "total_tokens": 8387
+        },
+        "qualityScore": 82.72,
+        "completeness": 1,
+        "criterionScores": {
+          "detects-infeasibility": 1,
+          "correct-gap-arithmetic": 1,
+          "minimal-relaxation": 0.4,
+          "challenges-finance-claim": 1,
+          "ramp-capacity-honesty": 0.6667,
+          "decision-ready-structure": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 0,
+        "selfReportedCompleteness": 1,
+        "selfReportedCriterionScores": {
+          "detects-infeasibility": 0,
+          "correct-gap-arithmetic": 0,
+          "minimal-relaxation": 0,
+          "challenges-finance-claim": 0,
+          "ramp-capacity-honesty": 0,
+          "decision-ready-structure": 0
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 82.72,
+          "completeness": 1,
+          "criterionScores": {
+            "detects-infeasibility": 1,
+            "correct-gap-arithmetic": 1,
+            "minimal-relaxation": 0.4,
+            "challenges-finance-claim": 1,
+            "ramp-capacity-honesty": 0.6667,
+            "decision-ready-structure": 1
+          },
+          "disagreementPoints": 3.71,
+          "maxCriterionDisagreementPoints": 100,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "criterion disagreement >= 8 points",
+            "at least one judge recommended human review"
+          ]
+        },
+        "judgeCostCents": 1.1959
+      },
+      {
+        "runId": "product-capacity-plan-hard-r2",
+        "autonomousCompleted": true,
+        "durationSeconds": 313.2,
+        "costCents": 0.2537,
+        "usage": {
+          "input_tokens": 535,
+          "input_tokens_details": {
+            "cached_tokens": 384
+          },
+          "output_tokens": 8946,
+          "output_tokens_details": {
+            "reasoning_tokens": 7208
+          },
+          "total_tokens": 9481
+        },
+        "qualityScore": 90.12,
+        "completeness": 1,
+        "criterionScores": {
+          "detects-infeasibility": 1,
+          "correct-gap-arithmetic": 1,
+          "minimal-relaxation": 0.6667,
+          "challenges-finance-claim": 0.6667,
+          "ramp-capacity-honesty": 1,
+          "decision-ready-structure": 1
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 0,
+        "selfReportedCompleteness": 1,
+        "selfReportedCriterionScores": {
+          "detects-infeasibility": 0,
+          "correct-gap-arithmetic": 0,
+          "minimal-relaxation": 0,
+          "challenges-finance-claim": 0,
+          "ramp-capacity-honesty": 0,
+          "decision-ready-structure": 0
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 90.12,
+          "completeness": 1,
+          "criterionScores": {
+            "detects-infeasibility": 1,
+            "correct-gap-arithmetic": 1,
+            "minimal-relaxation": 0.6667,
+            "challenges-finance-claim": 0.6667,
+            "ramp-capacity-honesty": 1,
+            "decision-ready-structure": 1
+          },
+          "disagreementPoints": 20.37,
+          "maxCriterionDisagreementPoints": 100,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "judge quality disagreement >= 8 points",
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 1.2618
+      }
+    ]
+  },
+  {
+    "id": "xfn-revenue-reconciliation-hard",
+    "name": "Board Revenue Reconciliation (Hard)",
+    "tier": "tier3_hard",
+    "domain": "cross_functional",
+    "description": "Three sources disagree on ARR ahead of a board meeting: a board deck, a raw billing export with planted data defects, and a finance memo. The correct artifact requires a multi-hop reconciliation (duplicate, churn, annual normalization, discount) landing on a single correct ARR, plus a precise attribution of how each wrong source got its number. Criteria are hidden from the generator.",
+    "acceptanceCriteria": [
+      {
+        "id": "correct-arr",
+        "description": "States the correct ARR of $429,600 (accept $428,000-$431,500) with the math shown: 17 clean monthly customers at $20,400 MRR, plus Quarry at its discounted $1,400/mo (active MRR $21,800, x12 = $261,600), plus annual contracts at contract value ($36,000 + $54,000 + $48,000 + $30,000 = $168,000). An answer of $446,400 means the Quarry discount was missed; $463,200 means the duplicate Ironquill row was kept; $477,600 means churned customers were kept; ~$2,277,600 or ~$2,376,000 means annual prepayments were multiplied by 12.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 3
+      },
+      {
+        "id": "identifies-all-four-defects",
+        "description": "Explicitly identifies all four data defects in the billing export: (1) the duplicate row for customer_id C-1011 Ironquill Systems (rows 11 and 20, an artifact of the March schema migration, worth $33,600 ARR if double-counted); (2) churned customers Riverbarrow (churn 2026-04-30) and Saltmarsh Co (churn 2026-05-15) still listed, jointly $48,000 ARR; (3) annual rows whose amount_per_period is a yearly upfront invoice that must be counted once, not multiplied by 12; (4) Quarry Analytics listed at $2,800/mo list price despite the 50% discount note ($1,400/mo actual, a $16,800 ARR difference). Missing any one defect fails this criterion.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 2
+      },
+      {
+        "id": "attributes-deck-error",
+        "description": "Explains the board deck's $477,600 by mechanism: it equals the correct $429,600 plus exactly $48,000, i.e. the RevOps dashboard still counts the two churned customers (Riverbarrow $14,400 + Saltmarsh $33,600 ARR) because churn was not reflected, while it otherwise handled the duplicate, the discount, and annual normalization correctly.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "attributes-memo-error",
+        "description": "Explains the finance memo's $446,400 by mechanism: it equals the correct $429,600 plus exactly $16,800, i.e. finance correctly excluded churned customers and the duplicate and counted annual contracts at contract value, but valued Quarry Analytics at $2,800/mo list price because the 50% discount lives in quarterly AR credit memos, not the contract system.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "annual-normalization-explicit",
+        "description": "Explicitly states the normalization rule for annual prepayments: the four annual contracts contribute their contract value once ($168,000 ARR total), and multiplying upfront annual invoices by 12 would be wrong (it would add roughly $1.85M of phantom ARR).",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1.5
+      },
+      {
+        "id": "board-ready-summary",
+        "description": "Includes a short board-ready summary a founder could read aloud: the one correct number ($429,600), why the deck must change, and a one-line cause for each discrepancy, without hedging to a range.",
+        "type": "rubric",
+        "evaluator": "llm_judge",
+        "weight": 1
+      }
+    ],
+    "humanBaseline": {
+      "timeSeconds": 12600,
+      "costCents": 10500,
+      "qualityScore": 88,
+      "completeness": 1,
+      "artifactCount": 1,
+      "provenance": "synthetic hard-tier v2 estimate, Jun 2026",
+      "methodology": "expert_estimate",
+      "sourceSummary": "Estimated from a senior RevOps/finance practitioner performing comparable pre-board ARR reconciliations.",
+      "sampleSize": 1,
+      "collectedAt": "2026-06-12",
+      "operatorProfile": "Senior RevOps or finance lead who owns ARR reporting"
+    },
+    "constraints": {
+      "maxDurationMinutes": 35,
+      "maxCostCents": 500
+    },
+    "runs": [
+      {
+        "runId": "xfn-revenue-reconciliation-hard-r1",
+        "autonomousCompleted": true,
+        "durationSeconds": 197.23,
+        "costCents": 0.1494,
+        "usage": {
+          "input_tokens": 1439,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 6751,
+          "output_tokens_details": {
+            "reasoning_tokens": 4879
+          },
+          "total_tokens": 8190
+        },
+        "qualityScore": 55.56,
+        "completeness": 0.8,
+        "criterionScores": {
+          "correct-arr": 0.6667,
+          "identifies-all-four-defects": 0.3333,
+          "attributes-deck-error": 0.6667,
+          "attributes-memo-error": 0.6667,
+          "annual-normalization-explicit": 0.3333,
+          "board-ready-summary": 0.6667
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 0,
+        "selfReportedCompleteness": 1,
+        "selfReportedCriterionScores": {
+          "correct-arr": 0,
+          "identifies-all-four-defects": 0,
+          "attributes-deck-error": 0,
+          "attributes-memo-error": 0,
+          "annual-normalization-explicit": 0,
+          "board-ready-summary": 0
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 55.56,
+          "completeness": 0.8,
+          "criterionScores": {
+            "correct-arr": 0.6667,
+            "identifies-all-four-defects": 0.3333,
+            "attributes-deck-error": 0.6667,
+            "attributes-memo-error": 0.6667,
+            "annual-normalization-explicit": 0.3333,
+            "board-ready-summary": 0.6667
+          },
+          "disagreementPoints": 100,
+          "maxCriterionDisagreementPoints": 100,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "judge quality disagreement >= 8 points",
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 0.6007
+      },
+      {
+        "runId": "xfn-revenue-reconciliation-hard-r2",
+        "autonomousCompleted": true,
+        "durationSeconds": 100,
+        "costCents": 0.2142,
+        "usage": {
+          "input_tokens": 1439,
+          "input_tokens_details": {
+            "cached_tokens": 1152
+          },
+          "output_tokens": 10670,
+          "output_tokens_details": {
+            "reasoning_tokens": 8181
+          },
+          "total_tokens": 12109
+        },
+        "qualityScore": 8.57,
+        "completeness": 0,
+        "criterionScores": {
+          "correct-arr": 0.0667,
+          "identifies-all-four-defects": 0.1667,
+          "attributes-deck-error": 0.0667,
+          "attributes-memo-error": 0.0667,
+          "annual-normalization-explicit": 0.0667,
+          "board-ready-summary": 0.0667
+        },
+        "scoringSource": "independent_judges",
+        "selfReportedQualityScore": 0,
+        "selfReportedCompleteness": 1,
+        "selfReportedCriterionScores": {
+          "correct-arr": 0,
+          "identifies-all-four-defects": 0,
+          "attributes-deck-error": 0,
+          "attributes-memo-error": 0,
+          "annual-normalization-explicit": 0,
+          "board-ready-summary": 0
+        },
+        "judgeAggregate": {
+          "judgeCount": 3,
+          "qualityScore": 8.57,
+          "completeness": 0,
+          "criterionScores": {
+            "correct-arr": 0.0667,
+            "identifies-all-four-defects": 0.1667,
+            "attributes-deck-error": 0.0667,
+            "attributes-memo-error": 0.0667,
+            "annual-normalization-explicit": 0.0667,
+            "board-ready-summary": 0.0667
+          },
+          "disagreementPoints": 25.71,
+          "maxCriterionDisagreementPoints": 50,
+          "humanReviewRecommended": true,
+          "lowConfidenceReasons": [
+            "judge quality disagreement >= 8 points",
+            "criterion disagreement >= 8 points"
+          ]
+        },
+        "judgeCostCents": 1.4105
+      }
+    ]
+  }
+]
