@@ -1,4 +1,4 @@
-# We built the benchmark that could catch us. It caught us. (draft)
+# We built the benchmark that could catch us. It caught us.
 
 So I'll just say the result first because it's the whole point: we built a new benchmark to measure whether OrgX's orchestration actually makes a model better — and on the cleanest test we've ever run, it caught our own verification loop making a reliable model *worse*. Same model, with our loop, on a task the raw model nailed 8 out of 8 times. Our loop took two of those wins and turned them into failures.
 

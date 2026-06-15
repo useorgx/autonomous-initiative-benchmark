@@ -1,4 +1,4 @@
-# We had DeepSeek judge OrgX's benchmark run. 12 for 12. (draft)
+# We had DeepSeek judge OrgX's benchmark run. 12 for 12.
 
 So this morning I asked for something simple: run the public benchmark against OrgX, and don't let OpenAI grade its own homework — bring in a judge from a completely different vendor and see if the result holds.
 
