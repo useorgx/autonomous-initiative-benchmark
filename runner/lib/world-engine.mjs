@@ -15,6 +15,7 @@
 import { performance } from 'node:perf_hooks';
 
 import { chatUsageCostCents, getProvider, normalizeChatUsage, requireProviderKey } from './providers.mjs';
+import { decideVerification } from './verify-on-the-edge.mjs';
 
 const MAX_RETRIES = 4;
 
@@ -33,6 +34,16 @@ const ORGX_SYSTEM = [
   '2. Verify before you finalize: a submit is irreversible, so before finalizing you will be asked to re-derive each field from the tools. Keep an answer only if the tools confirm it; correct it only when a tool shows it is wrong (never change a value the tools already confirmed).',
 ].join('\n');
 
+// Gate v3.0 (orgx3) — verify-on-the-edge. Same loop, but the re-derivation pass
+// is spent only when the model is UNSURE, not reflexively. The model self-reports
+// a confidence with its submit; the gate verifies borderline submits and accepts
+// confident ones directly.
+const ORGX3_SYSTEM = [
+  ORGX_SYSTEM,
+  '',
+  '3. Calibrated finalize: when you call submit, include a numeric field "_confidence" between 0 and 1 — your honest probability that the answer is correct as-is, without re-checking. Be calibrated: high only when the tools already proved every field. A confident submit is accepted directly; an uncertain one triggers a re-derivation pass.',
+].join('\n');
+
 // `chatFn` is injectable so the gate/guard control flow can be tested
 // deterministically without a provider key or LLM call (default = real chat).
 export async function runEpisode({ world, arm, provider, model, episodeId, maxSteps = 18, maxOutputTokens = 6000, timeoutMs = 120_000, chatFn = chat }) {
@@ -44,9 +55,9 @@ export async function runEpisode({ world, arm, provider, model, episodeId, maxSt
   // v2.0: same grounded re-derivation BUT with a hard no-regression guard —
   // the validated draft is kept if the verification pass runs past budget, so
   // the loop can never lower a result the agent already produced.
-  const usesGate = arm === 'orgx' || arm === 'orgx2';
-  const draftFallback = arm === 'orgx2';
-  const system = usesGate ? ORGX_SYSTEM : BASE_SYSTEM;
+  const usesGate = arm === 'orgx' || arm === 'orgx2' || arm === 'orgx3';
+  const draftFallback = arm === 'orgx2' || arm === 'orgx3';
+  const system = arm === 'orgx3' ? ORGX3_SYSTEM : usesGate ? ORGX_SYSTEM : BASE_SYSTEM;
   const messages = [
     { role: 'system', content: system },
     { role: 'user', content: world.prompt },
@@ -93,12 +104,35 @@ export async function runEpisode({ world, arm, provider, model, episodeId, maxSt
         if (usesGate && name === 'submit' && !verificationOffered) {
           verificationOffered = true;
           gateDraft = args; // v2.0 no-regression: remember the validated draft
-          weg.nodes.push({ type: 'verification_gate', step, draft: args });
-          messages.push({ role: 'tool', tool_call_id: call.id, content: world.verificationPrompt(args) });
-          messages.push({ role: 'user', content: 'Before this is accepted: re-derive each field above using the tools. Re-query and recompute. Then call submit again — unchanged if the tools confirm it, corrected only where a tool proves it wrong.' });
-          continue;
+
+          // Gate v3.0 (orgx3): verify-on-the-edge — only spend the re-derivation
+          // pass when the model is UNSURE. orgx/orgx2: reflexive (always verify).
+          let shouldVerify = true;
+          let band = 'reflexive';
+          if (arm === 'orgx3') {
+            const confidence =
+              typeof args._confidence === 'number' ? args._confidence : 0.5;
+            const decision = decideVerification({
+              confidence,
+              highRisk: world.highRisk === true,
+            });
+            shouldVerify = decision.verify;
+            band = decision.band;
+          }
+          weg.nodes.push({ type: 'verification_gate', step, draft: args, band, verified: shouldVerify });
+
+          if (shouldVerify) {
+            messages.push({ role: 'tool', tool_call_id: call.id, content: world.verificationPrompt(args) });
+            messages.push({ role: 'user', content: 'Before this is accepted: re-derive each field above using the tools. Re-query and recompute. Then call submit again — unchanged if the tools confirm it, corrected only where a tool proves it wrong.' });
+            continue;
+          }
+          // Confident (reliable band): accept the draft directly, skipping the
+          // verification pass's token cost. Fall through to terminal handling.
         }
-        const finalArgs = tool.handler(args, state) ?? args;
+        // Strip the meta confidence field so it never leaks into the submission.
+        const submitArgs = { ...args };
+        delete submitArgs._confidence;
+        const finalArgs = tool.handler(submitArgs, state) ?? submitArgs;
         terminal = { kind: name, submission: finalArgs };
         weg.nodes.push({ type: name, step, submission: finalArgs });
         break;
