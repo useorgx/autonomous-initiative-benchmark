@@ -23,7 +23,9 @@ const outName = args.out || 'worlds-run';
 requireProviderKey(provider);
 
 const worldsDir = path.join(repoRoot, 'worlds', 'instrumented');
-const worldFiles = (await readdir(worldsDir)).filter((f) => f.endsWith('.mjs')).sort();
+const worldFiles = (await readdir(worldsDir))
+  .filter((f) => f.endsWith('.mjs') && !f.endsWith('.test.mjs'))
+  .sort();
 const worlds = [];
 for (const f of worldFiles) {
   const mod = await import(path.join(worldsDir, f));
