@@ -33,7 +33,9 @@ const ORGX_SYSTEM = [
   '2. Verify before you finalize: a submit is irreversible, so before finalizing you will be asked to re-derive each field from the tools. Keep an answer only if the tools confirm it; correct it only when a tool shows it is wrong (never change a value the tools already confirmed).',
 ].join('\n');
 
-export async function runEpisode({ world, arm, provider, model, episodeId, maxSteps = 18, maxOutputTokens = 6000, timeoutMs = 120_000 }) {
+// `chatFn` is injectable so the gate/guard control flow can be tested
+// deterministically without a provider key or LLM call (default = real chat).
+export async function runEpisode({ world, arm, provider, model, episodeId, maxSteps = 18, maxOutputTokens = 6000, timeoutMs = 120_000, chatFn = chat }) {
   const started = performance.now();
   const state = world.initState();
   const weg = { nodes: [], toolCalls: [], promptTokens: 0, completionTokens: 0, totalTokens: 0, costCents: 0, modelTurns: 0 };
@@ -55,7 +57,7 @@ export async function runEpisode({ world, arm, provider, model, episodeId, maxSt
   let terminal = null;
 
   for (let step = 0; step < maxSteps; step += 1) {
-    const response = await chat({ provider, model, messages, tools, maxOutputTokens, timeoutMs });
+    const response = await chatFn({ provider, model, messages, tools, maxOutputTokens, timeoutMs });
     accUsage(weg, response.usage);
     weg.modelTurns += 1;
     const msg = response.choices?.[0]?.message ?? {};
