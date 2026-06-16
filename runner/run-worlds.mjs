@@ -9,6 +9,7 @@ import process from 'node:process';
 
 import { runEpisode, runRestartEpisode } from './lib/world-engine.mjs';
 import { requireProviderKey } from './lib/providers.mjs';
+import { computeCorpusEligibility, filterWorldsBySplit } from './lib/corpus-splits.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 const repoRoot = path.resolve(import.meta.dirname, '..');
@@ -28,7 +29,10 @@ for (const f of worldFiles) {
   const mod = await import(path.join(worldsDir, f));
   if (mod.world) worlds.push(mod.world);
 }
-const selected = args.world ? worlds.filter((w) => w.id === args.world) : worlds;
+const byId = args.world ? worlds.filter((w) => w.id === args.world) : worlds;
+// Optional --split filter (public_validation | private_holdout | ...). Headline
+// numbers must come from the private_holdout split only; see corpus-splits.json.
+const selected = filterWorldsBySplit(byId, args.split);
 
 const jobs = [];
 for (const world of selected) {
@@ -120,10 +124,12 @@ function buildReport(worlds, arms, k, episodes, meta) {
     }
   }
   const admitted = perWorld.filter((w) => w.admission === 'admitted').length;
-
   return {
     admissionSummary: { admitted, saturated: perWorld.length - admitted, rule: 'admitted if raw baseline pass@k < 1.0 (headroom exists)' },
     benchmark: 'orgx-bench-v2-instrumented-worlds',
+    // Headline-eligibility per corpus-splits.json: in-repo worlds are public /
+    // contamination-visible and must NOT be reported as headline numbers.
+    corpus: computeCorpusEligibility(worlds),
     generatedAtNote: 'timestamp stamped by caller',
     provider: meta.provider,
     model: meta.model,
@@ -137,6 +143,11 @@ function buildReport(worlds, arms, k, episodes, meta) {
 }
 
 function printReport(report) {
+  if (report.corpus && !report.corpus.headlineEligible) {
+    console.log(
+      `\n⚠️  NOT HEADLINE-ELIGIBLE — split(s): ${report.corpus.splits.join(', ')}.\n   ${report.corpus.note}`
+    );
+  }
   console.log('\n=== UPLIFT (orgx vs raw, deterministic) ===');
   if (!report.uplift) { console.log('(single arm; no uplift)'); return; }
   const u = report.uplift;
