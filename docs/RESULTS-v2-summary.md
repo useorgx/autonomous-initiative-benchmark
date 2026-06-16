@@ -96,8 +96,29 @@ a task it *almost* gets. Everywhere else it is cost, no-op, or harm.
 - Holdout split registry exists but is unpopulated; the borderline band is shown
   on one world and needs the model-ladder × difficulty-ladder sweep to confirm.
 
+## Update — real-model runs, 2026-06-16 (the regime map)
+
+The model-ladder × difficulty-ladder sweep the prior version flagged as
+outstanding is now run on real models (see `regime-map-2026-06-16.md`,
+`results-real-run-2026-06-16.md`):
+
+- **Weak rung (`llama-3.1-8b`): raw is weak (8 admitted / 0 saturated) and
+  orchestration DOUBLES pass@k (0.125 → 0.25), pass^k 0 → 0.125.** The trust
+  world `deploy-approval-trust`: raw 0.5 → **orgx3 (Gate v3.0) 1.0**. orgx3 beats
+  orgx2 on quality/token (0.114 vs 0.101).
+- **Saturated rung (`deepseek-v4-flash`): raw saturates (pass@k 1.0); reflexive
+  verification (orgx2) HURTS (−0.125 pass@k, 2.6× tokens), while Gate v3.0
+  (orgx3) HOLDS (no regression, fewer tokens).**
+- **Finding: reflexive verification is regime-dependent (helps weak, harms
+  strong); Gate v3.0 verify-on-the-edge is ROBUST across the ladder** — a
+  real-model validation of the design claim. Both runs are on public worlds and
+  the corpus guard flags them NOT headline-eligible; the headline is reserved for
+  the private holdout (not yet populated).
+
 ## Artifacts
 Docs: measurement-philosophy-v2, v2-program-plan-research-grounded, gap-analysis,
-uplift pre-registration + results, phase1 + phase2-4 results, three-surface plan.
-Bundles: `results/worlds-*-2026061{3,4}`, `results/*-deepseek-*`, plus the catalog
-and agent-surface bundles. Blogs: the two finalized posts in `docs/blog/`.
+uplift pre-registration + results, phase1 + phase2-4 results, three-surface plan,
+**regime-map-2026-06-16, results-real-run-2026-06-16**.
+Bundles: `results/worlds-*-2026061{3,4}`, `results/*-deepseek-*`,
+**`results/worlds-real-2026-06-16`, `results/worlds-8b-2026-06-16`**, plus the
+catalog and agent-surface bundles. Blogs: the two finalized posts in `docs/blog/`.
