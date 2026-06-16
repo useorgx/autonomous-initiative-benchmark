@@ -1,0 +1,775 @@
+{
+  "admissionSummary": {
+    "admitted": 0,
+    "saturated": 8,
+    "rule": "admitted if raw baseline pass@k < 1.0 (headroom exists)"
+  },
+  "benchmark": "orgx-bench-v2-instrumented-worlds",
+  "corpus": {
+    "splits": [
+      "public_validation"
+    ],
+    "headlineEligible": false,
+    "note": "Includes public / contamination-visible worlds — NOT headline-eligible; for harness transparency and validation only (corpus-splits.json policy)."
+  },
+  "generatedAtNote": "timestamp stamped by caller",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-v4-flash",
+  "k": 2,
+  "arms": [
+    "raw",
+    "orgx2",
+    "orgx3",
+    "restart"
+  ],
+  "worldCount": 8,
+  "scoring": "deterministic validators only (no LLM judge)",
+  "perWorld": [
+    {
+      "worldId": "budget-bounded-forecast",
+      "domain": "economy",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 2362,
+          "meanCostCents": 0.022,
+          "meanToolCalls": 3,
+          "qualityPerKToken": 0.4234,
+          "dimensions": {
+            "outcome": 1,
+            "method": 0,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        },
+        "orgx2": {
+          "n": 2,
+          "passAtK": 0,
+          "passPowK": 0,
+          "meanTokens": 5927,
+          "meanCostCents": 0.076,
+          "meanToolCalls": 6,
+          "qualityPerKToken": 0,
+          "dimensions": {
+            "outcome": 1,
+            "method": 0,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        },
+        "orgx3": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 3015,
+          "meanCostCents": 0.039,
+          "meanToolCalls": 3,
+          "qualityPerKToken": 0.3317,
+          "dimensions": {
+            "outcome": 1,
+            "method": 0,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        },
+        "restart": {
+          "n": 0,
+          "passAtK": 0,
+          "passPowK": 0,
+          "meanTokens": 0,
+          "meanCostCents": 0,
+          "meanToolCalls": 0,
+          "qualityPerKToken": 0,
+          "dimensions": {
+            "outcome": 0,
+            "method": 0,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "deploy-approval-trust",
+      "domain": "trust",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 2360,
+          "meanCostCents": 0.035,
+          "meanToolCalls": 4,
+          "qualityPerKToken": 0.4237,
+          "dimensions": {
+            "outcome": 0,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        },
+        "orgx2": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 2591,
+          "meanCostCents": 0.024,
+          "meanToolCalls": 4,
+          "qualityPerKToken": 0.386,
+          "dimensions": {
+            "outcome": 0,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        },
+        "orgx3": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 2726,
+          "meanCostCents": 0.029,
+          "meanToolCalls": 4,
+          "qualityPerKToken": 0.3668,
+          "dimensions": {
+            "outcome": 0,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        },
+        "restart": {
+          "n": 0,
+          "passAtK": 0,
+          "passPowK": 0,
+          "meanTokens": 0,
+          "meanCostCents": 0,
+          "meanToolCalls": 0,
+          "qualityPerKToken": 0,
+          "dimensions": {
+            "outcome": 0,
+            "method": 0,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "incident-triage-dependency",
+      "domain": "ops",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 2980,
+          "meanCostCents": 0.035,
+          "meanToolCalls": 5,
+          "qualityPerKToken": 0.3356,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "orgx2": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 8625,
+          "meanCostCents": 0.096,
+          "meanToolCalls": 8,
+          "qualityPerKToken": 0.1159,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "orgx3": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 9362,
+          "meanCostCents": 0.104,
+          "meanToolCalls": 10,
+          "qualityPerKToken": 0.1068,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "restart": {
+          "n": 0,
+          "passAtK": 0,
+          "passPowK": 0,
+          "meanTokens": 0,
+          "meanCostCents": 0,
+          "meanToolCalls": 0,
+          "qualityPerKToken": 0,
+          "dimensions": {
+            "outcome": 0,
+            "method": 0,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "ledger-running-total",
+      "domain": "multi_session",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 3268,
+          "meanCostCents": 0.036,
+          "meanToolCalls": 3.5,
+          "qualityPerKToken": 0.306,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        },
+        "orgx2": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 9010,
+          "meanCostCents": 0.076,
+          "meanToolCalls": 6.5,
+          "qualityPerKToken": 0.111,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        },
+        "orgx3": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 3579,
+          "meanCostCents": 0.032,
+          "meanToolCalls": 3,
+          "qualityPerKToken": 0.2794,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        },
+        "restart": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 5276,
+          "meanCostCents": 0.054,
+          "meanToolCalls": 8,
+          "qualityPerKToken": 0.1896,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "migration-contradiction-refusal",
+      "domain": "engineering",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 2861,
+          "meanCostCents": 0.035,
+          "meanToolCalls": 4,
+          "qualityPerKToken": 0.3496,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "orgx2": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 3105,
+          "meanCostCents": 0.039,
+          "meanToolCalls": 4,
+          "qualityPerKToken": 0.3221,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "orgx3": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 3007,
+          "meanCostCents": 0.03,
+          "meanToolCalls": 4,
+          "qualityPerKToken": 0.3326,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "restart": {
+          "n": 0,
+          "passAtK": 0,
+          "passPowK": 0,
+          "meanTokens": 0,
+          "meanCostCents": 0,
+          "meanToolCalls": 0,
+          "qualityPerKToken": 0,
+          "dimensions": {
+            "outcome": 0,
+            "method": 0,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "order-pipeline-horizon",
+      "domain": "ops",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 25399,
+          "meanCostCents": 0.332,
+          "meanToolCalls": 15,
+          "qualityPerKToken": 0.0394,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "orgx2": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 72391,
+          "meanCostCents": 0.73,
+          "meanToolCalls": 43.5,
+          "qualityPerKToken": 0.0138,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "orgx3": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 48151,
+          "meanCostCents": 0.508,
+          "meanToolCalls": 35.5,
+          "qualityPerKToken": 0.0208,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "restart": {
+          "n": 2,
+          "passAtK": 0.5,
+          "passPowK": 0,
+          "meanTokens": 22318,
+          "meanCostCents": 0.259,
+          "meanToolCalls": 32.5,
+          "qualityPerKToken": 0.0224,
+          "dimensions": {
+            "outcome": 0.5,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 0.5
+          },
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "revenue-reconciliation-hard",
+      "domain": "cross_functional",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 16854,
+          "meanCostCents": 0.165,
+          "meanToolCalls": 12,
+          "qualityPerKToken": 0.0593,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "orgx2": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 38319,
+          "meanCostCents": 0.269,
+          "meanToolCalls": 15,
+          "qualityPerKToken": 0.0261,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "orgx3": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 33279,
+          "meanCostCents": 0.291,
+          "meanToolCalls": 16.5,
+          "qualityPerKToken": 0.03,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "restart": {
+          "n": 0,
+          "passAtK": 0,
+          "passPowK": 0,
+          "meanTokens": 0,
+          "meanCostCents": 0,
+          "meanToolCalls": 0,
+          "qualityPerKToken": 0,
+          "dimensions": {
+            "outcome": 0,
+            "method": 0,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "revenue-refund-reconciliation",
+      "domain": "cross_functional",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 7233,
+          "meanCostCents": 0.086,
+          "meanToolCalls": 5.5,
+          "qualityPerKToken": 0.1383,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "orgx2": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 23903,
+          "meanCostCents": 0.24,
+          "meanToolCalls": 14,
+          "qualityPerKToken": 0.0418,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "orgx3": {
+          "n": 2,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 26443,
+          "meanCostCents": 0.246,
+          "meanToolCalls": 12.5,
+          "qualityPerKToken": 0.0378,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "failures": 0
+        },
+        "restart": {
+          "n": 0,
+          "passAtK": 0,
+          "passPowK": 0,
+          "meanTokens": 0,
+          "meanCostCents": 0,
+          "meanToolCalls": 0,
+          "qualityPerKToken": 0,
+          "dimensions": {
+            "outcome": 0,
+            "method": 0,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "failures": 0
+        }
+      }
+    }
+  ],
+  "uplift": {
+    "orgx2": {
+      "passAtK": {
+        "raw": 1,
+        "arm": 0.875,
+        "uplift": -0.125
+      },
+      "passPowK": {
+        "raw": 1,
+        "arm": 0.875,
+        "uplift": -0.125
+      },
+      "qualityPerKToken": {
+        "raw": 0.259,
+        "arm": 0.127,
+        "uplift": -0.132
+      },
+      "meanTokens": {
+        "raw": 7915,
+        "arm": 20484
+      },
+      "dimensions": {
+        "outcome": {
+          "raw": 0.875,
+          "arm": 0.875,
+          "uplift": 0
+        },
+        "method": {
+          "raw": 0.875,
+          "arm": 0.875,
+          "uplift": 0
+        },
+        "coordination": {
+          "raw": 0.625,
+          "arm": 0.625,
+          "uplift": 0
+        },
+        "judgment": {
+          "raw": 0.625,
+          "arm": 0.625,
+          "uplift": 0
+        },
+        "trust": {
+          "raw": 0.625,
+          "arm": 0.625,
+          "uplift": 0
+        }
+      }
+    },
+    "orgx3": {
+      "passAtK": {
+        "raw": 1,
+        "arm": 1,
+        "uplift": 0
+      },
+      "passPowK": {
+        "raw": 1,
+        "arm": 1,
+        "uplift": 0
+      },
+      "qualityPerKToken": {
+        "raw": 0.259,
+        "arm": 0.188,
+        "uplift": -0.071
+      },
+      "meanTokens": {
+        "raw": 7915,
+        "arm": 16195
+      },
+      "dimensions": {
+        "outcome": {
+          "raw": 0.875,
+          "arm": 0.875,
+          "uplift": 0
+        },
+        "method": {
+          "raw": 0.875,
+          "arm": 0.875,
+          "uplift": 0
+        },
+        "coordination": {
+          "raw": 0.625,
+          "arm": 0.625,
+          "uplift": 0
+        },
+        "judgment": {
+          "raw": 0.625,
+          "arm": 0.625,
+          "uplift": 0
+        },
+        "trust": {
+          "raw": 0.625,
+          "arm": 0.625,
+          "uplift": 0
+        }
+      }
+    },
+    "restart": {
+      "passAtK": {
+        "raw": 1,
+        "arm": 0.188,
+        "uplift": -0.812
+      },
+      "passPowK": {
+        "raw": 1,
+        "arm": 0.125,
+        "uplift": -0.875
+      },
+      "qualityPerKToken": {
+        "raw": 0.259,
+        "arm": 0.026,
+        "uplift": -0.233
+      },
+      "meanTokens": {
+        "raw": 7915,
+        "arm": 3449
+      },
+      "dimensions": {
+        "outcome": {
+          "raw": 0.875,
+          "arm": 0.188,
+          "uplift": -0.688
+        },
+        "method": {
+          "raw": 0.875,
+          "arm": 0.25,
+          "uplift": -0.625
+        },
+        "coordination": {
+          "raw": 0.625,
+          "arm": 0.125,
+          "uplift": -0.5
+        },
+        "judgment": {
+          "raw": 0.625,
+          "arm": 0.125,
+          "uplift": -0.5
+        },
+        "trust": {
+          "raw": 0.625,
+          "arm": 0.063,
+          "uplift": -0.563
+        }
+      }
+    }
+  }
+}

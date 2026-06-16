@@ -150,16 +150,25 @@ function printReport(report) {
       `\n⚠️  NOT HEADLINE-ELIGIBLE — split(s): ${report.corpus.splits.join(', ')}.\n   ${report.corpus.note}`
     );
   }
-  console.log('\n=== UPLIFT (orgx vs raw, deterministic) ===');
-  if (!report.uplift) { console.log('(single arm; no uplift)'); return; }
-  const u = report.uplift;
-  console.log(`pass@k:           raw ${u.passAtK.raw}  orgx ${u.passAtK.orgx}  uplift ${u.passAtK.uplift >= 0 ? '+' : ''}${u.passAtK.uplift}`);
-  console.log(`pass^k (all-k):   raw ${u.passPowK.raw}  orgx ${u.passPowK.orgx}  uplift ${u.passPowK.uplift >= 0 ? '+' : ''}${u.passPowK.uplift}`);
-  console.log(`quality/Ktoken:   raw ${u.qualityPerKToken.raw}  orgx ${u.qualityPerKToken.orgx}  uplift ${u.qualityPerKToken.uplift >= 0 ? '+' : ''}${u.qualityPerKToken.uplift}`);
-  console.log(`mean tokens:      raw ${u.meanTokens.raw}  orgx ${u.meanTokens.orgx}  (orgx/raw ${(u.meanTokens.orgx / Math.max(1, u.meanTokens.raw)).toFixed(2)}x)`);
-  console.log('dimensions (raw -> orgx, uplift):');
-  for (const [d, v] of Object.entries(u.dimensions)) {
-    console.log(`  ${d.padEnd(13)} ${v.raw} -> ${v.orgx}   ${v.uplift >= 0 ? '+' : ''}${v.uplift}`);
+  console.log('\n=== UPLIFT (each arm vs raw, deterministic) ===');
+  const uplift = report.uplift ?? {};
+  const arms = Object.keys(uplift);
+  if (arms.length === 0) {
+    console.log('(no comparison arms vs raw)');
+    return;
+  }
+  const sign = (n) => (n >= 0 ? `+${n}` : `${n}`);
+  for (const arm of arms) {
+    const u = uplift[arm];
+    if (!u?.passAtK) continue;
+    console.log(`\n[${arm}]`);
+    console.log(`  pass@k:         raw ${u.passAtK.raw}  ->  ${u.passAtK.arm}   (${sign(u.passAtK.uplift)})`);
+    console.log(`  pass^k (all-k): raw ${u.passPowK.raw}  ->  ${u.passPowK.arm}   (${sign(u.passPowK.uplift)})`);
+    console.log(`  quality/Ktoken: raw ${u.qualityPerKToken.raw}  ->  ${u.qualityPerKToken.arm}   (${sign(u.qualityPerKToken.uplift)})`);
+    console.log(`  mean tokens:    raw ${u.meanTokens.raw}  ->  ${u.meanTokens.arm}   (${(u.meanTokens.arm / Math.max(1, u.meanTokens.raw)).toFixed(2)}x)`);
+    for (const [d, v] of Object.entries(u.dimensions ?? {})) {
+      console.log(`    ${d.padEnd(16)} ${v.raw} -> ${v.arm}   (${sign(v.uplift)})`);
+    }
   }
 }
 
