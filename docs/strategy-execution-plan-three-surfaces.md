@@ -125,6 +125,58 @@ restart-seam fix, holdout wiring, report regeneration.
 Exit: every client run emits a deterministic execution graph + trust ledger to
 OrgX; benchmark fixes green.
 
+> **Status (emit → persist → prove spine landed — OrgX repo PR #1831, 22 tests).**
+> The WEG-as-hook stream is built and tested end-to-end on the OrgX side:
+> 1. **Emit (keystone).** A single runtime execution-graph event (nodes +
+>    `depends_on` edges + trust events), a deterministic order-independent
+>    fingerprint (`xgf_…`), and a pure projection that fans one event into the
+>    live-activity timeline and DERIVES trust/coordination violations
+>    (false-completion, hallucinated-receipt, dependency-violation, plus
+>    declared authority-exceeded). Ingestion route live via `emitReportingActivity`.
+>    - `orgx/lib/client-integration/executionGraphEvents.ts`
+>    - `orgx/app/api/client/live/execution-graph/route.ts`
+> 2. **Persist (trust ledger).** Two additive service-role tables
+>    (`execution_graph_emissions` idempotent + append-only
+>    `execution_graph_trust_signals`) and an idempotent writer wired into the
+>    route best-effort.
+>    - `orgx/supabase/migrations/20260615120000_execution_graph_trust_ledger.sql`
+>    - `orgx/lib/server/reporting/executionGraphPersistence.ts`
+> 3. **Prove (uplift matrix).** Pure `computeTrustUpliftMatrix()` over arm-tagged
+>    samples → per-violation-type rates + uplift, reading identically from real
+>    product traffic or synthetic benchmark worlds.
+>    - `orgx/lib/server/reporting/executionGraphUplift.ts`
+>
+> **Client surfaces landed (cross-repo).** The emit endpoint is now reachable
+> from every hand:
+> - `orgx-mcp` PR #226 — new `orgx_emit_execution_graph` MCP tool routed to
+>   `/api/client/live/execution-graph`. Because every plugin (Claude/Codex/
+>   Cursor/ChatGPT) points at the hosted MCP, this exposes emission to all of
+>   them at once. Wired into the same 6 coordinated sites as `orgx_emit_activity`;
+>   full suite green (469/1).
+> - `orgx-claude-code-plugin` PR #15 — reusable `emitExecutionGraph()` client
+>   helper for the hook/skill path (72/72 green).
+>
+> **Migration applied + verified** to the `orgx` Supabase project
+> (`fwlyqjqhjdumimevflor`): both tables, 6 indexes, check constraint, RLS on
+> both; round-trip smoke test (idempotent upsert, check enforcement, cascade)
+> passes. Caught + fixed a real bug doing so — the partial unique index could
+> not serve as the writer's `ON CONFLICT (run_id, fingerprint)` arbiter (42P10);
+> made it non-partial in DB + the migration file (PR #1831 updated).
+>
+> **Plugin client surfaces — done / verified:**
+> - `orgx-claude-code-plugin` PR #15, `orgx-openclaw-plugin` PR #287 — added
+>   `emitExecutionGraph` to each real client (the only two plugins with an
+>   `emitActivity`-style HTTP client to mirror).
+> - codex / opencode / cursor-official / cursor-work-graph — verified
+>   **config-only / MCP-covered** (they point at `mcp.useorgx.com`, which now
+>   exposes `orgx_emit_execution_graph` via orgx-mcp PR #226); no client code to
+>   add.
+>
+> Still open (sequenced, multi-week): A1–A7 harness reliability; roll-up of
+> these signals into `capability_trust` / `execution_receipts`; and the
+> benchmark fixes (forced-failure guard test, restart-seam, holdout wiring,
+> report regeneration).
+
 **Phase B — Build and prove the moat (trust + regime-aware loop).**
 OrgX: Gate v3.0 (verify-on-the-edge) + trust ledger. Benchmark: trust worlds +
 multi-session worlds. UX: trust surface + regime-legibility.
