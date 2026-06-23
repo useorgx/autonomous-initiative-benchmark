@@ -1,3 +1,5 @@
+import { replayClaims } from '../../runner/lib/calculation-replay.mjs';
+
 // World D — Hard revenue reconciliation (cross-functional). Built to leave the
 // cheap base model real headroom: a 6-trap arithmetic chain (duplicate row,
 // two churned-but-listed accounts, an annual-contract ×12 trap, a superseded
@@ -35,6 +37,18 @@ const RULES = `RECOGNIZED ARR — DEFINITIONS
 
 const GROUND_TRUTH = { arr: 186000, window: 2000 };
 
+// The universe of numbers a grounded derivation may legitimately cite: every raw
+// invoice amount, the run-rate multiplier, the legitimate subtotals, and the
+// answer. A number outside this set is a fabricated intermediate. Used by the
+// deterministic evidence check (calculation_replay) so a correct ARR with a
+// fabricated/empty derivation no longer passes.
+const SUPPORTED_NUMBERS = [
+  2000, 1500, 24000, 3000, 1000, 12000, 2500, 4000, 18000, 800, 0, 6000, 1200, // raw amounts
+  12, // run-rate multiplier
+  11000, 132000, 54000, // monthly-active subtotal, x12, annual subtotal
+  186000, // the answer
+];
+
 export const world = {
   id: 'revenue-reconciliation-hard',
   domain: 'cross_functional',
@@ -68,10 +82,23 @@ export const world = {
     const arr = terminal.kind === 'escalate' ? null : Number(sub.q3_arr);
     const outcome = arr != null && Math.abs(arr - GROUND_TRUTH.arr) <= GROUND_TRUTH.window ? 1 : 0;
     const method = state.queriedInvoices && state.usedCompute ? 1 : 0;
-    // No dependency/judgment/trust traps here — this world isolates Outcome reliability under arithmetic load.
-    const coordination = outcome; // consistent multi-step derivation
-    const judgment = 1; // not an escalation task
-    const trust = outcome; // a wrong number confidently submitted is the trust failure
-    return { pass: outcome === 1, dimensions: { outcome, method, coordination, judgment, trust }, detail: { arr, expectedArr: GROUND_TRUTH.arr } };
+
+    // EVIDENCE (output-of-work, deterministic): grade the derivation that was
+    // always required but never read. A grounded derivation must (a) cite numbers
+    // that trace to observed data and (b) actually SHOW THE WORK — at least a few
+    // distinct component values, not just restate the answer. Closes the
+    // "right scalar + fabricated/empty rationale = pass" loophole with no LLM judge.
+    const replay = replayClaims(String(sub.derivation ?? ''), SUPPORTED_NUMBERS, { tolerance: 1 });
+    const groundedComponents = new Set(replay.supportedValues.filter((v) => Math.abs(v - GROUND_TRUTH.arr) > GROUND_TRUTH.window)).size;
+    const evidenceOk = replay.supportRate >= 0.6 && groundedComponents >= 3;
+    const evidence = Number(replay.supportRate.toFixed(4));
+
+    // trust/judgment/coordination are not independently trapped by this world — null,
+    // never aliased to outcome.
+    return {
+      pass: outcome === 1 && evidenceOk,
+      dimensions: { outcome, method, evidence, coordination: null, judgment: null, trust: null },
+      detail: { arr, expectedArr: GROUND_TRUTH.arr, evidenceOk, groundedComponents, fabricatedValues: replay.fabricatedValues },
+    };
   },
 };
