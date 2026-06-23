@@ -1,0 +1,1291 @@
+[
+  {
+    "episodeId": "clean-raw-e1",
+    "worldId": "silent-corruption-reconciliation-clean",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 16.98,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42,
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 1234,
+      "completionTokens": 155,
+      "totalTokens": 3189,
+      "costCents": 1.5211999999999999,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": false,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": false,
+      "recovered": true
+    },
+    "twin": "clean"
+  },
+  {
+    "episodeId": "clean-raw-e2",
+    "worldId": "silent-corruption-reconciliation-clean",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 17.26,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42,
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 1230,
+      "completionTokens": 156,
+      "totalTokens": 3186,
+      "costCents": 1.9829999999999999,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": false,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": false,
+      "recovered": true
+    },
+    "twin": "clean"
+  },
+  {
+    "episodeId": "clean-raw-e3",
+    "worldId": "silent-corruption-reconciliation-clean",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 17.27,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42
+          }
+        }
+      ],
+      "promptTokens": 1236,
+      "completionTokens": 158,
+      "totalTokens": 3194,
+      "costCents": 1.992,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": false,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": false,
+      "recovered": true
+    },
+    "twin": "clean"
+  },
+  {
+    "episodeId": "clean-raw-e4",
+    "worldId": "silent-corruption-reconciliation-clean",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 16.13,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42,
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 1210,
+      "completionTokens": 161,
+      "totalTokens": 3171,
+      "costCents": 1.988,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": false,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": false,
+      "recovered": true
+    },
+    "twin": "clean"
+  },
+  {
+    "episodeId": "clean-raw-e5",
+    "worldId": "silent-corruption-reconciliation-clean",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 16.08,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42
+          }
+        }
+      ],
+      "promptTokens": 1266,
+      "completionTokens": 155,
+      "totalTokens": 3221,
+      "costCents": 1.998,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": false,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": false,
+      "recovered": true
+    },
+    "twin": "clean"
+  },
+  {
+    "episodeId": "clean-raw-e6",
+    "worldId": "silent-corruption-reconciliation-clean",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 15.88,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42,
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 1218,
+      "completionTokens": 153,
+      "totalTokens": 3171,
+      "costCents": 1.968,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": false,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": false,
+      "recovered": true
+    },
+    "twin": "clean"
+  },
+  {
+    "episodeId": "clean-raw-e7",
+    "worldId": "silent-corruption-reconciliation-clean",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 15.26,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42
+          }
+        }
+      ],
+      "promptTokens": 1248,
+      "completionTokens": 146,
+      "totalTokens": 3194,
+      "costCents": 1.5012,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": false,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": false,
+      "recovered": true
+    },
+    "twin": "clean"
+  },
+  {
+    "episodeId": "clean-raw-e8",
+    "worldId": "silent-corruption-reconciliation-clean",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 16.85,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42
+          }
+        }
+      ],
+      "promptTokens": 1220,
+      "completionTokens": 171,
+      "totalTokens": 3191,
+      "costCents": 2.0229999999999997,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": false,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": false,
+      "recovered": true
+    },
+    "twin": "clean"
+  },
+  {
+    "episodeId": "stressed-raw-e1",
+    "worldId": "silent-corruption-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 16.8,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42
+          }
+        }
+      ],
+      "promptTokens": 1212,
+      "completionTokens": 140,
+      "totalTokens": 3152,
+      "costCents": 1.9260000000000002,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": true,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": true,
+      "recovered": true
+    },
+    "twin": "stressed"
+  },
+  {
+    "episodeId": "stressed-raw-e2",
+    "worldId": "silent-corruption-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 17.9,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42,
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 1224,
+      "completionTokens": 166,
+      "totalTokens": 3190,
+      "costCents": 1.5492,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": true,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": true,
+      "recovered": true
+    },
+    "twin": "stressed"
+  },
+  {
+    "episodeId": "stressed-raw-e3",
+    "worldId": "silent-corruption-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 16.24,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42,
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 1224,
+      "completionTokens": 129,
+      "totalTokens": 3153,
+      "costCents": 1.899,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": true,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": true,
+      "recovered": true
+    },
+    "twin": "stressed"
+  },
+  {
+    "episodeId": "stressed-raw-e4",
+    "worldId": "silent-corruption-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 17.8,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42,
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 1090,
+      "completionTokens": 164,
+      "totalTokens": 3054,
+      "costCents": 1.9369999999999998,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": true,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": true,
+      "recovered": true
+    },
+    "twin": "stressed"
+  },
+  {
+    "episodeId": "stressed-raw-e5",
+    "worldId": "silent-corruption-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 17.52,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42
+          }
+        }
+      ],
+      "promptTokens": 1256,
+      "completionTokens": 161,
+      "totalTokens": 3217,
+      "costCents": 1.5502,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": true,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": true,
+      "recovered": true
+    },
+    "twin": "stressed"
+  },
+  {
+    "episodeId": "stressed-raw-e6",
+    "worldId": "silent-corruption-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 17.32,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42,
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 1278,
+      "completionTokens": 175,
+      "totalTokens": 3253,
+      "costCents": 1.6032000000000002,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": true,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": true,
+      "recovered": true
+    },
+    "twin": "stressed"
+  },
+  {
+    "episodeId": "stressed-raw-e7",
+    "worldId": "silent-corruption-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 18.29,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42
+          }
+        }
+      ],
+      "promptTokens": 1268,
+      "completionTokens": 139,
+      "totalTokens": 3207,
+      "costCents": 1.4902000000000002,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": true,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": true,
+      "recovered": true
+    },
+    "twin": "stressed"
+  },
+  {
+    "episodeId": "stressed-raw-e8",
+    "worldId": "silent-corruption-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 15.58,
+    "terminalKind": "submit",
+    "submission": {
+      "value": 42
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_billing_export"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "read_ledger"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "value": 42
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "read_billing_export",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "read_ledger",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "value": 42,
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 1202,
+      "completionTokens": 153,
+      "totalTokens": 3155,
+      "costCents": 1.96,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "method": 1
+    },
+    "detail": {
+      "value": 42,
+      "truth": 42,
+      "corrupt": true,
+      "readBilling": true,
+      "readLedger": true,
+      "committedCorrupted": false,
+      "criticalViolation": false
+    },
+    "injection": {
+      "failureClass": "silent_corruption",
+      "injected": true,
+      "recovered": true
+    },
+    "twin": "stressed"
+  }
+]
