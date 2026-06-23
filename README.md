@@ -74,9 +74,20 @@ It contains:
 - a simple schema for the published bundle format in `schemas/`
 - a self-serve setup guide in `RUN_IN_ORGX.md`
 
-## Latest published week
+## Published result bundles
 
-No public weekly benchmark bundle has been synced yet. The repository currently contains the methodology, catalog, and bundle schema so outside readers can inspect the benchmark before the first publish-ready week lands.
+The repository contains dated result bundles under `results/<week>/`, indexed in
+[`results/index.json`](results/index.json) (generated from validated manifests by
+`node runner/reissue-bundles.mjs`, not hand-maintained).
+
+**None of the current bundles are headline-eligible.** They are mechanism /
+regime measurements on public, contamination-visible worlds and catalog tasks —
+useful for inspecting methodology, attribution, and cost telemetry, but not
+private-holdout headlines. Headline numbers require the private holdout (hidden
+state, isolated validators, ≥3 timed human baselines), which is not yet
+populated. Bundles whose resource telemetry is incomplete are marked
+`costComparable: false` / `invalidForCost: true` and must not be used for
+cross-bundle cost comparison.
 
 
 ## How to use this repository

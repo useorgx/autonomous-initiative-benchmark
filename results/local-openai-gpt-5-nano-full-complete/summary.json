@@ -7,7 +7,8 @@
   "headlineMetrics": {
     "vs_human_speedup": {
       "value": 131.63,
-      "unit": "x"
+      "unit": "x",
+      "secondary": true
     },
     "vs_human_quality_delta": {
       "value": 6.26,
@@ -20,6 +21,7 @@
     "cost_per_task_cents": {
       "value": 0.0499,
       "unit": "cents"
-    }
+    },
+    "primaryMetric": "autonomous_completion_rate"
   }
 }

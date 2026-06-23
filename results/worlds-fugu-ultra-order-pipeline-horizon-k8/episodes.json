@@ -1,0 +1,1942 @@
+[
+  {
+    "episodeId": "order-pipeline-horizon-raw-e1",
+    "worldId": "order-pipeline-horizon",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 64.65,
+    "terminalKind": "submit",
+    "submission": {
+      "fulfillable_count": 9,
+      "total_revenue": 9945,
+      "backordered_ids": [
+        "O7",
+        "O9",
+        "O10"
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_orders"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer_tiers"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_tax_table"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_prices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_inventory"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_rules"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 2,
+          "submission": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_orders",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer_tiers",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_tax_table",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_prices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_inventory",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_rules",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "8*100*(1-0.2)*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "5*250*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "10*100*(1-0)*(1+0.1)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "4*400*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "20*60*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "6*250*(1-0.2)*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "15*60*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2*400*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "6*100*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "8*100*(1-0.2)*(1+0.08) + 5*250*(1-0.1)*(1+0.2) + 10*100*(1-0)*(1+0.1) + 4*400*(1+0.08) + 20*60*(1-0.1)*(1+0.2) + 6*250*(1-0.2)*(1+0.08) + 15*60*(1+0.08) + 2*400*(1+0.08) + 6*100*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 2,
+          "name": "submit",
+          "args": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "promptTokens": 4132,
+      "completionTokens": 2147,
+      "totalTokens": 8979,
+      "costCents": 8.2442,
+      "modelTurns": 3,
+      "orchInputTokens": 2700,
+      "orchOutputTokens": 0,
+      "toolCallCount": 17
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "expected": {
+        "fulfilled": 9,
+        "revenue": 9945,
+        "backordered": [
+          "O7",
+          "O9",
+          "O10"
+        ]
+      },
+      "got": {
+        "count": 9,
+        "revenue": 9945,
+        "back": [
+          "O10",
+          "O7",
+          "O9"
+        ]
+      },
+      "countRight": 1,
+      "revRight": 1,
+      "backRight": 1
+    }
+  },
+  {
+    "episodeId": "order-pipeline-horizon-raw-e2",
+    "worldId": "order-pipeline-horizon",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 70.38,
+    "terminalKind": "submit",
+    "submission": {
+      "fulfillable_count": 9,
+      "total_revenue": 9945,
+      "backordered_ids": [
+        "O7",
+        "O9",
+        "O10"
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_orders"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer_tiers"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_tax_table"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_prices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_inventory"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_rules"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 2,
+          "submission": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_orders",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer_tiers",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_tax_table",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_prices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_inventory",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_rules",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "(100*8*(1-0.2)*(1+0.08)) + (250*5*(1-0.1)*(1+0.2)) + (100*10*(1-0)*(1+0.1)) + (400*4*(1+0.08)) + (60*20*(1-0.1)*(1+0.2)) + (250*6*(1-0.2)*(1+0.08)) + (60*15*(1+0.08)) + (400*2*(1+0.08)) + (100*6*(1-0.1)*(1+0.2))"
+          }
+        },
+        {
+          "step": 2,
+          "name": "submit",
+          "args": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "promptTokens": 3755,
+      "completionTokens": 2166,
+      "totalTokens": 8621,
+      "costCents": 8.1127,
+      "modelTurns": 3,
+      "orchInputTokens": 2700,
+      "orchOutputTokens": 0,
+      "toolCallCount": 8
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "expected": {
+        "fulfilled": 9,
+        "revenue": 9945,
+        "backordered": [
+          "O7",
+          "O9",
+          "O10"
+        ]
+      },
+      "got": {
+        "count": 9,
+        "revenue": 9945,
+        "back": [
+          "O10",
+          "O7",
+          "O9"
+        ]
+      },
+      "countRight": 1,
+      "revRight": 1,
+      "backRight": 1
+    }
+  },
+  {
+    "episodeId": "order-pipeline-horizon-raw-e3",
+    "worldId": "order-pipeline-horizon",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 83.35,
+    "terminalKind": "submit",
+    "submission": {
+      "fulfillable_count": 9,
+      "total_revenue": 9945,
+      "backordered_ids": [
+        "O7",
+        "O9",
+        "O10"
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_orders"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer_tiers"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_tax_table"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_prices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_inventory"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_rules"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 3,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 4,
+          "submission": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_orders",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer_tiers",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_tax_table",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_prices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_inventory",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_rules",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "100*8*(1-0.2)*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "250*5*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "100*10*(1-0)*(1+0.1)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "400*4*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "60*20*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "250*6*(1-0.2)*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "60*15*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "400*2*(1-0.2)*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "100*6*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "800*(1+0.08)"
+          }
+        },
+        {
+          "step": 3,
+          "name": "compute",
+          "args": {
+            "expression": "691.2+1350+1100+1728+1296+1296+972+864+648"
+          }
+        },
+        {
+          "step": 4,
+          "name": "submit",
+          "args": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "promptTokens": 7776,
+      "completionTokens": 2779,
+      "totalTokens": 15055,
+      "costCents": 11.2494,
+      "modelTurns": 5,
+      "orchInputTokens": 4500,
+      "orchOutputTokens": 0,
+      "toolCallCount": 18
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "expected": {
+        "fulfilled": 9,
+        "revenue": 9945,
+        "backordered": [
+          "O7",
+          "O9",
+          "O10"
+        ]
+      },
+      "got": {
+        "count": 9,
+        "revenue": 9945,
+        "back": [
+          "O10",
+          "O7",
+          "O9"
+        ]
+      },
+      "countRight": 1,
+      "revRight": 1,
+      "backRight": 1
+    }
+  },
+  {
+    "episodeId": "order-pipeline-horizon-raw-e4",
+    "worldId": "order-pipeline-horizon",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 68.85,
+    "terminalKind": "submit",
+    "submission": {
+      "fulfillable_count": 9,
+      "total_revenue": 9945,
+      "backordered_ids": [
+        "O7",
+        "O9",
+        "O10"
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_orders"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer_tiers"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_tax_table"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_prices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_inventory"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_rules"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 2,
+          "submission": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_orders",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer_tiers",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_tax_table",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_prices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_inventory",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_rules",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "(100*8*(1-0.2)*(1+0.08)) + (250*5*(1-0.1)*(1+0.2)) + (100*10*(1+0.1)) + (400*4*(1+0.08)) + (60*20*(1-0.1)*(1+0.2)) + (250*6*(1-0.2)*(1+0.08)) + (60*15*(1+0.08)) + (400*2*(1+0.08)) + (100*6*(1-0.1)*(1+0.2))"
+          }
+        },
+        {
+          "step": 2,
+          "name": "submit",
+          "args": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "promptTokens": 3757,
+      "completionTokens": 2068,
+      "totalTokens": 8525,
+      "costCents": 8.741299999999999,
+      "modelTurns": 3,
+      "orchInputTokens": 2700,
+      "orchOutputTokens": 0,
+      "toolCallCount": 8
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "expected": {
+        "fulfilled": 9,
+        "revenue": 9945,
+        "backordered": [
+          "O7",
+          "O9",
+          "O10"
+        ]
+      },
+      "got": {
+        "count": 9,
+        "revenue": 9945,
+        "back": [
+          "O10",
+          "O7",
+          "O9"
+        ]
+      },
+      "countRight": 1,
+      "revRight": 1,
+      "backRight": 1
+    }
+  },
+  {
+    "episodeId": "order-pipeline-horizon-raw-e5",
+    "worldId": "order-pipeline-horizon",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 82.48,
+    "terminalKind": "submit",
+    "submission": {
+      "fulfillable_count": 9,
+      "total_revenue": 9945,
+      "backordered_ids": [
+        "O7",
+        "O9",
+        "O10"
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_orders"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer_tiers"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_tax_table"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_prices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_inventory"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_rules"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 3,
+          "submission": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_orders",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer_tiers",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_tax_table",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_prices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_inventory",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_rules",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "100*8*(1-0.2)*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "250*5*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "100*10*(1+0.1)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "400*4*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "60*20*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "250*6*(1-0.2)*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "60*15*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "400*2*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "100*6*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "691.2+1350+1100+1728+1296+1296+972+864+648"
+          }
+        },
+        {
+          "step": 3,
+          "name": "submit",
+          "args": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "promptTokens": 5692,
+      "completionTokens": 2508,
+      "totalTokens": 11800,
+      "costCents": 10.7876,
+      "modelTurns": 4,
+      "orchInputTokens": 3600,
+      "orchOutputTokens": 0,
+      "toolCallCount": 17
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "expected": {
+        "fulfilled": 9,
+        "revenue": 9945,
+        "backordered": [
+          "O7",
+          "O9",
+          "O10"
+        ]
+      },
+      "got": {
+        "count": 9,
+        "revenue": 9945,
+        "back": [
+          "O10",
+          "O7",
+          "O9"
+        ]
+      },
+      "countRight": 1,
+      "revRight": 1,
+      "backRight": 1
+    }
+  },
+  {
+    "episodeId": "order-pipeline-horizon-raw-e6",
+    "worldId": "order-pipeline-horizon",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 60.68,
+    "terminalKind": "submit",
+    "submission": {
+      "fulfillable_count": 9,
+      "total_revenue": 9945,
+      "backordered_ids": [
+        "O7",
+        "O9",
+        "O10"
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_orders"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer_tiers"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_tax_table"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_prices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_inventory"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_rules"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 2,
+          "submission": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_orders",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer_tiers",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_tax_table",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_prices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_inventory",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_rules",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "100*8*(1-0.2)*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "250*5*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "100*10*(1-0)*(1+0.1)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "400*4*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "60*20*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "250*6*(1-0.2)*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "60*15*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "400*2*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "100*6*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "691.2+1350+1100+1728+1296+1296+972+864+648"
+          }
+        },
+        {
+          "step": 2,
+          "name": "submit",
+          "args": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "promptTokens": 4007,
+      "completionTokens": 1848,
+      "totalTokens": 8555,
+      "costCents": 8.4367,
+      "modelTurns": 3,
+      "orchInputTokens": 2700,
+      "orchOutputTokens": 0,
+      "toolCallCount": 17
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "expected": {
+        "fulfilled": 9,
+        "revenue": 9945,
+        "backordered": [
+          "O7",
+          "O9",
+          "O10"
+        ]
+      },
+      "got": {
+        "count": 9,
+        "revenue": 9945,
+        "back": [
+          "O10",
+          "O7",
+          "O9"
+        ]
+      },
+      "countRight": 1,
+      "revRight": 1,
+      "backRight": 1
+    }
+  },
+  {
+    "episodeId": "order-pipeline-horizon-raw-e7",
+    "worldId": "order-pipeline-horizon",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 98.86,
+    "terminalKind": "submit",
+    "submission": {
+      "fulfillable_count": 9,
+      "total_revenue": 9945,
+      "backordered_ids": [
+        "O7",
+        "O9",
+        "O10"
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_orders"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer_tiers"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_tax_table"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_prices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_inventory"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_rules"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 2,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 3,
+          "submission": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_orders",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer_tiers",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_tax_table",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_prices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_inventory",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_rules",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "800*(1-0.2)*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "1250*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "1000*(1+0.1)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "1600*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "1200*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "1500*(1-0.2)*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "900*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "800*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "600*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 2,
+          "name": "compute",
+          "args": {
+            "expression": "691.2+1350+1100+1728+1296+1296+972+864+648"
+          }
+        },
+        {
+          "step": 3,
+          "name": "submit",
+          "args": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "promptTokens": 5802,
+      "completionTokens": 3463,
+      "totalTokens": 12865,
+      "costCents": 13.2468,
+      "modelTurns": 4,
+      "orchInputTokens": 3600,
+      "orchOutputTokens": 0,
+      "toolCallCount": 17
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "expected": {
+        "fulfilled": 9,
+        "revenue": 9945,
+        "backordered": [
+          "O7",
+          "O9",
+          "O10"
+        ]
+      },
+      "got": {
+        "count": 9,
+        "revenue": 9945,
+        "back": [
+          "O10",
+          "O7",
+          "O9"
+        ]
+      },
+      "countRight": 1,
+      "revRight": 1,
+      "backRight": 1
+    }
+  },
+  {
+    "episodeId": "order-pipeline-horizon-raw-e8",
+    "worldId": "order-pipeline-horizon",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 68.76,
+    "terminalKind": "submit",
+    "submission": {
+      "fulfillable_count": 9,
+      "total_revenue": 9945,
+      "backordered_ids": [
+        "O7",
+        "O9",
+        "O10"
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_orders"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer_tiers"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_tax_table"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_prices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_inventory"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_rules"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "submit",
+          "step": 2,
+          "submission": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_orders",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer_tiers",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_tax_table",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_prices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_inventory",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_rules",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "100*8*(1-0.2)*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "250*5*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "100*10*(1-0)*(1+0.1)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "400*4*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "60*20*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "250*6*(1-0.2)*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "60*15*(1-0)*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "400*2*(1+0.08)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "100*6*(1-0.1)*(1+0.2)"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "691.2+1350+1100+1728+1296+1296+972+864+648"
+          }
+        },
+        {
+          "step": 2,
+          "name": "submit",
+          "args": {
+            "fulfillable_count": 9,
+            "total_revenue": 9945,
+            "backordered_ids": [
+              "O7",
+              "O9",
+              "O10"
+            ]
+          }
+        }
+      ],
+      "promptTokens": 4038,
+      "completionTokens": 2402,
+      "totalTokens": 9140,
+      "costCents": 8.5014,
+      "modelTurns": 3,
+      "orchInputTokens": 2700,
+      "orchOutputTokens": 0,
+      "toolCallCount": 17
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "expected": {
+        "fulfilled": 9,
+        "revenue": 9945,
+        "backordered": [
+          "O7",
+          "O9",
+          "O10"
+        ]
+      },
+      "got": {
+        "count": 9,
+        "revenue": 9945,
+        "back": [
+          "O10",
+          "O7",
+          "O9"
+        ]
+      },
+      "countRight": 1,
+      "revRight": 1,
+      "backRight": 1
+    }
+  }
+]

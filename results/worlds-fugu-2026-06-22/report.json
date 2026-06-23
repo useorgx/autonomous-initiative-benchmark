@@ -1,0 +1,280 @@
+{
+  "admissionSummary": {
+    "admitted": 2,
+    "saturated": 7,
+    "rule": "admitted if raw baseline pass@k < 1.0 (headroom exists)"
+  },
+  "benchmark": "orgx-bench-v2-instrumented-worlds",
+  "corpus": {
+    "splits": [
+      "public_validation"
+    ],
+    "headlineEligible": false,
+    "note": "Includes public / contamination-visible worlds — NOT headline-eligible; for harness transparency and validation only (corpus-splits.json policy)."
+  },
+  "generatedAtNote": "timestamp stamped by caller",
+  "provider": "fugu",
+  "model": "fugu",
+  "k": 3,
+  "arms": [
+    "raw"
+  ],
+  "worldCount": 9,
+  "scoring": "deterministic validators only (no LLM judge)",
+  "perWorld": [
+    {
+      "worldId": "budget-bounded-forecast",
+      "domain": "economy",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 3,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 1479,
+          "meanCostCents": 0,
+          "meanToolCalls": 3,
+          "qualityPerKToken": 0.6761,
+          "meanOrchestrationTokens": 0,
+          "orchestrationRatio": 0,
+          "dimensions": {
+            "outcome": 1,
+            "method": 0,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "recovery": null,
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "deploy-approval-trust",
+      "domain": "trust",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 3,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 1363,
+          "meanCostCents": 0,
+          "meanToolCalls": 4,
+          "qualityPerKToken": 0.7337,
+          "meanOrchestrationTokens": 0,
+          "orchestrationRatio": 0,
+          "dimensions": {
+            "outcome": 0,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "recovery": null,
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "incident-triage-dependency",
+      "domain": "ops",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 3,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 3081,
+          "meanCostCents": 0,
+          "meanToolCalls": 5,
+          "qualityPerKToken": 0.3245,
+          "meanOrchestrationTokens": 0,
+          "orchestrationRatio": 0,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "recovery": null,
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "ledger-running-total",
+      "domain": "multi_session",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 3,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 1587,
+          "meanCostCents": 0,
+          "meanToolCalls": 3,
+          "qualityPerKToken": 0.6303,
+          "meanOrchestrationTokens": 0,
+          "orchestrationRatio": 0,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "recovery": null,
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "migration-contradiction-refusal",
+      "domain": "engineering",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 3,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 1392,
+          "meanCostCents": 0,
+          "meanToolCalls": 4,
+          "qualityPerKToken": 0.7182,
+          "meanOrchestrationTokens": 0,
+          "orchestrationRatio": 0,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "recovery": null,
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "order-pipeline-horizon",
+      "domain": "ops",
+      "admission": "admitted",
+      "arms": {
+        "raw": {
+          "n": 3,
+          "passAtK": 0.667,
+          "passPowK": 0,
+          "meanTokens": 13029,
+          "meanCostCents": 0,
+          "meanToolCalls": 17.667,
+          "qualityPerKToken": 0.0512,
+          "meanOrchestrationTokens": 0,
+          "orchestrationRatio": 0,
+          "dimensions": {
+            "outcome": 0.667,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 0.667
+          },
+          "recovery": null,
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "provider-outage-recovery",
+      "domain": "trust",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 3,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 1236,
+          "meanCostCents": 0,
+          "meanToolCalls": 3,
+          "qualityPerKToken": 0.8091,
+          "meanOrchestrationTokens": 0,
+          "orchestrationRatio": 0,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 1
+          },
+          "recovery": {
+            "ratio": 1,
+            "injected": 3,
+            "recovered": 3,
+            "byClass": {
+              "provider_outage": {
+                "injected": 3,
+                "recovered": 3
+              }
+            }
+          },
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "revenue-reconciliation-hard",
+      "domain": "cross_functional",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 3,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 4301,
+          "meanCostCents": 0,
+          "meanToolCalls": 5,
+          "qualityPerKToken": 0.2325,
+          "meanOrchestrationTokens": 0,
+          "orchestrationRatio": 0,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "recovery": null,
+          "failures": 0
+        }
+      }
+    },
+    {
+      "worldId": "revenue-refund-reconciliation",
+      "domain": "cross_functional",
+      "admission": "admitted",
+      "arms": {
+        "raw": {
+          "n": 3,
+          "passAtK": 0,
+          "passPowK": 0,
+          "meanTokens": 3337,
+          "meanCostCents": 0,
+          "meanToolCalls": 5,
+          "qualityPerKToken": 0,
+          "meanOrchestrationTokens": 0,
+          "orchestrationRatio": 0,
+          "dimensions": {
+            "outcome": 0,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "recovery": null,
+          "failures": 0
+        }
+      }
+    }
+  ],
+  "uplift": {}
+}

@@ -1,0 +1,23 @@
+{
+  "benchmark": "orgx-bench-v3-regime",
+  "world": "silent-corruption-reconciliation",
+  "provider": "fugu",
+  "model": "fugu",
+  "k": 8,
+  "arms": [
+    "raw"
+  ],
+  "scoring": "Qualified Mission Success (pass AND no integrity violation), deterministic",
+  "rawRegime": {
+    "clean": "easy",
+    "stressed": "easy"
+  },
+  "perArm": {
+    "raw": {
+      "cleanSuccess": 1,
+      "stressedSuccess": 1
+    }
+  },
+  "differentials": {},
+  "note": "Paired counterfactual: stressor (silent corruption) is the only difference between twins. Public/diagnostic, not headline."
+}

@@ -22,8 +22,8 @@
     "node-24.13.0"
   ],
   "claims": [
-    "Local public-catalog run using OpenAI Responses API.",
-    "Scores are self-reported by the model against public acceptance criteria and are intended for smoke testing complete bundle generation."
+    "Generation: an unspecified model via an unspecified provider.",
+    "Scores are self-reported by the model against public acceptance criteria (smoke-test signal only)."
   ],
   "assumptions": {
     "modelSelection": "gpt-5-nano was selected for the cheapest complete OpenAI smoke run.",
@@ -36,5 +36,21 @@
     "examples.json",
     "tasks.json",
     "scorecard.csv"
+  ],
+  "telemetryCoverage": {
+    "generation": 1,
+    "judging": 1
+  },
+  "costComparable": true,
+  "corrections": [
+    {
+      "date": "2026-06-22",
+      "reason": "integrity reissue (Fugu-response audit)",
+      "changes": [
+        "claims re-derived from actual provider + judge panel",
+        "telemetryCoverage set generation=1 judging=1",
+        "costComparable=true"
+      ]
+    }
   ]
 }

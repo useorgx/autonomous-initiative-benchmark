@@ -17,6 +17,11 @@
     "validate:worlds:preview": "node runner/validate-world.mjs --registry worlds/corpus-splits.json --split initiative_worlds_preview",
     "validate:bundle": "node runner/validate-bundle.mjs",
     "validate:bundle:strict": "node runner/validate-bundle.mjs --strict",
-    "recompute:scorecard": "node runner/recompute-scorecard.mjs"
+    "validate:manifest": "node runner/validate-manifest.mjs",
+    "validate:bundles:all": "node runner/validate-all-bundles.mjs",
+    "recompute:scorecard": "node runner/recompute-scorecard.mjs",
+    "reissue:bundles": "node runner/reissue-bundles.mjs",
+    "record:human-baseline": "node runner/record-human-baseline.mjs",
+    "test": "node --test runner/lib/*.test.mjs worlds/instrumented/*.test.mjs"
   }
 }

@@ -5,6 +5,8 @@ import { execFileSync } from 'node:child_process';
 
 import { aggregateJudgments, avg, sum } from './scoring.mjs';
 import { summarizeUsage } from './openai-pricing.mjs';
+import { buildClaims } from './claims.mjs';
+import { coverageOf, publicationSafeUsage, costComparable } from './telemetry.mjs';
 
 export async function writeBundle({
   repoRoot,
@@ -35,6 +37,24 @@ export async function writeBundle({
     headlineMetrics: aggregate.headlineMetrics,
   };
 
+  const resolvedGenerationMethod = generationMethod ?? {
+    provider: 'openai',
+    model,
+    reasoningEffort: 'minimal',
+    maxOutputTokens,
+  };
+  const judgePanel = (judgeConfig?.judgeSpecs ?? []).map((spec) => ({
+    provider: spec.provider ?? 'openai',
+    model: spec.model,
+    reasoningEffort: spec.reasoningEffort,
+  }));
+
+  // Telemetry coverage: missing usage must be `null`, never `0`. A cost
+  // comparison is only valid when BOTH surfaces are fully measured.
+  const generationCoverage = coverageOf(evaluatedResults);
+  const judgingCoverage = coverageOf(judgeRuns);
+  const isCostComparable = costComparable(generationCoverage, judgingCoverage);
+
   const metadata = {
     benchmarkWeek: resultId,
     benchmarkVersion: '2026-q1',
@@ -47,21 +67,17 @@ export async function writeBundle({
     ]),
     models: unique([model, ...judgeRuns.map((judge) => judge.model)]),
     runtimes: [`node-${process.versions.node}`],
-    claims: buildClaims(hasJudges),
-    generationMethod: generationMethod ?? {
-      provider: 'openai',
-      model,
-      reasoningEffort: 'minimal',
-      maxOutputTokens,
-    },
+    claims: buildClaims({
+      generationMethod: resolvedGenerationMethod,
+      judgePanel,
+      hasJudges,
+      costComparable: isCostComparable,
+    }),
+    generationMethod: resolvedGenerationMethod,
     evaluationMethod: hasJudges
       ? {
           independentJudges: true,
-          judgePanel: (judgeConfig?.judgeSpecs ?? []).map((spec) => ({
-            provider: spec.provider ?? 'openai',
-            model: spec.model,
-            reasoningEffort: spec.reasoningEffort,
-          })),
+          judgePanel,
           judgeMaxOutputTokens: judgeConfig?.maxOutputTokens ?? null,
           scoreAggregation: 'median criterion score across completed independent judges',
           disagreementThresholdPoints: judgeConfig?.disagreementThresholdPoints ?? null,
@@ -72,10 +88,18 @@ export async function writeBundle({
           independentJudges: false,
           scoreAggregation: 'generator self-reported criterion scores',
         },
+    costComparable: isCostComparable,
+    telemetryCoverage: {
+      generation: generationCoverage.ratio,
+      judging: judgingCoverage.ratio,
+    },
     tokenUsage: {
-      generation: summarizeUsage(evaluatedResults),
-      judging: summarizeUsage(judgeRuns),
-      total: summarizeUsage([...evaluatedResults, ...judgeRuns]),
+      generation: publicationSafeUsage(summarizeUsage(evaluatedResults), generationCoverage),
+      judging: publicationSafeUsage(summarizeUsage(judgeRuns), judgingCoverage),
+      total: publicationSafeUsage(
+        summarizeUsage([...evaluatedResults, ...judgeRuns]),
+        coverageOf([...evaluatedResults, ...judgeRuns])
+      ),
     },
     assumptions: {
       modelSelection: `${model} was selected for the cheapest complete OpenAI smoke run.`,
@@ -87,6 +111,15 @@ export async function writeBundle({
     },
     dataFiles,
   };
+
+  // Decision (2026-06-22): World Success Rate / autonomous completion is the
+  // headline; vs_human_speedup (Flow Multiplier) is demoted to secondary and
+  // suppressed when there is no timed human baseline. Cost-per-task is nulled
+  // whenever telemetry is not fully comparable.
+  summary.headlineMetrics = finalizeHeadlineMetrics(aggregate.headlineMetrics, {
+    costComparable: isCostComparable,
+    hasHumanBaseline: tasks.some((task) => task.humanBaseline?.collectionMethod === 'timed_human_run'),
+  });
 
   const writes = [
     writeJson(path.join(outDir, 'summary.json'), summary),
@@ -312,19 +345,31 @@ function buildJudgmentsJson(resultId, judgeRuns, evaluatedResults, judgeConfig) 
   };
 }
 
-function buildClaims(hasJudges) {
-  if (!hasJudges) {
-    return [
-      'Local public-catalog run using OpenAI Responses API.',
-      'Scores are self-reported by the model against public acceptance criteria and are intended for smoke testing complete bundle generation.',
-    ];
+// Demote Flow Multiplier and null un-comparable cost. Returns a NEW metrics
+// object; never mutates the input.
+function finalizeHeadlineMetrics(metrics, { costComparable, hasHumanBaseline }) {
+  const out = { primaryMetric: 'autonomous_completion_rate', ...metrics };
+
+  // vs_human_speedup is only meaningful against a TIMED human run.
+  if (out.vs_human_speedup && !hasHumanBaseline) {
+    out.vs_human_speedup = {
+      ...out.vs_human_speedup,
+      value: null,
+      suppressed: true,
+      reason: 'no timed_human_run baseline; speed multiplier is not headline-eligible',
+    };
+  } else if (out.vs_human_speedup) {
+    out.vs_human_speedup = { ...out.vs_human_speedup, secondary: true };
   }
 
-  return [
-    'Local public-catalog run using OpenAI Responses API.',
-    'Artifacts were scored by independent OpenAI judge calls that did not generate the artifact.',
-    'Public quality scores use median criterion scores and flag material judge disagreement for human review.',
-  ];
+  if (!costComparable) {
+    for (const key of ['cost_per_task_cents', 'generation_cost_per_task_cents', 'judging_cost_per_task_cents']) {
+      if (out[key]) {
+        out[key] = { ...out[key], value: null, suppressed: true, reason: 'telemetry not fully measured; cost not comparable' };
+      }
+    }
+  }
+  return out;
 }
 
 async function updateResultsIndex(repoRoot, summary, metadata) {

@@ -88,7 +88,7 @@ Every benchmark task is evaluated in three modes:
 | `single_agent` | A strong single model (Claude, GPT) doing all the work directly — no orchestration |
 | `human_baseline` | Curated human reference with explicit provenance and methodology |
 
-We treat `single_agent` as the closest analogue to "just use Claude, ChatGPT, or Cursor directly." If OrgX can't beat that bar, we don't publish.
+We treat `single_agent` as the closest analogue to "just use Claude, ChatGPT, or Cursor directly." `single_agent` is the bar OrgX must clear to earn a **headline win** — but a week that doesn't clear it is not buried. Every scheduled run's existence is registered publicly with a status label (`publish-ready` / `publish-with-caveats` / `do-not-publish` / `invalid-for-cost`); we only make headline claims on wins, and we never hide that a run happened or why it wasn't headlined. (See the loss policy under [Publication gates](#publication-gates).) This kills survivorship bias while keeping the bar honest.
 
 This three-mode design is grounded in how the field evaluates multi-agent systems. [Du et al. (2023)](https://arxiv.org/abs/2305.14325) showed that multiple LLM instances debating over rounds significantly improve reasoning and factual accuracy — even when individual agents initially give wrong answers. The key insight: coordination structure matters more than raw model capability. [MetaGPT (Hong et al., 2023)](https://arxiv.org/abs/2308.00352) demonstrated that encoding real-world Standard Operating Procedures into multi-agent workflows reduces hallucinations and produces structured deliverables that unstructured single-agent runs cannot match.
 
@@ -167,7 +167,9 @@ The publication flow fails closed. Incomplete metadata blocks public release.
 
 The public scorecard now tracks thirteen metrics: the core outcome metrics plus explicit overhead, stability, and loss accounting.
 
-- **Flow Multiplier** — `human_time / orgx_time` (the headline number)
+- **World Success Rate** — deterministic pass over Initiative Worlds (**the primary headline metric**, gated by Trust-Adjusted Score)
+- **Cost per verified outcome** — the efficiency axis: verified outcomes per dollar / per minute / per human-review minute
+- **Flow Multiplier** — `human_time / orgx_time` (secondary; **suppressed entirely unless a `timed_human_run` baseline exists** — it is not reported against `expert_estimate` baselines)
 - **Quality delta** — quality score vs. human baseline
 - **Autonomous completion rate** — % of tasks completed without human intervention
 - **Benchmark completeness** — coverage across the full task catalog

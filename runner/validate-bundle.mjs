@@ -212,6 +212,11 @@ function validateTokenUsage({ metadata, errors, warnings, strict }) {
     return;
   }
 
+  // New telemetry semantics (2026-06-22): missing usage is `null` (explicit
+  // unknown), never `0`. A `null` section is VALID only when the bundle is
+  // marked not-cost-comparable. A zero/absent total with a named generation
+  // model and no such flag is the old "free generation" bug — now an error.
+  const explicitlyUnknown = metadata.costComparable === false;
   for (const section of ['generation', 'total']) {
     const current = usage[section];
     if (!current) {
@@ -220,10 +225,15 @@ function validateTokenUsage({ metadata, errors, warnings, strict }) {
       else warnings.push(message);
       continue;
     }
+    if (current.totalTokens === null) {
+      if (!explicitlyUnknown) {
+        errors.push(`metadata.tokenUsage.${section}.totalTokens is null but metadata.costComparable is not false — nulled telemetry must set costComparable:false.`);
+      }
+      // valid explicit-unknown: do not also require costCents to be numeric.
+      continue;
+    }
     if (!Number.isFinite(Number(current.totalTokens)) || Number(current.totalTokens) <= 0) {
-      const message = `metadata.tokenUsage.${section}.totalTokens must be positive.`;
-      if (strict) errors.push(message);
-      else warnings.push(message);
+      errors.push(`metadata.tokenUsage.${section}.totalTokens is ${current.totalTokens}: represent missing telemetry as null with costComparable:false, never 0.`);
     }
     if (!Number.isFinite(Number(current.costCents))) {
       errors.push(`metadata.tokenUsage.${section}.costCents must be numeric.`);

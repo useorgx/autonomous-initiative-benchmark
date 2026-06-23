@@ -7,7 +7,8 @@
   "headlineMetrics": {
     "vs_human_speedup": {
       "value": 60.87,
-      "unit": "x"
+      "unit": "x",
+      "secondary": true
     },
     "vs_human_quality_delta": {
       "value": 11.2,
@@ -32,6 +33,7 @@
     "human_review_recommended_rate": {
       "value": 0.267,
       "unit": "ratio"
-    }
+    },
+    "primaryMetric": "autonomous_completion_rate"
   }
 }

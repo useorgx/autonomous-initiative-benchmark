@@ -7,9 +7,10 @@ import { mkdir, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 
-import { runEpisode, runRestartEpisode } from './lib/world-engine.mjs';
+import { runEpisode, runRestartEpisode, runBestOfNEpisode } from './lib/world-engine.mjs';
 import { requireProviderKey } from './lib/providers.mjs';
 import { computeCorpusEligibility, filterWorldsBySplit } from './lib/corpus-splits.mjs';
+import { recoveryScore } from './lib/resilience-metrics.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 const repoRoot = path.resolve(import.meta.dirname, '..');
@@ -18,6 +19,7 @@ const model = args.model || 'deepseek/deepseek-v4-flash';
 const k = Math.max(1, Number(args.k ?? 5));
 const arms = (args.arms || 'raw,orgx').split(',');
 const concurrency = Math.max(1, Number(args.concurrency ?? 4));
+const bonN = Math.max(2, Number(args.bonN ?? 3));
 const outName = args.out || 'worlds-run';
 
 requireProviderKey(provider);
@@ -51,9 +53,9 @@ console.log(`Running ${jobs.length} episodes: ${selected.length} world(s) x ${ar
 const episodes = await mapWithConcurrency(jobs, concurrency, async (job, index) => {
   process.stdout.write(`[${index + 1}/${jobs.length}] ${job.episodeId}\n`);
   try {
-    return job.arm === 'restart'
-      ? await runRestartEpisode({ world: job.world, provider, model, episodeId: job.episodeId })
-      : await runEpisode({ world: job.world, arm: job.arm, provider, model, episodeId: job.episodeId });
+    if (job.arm === 'restart') return await runRestartEpisode({ world: job.world, provider, model, episodeId: job.episodeId });
+    if (job.arm === 'bon') return await runBestOfNEpisode({ world: job.world, provider, model, episodeId: job.episodeId, n: bonN });
+    return await runEpisode({ world: job.world, arm: job.arm, provider, model, episodeId: job.episodeId });
   } catch (error) {
     console.error(`  ${job.episodeId} FAILED: ${error instanceof Error ? error.message : error}`);
     return { episodeId: job.episodeId, worldId: job.world.id, arm: job.arm, model, failed: true, error: String(error), pass: false, dimensions: {}, weg: { totalTokens: 0, costCents: 0, toolCallCount: 0 } };
@@ -84,6 +86,12 @@ function buildReport(worlds, arms, k, episodes, meta) {
       const toolCalls = avg(eps.map((e) => e.weg?.toolCallCount ?? 0));
       const dims = Object.fromEntries(DIMS.map((d) => [d, avg(eps.map((e) => Number(e.dimensions?.[d] ?? 0)))]));
       const qualityPerKToken = tokens > 0 ? Number((passAtK / (tokens / 1000)).toFixed(4)) : 0;
+      // Fugu orchestration overhead: how much of the token spend is coordination.
+      const orchTokens = avg(eps.map((e) => (e.weg?.orchInputTokens ?? 0) + (e.weg?.orchOutputTokens ?? 0)));
+      const orchestrationRatio = tokens > 0 ? Number((orchTokens / tokens).toFixed(4)) : 0;
+      // Resilience: when a world injects failures, score recovery for this arm.
+      const injections = eps.map((e) => e.injection).filter(Boolean);
+      const recovery = injections.length ? recoveryScore(injections) : null;
       armStats[arm] = {
         n: eps.length,
         passAtK: round(passAtK),
@@ -92,7 +100,10 @@ function buildReport(worlds, arms, k, episodes, meta) {
         meanCostCents: round(cost),
         meanToolCalls: round(toolCalls),
         qualityPerKToken,
+        meanOrchestrationTokens: Math.round(orchTokens),
+        orchestrationRatio,
         dimensions: Object.fromEntries(Object.entries(dims).map(([d, v]) => [d, round(v)])),
+        recovery,
         failures: eps.filter((e) => e.failed).length,
       };
     }
@@ -194,6 +205,7 @@ function parseArgs(argv) {
     else if (a === '--arms') p.arms = argv[++i];
     else if (a === '--world') p.world = argv[++i];
     else if (a === '--concurrency') p.concurrency = argv[++i];
+    else if (a === '--bon-n') p.bonN = argv[++i];
     else if (a === '--out') p.out = argv[++i];
   }
   return p;
