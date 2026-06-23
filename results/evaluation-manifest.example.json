@@ -1,0 +1,16 @@
+{
+  "id": "fugu-regime-demo-2026-06-22",
+  "date": "2026-06-22",
+  "claim": "Selective orchestration (verify-on-the-edge) is more cost-resilient than reflexive/always-on orchestration on tasks a strong base model already saturates.",
+  "arms": [
+    { "id": "single_frontier", "system": "single_frontier", "model": "deepseek/deepseek-v4-flash", "provider": "openrouter", "budget": { "tokens": 30000, "calls": 12 } },
+    { "id": "fugu", "system": "fugu", "model": "fugu", "provider": "fugu", "budget": { "tokens": 30000, "calls": 12 } },
+    { "id": "fugu_ultra", "system": "fugu_ultra", "model": "fugu-ultra", "provider": "fugu", "budget": { "tokens": 30000, "calls": 12 } },
+    { "id": "orgx_gate", "system": "adaptive_orgx", "model": "deepseek/deepseek-v4-flash", "provider": "openrouter", "scaffold": "gate_v3_verify_on_edge", "budget": { "tokens": 30000, "calls": 12 } }
+  ],
+  "tasks": "public_validation_worlds_v2",
+  "k": 8,
+  "metrics": ["pass_at_k", "pass_pow_k", "quality_per_ktoken", "latency", "provenance_completeness", "recovery_score", "budget_adherence"],
+  "headlineEligible": false,
+  "notes": "Public/contamination-visible worlds: a mechanism+regime measurement, NOT a private-holdout headline. Cost reported as envelope (billed + orchestration tokens where exposed + latency + quota burn), not a single dollar figure."
+}

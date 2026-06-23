@@ -24,6 +24,20 @@ export const PROVIDERS = {
     url: 'https://api.deepseek.com/chat/completions',
     envKey: 'DEEPSEEK_API_KEY',
   },
+  // Sakana Fugu — a learned multi-agent orchestrator behind one
+  // OpenAI-compatible endpoint. Verified 2026-06-22 from console.sakana.ai.
+  // Run it as a black-box orchestration arm (the 3-arm demo). Note: `fugu`
+  // only accepts reasoning effort high|xhigh|max — NOT low — so the engine must
+  // use this provider-level reasoningEffort instead of its 'low' default.
+  // Cost is not exposed as usage.cost, so dollar cost is reported `unknown`;
+  // the envelope is tokens + latency (predictability, not price).
+  fugu: {
+    api: 'chat',
+    url: 'https://api.sakana.ai/v1/chat/completions',
+    envKey: 'SAKANA_API_KEY',
+    reasoningEffort: 'high',
+    models: ['fugu', 'fugu-ultra'],
+  },
 };
 
 export function getProvider(name) {

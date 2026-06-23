@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/evaluation-manifest.schema.json",
+  "title": "OrgX-Bench Evaluation Pre-Registration Manifest",
+  "description": "Published BEFORE a benchmark run to pre-empt 'you chose the tests after seeing the results.' The run is then executed and its bundle references this manifest's id.",
+  "type": "object",
+  "required": ["id", "date", "claim", "arms", "tasks", "metrics", "headlineEligible"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "description": "Stable id; the result bundle references this." },
+    "date": { "type": "string", "description": "Pre-registration date (YYYY-MM-DD), set before the run." },
+    "claim": { "type": "string", "description": "The single falsifiable hypothesis this run tests." },
+    "arms": {
+      "type": "array",
+      "minItems": 2,
+      "description": "Named comparison arms. Vague labels (Model A/B/C) are forbidden.",
+      "items": {
+        "type": "object",
+        "required": ["id", "system", "model"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "system": { "type": "string", "description": "single_frontier | provider_native_agent | best_of_n | self_reflection | static_orgx | adaptive_orgx | full_orgx | fugu | fugu_ultra" },
+          "model": { "type": "string", "description": "Exact, version-pinned model id." },
+          "provider": { "type": "string" },
+          "scaffold": { "type": "string" },
+          "budget": {
+            "type": "object",
+            "description": "Matched resource allowance — the compute-matched-orchestration control.",
+            "properties": {
+              "dollars": { "type": ["number", "null"] },
+              "tokens": { "type": ["number", "null"] },
+              "calls": { "type": ["number", "null"] },
+              "wallSeconds": { "type": ["number", "null"] }
+            }
+          }
+        }
+      }
+    },
+    "tasks": { "type": "string", "description": "Split/suite identifier, e.g. public_validation_worlds_v2 or private_holdout." },
+    "k": { "type": "integer", "description": "Repeats per arm (pass^k)." },
+    "metrics": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "enum": ["world_success_rate", "trust_adjusted_score", "pass_at_k", "pass_pow_k", "quality_per_ktoken", "cost_per_verified_outcome", "latency", "provenance_completeness", "recovery_score", "budget_adherence", "uncertainty_honesty"] }
+    },
+    "headlineEligible": { "type": "boolean", "description": "False for any public_validation / contamination-visible run." },
+    "notes": { "type": "string" }
+  }
+}

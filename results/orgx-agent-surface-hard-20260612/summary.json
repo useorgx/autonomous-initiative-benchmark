@@ -7,7 +7,8 @@
   "headlineMetrics": {
     "vs_human_speedup": {
       "value": 71.74,
-      "unit": "x"
+      "unit": "x",
+      "secondary": true
     },
     "vs_human_quality_delta": {
       "value": 8.58,
@@ -18,20 +19,27 @@
       "unit": "ratio"
     },
     "cost_per_task_cents": {
-      "value": 1.0516,
-      "unit": "cents"
+      "value": null,
+      "unit": "cents",
+      "suppressed": true,
+      "reason": "telemetry not fully measured; cost not comparable"
     },
     "generation_cost_per_task_cents": {
-      "value": 0,
-      "unit": "cents"
+      "value": null,
+      "unit": "cents",
+      "suppressed": true,
+      "reason": "telemetry not fully measured; cost not comparable"
     },
     "judging_cost_per_task_cents": {
-      "value": 1.0516,
-      "unit": "cents"
+      "value": null,
+      "unit": "cents",
+      "suppressed": true,
+      "reason": "telemetry not fully measured; cost not comparable"
     },
     "human_review_recommended_rate": {
       "value": 0.667,
       "unit": "ratio"
-    }
+    },
+    "primaryMetric": "autonomous_completion_rate"
   }
 }

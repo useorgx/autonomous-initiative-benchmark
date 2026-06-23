@@ -26,9 +26,10 @@
     "node-24.13.0"
   ],
   "claims": [
-    "Local public-catalog run using OpenAI Responses API.",
-    "Artifacts were scored by independent OpenAI judge calls that did not generate the artifact.",
-    "Public quality scores use median criterion scores and flag material judge disagreement for human review."
+    "Generation: gpt-5-nano via OpenAI Responses API.",
+    "Artifacts were scored by 3 independent judges (deepseek/deepseek-v4-flash, deepseek/deepseek-v3.2, deepseek/deepseek-v4-pro) via OpenRouter that did not generate the artifact.",
+    "Public quality scores use median criterion scores and flag material judge disagreement for human review.",
+    "COST NOT COMPARABLE: this bundle has incomplete resource telemetry; cost-per-task is suppressed and must not be compared against fully-measured bundles."
   ],
   "generationMethod": {
     "provider": "openai",
@@ -62,12 +63,14 @@
   },
   "tokenUsage": {
     "generation": {
-      "inputTokens": 0,
-      "cachedInputTokens": 0,
-      "outputTokens": 0,
-      "reasoningTokens": 0,
-      "totalTokens": 0,
-      "costCents": 0.599
+      "inputTokens": null,
+      "cachedInputTokens": null,
+      "outputTokens": null,
+      "reasoningTokens": null,
+      "totalTokens": null,
+      "costCents": null,
+      "coverage": 0,
+      "note": "telemetry missing — represented as unknown, not zero"
     },
     "judging": {
       "inputTokens": 55673,
@@ -78,12 +81,14 @@
       "costCents": 5.3579
     },
     "total": {
-      "inputTokens": 55673,
-      "cachedInputTokens": 20032,
-      "outputTokens": 27413,
-      "reasoningTokens": 20389,
-      "totalTokens": 83086,
-      "costCents": 5.9569
+      "inputTokens": null,
+      "cachedInputTokens": null,
+      "outputTokens": null,
+      "reasoningTokens": null,
+      "totalTokens": null,
+      "costCents": null,
+      "coverage": 0,
+      "note": "telemetry missing — represented as unknown, not zero"
     }
   },
   "assumptions": {
@@ -99,5 +104,42 @@
     "tasks.json",
     "scorecard.csv",
     "judgments.json"
+  ],
+  "telemetryCoverage": {
+    "generation": 0,
+    "judging": 1
+  },
+  "costComparable": false,
+  "invalidForCost": true,
+  "corrections": [
+    {
+      "date": "2026-06-22",
+      "reason": "integrity reissue (Fugu-response audit)",
+      "changes": [
+        "claims re-derived from actual provider + judge panel",
+        "generation telemetry was 0 with a named model -> nulled (unknown, not free)",
+        "telemetryCoverage set generation=0 judging=1",
+        "costComparable=false",
+        "invalidForCost=true (excluded from cross-bundle cost comparison)"
+      ]
+    },
+    {
+      "date": "2026-06-22",
+      "reason": "integrity reissue (Fugu-response audit)",
+      "changes": [
+        "claims re-derived from actual provider + judge panel",
+        "telemetryCoverage set generation=1 judging=1",
+        "costComparable=true"
+      ]
+    },
+    {
+      "date": "2026-06-22",
+      "reason": "integrity reissue (Fugu-response audit)",
+      "changes": [
+        "claims re-derived from actual provider + judge panel",
+        "telemetryCoverage set generation=0 judging=1",
+        "costComparable=false"
+      ]
+    }
   ]
 }

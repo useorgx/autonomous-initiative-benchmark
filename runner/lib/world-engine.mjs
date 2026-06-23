@@ -16,6 +16,7 @@ import { performance } from 'node:perf_hooks';
 
 import { chatUsageCostCents, getProvider, normalizeChatUsage, requireProviderKey } from './providers.mjs';
 import { decideVerification } from './verify-on-the-edge.mjs';
+import { majorityVote, canonicalize } from './consensus.mjs';
 
 const MAX_RETRIES = 4;
 
@@ -57,6 +58,10 @@ export async function runEpisode({ world, arm, provider, model, episodeId, maxSt
   // the loop can never lower a result the agent already produced.
   const usesGate = arm === 'orgx' || arm === 'orgx2' || arm === 'orgx3';
   const draftFallback = arm === 'orgx2' || arm === 'orgx3';
+  // 'reflect' = the self-reflection null: one generic self-critique pass, NO
+  // OrgX decompose/verify framing and NO no-regression guard. Isolates whether
+  // OrgX's *structured, grounded* gate beats plain "check your work".
+  const usesReflection = arm === 'reflect';
   const system = arm === 'orgx3' ? ORGX3_SYSTEM : usesGate ? ORGX_SYSTEM : BASE_SYSTEM;
   const messages = [
     { role: 'system', content: system },
@@ -128,6 +133,16 @@ export async function runEpisode({ world, arm, provider, model, episodeId, maxSt
           }
           // Confident (reliable band): accept the draft directly, skipping the
           // verification pass's token cost. Fall through to terminal handling.
+        }
+
+        // Self-reflection null: one generic self-critique pass on the first
+        // submit. No grounded re-derivation, no guard — naive "review your work".
+        if (usesReflection && name === 'submit' && !verificationOffered) {
+          verificationOffered = true;
+          weg.nodes.push({ type: 'self_reflection_pass', step, draft: args });
+          messages.push({ role: 'tool', tool_call_id: call.id, content: 'Draft received for review.' });
+          messages.push({ role: 'user', content: 'Critically review the answer you just submitted for calculation errors, wrong assumptions, or missed requirements. If you find a mistake, fix it. Then call submit again with your best final answer.' });
+          continue;
         }
         // Strip the meta confidence field so it never leaks into the submission.
         const submitArgs = { ...args };
@@ -239,6 +254,50 @@ export async function runRestartEpisode({ world, provider, model, episodeId, max
   };
 }
 
+// best-of-N null: draw N independent raw samples and select by MAJORITY VOTE
+// (self-consistency) — never by the validator (no oracle leak). Compute is the
+// sum across all N samples, so this is the compute-matched "more sampling"
+// control: does OrgX's selective gate beat just sampling N times and voting?
+export async function runBestOfNEpisode({ world, provider, model, episodeId, n = 3, maxSteps = 18, maxOutputTokens = 6000, timeoutMs = 120_000, chatFn = chat }) {
+  const started = performance.now();
+  const runs = [];
+  for (let i = 1; i <= n; i += 1) {
+    runs.push(
+      await runEpisode({ world, arm: 'raw', provider, model, episodeId: `${episodeId}-bon${i}`, maxSteps, maxOutputTokens, timeoutMs, chatFn })
+    );
+  }
+
+  const weg = { promptTokens: 0, completionTokens: 0, totalTokens: 0, costCents: 0, modelTurns: 0, toolCalls: [], nodes: [{ type: 'best_of_n', n }] };
+  for (const r of runs) {
+    weg.promptTokens += r.weg.promptTokens ?? 0;
+    weg.completionTokens += r.weg.completionTokens ?? 0;
+    weg.totalTokens += r.weg.totalTokens ?? 0;
+    weg.costCents += r.weg.costCents ?? 0;
+    weg.modelTurns += r.weg.modelTurns ?? 0;
+    weg.toolCalls.push(...(r.weg.toolCalls ?? []));
+  }
+
+  const vote = majorityVote(runs.map((r) => r.submission));
+  // The consensus submission IS one of the runs' submissions, so that run's
+  // deterministic score is the honest score for the consensus answer.
+  const winner =
+    runs.find((r) => r.submission != null && canonicalize(r.submission) === canonicalize(vote.submission)) ?? runs[0];
+
+  return {
+    episodeId,
+    worldId: world.id,
+    arm: 'bon',
+    model,
+    durationSeconds: Number(((performance.now() - started) / 1000).toFixed(2)),
+    terminalKind: winner.terminalKind,
+    submission: vote.submission,
+    weg: { ...weg, toolCallCount: weg.toolCalls.length },
+    pass: winner.pass,
+    dimensions: winner.dimensions,
+    detail: { ...(winner.detail ?? {}), bestOfN: { n, votes: vote.votes, agreement: vote.agreement } },
+  };
+}
+
 function toToolSchema(tool) {
   return {
     type: 'function',
@@ -270,7 +329,8 @@ async function chat({ provider, model, messages, tools, maxOutputTokens, timeout
           messages,
           tools,
           tool_choice: 'auto',
-          reasoning: { effort: 'low' },
+          // Provider-level override: Fugu rejects any effort but high|xhigh|max.
+          reasoning: { effort: cfg.reasoningEffort ?? 'low' },
           max_tokens: maxOutputTokens,
         }),
         signal: controller.signal,

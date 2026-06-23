@@ -24,8 +24,8 @@
     "node-24.13.0"
   ],
   "claims": [
-    "Local public-catalog run using OpenAI Responses API.",
-    "Artifacts were scored by independent OpenAI judge calls that did not generate the artifact.",
+    "Generation: gpt-5-nano via OpenAI Responses API.",
+    "Artifacts were scored by 3 independent judges (gpt-5-nano, gpt-5-mini, gpt-5.1) via OpenAI Responses API that did not generate the artifact.",
     "Public quality scores use median criterion scores and flag material judge disagreement for human review."
   ],
   "generationMethod": {
@@ -97,5 +97,21 @@
     "tasks.json",
     "scorecard.csv",
     "judgments.json"
+  ],
+  "telemetryCoverage": {
+    "generation": 1,
+    "judging": 1
+  },
+  "costComparable": true,
+  "corrections": [
+    {
+      "date": "2026-06-22",
+      "reason": "integrity reissue (Fugu-response audit)",
+      "changes": [
+        "claims re-derived from actual provider + judge panel",
+        "telemetryCoverage set generation=1 judging=1",
+        "costComparable=true"
+      ]
+    }
   ]
 }

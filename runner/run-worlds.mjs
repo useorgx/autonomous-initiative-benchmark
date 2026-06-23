@@ -7,7 +7,7 @@ import { mkdir, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 
-import { runEpisode, runRestartEpisode } from './lib/world-engine.mjs';
+import { runEpisode, runRestartEpisode, runBestOfNEpisode } from './lib/world-engine.mjs';
 import { requireProviderKey } from './lib/providers.mjs';
 import { computeCorpusEligibility, filterWorldsBySplit } from './lib/corpus-splits.mjs';
 
@@ -18,6 +18,7 @@ const model = args.model || 'deepseek/deepseek-v4-flash';
 const k = Math.max(1, Number(args.k ?? 5));
 const arms = (args.arms || 'raw,orgx').split(',');
 const concurrency = Math.max(1, Number(args.concurrency ?? 4));
+const bonN = Math.max(2, Number(args.bonN ?? 3));
 const outName = args.out || 'worlds-run';
 
 requireProviderKey(provider);
@@ -51,9 +52,9 @@ console.log(`Running ${jobs.length} episodes: ${selected.length} world(s) x ${ar
 const episodes = await mapWithConcurrency(jobs, concurrency, async (job, index) => {
   process.stdout.write(`[${index + 1}/${jobs.length}] ${job.episodeId}\n`);
   try {
-    return job.arm === 'restart'
-      ? await runRestartEpisode({ world: job.world, provider, model, episodeId: job.episodeId })
-      : await runEpisode({ world: job.world, arm: job.arm, provider, model, episodeId: job.episodeId });
+    if (job.arm === 'restart') return await runRestartEpisode({ world: job.world, provider, model, episodeId: job.episodeId });
+    if (job.arm === 'bon') return await runBestOfNEpisode({ world: job.world, provider, model, episodeId: job.episodeId, n: bonN });
+    return await runEpisode({ world: job.world, arm: job.arm, provider, model, episodeId: job.episodeId });
   } catch (error) {
     console.error(`  ${job.episodeId} FAILED: ${error instanceof Error ? error.message : error}`);
     return { episodeId: job.episodeId, worldId: job.world.id, arm: job.arm, model, failed: true, error: String(error), pass: false, dimensions: {}, weg: { totalTokens: 0, costCents: 0, toolCallCount: 0 } };
@@ -194,6 +195,7 @@ function parseArgs(argv) {
     else if (a === '--arms') p.arms = argv[++i];
     else if (a === '--world') p.world = argv[++i];
     else if (a === '--concurrency') p.concurrency = argv[++i];
+    else if (a === '--bon-n') p.bonN = argv[++i];
     else if (a === '--out') p.out = argv[++i];
   }
   return p;

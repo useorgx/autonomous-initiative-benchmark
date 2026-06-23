@@ -20,8 +20,8 @@
     "node-24.13.0"
   ],
   "claims": [
-    "Local public-catalog run using OpenAI Responses API.",
-    "Artifacts were scored by independent OpenAI judge calls that did not generate the artifact.",
+    "Generation: deepseek/deepseek-v3.2 via OpenRouter.",
+    "Artifacts were scored by 3 independent judges (deepseek/deepseek-v4-flash, deepseek/deepseek-v3.2, deepseek/deepseek-v4-pro) via OpenRouter that did not generate the artifact.",
     "Public quality scores use median criterion scores and flag material judge disagreement for human review."
   ],
   "generationMethod": {
@@ -93,5 +93,21 @@
     "tasks.json",
     "scorecard.csv",
     "judgments.json"
+  ],
+  "telemetryCoverage": {
+    "generation": 1,
+    "judging": 1
+  },
+  "costComparable": true,
+  "corrections": [
+    {
+      "date": "2026-06-22",
+      "reason": "integrity reissue (Fugu-response audit)",
+      "changes": [
+        "claims re-derived from actual provider + judge panel",
+        "telemetryCoverage set generation=1 judging=1",
+        "costComparable=true"
+      ]
+    }
   ]
 }
