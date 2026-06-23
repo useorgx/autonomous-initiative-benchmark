@@ -10,6 +10,7 @@ import process from 'node:process';
 import { runEpisode, runRestartEpisode, runBestOfNEpisode } from './lib/world-engine.mjs';
 import { requireProviderKey } from './lib/providers.mjs';
 import { computeCorpusEligibility, filterWorldsBySplit } from './lib/corpus-splits.mjs';
+import { recoveryScore } from './lib/resilience-metrics.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 const repoRoot = path.resolve(import.meta.dirname, '..');
@@ -85,6 +86,9 @@ function buildReport(worlds, arms, k, episodes, meta) {
       const toolCalls = avg(eps.map((e) => e.weg?.toolCallCount ?? 0));
       const dims = Object.fromEntries(DIMS.map((d) => [d, avg(eps.map((e) => Number(e.dimensions?.[d] ?? 0)))]));
       const qualityPerKToken = tokens > 0 ? Number((passAtK / (tokens / 1000)).toFixed(4)) : 0;
+      // Resilience: when a world injects failures, score recovery for this arm.
+      const injections = eps.map((e) => e.injection).filter(Boolean);
+      const recovery = injections.length ? recoveryScore(injections) : null;
       armStats[arm] = {
         n: eps.length,
         passAtK: round(passAtK),
@@ -94,6 +98,7 @@ function buildReport(worlds, arms, k, episodes, meta) {
         meanToolCalls: round(toolCalls),
         qualityPerKToken,
         dimensions: Object.fromEntries(Object.entries(dims).map(([d, v]) => [d, round(v)])),
+        recovery,
         failures: eps.filter((e) => e.failed).length,
       };
     }

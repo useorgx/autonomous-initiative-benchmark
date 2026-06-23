@@ -22,6 +22,6 @@
     "recompute:scorecard": "node runner/recompute-scorecard.mjs",
     "reissue:bundles": "node runner/reissue-bundles.mjs",
     "record:human-baseline": "node runner/record-human-baseline.mjs",
-    "test": "node --test runner/lib/*.test.mjs"
+    "test": "node --test runner/lib/*.test.mjs worlds/instrumented/*.test.mjs"
   }
 }
