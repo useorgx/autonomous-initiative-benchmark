@@ -1,0 +1,326 @@
+[
+  {
+    "episodeId": "engineering-query-in-use-raw-e1",
+    "worldId": "engineering-query-in-use",
+    "arm": "raw",
+    "model": "fugu",
+    "durationSeconds": 19.52,
+    "terminalKind": "submit",
+    "submission": {
+      "filters": [
+        {
+          "field": "segment",
+          "op": "eq",
+          "value": "enterprise"
+        },
+        {
+          "field": "status",
+          "op": "eq",
+          "value": "active"
+        },
+        {
+          "field": "quarter",
+          "op": "eq",
+          "value": "Q3"
+        }
+      ],
+      "metric": {
+        "agg": "sum",
+        "field": "revenue"
+      }
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "describe_table"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "dry_run"
+        },
+        {
+          "type": "submit",
+          "step": 2,
+          "submission": {
+            "filters": [
+              {
+                "field": "segment",
+                "op": "eq",
+                "value": "enterprise"
+              },
+              {
+                "field": "status",
+                "op": "eq",
+                "value": "active"
+              },
+              {
+                "field": "quarter",
+                "op": "eq",
+                "value": "Q3"
+              }
+            ],
+            "metric": {
+              "agg": "sum",
+              "field": "revenue"
+            }
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "describe_table",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "dry_run",
+          "args": {
+            "spec": {
+              "filters": [
+                {
+                  "field": "segment",
+                  "op": "eq",
+                  "value": "enterprise"
+                },
+                {
+                  "field": "status",
+                  "op": "eq",
+                  "value": "active"
+                },
+                {
+                  "field": "quarter",
+                  "op": "eq",
+                  "value": "Q3"
+                }
+              ],
+              "metric": {
+                "agg": "sum",
+                "field": "revenue"
+              }
+            }
+          }
+        },
+        {
+          "step": 2,
+          "name": "submit",
+          "args": {
+            "filters": [
+              {
+                "field": "segment",
+                "op": "eq",
+                "value": "enterprise"
+              },
+              {
+                "field": "status",
+                "op": "eq",
+                "value": "active"
+              },
+              {
+                "field": "quarter",
+                "op": "eq",
+                "value": "Q3"
+              }
+            ],
+            "metric": {
+              "agg": "sum",
+              "field": "revenue"
+            },
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 1423,
+      "completionTokens": 315,
+      "totalTokens": 1738,
+      "costCents": 0,
+      "modelTurns": 3,
+      "orchInputTokens": 0,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "downstream": 1,
+      "method": 1
+    },
+    "detail": {
+      "accepted": 1,
+      "score": 1,
+      "value": 100000,
+      "expected": 100000,
+      "matched": 3,
+      "normalizedArtifactUtility": {
+        "noArtifact": 0,
+        "candidate": 1,
+        "gold": 1
+      }
+    }
+  },
+  {
+    "episodeId": "engineering-query-in-use-raw-e2",
+    "worldId": "engineering-query-in-use",
+    "arm": "raw",
+    "model": "fugu",
+    "durationSeconds": 21.67,
+    "terminalKind": "submit",
+    "submission": {
+      "filters": [
+        {
+          "field": "segment",
+          "op": "eq",
+          "value": "enterprise"
+        },
+        {
+          "field": "status",
+          "op": "eq",
+          "value": "active"
+        },
+        {
+          "field": "quarter",
+          "op": "eq",
+          "value": "Q3"
+        }
+      ],
+      "metric": {
+        "agg": "sum",
+        "field": "revenue"
+      }
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "describe_table"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "dry_run"
+        },
+        {
+          "type": "submit",
+          "step": 2,
+          "submission": {
+            "filters": [
+              {
+                "field": "segment",
+                "op": "eq",
+                "value": "enterprise"
+              },
+              {
+                "field": "status",
+                "op": "eq",
+                "value": "active"
+              },
+              {
+                "field": "quarter",
+                "op": "eq",
+                "value": "Q3"
+              }
+            ],
+            "metric": {
+              "agg": "sum",
+              "field": "revenue"
+            }
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "describe_table",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "dry_run",
+          "args": {
+            "spec": {
+              "filters": [
+                {
+                  "field": "segment",
+                  "op": "eq",
+                  "value": "enterprise"
+                },
+                {
+                  "field": "status",
+                  "op": "eq",
+                  "value": "active"
+                },
+                {
+                  "field": "quarter",
+                  "op": "eq",
+                  "value": "Q3"
+                }
+              ],
+              "metric": {
+                "agg": "sum",
+                "field": "revenue"
+              }
+            }
+          }
+        },
+        {
+          "step": 2,
+          "name": "submit",
+          "args": {
+            "filters": [
+              {
+                "field": "segment",
+                "op": "eq",
+                "value": "enterprise"
+              },
+              {
+                "field": "status",
+                "op": "eq",
+                "value": "active"
+              },
+              {
+                "field": "quarter",
+                "op": "eq",
+                "value": "Q3"
+              }
+            ],
+            "metric": {
+              "agg": "sum",
+              "field": "revenue"
+            },
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 1423,
+      "completionTokens": 271,
+      "totalTokens": 1694,
+      "costCents": 0,
+      "modelTurns": 3,
+      "orchInputTokens": 0,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "downstream": 1,
+      "method": 1
+    },
+    "detail": {
+      "accepted": 1,
+      "score": 1,
+      "value": 100000,
+      "expected": 100000,
+      "matched": 3,
+      "normalizedArtifactUtility": {
+        "noArtifact": 0,
+        "candidate": 1,
+        "gold": 1
+      }
+    }
+  }
+]

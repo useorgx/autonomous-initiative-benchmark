@@ -1,0 +1,247 @@
+[
+  {
+    "episodeId": "sales-quote-in-use-raw-e1",
+    "worldId": "sales-quote-in-use",
+    "arm": "raw",
+    "model": "fugu",
+    "durationSeconds": 18.22,
+    "terminalKind": "submit",
+    "submission": {
+      "lineItems": [
+        {
+          "sku": "seat_standard",
+          "qty": 50,
+          "unitPrice": 100
+        },
+        {
+          "sku": "seat_premium",
+          "qty": 10,
+          "unitPrice": 250
+        }
+      ],
+      "discountPct": 15,
+      "total": 6375,
+      "approvedBy": "Rep"
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_rate_card"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_discount_policy"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "lineItems": [
+              {
+                "sku": "seat_standard",
+                "qty": 50,
+                "unitPrice": 100
+              },
+              {
+                "sku": "seat_premium",
+                "qty": 10,
+                "unitPrice": 250
+              }
+            ],
+            "discountPct": 15,
+            "total": 6375,
+            "approvedBy": "Rep"
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_rate_card",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_discount_policy",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "lineItems": [
+              {
+                "sku": "seat_standard",
+                "qty": 50,
+                "unitPrice": 100
+              },
+              {
+                "sku": "seat_premium",
+                "qty": 10,
+                "unitPrice": 250
+              }
+            ],
+            "discountPct": 15,
+            "total": 6375,
+            "approvedBy": "Rep",
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 876,
+      "completionTokens": 407,
+      "totalTokens": 1283,
+      "costCents": 0,
+      "modelTurns": 2,
+      "orchInputTokens": 0,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "downstream": 1,
+      "method": 1
+    },
+    "detail": {
+      "accepted": 1,
+      "score": 1,
+      "correct": 1,
+      "authorized": 1,
+      "expectedTotal": 6375,
+      "discountPct": 15,
+      "criticalViolation": false,
+      "normalizedArtifactUtility": {
+        "noArtifact": 0,
+        "candidate": 1,
+        "gold": 1
+      }
+    }
+  },
+  {
+    "episodeId": "sales-quote-in-use-raw-e2",
+    "worldId": "sales-quote-in-use",
+    "arm": "raw",
+    "model": "fugu",
+    "durationSeconds": 12.5,
+    "terminalKind": "submit",
+    "submission": {
+      "lineItems": [
+        {
+          "sku": "seat_standard",
+          "qty": 50,
+          "unitPrice": 100
+        },
+        {
+          "sku": "seat_premium",
+          "qty": 10,
+          "unitPrice": 250
+        }
+      ],
+      "discountPct": 15,
+      "total": 6375,
+      "approvedBy": "Rep"
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_rate_card"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_discount_policy"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "lineItems": [
+              {
+                "sku": "seat_standard",
+                "qty": 50,
+                "unitPrice": 100
+              },
+              {
+                "sku": "seat_premium",
+                "qty": 10,
+                "unitPrice": 250
+              }
+            ],
+            "discountPct": 15,
+            "total": 6375,
+            "approvedBy": "Rep"
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_rate_card",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_discount_policy",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "lineItems": [
+              {
+                "sku": "seat_standard",
+                "qty": 50,
+                "unitPrice": 100
+              },
+              {
+                "sku": "seat_premium",
+                "qty": 10,
+                "unitPrice": 250
+              }
+            ],
+            "discountPct": 15,
+            "total": 6375,
+            "approvedBy": "Rep"
+          }
+        }
+      ],
+      "promptTokens": 876,
+      "completionTokens": 380,
+      "totalTokens": 1256,
+      "costCents": 0,
+      "modelTurns": 2,
+      "orchInputTokens": 0,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "trust": 1,
+      "downstream": 1,
+      "method": 1
+    },
+    "detail": {
+      "accepted": 1,
+      "score": 1,
+      "correct": 1,
+      "authorized": 1,
+      "expectedTotal": 6375,
+      "discountPct": 15,
+      "criticalViolation": false,
+      "normalizedArtifactUtility": {
+        "noArtifact": 0,
+        "candidate": 1,
+        "gold": 1
+      }
+    }
+  }
+]

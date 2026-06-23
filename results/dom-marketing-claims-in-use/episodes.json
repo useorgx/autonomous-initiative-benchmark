@@ -1,0 +1,318 @@
+[
+  {
+    "episodeId": "marketing-claims-in-use-raw-e1",
+    "worldId": "marketing-claims-in-use",
+    "arm": "raw",
+    "model": "fugu",
+    "durationSeconds": 12.29,
+    "terminalKind": "submit",
+    "submission": {
+      "claims": [
+        {
+          "metric": "speedup_x",
+          "value": 2,
+          "text": "Delivers a 2x speedup."
+        },
+        {
+          "metric": "uptime_pct",
+          "value": 99.9,
+          "text": "Provides 99.9% uptime."
+        },
+        {
+          "metric": "integrations",
+          "value": 40,
+          "text": "Supports 40 integrations."
+        },
+        {
+          "metric": "setup_minutes",
+          "value": 5,
+          "text": "Can be set up in 5 minutes."
+        }
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_fact_sheet"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "claims": [
+              {
+                "metric": "speedup_x",
+                "value": 2,
+                "text": "Delivers a 2x speedup."
+              },
+              {
+                "metric": "uptime_pct",
+                "value": 99.9,
+                "text": "Provides 99.9% uptime."
+              },
+              {
+                "metric": "integrations",
+                "value": 40,
+                "text": "Supports 40 integrations."
+              },
+              {
+                "metric": "setup_minutes",
+                "value": 5,
+                "text": "Can be set up in 5 minutes."
+              }
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_fact_sheet",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "claims": [
+              {
+                "metric": "speedup_x",
+                "value": 2,
+                "text": "Delivers a 2x speedup."
+              },
+              {
+                "metric": "uptime_pct",
+                "value": 99.9,
+                "text": "Provides 99.9% uptime."
+              },
+              {
+                "metric": "integrations",
+                "value": 40,
+                "text": "Supports 40 integrations."
+              },
+              {
+                "metric": "setup_minutes",
+                "value": 5,
+                "text": "Can be set up in 5 minutes."
+              }
+            ],
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 684,
+      "completionTokens": 328,
+      "totalTokens": 1012,
+      "costCents": 0,
+      "modelTurns": 2,
+      "orchInputTokens": 0,
+      "orchOutputTokens": 0,
+      "toolCallCount": 2
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "evidence": 1,
+      "downstream": 1,
+      "method": 1
+    },
+    "detail": {
+      "accepted": 1,
+      "score": 1,
+      "checked": [
+        {
+          "metric": "speedup_x",
+          "value": 2,
+          "truth": 2,
+          "grounded": true
+        },
+        {
+          "metric": "uptime_pct",
+          "value": 99.9,
+          "truth": 99.9,
+          "grounded": true
+        },
+        {
+          "metric": "integrations",
+          "value": 40,
+          "truth": 40,
+          "grounded": true
+        },
+        {
+          "metric": "setup_minutes",
+          "value": 5,
+          "truth": 5,
+          "grounded": true
+        }
+      ],
+      "allGrounded": true,
+      "claimCount": 4,
+      "criticalViolation": false,
+      "normalizedArtifactUtility": {
+        "noArtifact": 0,
+        "candidate": 1,
+        "gold": 1
+      }
+    }
+  },
+  {
+    "episodeId": "marketing-claims-in-use-raw-e2",
+    "worldId": "marketing-claims-in-use",
+    "arm": "raw",
+    "model": "fugu",
+    "durationSeconds": 16.65,
+    "terminalKind": "submit",
+    "submission": {
+      "claims": [
+        {
+          "metric": "speedup_x",
+          "value": 2,
+          "text": "Delivers up to 2x faster performance in the new release."
+        },
+        {
+          "metric": "uptime_pct",
+          "value": 99.9,
+          "text": "Provides 99.9% uptime."
+        },
+        {
+          "metric": "integrations",
+          "value": 40,
+          "text": "Supports 40 integrations."
+        },
+        {
+          "metric": "setup_minutes",
+          "value": 5,
+          "text": "Can be set up in 5 minutes."
+        }
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_fact_sheet"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "claims": [
+              {
+                "metric": "speedup_x",
+                "value": 2,
+                "text": "Delivers up to 2x faster performance in the new release."
+              },
+              {
+                "metric": "uptime_pct",
+                "value": 99.9,
+                "text": "Provides 99.9% uptime."
+              },
+              {
+                "metric": "integrations",
+                "value": 40,
+                "text": "Supports 40 integrations."
+              },
+              {
+                "metric": "setup_minutes",
+                "value": 5,
+                "text": "Can be set up in 5 minutes."
+              }
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_fact_sheet",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "claims": [
+              {
+                "metric": "speedup_x",
+                "value": 2,
+                "text": "Delivers up to 2x faster performance in the new release."
+              },
+              {
+                "metric": "uptime_pct",
+                "value": 99.9,
+                "text": "Provides 99.9% uptime."
+              },
+              {
+                "metric": "integrations",
+                "value": 40,
+                "text": "Supports 40 integrations."
+              },
+              {
+                "metric": "setup_minutes",
+                "value": 5,
+                "text": "Can be set up in 5 minutes."
+              }
+            ],
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 684,
+      "completionTokens": 237,
+      "totalTokens": 921,
+      "costCents": 0,
+      "modelTurns": 2,
+      "orchInputTokens": 0,
+      "orchOutputTokens": 0,
+      "toolCallCount": 2
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "evidence": 1,
+      "downstream": 1,
+      "method": 1
+    },
+    "detail": {
+      "accepted": 1,
+      "score": 1,
+      "checked": [
+        {
+          "metric": "speedup_x",
+          "value": 2,
+          "truth": 2,
+          "grounded": true
+        },
+        {
+          "metric": "uptime_pct",
+          "value": 99.9,
+          "truth": 99.9,
+          "grounded": true
+        },
+        {
+          "metric": "integrations",
+          "value": 40,
+          "truth": 40,
+          "grounded": true
+        },
+        {
+          "metric": "setup_minutes",
+          "value": 5,
+          "truth": 5,
+          "grounded": true
+        }
+      ],
+      "allGrounded": true,
+      "claimCount": 4,
+      "criticalViolation": false,
+      "normalizedArtifactUtility": {
+        "noArtifact": 0,
+        "candidate": 1,
+        "gold": 1
+      }
+    }
+  }
+]

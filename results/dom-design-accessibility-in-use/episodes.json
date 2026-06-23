@@ -1,0 +1,316 @@
+[
+  {
+    "episodeId": "design-accessibility-in-use-raw-e1",
+    "worldId": "design-accessibility-in-use",
+    "arm": "raw",
+    "model": "fugu",
+    "durationSeconds": 24.78,
+    "terminalKind": "submit",
+    "submission": {
+      "tokens": {
+        "body": "#333333",
+        "heading": "#111111",
+        "link": "#005fcc",
+        "button_label": "#222222"
+      }
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_brand"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "check_contrast"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "check_contrast"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "check_contrast"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "check_contrast"
+        },
+        {
+          "type": "submit",
+          "step": 2,
+          "submission": {
+            "tokens": {
+              "body": "#333333",
+              "heading": "#111111",
+              "link": "#005fcc",
+              "button_label": "#222222"
+            }
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_brand",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "check_contrast",
+          "args": {
+            "fg": "#333333"
+          }
+        },
+        {
+          "step": 1,
+          "name": "check_contrast",
+          "args": {
+            "fg": "#111111"
+          }
+        },
+        {
+          "step": 1,
+          "name": "check_contrast",
+          "args": {
+            "fg": "#005fcc"
+          }
+        },
+        {
+          "step": 1,
+          "name": "check_contrast",
+          "args": {
+            "fg": "#222222"
+          }
+        },
+        {
+          "step": 2,
+          "name": "submit",
+          "args": {
+            "tokens": {
+              "body": "#333333",
+              "heading": "#111111",
+              "link": "#005fcc",
+              "button_label": "#222222"
+            },
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 1306,
+      "completionTokens": 462,
+      "totalTokens": 1768,
+      "costCents": 0,
+      "modelTurns": 3,
+      "orchInputTokens": 0,
+      "orchOutputTokens": 0,
+      "toolCallCount": 6
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "artifact_valid": 1,
+      "downstream": 1,
+      "method": 1
+    },
+    "detail": {
+      "accepted": 1,
+      "score": 1,
+      "results": [
+        {
+          "role": "body",
+          "fg": "#333333",
+          "ratio": 12.63,
+          "passesAA": true
+        },
+        {
+          "role": "heading",
+          "fg": "#111111",
+          "ratio": 18.88,
+          "passesAA": true
+        },
+        {
+          "role": "link",
+          "fg": "#005fcc",
+          "ratio": 5.98,
+          "passesAA": true
+        },
+        {
+          "role": "button_label",
+          "fg": "#222222",
+          "ratio": 15.91,
+          "passesAA": true
+        }
+      ],
+      "allPass": true,
+      "covered": true,
+      "normalizedArtifactUtility": {
+        "noArtifact": 0,
+        "candidate": 1,
+        "gold": 1
+      }
+    }
+  },
+  {
+    "episodeId": "design-accessibility-in-use-raw-e2",
+    "worldId": "design-accessibility-in-use",
+    "arm": "raw",
+    "model": "fugu",
+    "durationSeconds": 22.99,
+    "terminalKind": "submit",
+    "submission": {
+      "tokens": {
+        "body": "#1F2937",
+        "heading": "#111827",
+        "link": "#005FCC",
+        "button_label": "#111827"
+      }
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_brand"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "check_contrast"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "check_contrast"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "check_contrast"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "check_contrast"
+        },
+        {
+          "type": "submit",
+          "step": 2,
+          "submission": {
+            "tokens": {
+              "body": "#1F2937",
+              "heading": "#111827",
+              "link": "#005FCC",
+              "button_label": "#111827"
+            }
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_brand",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "check_contrast",
+          "args": {
+            "fg": "#1F2937"
+          }
+        },
+        {
+          "step": 1,
+          "name": "check_contrast",
+          "args": {
+            "fg": "#111827"
+          }
+        },
+        {
+          "step": 1,
+          "name": "check_contrast",
+          "args": {
+            "fg": "#005FCC"
+          }
+        },
+        {
+          "step": 1,
+          "name": "check_contrast",
+          "args": {
+            "fg": "#111827"
+          }
+        },
+        {
+          "step": 2,
+          "name": "submit",
+          "args": {
+            "tokens": {
+              "body": "#1F2937",
+              "heading": "#111827",
+              "link": "#005FCC",
+              "button_label": "#111827"
+            },
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 1308,
+      "completionTokens": 606,
+      "totalTokens": 1914,
+      "costCents": 0,
+      "modelTurns": 3,
+      "orchInputTokens": 0,
+      "orchOutputTokens": 0,
+      "toolCallCount": 6
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "artifact_valid": 1,
+      "downstream": 1,
+      "method": 1
+    },
+    "detail": {
+      "accepted": 1,
+      "score": 1,
+      "results": [
+        {
+          "role": "body",
+          "fg": "#1F2937",
+          "ratio": 14.68,
+          "passesAA": true
+        },
+        {
+          "role": "heading",
+          "fg": "#111827",
+          "ratio": 17.74,
+          "passesAA": true
+        },
+        {
+          "role": "link",
+          "fg": "#005FCC",
+          "ratio": 5.98,
+          "passesAA": true
+        },
+        {
+          "role": "button_label",
+          "fg": "#111827",
+          "ratio": 17.74,
+          "passesAA": true
+        }
+      ],
+      "allPass": true,
+      "covered": true,
+      "normalizedArtifactUtility": {
+        "noArtifact": 0,
+        "candidate": 1,
+        "gold": 1
+      }
+    }
+  }
+]
