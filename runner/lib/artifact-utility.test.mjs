@@ -41,6 +41,15 @@ test('right total, WRONG lines is rejected (compensating errors caught)', () => 
   assert.equal(ds.score, 0.3); // right number, unusable workbook
 });
 
+test('a harmless $0 documentation line (free trial) is ACCEPTED, not failed', () => {
+  // grader-fix guard: surfaced by a live Fugu Ultra run that added lambda @ $0.
+  const wb = JSON.parse(JSON.stringify(GOLD_WORKBOOK));
+  wb.lines.push({ customer: 'lambda', annual_recognized: 0, included: true, reason: '$0 free trial' });
+  const ds = consumeWorkbook(wb);
+  assert.equal(ds.auditable, 1);
+  assert.equal(ds.accepted, 1);
+});
+
 test('a missing recognized customer is rejected (incomplete workbook)', () => {
   const wb = JSON.parse(JSON.stringify(GOLD_WORKBOOK));
   wb.lines = wb.lines.filter((l) => l.customer !== 'nu'); // drop a real customer

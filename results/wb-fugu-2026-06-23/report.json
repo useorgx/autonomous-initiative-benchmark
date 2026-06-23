@@ -1,0 +1,54 @@
+{
+  "admissionSummary": {
+    "admitted": 0,
+    "saturated": 1,
+    "rule": "admitted if raw baseline pass@k < 1.0 (headroom exists)"
+  },
+  "benchmark": "orgx-bench-v2-instrumented-worlds",
+  "corpus": {
+    "splits": [
+      "public_validation"
+    ],
+    "headlineEligible": false,
+    "note": "Includes public / contamination-visible worlds — NOT headline-eligible; for harness transparency and validation only (corpus-splits.json policy)."
+  },
+  "generatedAtNote": "timestamp stamped by caller",
+  "provider": "fugu",
+  "model": "fugu",
+  "k": 5,
+  "arms": [
+    "raw"
+  ],
+  "worldCount": 1,
+  "scoring": "deterministic validators only (no LLM judge)",
+  "perWorld": [
+    {
+      "worldId": "reconciliation-workbook-in-use",
+      "domain": "cross_functional",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 5,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 4094,
+          "meanCostCents": 0,
+          "meanToolCalls": 3,
+          "qualityPerKToken": 0.2442,
+          "meanOrchestrationTokens": 0,
+          "orchestrationRatio": 0,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 0,
+            "judgment": 0,
+            "trust": 0
+          },
+          "recovery": null,
+          "failures": 0
+        }
+      }
+    }
+  ],
+  "uplift": {}
+}

@@ -49,14 +49,22 @@ export function consumeWorkbook(wb) {
   const correct = Math.abs(posted - TRUTH) <= WINDOW ? 1 : 0;
   const consistent = wb?.total_arr != null && Math.abs(Number(wb.total_arr) - posted) <= 1 ? 1 : 0;
 
-  // Auditable: the included set is exactly the true set, no dup, every amount right.
+  // Auditable: every real-revenue customer present at the right amount, no dup,
+  // and no NONZERO line that doesn't trace to the data (catches compensating
+  // errors and including a churned account at value). Harmless $0 documentation
+  // lines (e.g. a $0 free trial) are allowed — they trace to the data and don't
+  // move the total; failing them would be a grader false-negative.
   const inclCustomers = included.map((l) => String(l.customer));
-  const inclSet = new Set(inclCustomers);
-  const noDup = inclCustomers.length === inclSet.size ? 1 : 0;
+  const noDup = inclCustomers.length === new Set(inclCustomers).size ? 1 : 0;
   const trueSet = new Set(Object.keys(TRUE_RECOGNIZED));
-  const sameSet = inclSet.size === trueSet.size && [...inclSet].every((c) => trueSet.has(c)) ? 1 : 0;
-  const amountsRight = included.every((l) => trueSet.has(String(l.customer)) && Math.abs(Number(l.annual_recognized) - TRUE_RECOGNIZED[String(l.customer)]) <= AMOUNT_TOL) ? 1 : 0;
-  const auditable = noDup && sameSet && amountsRight ? 1 : 0;
+  const allTruePresent = Object.entries(TRUE_RECOGNIZED).every(([c, amt]) => {
+    const line = included.find((l) => String(l.customer) === c);
+    return line && Math.abs(Number(line.annual_recognized) - amt) <= AMOUNT_TOL;
+  }) ? 1 : 0;
+  const noBadNonzero = included
+    .filter((l) => Number(l.annual_recognized) !== 0)
+    .every((l) => trueSet.has(String(l.customer)) && Math.abs(Number(l.annual_recognized) - TRUE_RECOGNIZED[String(l.customer)]) <= AMOUNT_TOL) ? 1 : 0;
+  const auditable = noDup && allTruePresent && noBadNonzero ? 1 : 0;
 
   const accepted = correct && consistent && auditable ? 1 : 0;
   // graded: full acceptance = 1; correct-but-unauditable (right number, unusable
