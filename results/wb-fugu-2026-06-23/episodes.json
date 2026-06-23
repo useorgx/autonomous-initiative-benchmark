@@ -1,0 +1,1576 @@
+[
+  {
+    "episodeId": "reconciliation-workbook-in-use-raw-e1",
+    "worldId": "reconciliation-workbook-in-use",
+    "arm": "raw",
+    "model": "fugu",
+    "durationSeconds": 40.2,
+    "terminalKind": "submit",
+    "submission": {
+      "total_arr": 186000,
+      "lines": [
+        {
+          "customer": "acme",
+          "annual_recognized": 24000,
+          "included": true,
+          "reason": "Active monthly $2,000 x 12; duplicate export row removed."
+        },
+        {
+          "customer": "beta",
+          "annual_recognized": 18000,
+          "included": true,
+          "reason": "Active monthly $1,500 x 12."
+        },
+        {
+          "customer": "gamma",
+          "annual_recognized": 24000,
+          "included": true,
+          "reason": "Active annual contract; annual amount recognized at contract value, not multiplied by 12."
+        },
+        {
+          "customer": "delta",
+          "annual_recognized": 0,
+          "included": false,
+          "reason": "Churned monthly subscription dropped under ARR rules."
+        },
+        {
+          "customer": "epsilon",
+          "annual_recognized": 12000,
+          "included": true,
+          "reason": "Active monthly $1,000 x 12."
+        },
+        {
+          "customer": "zeta",
+          "annual_recognized": 12000,
+          "included": true,
+          "reason": "Active annual contract; annual amount recognized at contract value, not multiplied by 12."
+        },
+        {
+          "customer": "eta",
+          "annual_recognized": 30000,
+          "included": true,
+          "reason": "Active monthly current rate $2,500 x 12; superseded $1,500 row dropped."
+        },
+        {
+          "customer": "theta",
+          "annual_recognized": 24000,
+          "included": true,
+          "reason": "Active monthly $4,000 with 50% promo credit applied net: $2,000 x 12."
+        },
+        {
+          "customer": "iota",
+          "annual_recognized": 18000,
+          "included": true,
+          "reason": "Active annual contract; annual amount recognized at contract value, not multiplied by 12."
+        },
+        {
+          "customer": "kappa",
+          "annual_recognized": 9600,
+          "included": true,
+          "reason": "Active monthly $800 x 12; no proration for mid-quarter start."
+        },
+        {
+          "customer": "lambda",
+          "annual_recognized": 0,
+          "included": false,
+          "reason": "Active free trial at $0; recognized ARR is $0."
+        },
+        {
+          "customer": "mu",
+          "annual_recognized": 0,
+          "included": false,
+          "reason": "Churned annual subscription dropped under ARR rules."
+        },
+        {
+          "customer": "nu",
+          "annual_recognized": 14400,
+          "included": true,
+          "reason": "Active monthly $1,200 x 12."
+        }
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_rules"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "total_arr": 186000,
+            "lines": [
+              {
+                "customer": "acme",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly $2,000 x 12; duplicate export row removed."
+              },
+              {
+                "customer": "beta",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active monthly $1,500 x 12."
+              },
+              {
+                "customer": "gamma",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active annual contract; annual amount recognized at contract value, not multiplied by 12."
+              },
+              {
+                "customer": "delta",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned monthly subscription dropped under ARR rules."
+              },
+              {
+                "customer": "epsilon",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active monthly $1,000 x 12."
+              },
+              {
+                "customer": "zeta",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active annual contract; annual amount recognized at contract value, not multiplied by 12."
+              },
+              {
+                "customer": "eta",
+                "annual_recognized": 30000,
+                "included": true,
+                "reason": "Active monthly current rate $2,500 x 12; superseded $1,500 row dropped."
+              },
+              {
+                "customer": "theta",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly $4,000 with 50% promo credit applied net: $2,000 x 12."
+              },
+              {
+                "customer": "iota",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active annual contract; annual amount recognized at contract value, not multiplied by 12."
+              },
+              {
+                "customer": "kappa",
+                "annual_recognized": 9600,
+                "included": true,
+                "reason": "Active monthly $800 x 12; no proration for mid-quarter start."
+              },
+              {
+                "customer": "lambda",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Active free trial at $0; recognized ARR is $0."
+              },
+              {
+                "customer": "mu",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned annual subscription dropped under ARR rules."
+              },
+              {
+                "customer": "nu",
+                "annual_recognized": 14400,
+                "included": true,
+                "reason": "Active monthly $1,200 x 12."
+              }
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_rules",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "total_arr": 186000,
+            "lines": [
+              {
+                "customer": "acme",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly $2,000 x 12; duplicate export row removed."
+              },
+              {
+                "customer": "beta",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active monthly $1,500 x 12."
+              },
+              {
+                "customer": "gamma",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active annual contract; annual amount recognized at contract value, not multiplied by 12."
+              },
+              {
+                "customer": "delta",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned monthly subscription dropped under ARR rules."
+              },
+              {
+                "customer": "epsilon",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active monthly $1,000 x 12."
+              },
+              {
+                "customer": "zeta",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active annual contract; annual amount recognized at contract value, not multiplied by 12."
+              },
+              {
+                "customer": "eta",
+                "annual_recognized": 30000,
+                "included": true,
+                "reason": "Active monthly current rate $2,500 x 12; superseded $1,500 row dropped."
+              },
+              {
+                "customer": "theta",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly $4,000 with 50% promo credit applied net: $2,000 x 12."
+              },
+              {
+                "customer": "iota",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active annual contract; annual amount recognized at contract value, not multiplied by 12."
+              },
+              {
+                "customer": "kappa",
+                "annual_recognized": 9600,
+                "included": true,
+                "reason": "Active monthly $800 x 12; no proration for mid-quarter start."
+              },
+              {
+                "customer": "lambda",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Active free trial at $0; recognized ARR is $0."
+              },
+              {
+                "customer": "mu",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned annual subscription dropped under ARR rules."
+              },
+              {
+                "customer": "nu",
+                "annual_recognized": 14400,
+                "included": true,
+                "reason": "Active monthly $1,200 x 12."
+              }
+            ],
+            "_confidence": 0.98
+          }
+        }
+      ],
+      "promptTokens": 1309,
+      "completionTokens": 2011,
+      "totalTokens": 3320,
+      "costCents": 0,
+      "modelTurns": 2,
+      "orchInputTokens": 0,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "artifact_valid": 1,
+      "evidence": 1,
+      "downstream": 1,
+      "method": 1
+    },
+    "detail": {
+      "posted": 186000,
+      "correct": 1,
+      "consistent": 1,
+      "auditable": 1,
+      "accepted": 1,
+      "score": 1,
+      "residual": 0,
+      "normalizedArtifactUtility": {
+        "noArtifact": 0,
+        "candidate": 1,
+        "gold": 1
+      }
+    }
+  },
+  {
+    "episodeId": "reconciliation-workbook-in-use-raw-e2",
+    "worldId": "reconciliation-workbook-in-use",
+    "arm": "raw",
+    "model": "fugu",
+    "durationSeconds": 77.32,
+    "terminalKind": "submit",
+    "submission": {
+      "total_arr": 186000,
+      "lines": [
+        {
+          "customer": "acme",
+          "annual_recognized": 24000,
+          "included": true,
+          "reason": "Active monthly customer: $2,000 MRR x 12 = $24,000 ARR; duplicate export row was deduped and not double-counted."
+        },
+        {
+          "customer": "beta",
+          "annual_recognized": 18000,
+          "included": true,
+          "reason": "Active monthly customer: $1,500 MRR x 12 = $18,000 ARR."
+        },
+        {
+          "customer": "gamma",
+          "annual_recognized": 24000,
+          "included": true,
+          "reason": "Active annual contract recognized at contract value; annual amounts are not multiplied by 12."
+        },
+        {
+          "customer": "delta",
+          "annual_recognized": 0,
+          "included": false,
+          "reason": "Churned monthly customer; churned accounts are dropped from recognized ARR."
+        },
+        {
+          "customer": "epsilon",
+          "annual_recognized": 12000,
+          "included": true,
+          "reason": "Active monthly customer: $1,000 MRR x 12 = $12,000 ARR."
+        },
+        {
+          "customer": "zeta",
+          "annual_recognized": 12000,
+          "included": true,
+          "reason": "Active annual contract recognized at contract value; annual amounts are not multiplied by 12."
+        },
+        {
+          "customer": "eta",
+          "annual_recognized": 30000,
+          "included": true,
+          "reason": "Active monthly customer using current rate only: $2,500 MRR x 12 = $30,000 ARR; $1,500 superseded row dropped."
+        },
+        {
+          "customer": "theta",
+          "annual_recognized": 24000,
+          "included": true,
+          "reason": "Active monthly customer with 50% promo credit applied net: $4,000 less 50% = $2,000 MRR; $2,000 x 12 = $24,000 ARR."
+        },
+        {
+          "customer": "iota",
+          "annual_recognized": 18000,
+          "included": true,
+          "reason": "Active annual contract recognized at contract value; annual amounts are not multiplied by 12."
+        },
+        {
+          "customer": "kappa",
+          "annual_recognized": 9600,
+          "included": true,
+          "reason": "Active monthly customer: $800 MRR x 12 = $9,600 ARR; no proration for mid-quarter start per rule."
+        },
+        {
+          "customer": "lambda",
+          "annual_recognized": 0,
+          "included": true,
+          "reason": "Active $0 free trial recognized at $0 ARR per rule."
+        },
+        {
+          "customer": "mu",
+          "annual_recognized": 0,
+          "included": false,
+          "reason": "Churned annual customer; churned accounts are dropped from recognized ARR."
+        },
+        {
+          "customer": "nu",
+          "annual_recognized": 14400,
+          "included": true,
+          "reason": "Active monthly customer: $1,200 MRR x 12 = $14,400 ARR."
+        }
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_rules"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "total_arr": 186000,
+            "lines": [
+              {
+                "customer": "acme",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly customer: $2,000 MRR x 12 = $24,000 ARR; duplicate export row was deduped and not double-counted."
+              },
+              {
+                "customer": "beta",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active monthly customer: $1,500 MRR x 12 = $18,000 ARR."
+              },
+              {
+                "customer": "gamma",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual amounts are not multiplied by 12."
+              },
+              {
+                "customer": "delta",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned monthly customer; churned accounts are dropped from recognized ARR."
+              },
+              {
+                "customer": "epsilon",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active monthly customer: $1,000 MRR x 12 = $12,000 ARR."
+              },
+              {
+                "customer": "zeta",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual amounts are not multiplied by 12."
+              },
+              {
+                "customer": "eta",
+                "annual_recognized": 30000,
+                "included": true,
+                "reason": "Active monthly customer using current rate only: $2,500 MRR x 12 = $30,000 ARR; $1,500 superseded row dropped."
+              },
+              {
+                "customer": "theta",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly customer with 50% promo credit applied net: $4,000 less 50% = $2,000 MRR; $2,000 x 12 = $24,000 ARR."
+              },
+              {
+                "customer": "iota",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual amounts are not multiplied by 12."
+              },
+              {
+                "customer": "kappa",
+                "annual_recognized": 9600,
+                "included": true,
+                "reason": "Active monthly customer: $800 MRR x 12 = $9,600 ARR; no proration for mid-quarter start per rule."
+              },
+              {
+                "customer": "lambda",
+                "annual_recognized": 0,
+                "included": true,
+                "reason": "Active $0 free trial recognized at $0 ARR per rule."
+              },
+              {
+                "customer": "mu",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned annual customer; churned accounts are dropped from recognized ARR."
+              },
+              {
+                "customer": "nu",
+                "annual_recognized": 14400,
+                "included": true,
+                "reason": "Active monthly customer: $1,200 MRR x 12 = $14,400 ARR."
+              }
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_rules",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "total_arr": 186000,
+            "lines": [
+              {
+                "customer": "acme",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly customer: $2,000 MRR x 12 = $24,000 ARR; duplicate export row was deduped and not double-counted."
+              },
+              {
+                "customer": "beta",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active monthly customer: $1,500 MRR x 12 = $18,000 ARR."
+              },
+              {
+                "customer": "gamma",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual amounts are not multiplied by 12."
+              },
+              {
+                "customer": "delta",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned monthly customer; churned accounts are dropped from recognized ARR."
+              },
+              {
+                "customer": "epsilon",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active monthly customer: $1,000 MRR x 12 = $12,000 ARR."
+              },
+              {
+                "customer": "zeta",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual amounts are not multiplied by 12."
+              },
+              {
+                "customer": "eta",
+                "annual_recognized": 30000,
+                "included": true,
+                "reason": "Active monthly customer using current rate only: $2,500 MRR x 12 = $30,000 ARR; $1,500 superseded row dropped."
+              },
+              {
+                "customer": "theta",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly customer with 50% promo credit applied net: $4,000 less 50% = $2,000 MRR; $2,000 x 12 = $24,000 ARR."
+              },
+              {
+                "customer": "iota",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual amounts are not multiplied by 12."
+              },
+              {
+                "customer": "kappa",
+                "annual_recognized": 9600,
+                "included": true,
+                "reason": "Active monthly customer: $800 MRR x 12 = $9,600 ARR; no proration for mid-quarter start per rule."
+              },
+              {
+                "customer": "lambda",
+                "annual_recognized": 0,
+                "included": true,
+                "reason": "Active $0 free trial recognized at $0 ARR per rule."
+              },
+              {
+                "customer": "mu",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned annual customer; churned accounts are dropped from recognized ARR."
+              },
+              {
+                "customer": "nu",
+                "annual_recognized": 14400,
+                "included": true,
+                "reason": "Active monthly customer: $1,200 MRR x 12 = $14,400 ARR."
+              }
+            ],
+            "_confidence": 0.99
+          }
+        }
+      ],
+      "promptTokens": 1309,
+      "completionTokens": 3542,
+      "totalTokens": 4851,
+      "costCents": 0,
+      "modelTurns": 2,
+      "orchInputTokens": 0,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "artifact_valid": 1,
+      "evidence": 1,
+      "downstream": 1,
+      "method": 1
+    },
+    "detail": {
+      "posted": 186000,
+      "correct": 1,
+      "consistent": 1,
+      "auditable": 1,
+      "accepted": 1,
+      "score": 1,
+      "residual": 0,
+      "normalizedArtifactUtility": {
+        "noArtifact": 0,
+        "candidate": 1,
+        "gold": 1
+      }
+    }
+  },
+  {
+    "episodeId": "reconciliation-workbook-in-use-raw-e3",
+    "worldId": "reconciliation-workbook-in-use",
+    "arm": "raw",
+    "model": "fugu",
+    "durationSeconds": 29.71,
+    "terminalKind": "submit",
+    "submission": {
+      "total_arr": 186000,
+      "lines": [
+        {
+          "customer": "acme",
+          "annual_recognized": 24000,
+          "included": true,
+          "reason": "Active monthly run-rate: one $2,000/month invoice annualized x12; duplicate export row excluded via dedup."
+        },
+        {
+          "customer": "beta",
+          "annual_recognized": 18000,
+          "included": true,
+          "reason": "Active monthly run-rate: $1,500/month x12."
+        },
+        {
+          "customer": "gamma",
+          "annual_recognized": 24000,
+          "included": true,
+          "reason": "Active annual contract recognized at contract value; annual invoices are not multiplied by 12."
+        },
+        {
+          "customer": "epsilon",
+          "annual_recognized": 12000,
+          "included": true,
+          "reason": "Active monthly run-rate: $1,000/month x12."
+        },
+        {
+          "customer": "zeta",
+          "annual_recognized": 12000,
+          "included": true,
+          "reason": "Active annual contract recognized at contract value; annual invoices are not multiplied by 12."
+        },
+        {
+          "customer": "eta",
+          "annual_recognized": 30000,
+          "included": true,
+          "reason": "Active monthly run-rate using current $2,500/month rate x12; superseded $1,500/month row dropped."
+        },
+        {
+          "customer": "theta",
+          "annual_recognized": 24000,
+          "included": true,
+          "reason": "Active monthly run-rate after 50% promo credit: $4,000/month gross netted to $2,000/month, then x12."
+        },
+        {
+          "customer": "iota",
+          "annual_recognized": 18000,
+          "included": true,
+          "reason": "Active annual contract recognized at contract value; annual invoices are not multiplied by 12."
+        },
+        {
+          "customer": "kappa",
+          "annual_recognized": 9600,
+          "included": true,
+          "reason": "Active monthly run-rate: $800/month x12; no proration for mid-quarter start."
+        },
+        {
+          "customer": "lambda",
+          "annual_recognized": 0,
+          "included": true,
+          "reason": "Active free trial at $0; $0 trials recognized as $0."
+        },
+        {
+          "customer": "nu",
+          "annual_recognized": 14400,
+          "included": true,
+          "reason": "Active monthly run-rate: $1,200/month x12."
+        }
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_rules"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "total_arr": 186000,
+            "lines": [
+              {
+                "customer": "acme",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly run-rate: one $2,000/month invoice annualized x12; duplicate export row excluded via dedup."
+              },
+              {
+                "customer": "beta",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,500/month x12."
+              },
+              {
+                "customer": "gamma",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual invoices are not multiplied by 12."
+              },
+              {
+                "customer": "epsilon",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,000/month x12."
+              },
+              {
+                "customer": "zeta",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual invoices are not multiplied by 12."
+              },
+              {
+                "customer": "eta",
+                "annual_recognized": 30000,
+                "included": true,
+                "reason": "Active monthly run-rate using current $2,500/month rate x12; superseded $1,500/month row dropped."
+              },
+              {
+                "customer": "theta",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly run-rate after 50% promo credit: $4,000/month gross netted to $2,000/month, then x12."
+              },
+              {
+                "customer": "iota",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual invoices are not multiplied by 12."
+              },
+              {
+                "customer": "kappa",
+                "annual_recognized": 9600,
+                "included": true,
+                "reason": "Active monthly run-rate: $800/month x12; no proration for mid-quarter start."
+              },
+              {
+                "customer": "lambda",
+                "annual_recognized": 0,
+                "included": true,
+                "reason": "Active free trial at $0; $0 trials recognized as $0."
+              },
+              {
+                "customer": "nu",
+                "annual_recognized": 14400,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,200/month x12."
+              }
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_rules",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "total_arr": 186000,
+            "lines": [
+              {
+                "customer": "acme",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly run-rate: one $2,000/month invoice annualized x12; duplicate export row excluded via dedup."
+              },
+              {
+                "customer": "beta",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,500/month x12."
+              },
+              {
+                "customer": "gamma",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual invoices are not multiplied by 12."
+              },
+              {
+                "customer": "epsilon",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,000/month x12."
+              },
+              {
+                "customer": "zeta",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual invoices are not multiplied by 12."
+              },
+              {
+                "customer": "eta",
+                "annual_recognized": 30000,
+                "included": true,
+                "reason": "Active monthly run-rate using current $2,500/month rate x12; superseded $1,500/month row dropped."
+              },
+              {
+                "customer": "theta",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly run-rate after 50% promo credit: $4,000/month gross netted to $2,000/month, then x12."
+              },
+              {
+                "customer": "iota",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual invoices are not multiplied by 12."
+              },
+              {
+                "customer": "kappa",
+                "annual_recognized": 9600,
+                "included": true,
+                "reason": "Active monthly run-rate: $800/month x12; no proration for mid-quarter start."
+              },
+              {
+                "customer": "lambda",
+                "annual_recognized": 0,
+                "included": true,
+                "reason": "Active free trial at $0; $0 trials recognized as $0."
+              },
+              {
+                "customer": "nu",
+                "annual_recognized": 14400,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,200/month x12."
+              }
+            ],
+            "_confidence": 0.97
+          }
+        }
+      ],
+      "promptTokens": 1309,
+      "completionTokens": 1563,
+      "totalTokens": 2872,
+      "costCents": 0,
+      "modelTurns": 2,
+      "orchInputTokens": 0,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "artifact_valid": 1,
+      "evidence": 1,
+      "downstream": 1,
+      "method": 1
+    },
+    "detail": {
+      "posted": 186000,
+      "correct": 1,
+      "consistent": 1,
+      "auditable": 1,
+      "accepted": 1,
+      "score": 1,
+      "residual": 0,
+      "normalizedArtifactUtility": {
+        "noArtifact": 0,
+        "candidate": 1,
+        "gold": 1
+      }
+    }
+  },
+  {
+    "episodeId": "reconciliation-workbook-in-use-raw-e4",
+    "worldId": "reconciliation-workbook-in-use",
+    "arm": "raw",
+    "model": "fugu",
+    "durationSeconds": 75.81,
+    "terminalKind": "submit",
+    "submission": {
+      "total_arr": 186000,
+      "lines": [
+        {
+          "customer": "acme",
+          "annual_recognized": 24000,
+          "included": true,
+          "reason": "Active monthly run-rate: $2,000 x 12; duplicate export row ignored."
+        },
+        {
+          "customer": "beta",
+          "annual_recognized": 18000,
+          "included": true,
+          "reason": "Active monthly run-rate: $1,500 x 12."
+        },
+        {
+          "customer": "gamma",
+          "annual_recognized": 24000,
+          "included": true,
+          "reason": "Active annual contract recognized at contract value; annual not multiplied by 12."
+        },
+        {
+          "customer": "delta",
+          "annual_recognized": 0,
+          "included": false,
+          "reason": "Churned monthly customer; dropped per ARR rules."
+        },
+        {
+          "customer": "epsilon",
+          "annual_recognized": 12000,
+          "included": true,
+          "reason": "Active monthly run-rate: $1,000 x 12."
+        },
+        {
+          "customer": "zeta",
+          "annual_recognized": 12000,
+          "included": true,
+          "reason": "Active annual contract recognized at contract value; annual not multiplied by 12."
+        },
+        {
+          "customer": "eta",
+          "annual_recognized": 30000,
+          "included": true,
+          "reason": "Active monthly current rate: $2,500 x 12; superseded $1,500 row dropped."
+        },
+        {
+          "customer": "theta",
+          "annual_recognized": 24000,
+          "included": true,
+          "reason": "Active monthly $4,000 with 50% promo credit applied net to $2,000 MRR; $2,000 x 12."
+        },
+        {
+          "customer": "iota",
+          "annual_recognized": 18000,
+          "included": true,
+          "reason": "Active annual contract recognized at contract value; annual not multiplied by 12."
+        },
+        {
+          "customer": "kappa",
+          "annual_recognized": 9600,
+          "included": true,
+          "reason": "Active monthly run-rate: $800 x 12; mid-quarter start not prorated."
+        },
+        {
+          "customer": "lambda",
+          "annual_recognized": 0,
+          "included": true,
+          "reason": "Active $0 free trial recognized at $0 per ARR rules."
+        },
+        {
+          "customer": "mu",
+          "annual_recognized": 0,
+          "included": false,
+          "reason": "Churned annual customer; dropped per ARR rules."
+        },
+        {
+          "customer": "nu",
+          "annual_recognized": 14400,
+          "included": true,
+          "reason": "Active monthly run-rate: $1,200 x 12."
+        }
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_rules"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "total_arr": 186000,
+            "lines": [
+              {
+                "customer": "acme",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly run-rate: $2,000 x 12; duplicate export row ignored."
+              },
+              {
+                "customer": "beta",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,500 x 12."
+              },
+              {
+                "customer": "gamma",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual not multiplied by 12."
+              },
+              {
+                "customer": "delta",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned monthly customer; dropped per ARR rules."
+              },
+              {
+                "customer": "epsilon",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,000 x 12."
+              },
+              {
+                "customer": "zeta",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual not multiplied by 12."
+              },
+              {
+                "customer": "eta",
+                "annual_recognized": 30000,
+                "included": true,
+                "reason": "Active monthly current rate: $2,500 x 12; superseded $1,500 row dropped."
+              },
+              {
+                "customer": "theta",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly $4,000 with 50% promo credit applied net to $2,000 MRR; $2,000 x 12."
+              },
+              {
+                "customer": "iota",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual not multiplied by 12."
+              },
+              {
+                "customer": "kappa",
+                "annual_recognized": 9600,
+                "included": true,
+                "reason": "Active monthly run-rate: $800 x 12; mid-quarter start not prorated."
+              },
+              {
+                "customer": "lambda",
+                "annual_recognized": 0,
+                "included": true,
+                "reason": "Active $0 free trial recognized at $0 per ARR rules."
+              },
+              {
+                "customer": "mu",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned annual customer; dropped per ARR rules."
+              },
+              {
+                "customer": "nu",
+                "annual_recognized": 14400,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,200 x 12."
+              }
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_rules",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "total_arr": 186000,
+            "lines": [
+              {
+                "customer": "acme",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly run-rate: $2,000 x 12; duplicate export row ignored."
+              },
+              {
+                "customer": "beta",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,500 x 12."
+              },
+              {
+                "customer": "gamma",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual not multiplied by 12."
+              },
+              {
+                "customer": "delta",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned monthly customer; dropped per ARR rules."
+              },
+              {
+                "customer": "epsilon",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,000 x 12."
+              },
+              {
+                "customer": "zeta",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual not multiplied by 12."
+              },
+              {
+                "customer": "eta",
+                "annual_recognized": 30000,
+                "included": true,
+                "reason": "Active monthly current rate: $2,500 x 12; superseded $1,500 row dropped."
+              },
+              {
+                "customer": "theta",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly $4,000 with 50% promo credit applied net to $2,000 MRR; $2,000 x 12."
+              },
+              {
+                "customer": "iota",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual not multiplied by 12."
+              },
+              {
+                "customer": "kappa",
+                "annual_recognized": 9600,
+                "included": true,
+                "reason": "Active monthly run-rate: $800 x 12; mid-quarter start not prorated."
+              },
+              {
+                "customer": "lambda",
+                "annual_recognized": 0,
+                "included": true,
+                "reason": "Active $0 free trial recognized at $0 per ARR rules."
+              },
+              {
+                "customer": "mu",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned annual customer; dropped per ARR rules."
+              },
+              {
+                "customer": "nu",
+                "annual_recognized": 14400,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,200 x 12."
+              }
+            ],
+            "_confidence": 0.92
+          }
+        }
+      ],
+      "promptTokens": 1309,
+      "completionTokens": 3675,
+      "totalTokens": 4984,
+      "costCents": 0,
+      "modelTurns": 2,
+      "orchInputTokens": 0,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "artifact_valid": 1,
+      "evidence": 1,
+      "downstream": 1,
+      "method": 1
+    },
+    "detail": {
+      "posted": 186000,
+      "correct": 1,
+      "consistent": 1,
+      "auditable": 1,
+      "accepted": 1,
+      "score": 1,
+      "residual": 0,
+      "normalizedArtifactUtility": {
+        "noArtifact": 0,
+        "candidate": 1,
+        "gold": 1
+      }
+    }
+  },
+  {
+    "episodeId": "reconciliation-workbook-in-use-raw-e5",
+    "worldId": "reconciliation-workbook-in-use",
+    "arm": "raw",
+    "model": "fugu",
+    "durationSeconds": 60.23,
+    "terminalKind": "submit",
+    "submission": {
+      "total_arr": 186000,
+      "lines": [
+        {
+          "customer": "acme",
+          "annual_recognized": 24000,
+          "included": true,
+          "reason": "Active monthly run-rate: one $2,000 monthly charge x12; duplicate export row ignored."
+        },
+        {
+          "customer": "beta",
+          "annual_recognized": 18000,
+          "included": true,
+          "reason": "Active monthly run-rate: $1,500 x12."
+        },
+        {
+          "customer": "gamma",
+          "annual_recognized": 24000,
+          "included": true,
+          "reason": "Active annual contract recognized at contract value; annual amount not multiplied by 12."
+        },
+        {
+          "customer": "delta",
+          "annual_recognized": 0,
+          "included": false,
+          "reason": "Churned customer; dropped from recognized ARR."
+        },
+        {
+          "customer": "epsilon",
+          "annual_recognized": 12000,
+          "included": true,
+          "reason": "Active monthly run-rate: $1,000 x12."
+        },
+        {
+          "customer": "zeta",
+          "annual_recognized": 12000,
+          "included": true,
+          "reason": "Active annual contract recognized at contract value; annual amount not multiplied by 12."
+        },
+        {
+          "customer": "eta",
+          "annual_recognized": 30000,
+          "included": true,
+          "reason": "Active monthly current rate: $2,500 x12; superseded $1,500 row dropped."
+        },
+        {
+          "customer": "theta",
+          "annual_recognized": 24000,
+          "included": true,
+          "reason": "Active monthly with 50% promo credit applied net: $4,000 x 50% x12."
+        },
+        {
+          "customer": "iota",
+          "annual_recognized": 18000,
+          "included": true,
+          "reason": "Active annual contract recognized at contract value; annual amount not multiplied by 12."
+        },
+        {
+          "customer": "kappa",
+          "annual_recognized": 9600,
+          "included": true,
+          "reason": "Active monthly run-rate with no proration for mid-quarter start: $800 x12."
+        },
+        {
+          "customer": "lambda",
+          "annual_recognized": 0,
+          "included": true,
+          "reason": "Active $0 free trial; recognized ARR is $0."
+        },
+        {
+          "customer": "mu",
+          "annual_recognized": 0,
+          "included": false,
+          "reason": "Churned annual customer; dropped from recognized ARR."
+        },
+        {
+          "customer": "nu",
+          "annual_recognized": 14400,
+          "included": true,
+          "reason": "Active monthly run-rate: $1,200 x12."
+        }
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_arr_rules"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "total_arr": 186000,
+            "lines": [
+              {
+                "customer": "acme",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly run-rate: one $2,000 monthly charge x12; duplicate export row ignored."
+              },
+              {
+                "customer": "beta",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,500 x12."
+              },
+              {
+                "customer": "gamma",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual amount not multiplied by 12."
+              },
+              {
+                "customer": "delta",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned customer; dropped from recognized ARR."
+              },
+              {
+                "customer": "epsilon",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,000 x12."
+              },
+              {
+                "customer": "zeta",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual amount not multiplied by 12."
+              },
+              {
+                "customer": "eta",
+                "annual_recognized": 30000,
+                "included": true,
+                "reason": "Active monthly current rate: $2,500 x12; superseded $1,500 row dropped."
+              },
+              {
+                "customer": "theta",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly with 50% promo credit applied net: $4,000 x 50% x12."
+              },
+              {
+                "customer": "iota",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual amount not multiplied by 12."
+              },
+              {
+                "customer": "kappa",
+                "annual_recognized": 9600,
+                "included": true,
+                "reason": "Active monthly run-rate with no proration for mid-quarter start: $800 x12."
+              },
+              {
+                "customer": "lambda",
+                "annual_recognized": 0,
+                "included": true,
+                "reason": "Active $0 free trial; recognized ARR is $0."
+              },
+              {
+                "customer": "mu",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned annual customer; dropped from recognized ARR."
+              },
+              {
+                "customer": "nu",
+                "annual_recognized": 14400,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,200 x12."
+              }
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_arr_rules",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "total_arr": 186000,
+            "lines": [
+              {
+                "customer": "acme",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly run-rate: one $2,000 monthly charge x12; duplicate export row ignored."
+              },
+              {
+                "customer": "beta",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,500 x12."
+              },
+              {
+                "customer": "gamma",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual amount not multiplied by 12."
+              },
+              {
+                "customer": "delta",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned customer; dropped from recognized ARR."
+              },
+              {
+                "customer": "epsilon",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,000 x12."
+              },
+              {
+                "customer": "zeta",
+                "annual_recognized": 12000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual amount not multiplied by 12."
+              },
+              {
+                "customer": "eta",
+                "annual_recognized": 30000,
+                "included": true,
+                "reason": "Active monthly current rate: $2,500 x12; superseded $1,500 row dropped."
+              },
+              {
+                "customer": "theta",
+                "annual_recognized": 24000,
+                "included": true,
+                "reason": "Active monthly with 50% promo credit applied net: $4,000 x 50% x12."
+              },
+              {
+                "customer": "iota",
+                "annual_recognized": 18000,
+                "included": true,
+                "reason": "Active annual contract recognized at contract value; annual amount not multiplied by 12."
+              },
+              {
+                "customer": "kappa",
+                "annual_recognized": 9600,
+                "included": true,
+                "reason": "Active monthly run-rate with no proration for mid-quarter start: $800 x12."
+              },
+              {
+                "customer": "lambda",
+                "annual_recognized": 0,
+                "included": true,
+                "reason": "Active $0 free trial; recognized ARR is $0."
+              },
+              {
+                "customer": "mu",
+                "annual_recognized": 0,
+                "included": false,
+                "reason": "Churned annual customer; dropped from recognized ARR."
+              },
+              {
+                "customer": "nu",
+                "annual_recognized": 14400,
+                "included": true,
+                "reason": "Active monthly run-rate: $1,200 x12."
+              }
+            ],
+            "_confidence": 0.98
+          }
+        }
+      ],
+      "promptTokens": 1309,
+      "completionTokens": 3136,
+      "totalTokens": 4445,
+      "costCents": 0,
+      "modelTurns": 2,
+      "orchInputTokens": 0,
+      "orchOutputTokens": 0,
+      "toolCallCount": 3
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "artifact_valid": 1,
+      "evidence": 1,
+      "downstream": 1,
+      "method": 1
+    },
+    "detail": {
+      "posted": 186000,
+      "correct": 1,
+      "consistent": 1,
+      "auditable": 1,
+      "accepted": 1,
+      "score": 1,
+      "residual": 0,
+      "normalizedArtifactUtility": {
+        "noArtifact": 0,
+        "candidate": 1,
+        "gold": 1
+      }
+    }
+  }
+]

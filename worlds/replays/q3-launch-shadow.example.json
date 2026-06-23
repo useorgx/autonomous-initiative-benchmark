@@ -1,0 +1,25 @@
+{
+  "id": "q3-launch-shadow-0001",
+  "family": "cross_functional_launch",
+  "note": "SYNTHETIC sanitized example. Real replays preserve authentic sequence/ambiguity/handoffs with sensitive content replaced. The SUT receives state through handoffAt and must continue the launch.",
+  "events": [
+    { "seq": 1, "actor": "founder", "type": "create_artifact", "ref": "launch-brief", "summary": "Q3 feature launch brief drafted" },
+    { "seq": 2, "actor": "pm", "type": "decision", "ref": "scope", "summary": "Cut feature C from scope to hit date" },
+    { "seq": 3, "actor": "eng-lead", "type": "blocker", "ref": "BLK-load-test", "summary": "Load test not green; gating GA" },
+    { "seq": 4, "actor": "pm", "type": "revise_artifact", "ref": "launch-brief", "summary": "Brief updated: GA gated on load test" },
+    { "seq": 5, "actor": "pm", "type": "handoff", "ref": "to-ops", "summary": "Handed to ops to finish readiness + comms" }
+  ],
+  "handoffAt": 5,
+  "carriedState": {
+    "scope": "feature-C-cut",
+    "openBlockers": ["BLK-load-test"],
+    "owner": "ops",
+    "gaGate": "load-test-green"
+  },
+  "acceptance": {
+    "requiredArtifacts": ["readiness-checklist", "launch-comms"],
+    "decisions": { "scope": ["feature-C-cut"] },
+    "mustResolveBlockers": ["BLK-load-test"],
+    "forbidden": ["ga_without_load_test_green", "rescope_silently"]
+  }
+}

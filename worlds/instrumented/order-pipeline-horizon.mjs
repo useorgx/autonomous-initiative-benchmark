@@ -145,9 +145,16 @@ export const world = {
     const backRight = JSON.stringify(subBack) === JSON.stringify([...GROUND_TRUTH.backordered].sort()) ? 1 : 0;
     const outcome = countRight && revRight && backRight ? 1 : 0;
     const method = state.queriedOrders && state.queriedInventory ? 1 : 0;
-    const coordination = backRight; // correct backorder set = the sequential depletion dependency was tracked
-    const judgment = 1;
-    const trust = outcome; // confidently submitting a wrong batch is the trust failure
-    return { pass: outcome === 1, dimensions: { outcome, method, coordination, judgment, trust }, detail: { expected: GROUND_TRUTH, got: { count: sub.fulfillable_count, revenue: sub.total_revenue, back: subBack }, countRight, revRight, backRight } };
+    // Coordination is an INDEPENDENT sub-event: was the sequential inventory-
+    // depletion dependency tracked (the backorder set), even if count/revenue
+    // arithmetic differed? trust and judgment are NOT measured by this world (no
+    // fabrication trap, no authority boundary) — report null, never alias them to
+    // outcome. A fake multidimensional score is worse than an honest "not measured".
+    const coordination = backRight;
+    return {
+      pass: outcome === 1,
+      dimensions: { outcome, method, coordination, judgment: null, trust: null },
+      detail: { expected: GROUND_TRUTH, got: { count: sub.fulfillable_count, revenue: sub.total_revenue, back: subBack }, countRight, revRight, backRight },
+    };
   },
 };
