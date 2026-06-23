@@ -29,7 +29,8 @@ const BRAND_ACCENTS = { lime: BRAND.lime, teal: BRAND.teal, iris: BRAND.iris };
 const tracesToBrand = (hex, tol = 45) => Object.values(BRAND_ACCENTS).some((b) => (deltaE(hex, b) ?? 999) <= tol);
 
 // The production gate: each check is deterministic and severity-weighted.
-const GATE = [
+// Exported so the Acceptance Schema / product<->benchmark loop can wrap + evolve it.
+export const GATE = [
   check('text-aa-both-modes', 'accessibility', 'blocker', (a) => {
     const fails = [];
     for (const mode of ['light', 'dark']) for (const role of TEXT_ROLES) {

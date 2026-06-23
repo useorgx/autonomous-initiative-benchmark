@@ -3,9 +3,10 @@
 
 // --- color / accessibility ---
 export function relLuminance(hex) {
-  const m = /^#?([0-9a-f]{6})$/i.exec(String(hex).trim());
-  if (!m) return null;
-  const [r, g, b] = [0, 2, 4].map((i) => parseInt(m[1].slice(i, i + 2), 16) / 255).map((s) => (s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4));
+  let s = String(hex).trim().replace(/^#/, '');
+  if (/^[0-9a-f]{3}$/i.test(s)) s = s.split('').map((c) => c + c).join('');
+  if (!/^[0-9a-f]{6}$/i.test(s)) return null;
+  const [r, g, b] = [0, 2, 4].map((i) => parseInt(s.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 export function contrastRatio(fg, bg) {

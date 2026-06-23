@@ -7,7 +7,9 @@
 // ship threshold. This is what raises the bar 100x: a strong single-pass model
 // can ace one check but rarely clears 15-20 production gates at once.
 
-const WEIGHT = { blocker: 5, major: 3, minor: 1 };
+// 'advisory' (weight 0) = reported in the receipt but does NOT gate — the
+// landing state for a check humans keep overriding (demoted, not deleted).
+const WEIGHT = { blocker: 5, major: 3, minor: 1, advisory: 0 };
 
 function normalize(result) {
   if (typeof result === 'boolean') return { pass: result, value: result ? 1 : 0 };

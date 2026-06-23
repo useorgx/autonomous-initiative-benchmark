@@ -4,9 +4,10 @@
 // state-perceptibility checks — no LLM judge, just math.
 
 export function hexToRgb(hex) {
-  const m = /^#?([0-9a-f]{6})$/i.exec(String(hex).trim());
-  if (!m) return null;
-  return [0, 2, 4].map((i) => parseInt(m[1].slice(i, i + 2), 16));
+  let s = String(hex).trim().replace(/^#/, '');
+  if (/^[0-9a-f]{3}$/i.test(s)) s = s.split('').map((c) => c + c).join(''); // expand shorthand
+  if (!/^[0-9a-f]{6}$/i.test(s)) return null;
+  return [0, 2, 4].map((i) => parseInt(s.slice(i, i + 2), 16));
 }
 const lin = (c) => { const s = c / 255; return s <= 0.04045 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4; };
 const delin = (v) => { const s = v <= 0.0031308 ? v * 12.92 : 1.055 * v ** (1 / 2.4) - 0.055; return Math.max(0, Math.min(255, Math.round(s * 255))); };
