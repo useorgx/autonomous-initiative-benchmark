@@ -1,0 +1,54 @@
+{
+  "admissionSummary": {
+    "admitted": 0,
+    "saturated": 1,
+    "rule": "admitted if raw baseline pass@k < 1.0 (headroom exists)"
+  },
+  "benchmark": "orgx-bench-v2-instrumented-worlds",
+  "corpus": {
+    "splits": [
+      "public_validation"
+    ],
+    "headlineEligible": false,
+    "note": "Includes public / contamination-visible worlds — NOT headline-eligible; for harness transparency and validation only (corpus-splits.json policy)."
+  },
+  "generatedAtNote": "timestamp stamped by caller",
+  "provider": "fugu",
+  "model": "fugu-ultra",
+  "k": 8,
+  "arms": [
+    "raw"
+  ],
+  "worldCount": 1,
+  "scoring": "deterministic validators only (no LLM judge)",
+  "perWorld": [
+    {
+      "worldId": "order-pipeline-horizon",
+      "domain": "ops",
+      "admission": "saturated",
+      "arms": {
+        "raw": {
+          "n": 8,
+          "passAtK": 1,
+          "passPowK": 1,
+          "meanTokens": 10443,
+          "meanCostCents": 9.665,
+          "meanToolCalls": 14.875,
+          "qualityPerKToken": 0.0958,
+          "meanOrchestrationTokens": 3150,
+          "orchestrationRatio": 0.3017,
+          "dimensions": {
+            "outcome": 1,
+            "method": 1,
+            "coordination": 1,
+            "judgment": 1,
+            "trust": 1
+          },
+          "recovery": null,
+          "failures": 0
+        }
+      }
+    }
+  ],
+  "uplift": {}
+}

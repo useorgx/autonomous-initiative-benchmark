@@ -17,6 +17,7 @@ import { performance } from 'node:perf_hooks';
 import { chatUsageCostCents, getProvider, normalizeChatUsage, requireProviderKey } from './providers.mjs';
 import { decideVerification } from './verify-on-the-edge.mjs';
 import { majorityVote, canonicalize } from './consensus.mjs';
+import { fuguCostCents, readFuguUsage } from './fugu-pricing.mjs';
 
 const MAX_RETRIES = 4;
 
@@ -74,7 +75,7 @@ export async function runEpisode({ world, arm, provider, model, episodeId, maxSt
 
   for (let step = 0; step < maxSteps; step += 1) {
     const response = await chatFn({ provider, model, messages, tools, maxOutputTokens, timeoutMs });
-    accUsage(weg, response.usage);
+    accUsage(weg, response.usage, model);
     weg.modelTurns += 1;
     const msg = response.choices?.[0]?.message ?? {};
     const calls = msg.tool_calls ?? [];
@@ -214,7 +215,7 @@ export async function runRestartEpisode({ world, provider, model, episodeId, max
 
     for (let step = 0; step < maxStepsPerSegment && !segmentResult; step += 1) {
       const response = await chat({ provider, model, messages, tools: tools.map(toToolSchema), maxOutputTokens, timeoutMs });
-      accUsage(weg, response.usage);
+      accUsage(weg, response.usage, model);
       weg.modelTurns += 1;
       const msg = response.choices?.[0]?.message ?? {};
       const calls = msg.tool_calls ?? [];
@@ -305,12 +306,18 @@ function toToolSchema(tool) {
   };
 }
 
-function accUsage(weg, usage) {
+function accUsage(weg, usage, model) {
   const u = normalizeChatUsage(usage ?? {});
   weg.promptTokens += u.input_tokens;
   weg.completionTokens += u.output_tokens;
   weg.totalTokens += u.total_tokens || u.input_tokens + u.output_tokens;
-  weg.costCents += chatUsageCostCents(usage ?? {}) ?? 0;
+  // Fugu orchestration tokens (exposed by Ultra) — the coordination overhead.
+  const fu = readFuguUsage(usage ?? {});
+  weg.orchInputTokens = (weg.orchInputTokens ?? 0) + fu.orchInput;
+  weg.orchOutputTokens = (weg.orchOutputTokens ?? 0) + fu.orchOutput;
+  // Exact cost for Fugu Ultra (fixed pricing); else provider-billed cost; else 0.
+  const fugu = fuguCostCents(model, usage ?? {});
+  weg.costCents += fugu ?? (chatUsageCostCents(usage ?? {}) ?? 0);
 }
 
 async function chat({ provider, model, messages, tools, maxOutputTokens, timeoutMs }) {

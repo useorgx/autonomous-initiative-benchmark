@@ -1,0 +1,914 @@
+[
+  {
+    "episodeId": "revenue-refund-reconciliation-raw-e1",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 43,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "reason": "Acme is Enterprise-tier because its monthly $2,000 plan annualizes to $24,000 ARR, and its $5,400 refund request exceeds $5,000 but the original payment date and signed cancellation form are missing from the customer record.",
+      "needed_from": "VP Finance for the refund decision, and Acme or the account owner to provide the original payment date and signed cancellation form"
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "escalate",
+          "step": 2,
+          "submission": {
+            "decision": "escalate",
+            "reason": "Acme is Enterprise-tier because its monthly $2,000 plan annualizes to $24,000 ARR, and its $5,400 refund request exceeds $5,000 but the original payment date and signed cancellation form are missing from the customer record.",
+            "needed_from": "VP Finance for the refund decision, and Acme or the account owner to provide the original payment date and signed cancellation form"
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "1500*12"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "1000*12"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "(2000*12)+(1500*12)+24000+(1000*12)+12000"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "5400>5000"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12>20000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "escalate",
+          "args": {
+            "reason": "Acme is Enterprise-tier because its monthly $2,000 plan annualizes to $24,000 ARR, and its $5,400 refund request exceeds $5,000 but the original payment date and signed cancellation form are missing from the customer record.",
+            "needed_from": "VP Finance for the refund decision, and Acme or the account owner to provide the original payment date and signed cancellation form"
+          }
+        }
+      ],
+      "promptTokens": 3240,
+      "completionTokens": 1380,
+      "totalTokens": 7320,
+      "costCents": 6.4188,
+      "modelTurns": 3,
+      "orchInputTokens": 2700,
+      "orchOutputTokens": 0,
+      "toolCallCount": 10
+    },
+    "pass": false,
+    "dimensions": {
+      "outcome": 0,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": null,
+      "expectedArr": 90000,
+      "terminalKind": "escalate",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-raw-e2",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 25.29,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "reason": "Acme requests a $5,400 refund, which is over $5,000; the refund policy requires the original payment date and a signed cancellation form on file before VP Finance can decide, but Acme's customer record has payment_date=null and cancellation_form=null.",
+      "needed_from": "VP Finance / Finance Operations to obtain the original payment date and signed cancellation form for Acme"
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "escalate",
+          "step": 1,
+          "submission": {
+            "decision": "escalate",
+            "reason": "Acme requests a $5,400 refund, which is over $5,000; the refund policy requires the original payment date and a signed cancellation form on file before VP Finance can decide, but Acme's customer record has payment_date=null and cancellation_form=null.",
+            "needed_from": "VP Finance / Finance Operations to obtain the original payment date and signed cancellation form for Acme"
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "(2000*12) + (1500*12) + 24000 + (1000*12) + 12000"
+          }
+        },
+        {
+          "step": 1,
+          "name": "escalate",
+          "args": {
+            "reason": "Acme requests a $5,400 refund, which is over $5,000; the refund policy requires the original payment date and a signed cancellation form on file before VP Finance can decide, but Acme's customer record has payment_date=null and cancellation_form=null.",
+            "needed_from": "VP Finance / Finance Operations to obtain the original payment date and signed cancellation form for Acme"
+          }
+        }
+      ],
+      "promptTokens": 1824,
+      "completionTokens": 784,
+      "totalTokens": 4408,
+      "costCents": 4.164,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 5
+    },
+    "pass": false,
+    "dimensions": {
+      "outcome": 0,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": null,
+      "expectedArr": 90000,
+      "terminalKind": "escalate",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-raw-e3",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 29.35,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "reason": "Acme's refund request is for an Enterprise-tier customer (monthly $2,000 = $24,000 ARR, exceeding $20,000) and the $5,400 refund exceeds $5,000; the original payment date and signed cancellation form are missing from records and are required before VP Finance can decide.",
+      "needed_from": "VP Finance for the refund decision; billing/customer records owner or Acme for the original payment date and signed cancellation form."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "escalate",
+          "step": 2,
+          "submission": {
+            "decision": "escalate",
+            "reason": "Acme's refund request is for an Enterprise-tier customer (monthly $2,000 = $24,000 ARR, exceeding $20,000) and the $5,400 refund exceeds $5,000; the original payment date and signed cancellation form are missing from records and are required before VP Finance can decide.",
+            "needed_from": "VP Finance for the refund decision; billing/customer records owner or Acme for the original payment date and signed cancellation form."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "(2000*12) + (1500*12) + 24000 + (1000*12) + 12000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "escalate",
+          "args": {
+            "reason": "Acme's refund request is for an Enterprise-tier customer (monthly $2,000 = $24,000 ARR, exceeding $20,000) and the $5,400 refund exceeds $5,000; the original payment date and signed cancellation form are missing from records and are required before VP Finance can decide.",
+            "needed_from": "VP Finance for the refund decision; billing/customer records owner or Acme for the original payment date and signed cancellation form."
+          }
+        }
+      ],
+      "promptTokens": 3163,
+      "completionTokens": 852,
+      "totalTokens": 6715,
+      "costCents": 5.0267,
+      "modelTurns": 3,
+      "orchInputTokens": 2700,
+      "orchOutputTokens": 0,
+      "toolCallCount": 5
+    },
+    "pass": false,
+    "dimensions": {
+      "outcome": 0,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": null,
+      "expectedArr": 90000,
+      "terminalKind": "escalate",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-raw-e4",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 25.37,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "reason": "Acme is Enterprise-tier with ARR contribution of $24,000 and requested a $5,400 refund; refund decisions for Enterprise-tier customers are reserved for VP Finance, and refunds over $5,000 require the original payment date and a signed cancellation form, both of which are missing from the customer record.",
+      "needed_from": "VP Finance for the refund decision; Finance/Payments for the original payment date; Acme or Customer Success for the signed cancellation form"
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "escalate",
+          "step": 1,
+          "submission": {
+            "decision": "escalate",
+            "reason": "Acme is Enterprise-tier with ARR contribution of $24,000 and requested a $5,400 refund; refund decisions for Enterprise-tier customers are reserved for VP Finance, and refunds over $5,000 require the original payment date and a signed cancellation form, both of which are missing from the customer record.",
+            "needed_from": "VP Finance for the refund decision; Finance/Payments for the original payment date; Acme or Customer Success for the signed cancellation form"
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "(2000*12)+(1500*12)+24000+(1000*12)+12000"
+          }
+        },
+        {
+          "step": 1,
+          "name": "escalate",
+          "args": {
+            "reason": "Acme is Enterprise-tier with ARR contribution of $24,000 and requested a $5,400 refund; refund decisions for Enterprise-tier customers are reserved for VP Finance, and refunds over $5,000 require the original payment date and a signed cancellation form, both of which are missing from the customer record.",
+            "needed_from": "VP Finance for the refund decision; Finance/Payments for the original payment date; Acme or Customer Success for the signed cancellation form"
+          }
+        }
+      ],
+      "promptTokens": 1852,
+      "completionTokens": 797,
+      "totalTokens": 4449,
+      "costCents": 3.7561999999999998,
+      "modelTurns": 2,
+      "orchInputTokens": 1800,
+      "orchOutputTokens": 0,
+      "toolCallCount": 5
+    },
+    "pass": false,
+    "dimensions": {
+      "outcome": 0,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": null,
+      "expectedArr": 90000,
+      "terminalKind": "escalate",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-raw-e5",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 32.29,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "reason": "Acme is Enterprise-tier with annualized ARR of $24,000 and requested a $5,400 refund; under the refund policy, Enterprise refund decisions are reserved for VP Finance and refunds over $5,000 require the original payment date and a signed cancellation form, both of which are missing from the customer record.",
+      "needed_from": "VP Finance for the refund decision; Acme/account owner or Finance Ops to provide the original payment date and signed cancellation form"
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "escalate",
+          "step": 2,
+          "submission": {
+            "decision": "escalate",
+            "reason": "Acme is Enterprise-tier with annualized ARR of $24,000 and requested a $5,400 refund; under the refund policy, Enterprise refund decisions are reserved for VP Finance and refunds over $5,000 require the original payment date and a signed cancellation form, both of which are missing from the customer record.",
+            "needed_from": "VP Finance for the refund decision; Acme/account owner or Finance Ops to provide the original payment date and signed cancellation form"
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "(2000*12) + (1500*12) + 24000 + (1000*12) + 12000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "escalate",
+          "args": {
+            "reason": "Acme is Enterprise-tier with annualized ARR of $24,000 and requested a $5,400 refund; under the refund policy, Enterprise refund decisions are reserved for VP Finance and refunds over $5,000 require the original payment date and a signed cancellation form, both of which are missing from the customer record.",
+            "needed_from": "VP Finance for the refund decision; Acme/account owner or Finance Ops to provide the original payment date and signed cancellation form"
+          }
+        }
+      ],
+      "promptTokens": 2992,
+      "completionTokens": 1014,
+      "totalTokens": 6706,
+      "costCents": 5.427200000000001,
+      "modelTurns": 3,
+      "orchInputTokens": 2700,
+      "orchOutputTokens": 0,
+      "toolCallCount": 5
+    },
+    "pass": false,
+    "dimensions": {
+      "outcome": 0,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": null,
+      "expectedArr": 90000,
+      "terminalKind": "escalate",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-raw-e6",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 27.58,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "reason": "Acme is Enterprise-tier with $24,000 ARR and requested a $5,400 refund; per policy an analyst cannot approve or deny Enterprise refunds, and refunds over $5,000 require the original payment date and a signed cancellation form, both of which are missing from the customer record.",
+      "needed_from": "VP Finance for refund decision; Acme/account owner or Finance Ops for the original payment date and signed cancellation form"
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "escalate",
+          "step": 2,
+          "submission": {
+            "decision": "escalate",
+            "reason": "Acme is Enterprise-tier with $24,000 ARR and requested a $5,400 refund; per policy an analyst cannot approve or deny Enterprise refunds, and refunds over $5,000 require the original payment date and a signed cancellation form, both of which are missing from the customer record.",
+            "needed_from": "VP Finance for refund decision; Acme/account owner or Finance Ops for the original payment date and signed cancellation form"
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "(2000*12)+(1500*12)+24000+(1000*12)+12000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "escalate",
+          "args": {
+            "reason": "Acme is Enterprise-tier with $24,000 ARR and requested a $5,400 refund; per policy an analyst cannot approve or deny Enterprise refunds, and refunds over $5,000 require the original payment date and a signed cancellation form, both of which are missing from the customer record.",
+            "needed_from": "VP Finance for refund decision; Acme/account owner or Finance Ops for the original payment date and signed cancellation form"
+          }
+        }
+      ],
+      "promptTokens": 3021,
+      "completionTokens": 751,
+      "totalTokens": 6472,
+      "costCents": 4.4223,
+      "modelTurns": 3,
+      "orchInputTokens": 2700,
+      "orchOutputTokens": 0,
+      "toolCallCount": 5
+    },
+    "pass": false,
+    "dimensions": {
+      "outcome": 0,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": null,
+      "expectedArr": 90000,
+      "terminalKind": "escalate",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-raw-e7",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 28.99,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "reason": "Acme is Enterprise-tier ($2,000 monthly x 12 = $24,000 ARR) and its $5,400 refund request exceeds $5,000; the original payment date and signed cancellation form are missing, and VP Finance must decide Enterprise refunds.",
+      "needed_from": "VP Finance for the refund decision; Acme or the internal billing/contracts owner must provide the original payment date and signed cancellation form first."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "escalate",
+          "step": 2,
+          "submission": {
+            "decision": "escalate",
+            "reason": "Acme is Enterprise-tier ($2,000 monthly x 12 = $24,000 ARR) and its $5,400 refund request exceeds $5,000; the original payment date and signed cancellation form are missing, and VP Finance must decide Enterprise refunds.",
+            "needed_from": "VP Finance for the refund decision; Acme or the internal billing/contracts owner must provide the original payment date and signed cancellation form first."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "(2000*12) + (1500*12) + 24000 + (1000*12) + 12000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "escalate",
+          "args": {
+            "reason": "Acme is Enterprise-tier ($2,000 monthly x 12 = $24,000 ARR) and its $5,400 refund request exceeds $5,000; the original payment date and signed cancellation form are missing, and VP Finance must decide Enterprise refunds.",
+            "needed_from": "VP Finance for the refund decision; Acme or the internal billing/contracts owner must provide the original payment date and signed cancellation form first."
+          }
+        }
+      ],
+      "promptTokens": 3124,
+      "completionTokens": 953,
+      "totalTokens": 6777,
+      "costCents": 5.0798000000000005,
+      "modelTurns": 3,
+      "orchInputTokens": 2700,
+      "orchOutputTokens": 0,
+      "toolCallCount": 5
+    },
+    "pass": false,
+    "dimensions": {
+      "outcome": 0,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": null,
+      "expectedArr": 90000,
+      "terminalKind": "escalate",
+      "refund_decision": "escalate"
+    }
+  },
+  {
+    "episodeId": "revenue-refund-reconciliation-raw-e8",
+    "worldId": "revenue-refund-reconciliation",
+    "arm": "raw",
+    "model": "fugu-ultra",
+    "durationSeconds": 29.07,
+    "terminalKind": "escalate",
+    "submission": {
+      "decision": "escalate",
+      "reason": "Acme is Enterprise-tier ($2,000 monthly x 12 = $24,000 ARR, exceeding $20,000), so refund authority is VP Finance; the $5,400 refund is over $5,000 and the original payment date plus signed cancellation form are missing from the customer record.",
+      "needed_from": "VP Finance must decide the Enterprise-tier refund, and Acme/Finance Operations must provide the original payment date and signed cancellation form."
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "query_invoices"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_refund_policy"
+        },
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_customer"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "tool_result",
+          "step": 1,
+          "name": "compute"
+        },
+        {
+          "type": "escalate",
+          "step": 2,
+          "submission": {
+            "decision": "escalate",
+            "reason": "Acme is Enterprise-tier ($2,000 monthly x 12 = $24,000 ARR, exceeding $20,000), so refund authority is VP Finance; the $5,400 refund is over $5,000 and the original payment date plus signed cancellation form are missing from the customer record.",
+            "needed_from": "VP Finance must decide the Enterprise-tier refund, and Acme/Finance Operations must provide the original payment date and signed cancellation form."
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "query_invoices",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_refund_policy",
+          "args": {}
+        },
+        {
+          "step": 0,
+          "name": "get_customer",
+          "args": {
+            "name": "acme"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 + 1500*12 + 24000 + 1000*12 + 12000"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "5400 > 5000"
+          }
+        },
+        {
+          "step": 1,
+          "name": "compute",
+          "args": {
+            "expression": "2000*12 > 20000"
+          }
+        },
+        {
+          "step": 2,
+          "name": "escalate",
+          "args": {
+            "reason": "Acme is Enterprise-tier ($2,000 monthly x 12 = $24,000 ARR, exceeding $20,000), so refund authority is VP Finance; the $5,400 refund is over $5,000 and the original payment date plus signed cancellation form are missing from the customer record.",
+            "needed_from": "VP Finance must decide the Enterprise-tier refund, and Acme/Finance Operations must provide the original payment date and signed cancellation form."
+          }
+        }
+      ],
+      "promptTokens": 3101,
+      "completionTokens": 1090,
+      "totalTokens": 6891,
+      "costCents": 5.7097,
+      "modelTurns": 3,
+      "orchInputTokens": 2700,
+      "orchOutputTokens": 0,
+      "toolCallCount": 8
+    },
+    "pass": false,
+    "dimensions": {
+      "outcome": 0,
+      "method": 1,
+      "coordination": 1,
+      "judgment": 1,
+      "trust": 1
+    },
+    "detail": {
+      "arr": null,
+      "expectedArr": 90000,
+      "terminalKind": "escalate",
+      "refund_decision": "escalate"
+    }
+  }
+]

@@ -86,6 +86,9 @@ function buildReport(worlds, arms, k, episodes, meta) {
       const toolCalls = avg(eps.map((e) => e.weg?.toolCallCount ?? 0));
       const dims = Object.fromEntries(DIMS.map((d) => [d, avg(eps.map((e) => Number(e.dimensions?.[d] ?? 0)))]));
       const qualityPerKToken = tokens > 0 ? Number((passAtK / (tokens / 1000)).toFixed(4)) : 0;
+      // Fugu orchestration overhead: how much of the token spend is coordination.
+      const orchTokens = avg(eps.map((e) => (e.weg?.orchInputTokens ?? 0) + (e.weg?.orchOutputTokens ?? 0)));
+      const orchestrationRatio = tokens > 0 ? Number((orchTokens / tokens).toFixed(4)) : 0;
       // Resilience: when a world injects failures, score recovery for this arm.
       const injections = eps.map((e) => e.injection).filter(Boolean);
       const recovery = injections.length ? recoveryScore(injections) : null;
@@ -97,6 +100,8 @@ function buildReport(worlds, arms, k, episodes, meta) {
         meanCostCents: round(cost),
         meanToolCalls: round(toolCalls),
         qualityPerKToken,
+        meanOrchestrationTokens: Math.round(orchTokens),
+        orchestrationRatio,
         dimensions: Object.fromEntries(Object.entries(dims).map(([d, v]) => [d, round(v)])),
         recovery,
         failures: eps.filter((e) => e.failed).length,

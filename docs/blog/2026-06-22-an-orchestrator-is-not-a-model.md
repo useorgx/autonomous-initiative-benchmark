@@ -86,11 +86,27 @@ times and made it right 6 out of 8. The policy that's robust across the whole
 ladder isn't "always orchestrate" — it's *verify on the edge*: spend the extra
 cognition only where the uncertainty justifies it.
 
-An always-on internal router that fans out by default lives in the expensive square
-of that map on saturated work. I'm not asserting that's where Fugu lands — I don't
-have its envelope, and I won't pretend a benchmark I haven't run. I'm saying the
-question "when does the extra cognition pay?" is the whole game, and it's answerable
-only with the envelope, not the score.
+So we ran Fugu through it. Both tiers — `fugu` and `fugu-ultra` — across nine
+deterministic worlds, recording the envelope Sakana's launch doesn't publish
+([full numbers here](fugu-envelope-2026-06-22.md)). The result, for $2.30 of
+spend: **Fugu Ultra's orchestration bought zero additional reliable passes over
+base Fugu — at 45% orchestration overhead and ~2× the tokens.** On a trivial
+"140 + 10," Ultra spent 900 of its 995 tokens on orchestration — ~90% overhead
+for the identical answer. The one world where a quick k=3 pass *hinted* Ultra
+recovered a hard sequential task turned out to be a pass@1-style illusion: at
+k=8, base Fugu already solves it 8/8, and Ultra's coordination just adds 30%
+overhead and $0.77 for no extra passes.
+
+To Fugu's credit, Ultra *exposes* its orchestration tokens in the usage payload —
+that's the runtime transparency we're asking for, and it's exactly what let us
+compute this. (Regular `fugu` reports zero orchestration and bills at a hidden
+route-dependent rate; neither tier says which models acted.) This isn't "Fugu is
+bad" — it's the regime map on a real shipped orchestrator: on tasks a strong base
+tier already handles, always-on orchestration is measured, exactly-priced
+overhead. It would pay in the borderline band; our public worlds mostly aren't
+calibrated there, and we say so. The point stands: "when does the extra cognition
+pay?" is answerable only with the envelope, and only when you measure reliability
+at k instead of trusting one lucky run.
 
 ## So we built the controls
 
