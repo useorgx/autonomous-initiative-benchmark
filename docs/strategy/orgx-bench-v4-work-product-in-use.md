@@ -2,6 +2,27 @@
 
 **Date:** 2026-06-23 · driven by two adversarial reviews + a repo audit + SOTA research.
 
+## Build status (P0–P3 implemented, 128 tests)
+
+- **P0 done** — `terminal-states.mjs` (4-state taxonomy; deploy-approval timeout →
+  safe_noncompletion, no longer a win), `calculation-replay.mjs` (deterministic
+  groundedness; revenue-reconciliation now grades its derivation), dimension
+  decoupling (no more `trust=outcome`/`judgment=1`), `grader-mutation.test.mjs`
+  (each loophole must fail for the right reason), `docs/claim-cards.md`.
+- **P1 done** — `reconciliation-workbook-in-use.mjs` (deliverable is a workbook a
+  deterministic downstream consumer APPLIES; right-total/wrong-lines rejected) +
+  `artifact-utility.mjs` (Normalized Artifact Utility, harmful-artifact detection).
+- **P2 done (instrument)** — `operator-calibration.mjs` + `record-operator-review.mjs`
+  (grader-vs-blind-human overstatement, the METR gap). Human accept/reject is the
+  gated data input.
+- **P3 done (harness)** — `initiative-replay.mjs` + synthetic
+  `worlds/replays/q3-launch-shadow.example.json` (continue from a handoff; scored
+  deterministically). Real sanitized replays are the gated data input.
+
+Gated on external inputs (not fabricated): real timed humans (P2 calibration data),
+real sanitized initiative replays (P3 data), and live model keys for the
+fixed-agent downstream-consumer variant. The deterministic cores all run + verify.
+
 ## The construct shift
 
 Today the benchmark spans **process → state → receipt**. It must span:
