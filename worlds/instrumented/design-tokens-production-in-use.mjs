@@ -106,8 +106,39 @@ export const GATE = [
   }),
 ];
 
+// Normalize reasonable shape variation BEFORE gating, so the gate measures
+// QUALITY, not whether the model matched our exact JSON shape. (Construct
+// validity: a good palette nested role->mode, or statuses-as-array, or
+// focus.width vs thicknessPx, must not fail for structure.) Colors may arrive as
+// strings or DTCG {$value} objects, any case, 3- or 6-digit.
+const coerceHex = (v) => {
+  let x = v && typeof v === 'object' ? (v.$value ?? v.value ?? v.hex ?? v.default ?? v) : v;
+  return typeof x === 'string' ? x.trim().toLowerCase() : x;
+};
+export function normalizeDesignArtifact(raw) {
+  const a = JSON.parse(JSON.stringify(raw ?? {}));
+  const tc = a.textColors ?? {};
+  if (Object.keys(tc).some((k) => TEXT_ROLES.includes(k))) {
+    // role->mode -> transpose to mode->role
+    const out = { light: {}, dark: {} };
+    for (const role of Object.keys(tc)) { const m = tc[role] ?? {}; out.light[role] = coerceHex(m.light ?? m.default ?? m); out.dark[role] = coerceHex(m.dark ?? m.light ?? m); }
+    a.textColors = out;
+  } else {
+    for (const mode of ['light', 'dark']) { const m = tc[mode] ?? {}; for (const role of Object.keys(m)) m[role] = coerceHex(m[role]); }
+  }
+  if (Array.isArray(a.statuses)) {
+    const obj = {}; for (const s of a.statuses) { const k = s.status ?? s.name ?? s.id; if (k) obj[k] = { color: coerceHex(s.color), icon: s.icon, label: s.label }; } a.statuses = obj;
+  } else if (a.statuses && typeof a.statuses === 'object') {
+    for (const k of Object.keys(a.statuses)) a.statuses[k] = { ...a.statuses[k], color: coerceHex(a.statuses[k].color) };
+  }
+  if (a.focus) a.focus = { color: coerceHex(a.focus.color), thicknessPx: Number(a.focus.thicknessPx ?? a.focus.width ?? a.focus.thickness ?? a.focus.widthPx) };
+  if (a.buttonStates) for (const k of Object.keys(a.buttonStates)) a.buttonStates[k] = coerceHex(a.buttonStates[k]);
+  if (a.brandPrimitives) for (const k of Object.keys(a.brandPrimitives)) a.brandPrimitives[k] = coerceHex(a.brandPrimitives[k]);
+  return a;
+}
+
 export function consumeTokens(artifact) {
-  const gate = runGate(GATE, artifact ?? {}, {}, { shipThreshold: 0.95 });
+  const gate = runGate(GATE, normalizeDesignArtifact(artifact), {}, { shipThreshold: 0.95 });
   return { ...gate, accepted: gate.shipped ? 1 : 0 };
 }
 

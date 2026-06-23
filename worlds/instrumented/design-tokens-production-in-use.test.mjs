@@ -62,6 +62,26 @@ test('a light-gray caption (common a11y miss) FAILS AA blocker', () => {
   assert.ok(r.blockersFailed.includes('text-aa-both-modes'));
 });
 
+// Construct validity: a GOOD design in a reasonable alternate SHAPE must ship —
+// the gate measures quality, not whether the model matched our exact JSON schema.
+test('shape-robust: role->mode nesting still ships', () => {
+  const a = clone(GOLD);
+  a.textColors = { body: { light: '#1A2030', dark: '#E6E9F0' }, heading: { light: '#0B1020', dark: '#FFFFFF' }, caption: { light: '#595959', dark: '#A7AFBE' }, link: { light: '#4338CA', dark: '#818CF8' } };
+  assert.equal(consumeTokens(a).shipped, true);
+});
+
+test('shape-robust: statuses-as-array + DTCG {$value} colors still ship', () => {
+  const a = clone(GOLD);
+  a.statuses = [{ name: 'success', color: { $value: '#1B5E20' }, icon: 'check', label: 'Success' }, { name: 'warning', color: '#E65100', icon: 'alert-triangle', label: 'Warning' }, { name: 'danger', color: '#C2185B', icon: 'x', label: 'Error' }, { name: 'info', color: '#1565C0', icon: 'info-circle', label: 'Info' }];
+  assert.equal(consumeTokens(a).shipped, true);
+});
+
+test('shape-robust: focus.width + UPPERCASE hex still ships', () => {
+  const a = clone(GOLD);
+  a.focus = { color: '#1A2030', width: 2 };
+  assert.equal(consumeTokens(a).shipped, true);
+});
+
 test('generic repeated status labels FAIL use-of-color', () => {
   const a = clone(GOLD);
   for (const s of ['success', 'warning', 'danger', 'info']) { a.statuses[s].label = 'Status'; a.statuses[s].icon = 'circle'; }
