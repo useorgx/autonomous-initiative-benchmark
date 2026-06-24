@@ -1,0 +1,360 @@
+[
+  {
+    "episodeId": "product-prioritization-in-use-raw-e1",
+    "worldId": "product-prioritization-in-use",
+    "arm": "raw",
+    "model": "fugu",
+    "durationSeconds": 14.86,
+    "terminalKind": "submit",
+    "submission": {
+      "items": [
+        {
+          "id": "F1",
+          "reach": 8,
+          "impact": 9,
+          "effort": 3,
+          "score": 24
+        },
+        {
+          "id": "F2",
+          "reach": 5,
+          "impact": 4,
+          "effort": 2,
+          "score": 10
+        },
+        {
+          "id": "F3",
+          "reach": 9,
+          "impact": 6,
+          "effort": 9,
+          "score": 6
+        },
+        {
+          "id": "F4",
+          "reach": 6,
+          "impact": 5,
+          "effort": 2,
+          "score": 15
+        }
+      ],
+      "ranking": [
+        "F1",
+        "F4",
+        "F2",
+        "F3"
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_backlog"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "items": [
+              {
+                "id": "F1",
+                "reach": 8,
+                "impact": 9,
+                "effort": 3,
+                "score": 24
+              },
+              {
+                "id": "F2",
+                "reach": 5,
+                "impact": 4,
+                "effort": 2,
+                "score": 10
+              },
+              {
+                "id": "F3",
+                "reach": 9,
+                "impact": 6,
+                "effort": 9,
+                "score": 6
+              },
+              {
+                "id": "F4",
+                "reach": 6,
+                "impact": 5,
+                "effort": 2,
+                "score": 15
+              }
+            ],
+            "ranking": [
+              "F1",
+              "F4",
+              "F2",
+              "F3"
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_backlog",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "items": [
+              {
+                "id": "F1",
+                "reach": 8,
+                "impact": 9,
+                "effort": 3,
+                "score": 24
+              },
+              {
+                "id": "F2",
+                "reach": 5,
+                "impact": 4,
+                "effort": 2,
+                "score": 10
+              },
+              {
+                "id": "F3",
+                "reach": 9,
+                "impact": 6,
+                "effort": 9,
+                "score": 6
+              },
+              {
+                "id": "F4",
+                "reach": 6,
+                "impact": 5,
+                "effort": 2,
+                "score": 15
+              }
+            ],
+            "ranking": [
+              "F1",
+              "F4",
+              "F2",
+              "F3"
+            ],
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 803,
+      "completionTokens": 291,
+      "totalTokens": 1094,
+      "costCents": 0,
+      "modelTurns": 2,
+      "orchInputTokens": 0,
+      "orchOutputTokens": 0,
+      "toolCallCount": 2
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "coordination": 1,
+      "downstream": 1,
+      "method": 1
+    },
+    "detail": {
+      "accepted": 1,
+      "score": 1,
+      "scoresOk": 1,
+      "rankingOk": 1,
+      "goldOrder": [
+        "F1",
+        "F4",
+        "F2",
+        "F3"
+      ],
+      "normalizedArtifactUtility": {
+        "noArtifact": 0,
+        "candidate": 1,
+        "gold": 1
+      }
+    }
+  },
+  {
+    "episodeId": "product-prioritization-in-use-raw-e2",
+    "worldId": "product-prioritization-in-use",
+    "arm": "raw",
+    "model": "fugu",
+    "durationSeconds": 10.52,
+    "terminalKind": "submit",
+    "submission": {
+      "items": [
+        {
+          "id": "F1",
+          "reach": 8,
+          "impact": 9,
+          "effort": 3,
+          "score": 24
+        },
+        {
+          "id": "F2",
+          "reach": 5,
+          "impact": 4,
+          "effort": 2,
+          "score": 10
+        },
+        {
+          "id": "F3",
+          "reach": 9,
+          "impact": 6,
+          "effort": 9,
+          "score": 6
+        },
+        {
+          "id": "F4",
+          "reach": 6,
+          "impact": 5,
+          "effort": 2,
+          "score": 15
+        }
+      ],
+      "ranking": [
+        "F1",
+        "F4",
+        "F2",
+        "F3"
+      ]
+    },
+    "weg": {
+      "nodes": [
+        {
+          "type": "tool_result",
+          "step": 0,
+          "name": "get_backlog"
+        },
+        {
+          "type": "submit",
+          "step": 1,
+          "submission": {
+            "items": [
+              {
+                "id": "F1",
+                "reach": 8,
+                "impact": 9,
+                "effort": 3,
+                "score": 24
+              },
+              {
+                "id": "F2",
+                "reach": 5,
+                "impact": 4,
+                "effort": 2,
+                "score": 10
+              },
+              {
+                "id": "F3",
+                "reach": 9,
+                "impact": 6,
+                "effort": 9,
+                "score": 6
+              },
+              {
+                "id": "F4",
+                "reach": 6,
+                "impact": 5,
+                "effort": 2,
+                "score": 15
+              }
+            ],
+            "ranking": [
+              "F1",
+              "F4",
+              "F2",
+              "F3"
+            ]
+          }
+        }
+      ],
+      "toolCalls": [
+        {
+          "step": 0,
+          "name": "get_backlog",
+          "args": {}
+        },
+        {
+          "step": 1,
+          "name": "submit",
+          "args": {
+            "items": [
+              {
+                "id": "F1",
+                "reach": 8,
+                "impact": 9,
+                "effort": 3,
+                "score": 24
+              },
+              {
+                "id": "F2",
+                "reach": 5,
+                "impact": 4,
+                "effort": 2,
+                "score": 10
+              },
+              {
+                "id": "F3",
+                "reach": 9,
+                "impact": 6,
+                "effort": 9,
+                "score": 6
+              },
+              {
+                "id": "F4",
+                "reach": 6,
+                "impact": 5,
+                "effort": 2,
+                "score": 15
+              }
+            ],
+            "ranking": [
+              "F1",
+              "F4",
+              "F2",
+              "F3"
+            ],
+            "_confidence": 1
+          }
+        }
+      ],
+      "promptTokens": 803,
+      "completionTokens": 287,
+      "totalTokens": 1090,
+      "costCents": 0,
+      "modelTurns": 2,
+      "orchInputTokens": 0,
+      "orchOutputTokens": 0,
+      "toolCallCount": 2
+    },
+    "pass": true,
+    "dimensions": {
+      "outcome": 1,
+      "coordination": 1,
+      "downstream": 1,
+      "method": 1
+    },
+    "detail": {
+      "accepted": 1,
+      "score": 1,
+      "scoresOk": 1,
+      "rankingOk": 1,
+      "goldOrder": [
+        "F1",
+        "F4",
+        "F2",
+        "F3"
+      ],
+      "normalizedArtifactUtility": {
+        "noArtifact": 0,
+        "candidate": 1,
+        "gold": 1
+      }
+    }
+  }
+]

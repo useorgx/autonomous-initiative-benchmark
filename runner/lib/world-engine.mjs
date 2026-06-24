@@ -13,6 +13,7 @@
 // The only variable is the loop architecture, so uplift is attributable to
 // orchestration, not the model or the prompt.
 import { performance } from 'node:perf_hooks';
+import https from 'node:https';
 
 import { chatUsageCostCents, getProvider, normalizeChatUsage, requireProviderKey } from './providers.mjs';
 import { decideVerification } from './verify-on-the-edge.mjs';
@@ -320,37 +321,52 @@ function accUsage(weg, usage, model) {
   weg.costCents += fugu ?? (chatUsageCostCents(usage ?? {}) ?? 0);
 }
 
+// POST JSON over node:https. We deliberately do NOT use global fetch here:
+// undici's default headersTimeout (~5 min) aborts long agentic calls before the
+// model returns headers, which silently truncated long Fugu/Fugu-Ultra runs at
+// ~300s. node:https has no headers timeout — only the socket timeout we set —
+// so a slow-but-valid turn (Fugu can take 10-15 min to orchestrate a large
+// artifact) completes instead of spuriously failing.
+function httpsPostJson(url, headers, payload, timeoutMs) {
+  const u = new URL(url);
+  return new Promise((resolve, reject) => {
+    const req = https.request(
+      { method: 'POST', hostname: u.hostname, port: u.port || 443, path: u.pathname + u.search, headers: { ...headers, 'Content-Length': Buffer.byteLength(payload) } },
+      (res) => {
+        let body = '';
+        res.on('data', (c) => { body += c; });
+        res.on('end', () => resolve({ status: res.statusCode, body }));
+      }
+    );
+    req.setTimeout(timeoutMs, () => req.destroy(new Error(`socket timeout after ${timeoutMs}ms`)));
+    req.on('error', reject);
+    req.write(payload);
+    req.end();
+  });
+}
+
 async function chat({ provider, model, messages, tools, maxOutputTokens, timeoutMs }) {
   const cfg = getProvider(provider);
   const apiKey = requireProviderKey(provider);
+  const payload = JSON.stringify({
+    model,
+    messages,
+    tools,
+    tool_choice: 'auto',
+    // Provider-level override: Fugu rejects any effort but high|xhigh|max.
+    reasoning: { effort: cfg.reasoningEffort ?? 'low' },
+    max_tokens: maxOutputTokens,
+  });
   let lastError = null;
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt += 1) {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), timeoutMs);
     try {
-      const res = await fetch(cfg.url, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model,
-          messages,
-          tools,
-          tool_choice: 'auto',
-          // Provider-level override: Fugu rejects any effort but high|xhigh|max.
-          reasoning: { effort: cfg.reasoningEffort ?? 'low' },
-          max_tokens: maxOutputTokens,
-        }),
-        signal: controller.signal,
-      });
-      const body = await res.text();
-      if (!res.ok) throw new Error(`${provider} ${res.status}: ${body.slice(0, 300)}`);
+      const { status, body } = await httpsPostJson(cfg.url, { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' }, payload, timeoutMs);
+      if (status < 200 || status >= 300) throw new Error(`${provider} ${status}: ${body.slice(0, 300)}`);
       return JSON.parse(body);
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
       if (attempt === MAX_RETRIES) throw new Error(`chat failed after ${MAX_RETRIES}: ${lastError}`);
       await new Promise((r) => setTimeout(r, 750 * 2 ** (attempt - 1)));
-    } finally {
-      clearTimeout(timeout);
     }
   }
 }
