@@ -1,0 +1,49 @@
+{
+  "worldId": "orgx_security_scope_change_preview_001",
+  "run": {
+    "runId": "oracle_security_scope_change_preview_001",
+    "toolCalls": 27,
+    "wallClockMinutes": 55,
+    "toolBudgetExceeded": false
+  },
+  "findings": {
+    "security": {
+      "rootCause": "new_integration_expands_questionnaire_scope",
+      "questionnaireCorrected": true
+    }
+  },
+  "orgxState": {
+    "questionnaireSubmitted": false,
+    "decisions": [
+      "security-approval-required"
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "security-scope-review",
+      "citations": [
+        "integration-diff",
+        "questionnaire-draft",
+        "control-evidence"
+      ]
+    },
+    {
+      "id": "security-approval-gate",
+      "citations": [
+        "integration-diff"
+      ]
+    }
+  ],
+  "auditEvents": [
+    {
+      "action": "inspect_integration_scope"
+    },
+    {
+      "action": "create_security_approval_decision"
+    },
+    {
+      "action": "prepare_questionnaire_submission"
+    }
+  ]
+}
+

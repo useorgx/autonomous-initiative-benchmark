@@ -1,0 +1,57 @@
+{
+  "contractVersion": "orgx-bench-v1.1",
+  "releaseId": "sota-headline-2026-q3-draft",
+  "releaseDate": "2026-07-09",
+  "status": "draft_preflight",
+  "publicationLabel": "headline",
+  "preregistration": {
+    "protocolPath": "docs/strategy/sota-undeniable-plan-2026-07-08.md",
+    "protocolHash": "sha256:8b7e43d5bae1481fc29405e4931c406675ff66e45d9fd1d8cdcc26c48421641f",
+    "committedAt": "2026-07-08T00:00:00.000Z",
+    "firstRunLaunchedAt": null
+  },
+  "frontierSweep": {
+    "frontierModels": [
+      "openai/gpt-5.6-high",
+      "openai/gpt-6",
+      "anthropic/claude-fable-5",
+      "anthropic/claude-opus-4.8",
+      "google/gemini-3",
+      "deepseek/deepseek-v4-pro",
+      "fugu/fugu-ultra"
+    ],
+    "arms": [
+      "raw",
+      "best_of_n",
+      "self_reflection",
+      "open_agent_scaffold",
+      "orgx_full",
+      "orgx_minus_verification",
+      "orgx_minus_memory_provenance",
+      "orgx_minus_approval_gate",
+      "timed_human"
+    ],
+    "minK": 8,
+    "minEpisodesPerCell": 8,
+    "metrics": [
+      "pass_at_k",
+      "pass_pow_k",
+      "horizon_50",
+      "horizon_80",
+      "gate_depth",
+      "cost_per_accepted_work_product",
+      "human_rework_minutes",
+      "perturbation_survival_rate"
+    ]
+  },
+  "evidence": {
+    "registryPath": "worlds/corpus-splits.json",
+    "humanBaselinePlanPath": "results/human-baseline-plan.example.json",
+    "humanBaselineSummaryPath": "results/human-baseline-summary.json",
+    "executionLedgerPath": "results/sota-execution-ledger.example.json",
+    "headlineBundlePath": null,
+    "externalReplicationSource": "headline_bundle_metadata",
+    "externalReplicationEvidencePath": null,
+    "strangerReproductionReceiptPath": null
+  }
+}

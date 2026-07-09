@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/sota-release-manifest.schema.json",
+  "title": "OrgX-Bench SOTA Release Manifest",
+  "description": "Release-level evidence manifest binding preregistration, frontier sweep design, strict headline bundle evidence, timed human baselines, third-party replication, and outside reproduction.",
+  "type": "object",
+  "required": [
+    "contractVersion",
+    "releaseId",
+    "releaseDate",
+    "status",
+    "publicationLabel",
+    "preregistration",
+    "frontierSweep",
+    "evidence"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "contractVersion": { "type": "string" },
+    "releaseId": { "type": "string" },
+    "releaseDate": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["draft_preflight", "preregistered", "running", "candidate", "released"]
+    },
+    "publicationLabel": {
+      "type": "string",
+      "const": "headline"
+    },
+    "preregistration": {
+      "type": "object",
+      "required": ["protocolPath", "protocolHash", "committedAt"],
+      "additionalProperties": false,
+      "properties": {
+        "protocolPath": { "type": "string" },
+        "protocolHash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "committedAt": { "type": "string" },
+        "firstRunLaunchedAt": { "type": ["string", "null"] }
+      }
+    },
+    "frontierSweep": {
+      "type": "object",
+      "required": ["frontierModels", "arms", "minK", "minEpisodesPerCell", "metrics"],
+      "additionalProperties": false,
+      "properties": {
+        "frontierModels": {
+          "type": "array",
+          "minItems": 5,
+          "items": { "type": "string" }
+        },
+        "arms": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "minK": {
+          "type": "integer",
+          "minimum": 8
+        },
+        "minEpisodesPerCell": {
+          "type": "integer",
+          "minimum": 8
+        },
+        "metrics": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "registryPath",
+        "humanBaselinePlanPath",
+        "humanBaselineSummaryPath",
+        "executionLedgerPath",
+        "headlineBundlePath",
+        "externalReplicationSource",
+        "externalReplicationEvidencePath",
+        "strangerReproductionReceiptPath"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "registryPath": { "type": "string" },
+        "humanBaselinePlanPath": { "type": ["string", "null"] },
+        "humanBaselineSummaryPath": { "type": "string" },
+        "executionLedgerPath": { "type": ["string", "null"] },
+        "headlineBundlePath": { "type": ["string", "null"] },
+        "externalReplicationSource": {
+          "type": "string",
+          "enum": ["headline_bundle_metadata", "standalone_evidence_file"]
+        },
+        "externalReplicationEvidencePath": { "type": ["string", "null"] },
+        "strangerReproductionReceiptPath": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

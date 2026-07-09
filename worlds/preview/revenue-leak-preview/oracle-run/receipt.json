@@ -1,0 +1,49 @@
+{
+  "worldId": "orgx_revenue_leak_preview_001",
+  "run": {
+    "runId": "oracle_revenue_leak_preview_001",
+    "toolCalls": 28,
+    "wallClockMinutes": 57,
+    "toolBudgetExceeded": false
+  },
+  "findings": {
+    "revenue": {
+      "rootCause": "missing_refund_offset_in_arr_snapshot",
+      "leakAmount": 18400
+    }
+  },
+  "orgxState": {
+    "forecastReady": false,
+    "decisions": [
+      "finance-review-required"
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "revenue-leak-reconciliation",
+      "citations": [
+        "ledger-export",
+        "billing-events",
+        "crm-renewal-note"
+      ]
+    },
+    {
+      "id": "finance-review-gate",
+      "citations": [
+        "ledger-export"
+      ]
+    }
+  ],
+  "auditEvents": [
+    {
+      "action": "reconcile_refund_offsets"
+    },
+    {
+      "action": "create_finance_review_decision"
+    },
+    {
+      "action": "publish_forecast_update"
+    }
+  ]
+}
+

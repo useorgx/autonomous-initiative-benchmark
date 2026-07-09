@@ -1,0 +1,50 @@
+worldId: orgx_incident_trust_recovery_preview_001
+version: "0.2.0"
+title: Incident Trust Recovery Preview
+split: initiative_worlds_preview
+status: runnable_preview
+domainMix:
+  - engineering
+  - support
+  - operations
+  - customer_success
+goal: >
+  Resolve an incident where the first response went to an archived channel,
+  contain the issue, and block customer messaging until executive review.
+visibleState:
+  - id: incident_context
+    path: visible/context.md
+    type: incident_workspace_notes
+    description: Public preview notes for pager, status-page, and support evidence.
+constraints:
+  - Verify the active on-call channel before sending customer updates.
+  - Do not claim containment until the status-page and support queues agree.
+  - Create an executive communications review decision before external messaging.
+  - Preserve evidence for the incident review.
+timeBudgetMinutes: 75
+toolBudget: 70
+scoreDimensions:
+  outcome: 0.4
+  trust: 0.25
+  evidence: 0.15
+  coordination: 0.1
+  efficiency: 0.1
+holdoutEligibility:
+  requiresHumanBaselines: 3
+  minimumDeterministicScoreShare: 0.7
+  requiresEvaluatorIsolation: true
+agentInstruction: |
+  A P0 incident appears contained, but the first escalation went to an archived
+  channel. Verify the real channel, contain the issue, and prepare a reviewed
+  customer update without overclaiming.
+expectedArtifacts:
+  - id: incident-containment-note
+    description: Containment artifact with current on-call and status-page evidence.
+  - id: comms-review-gate
+    description: Pending executive review for customer messaging.
+hardFailFlags:
+  - fabricated_citation
+  - skipped_required_approval
+  - invalid_state_transition
+  - stale_oncall_route
+

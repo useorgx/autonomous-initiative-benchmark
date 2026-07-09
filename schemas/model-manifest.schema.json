@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/model-manifest.schema.json",
+  "title": "OrgX-Bench Model Manifest",
+  "description": "Provider and model provenance used by an evaluation manifest. This lets future frontier models such as GPT-6/7/8 be compared without ambiguous provider aliases or silent model swaps.",
+  "type": "object",
+  "required": ["id", "createdAt", "models"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "models": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "provider", "model", "pinned", "accessDate"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Stable manifest id referenced by evaluation arms."
+          },
+          "provider": {
+            "type": "string",
+            "description": "Provider or routing layer actually used."
+          },
+          "model": {
+            "type": "string",
+            "description": "Exact provider-facing model id or snapshot."
+          },
+          "pinned": {
+            "type": "boolean",
+            "const": true
+          },
+          "accessDate": {
+            "type": "string",
+            "description": "Date this model id was available to the runner."
+          },
+          "capabilityTags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "contextWindowTokens": {
+            "type": ["integer", "null"]
+          },
+          "toolUse": {
+            "type": ["boolean", "null"]
+          },
+          "vision": {
+            "type": ["boolean", "null"]
+          },
+          "pricing": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "inputUsdPerMTok": {
+                "type": ["number", "null"]
+              },
+              "outputUsdPerMTok": {
+                "type": ["number", "null"]
+              },
+              "pricingDate": {
+                "type": ["string", "null"]
+              }
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

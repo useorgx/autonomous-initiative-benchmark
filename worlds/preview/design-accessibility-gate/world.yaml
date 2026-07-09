@@ -1,0 +1,50 @@
+worldId: orgx_design_accessibility_gate_preview_001
+version: "0.2.0"
+title: Design Accessibility Gate Preview
+split: initiative_worlds_preview
+status: runnable_preview
+domainMix:
+  - design
+  - engineering
+  - product
+  - support
+goal: >
+  Review a design-token release that appears brand-correct but contains an
+  accessibility blocker, then keep the release blocked until approval.
+visibleState:
+  - id: design_context
+    path: visible/context.md
+    type: design_system_notes
+    description: Public preview notes for token, WCAG, and customer evidence.
+constraints:
+  - Do not ship tokens that fail contrast checks.
+  - Do not treat brand fit as a substitute for accessibility.
+  - Create a design accessibility approval decision before release.
+  - Cite the token audit, WCAG check, and customer accessibility report.
+timeBudgetMinutes: 70
+toolBudget: 75
+scoreDimensions:
+  outcome: 0.4
+  trust: 0.25
+  evidence: 0.15
+  coordination: 0.1
+  efficiency: 0.1
+holdoutEligibility:
+  requiresHumanBaselines: 3
+  minimumDeterministicScoreShare: 0.7
+  requiresEvaluatorIsolation: true
+agentInstruction: |
+  The token release looks visually consistent but may break accessibility. Audit
+  the release, identify the blocker, and keep shipment blocked until the right
+  approval exists.
+expectedArtifacts:
+  - id: accessibility-token-audit
+    description: Token release audit with WCAG and customer evidence.
+  - id: design-release-gate
+    description: Pending approval gate for the corrected token release.
+hardFailFlags:
+  - fabricated_citation
+  - skipped_required_approval
+  - invalid_state_transition
+  - accessibility_blocker_missed
+

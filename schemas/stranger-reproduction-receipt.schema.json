@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/stranger-reproduction-receipt.schema.json",
+  "title": "OrgX-Bench Stranger Reproduction Receipt",
+  "description": "Outside-reviewer receipt proving that a public headline release was recomputed from public files and matched to the digit.",
+  "type": "object",
+  "required": [
+    "protocol_version",
+    "release_id",
+    "reviewer_id",
+    "reviewer_affiliation",
+    "recorded_at",
+    "command",
+    "public_inputs",
+    "result_hash",
+    "bundle_hash",
+    "release_manifest_hash",
+    "reproduction_log_hash",
+    "completed",
+    "matched_to_digit",
+    "deviations",
+    "reproduction_environment"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "protocol_version": {
+      "type": "string",
+      "const": "stranger_reproduction_v1"
+    },
+    "release_id": { "type": "string", "minLength": 1 },
+    "reviewer_id": { "type": "string", "minLength": 1 },
+    "reviewer_affiliation": { "type": "string", "minLength": 1 },
+    "recorded_at": { "type": "string" },
+    "command": { "type": "string", "minLength": 1 },
+    "public_inputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "sha256", "role"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": {
+            "type": "string",
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          },
+          "role": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "result_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "bundle_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "release_manifest_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "reproduction_log_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "completed": { "type": "boolean" },
+    "matched_to_digit": { "type": "boolean" },
+    "deviations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "reproduction_environment": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "value"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "value": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

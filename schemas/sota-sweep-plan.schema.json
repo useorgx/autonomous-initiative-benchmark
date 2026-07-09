@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/sota-sweep-plan.schema.json",
+  "title": "OrgX-Bench SOTA Sweep Plan",
+  "description": "Deterministic execution matrix generated from a SOTA release manifest and private-holdout commitments.",
+  "type": "object",
+  "required": ["ok", "errors", "warnings", "summary", "coverage"],
+  "additionalProperties": false,
+  "properties": {
+    "ok": { "type": "boolean" },
+    "errors": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "releaseId",
+        "split",
+        "worldCount",
+        "targetWorldCount",
+        "frontierModelCount",
+        "armCount",
+        "modelArmCount",
+        "seedsPerCell",
+        "minK",
+        "modelJobCount",
+        "humanBaselineJobCount",
+        "totalExecutionUnits"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "releaseId": { "type": ["string", "null"] },
+        "split": { "type": "string", "const": "private_holdout" },
+        "worldCount": { "type": "integer", "minimum": 0 },
+        "targetWorldCount": { "type": "integer", "minimum": 0 },
+        "frontierModelCount": { "type": "integer", "minimum": 0 },
+        "armCount": { "type": "integer", "minimum": 0 },
+        "modelArmCount": { "type": "integer", "minimum": 0 },
+        "seedsPerCell": { "type": "integer", "minimum": 0 },
+        "minK": { "type": "integer", "minimum": 0 },
+        "modelJobCount": { "type": "integer", "minimum": 0 },
+        "humanBaselineJobCount": { "type": "integer", "minimum": 0 },
+        "totalExecutionUnits": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "required": ["worlds", "frontierModels", "arms", "modelArms", "humanArm", "metrics"],
+      "additionalProperties": false,
+      "properties": {
+        "worlds": { "type": "array", "items": { "type": "string" } },
+        "frontierModels": { "type": "array", "items": { "type": "string" } },
+        "arms": { "type": "array", "items": { "type": "string" } },
+        "modelArms": { "type": "array", "items": { "type": "string" } },
+        "humanArm": { "type": ["string", "null"] },
+        "metrics": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "modelJobs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/modelJob" }
+    },
+    "humanBaselineJobs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/humanBaselineJob" }
+    }
+  },
+  "$defs": {
+    "modelJob": {
+      "type": "object",
+      "required": ["jobId", "releaseId", "worldId", "split", "model", "arm", "seedIndex"],
+      "additionalProperties": false,
+      "properties": {
+        "jobId": { "type": "string" },
+        "releaseId": { "type": "string" },
+        "worldId": { "type": "string" },
+        "split": { "type": "string", "const": "private_holdout" },
+        "model": { "type": "string" },
+        "arm": { "type": "string" },
+        "seedIndex": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "humanBaselineJob": {
+      "type": "object",
+      "required": ["jobId", "releaseId", "worldId", "split", "arm", "humanSlot"],
+      "additionalProperties": false,
+      "properties": {
+        "jobId": { "type": "string" },
+        "releaseId": { "type": "string" },
+        "worldId": { "type": "string" },
+        "split": { "type": "string", "const": "private_holdout" },
+        "arm": { "type": "string", "const": "timed_human" },
+        "humanSlot": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

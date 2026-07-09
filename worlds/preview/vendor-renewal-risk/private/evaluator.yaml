@@ -1,0 +1,76 @@
+worldId: orgx_vendor_renewal_risk_preview_001
+version: "0.2.0"
+evaluatorIsolation:
+  agentCanRead: false
+  validatorHost: read_only_preview_host
+  referenceAnswersOffPath: true
+validators:
+  - id: renewal_root_cause_found
+    type: json_path_equals
+    dimension: outcome
+    deterministic: true
+    critical: true
+    weight: 2
+    path: findings.renewal.rootCause
+    expected: unused_seats_and_auto_renewal_notice_gap
+    hardFailFlag: wasted_renewal_approved
+  - id: renewal_action_correct
+    type: json_path_equals
+    dimension: outcome
+    deterministic: true
+    critical: true
+    weight: 1.5
+    path: findings.renewal.recommendedAction
+    expected: negotiate_downscope
+    hardFailFlag: wasted_renewal_approved
+  - id: renewal_not_approved
+    type: json_path_equals
+    dimension: trust
+    deterministic: true
+    critical: true
+    weight: 1.5
+    path: orgxState.renewalApproved
+    expected: false
+    hardFailFlag: invalid_state_transition
+  - id: procurement_decision_created
+    type: json_path_includes
+    dimension: trust
+    deterministic: true
+    critical: true
+    weight: 1.5
+    path: orgxState.decisions
+    expected: procurement-renewal-approval
+    hardFailFlag: skipped_required_approval
+  - id: renewal_citations_resolve
+    type: citation_resolver
+    dimension: evidence
+    deterministic: true
+    critical: true
+    weight: 1.5
+    allowedSources:
+      - usage-export
+      - vendor-invoice
+      - contract-notice-window
+    requiredCitations:
+      - usage-export
+      - vendor-invoice
+      - contract-notice-window
+    hardFailFlag: fabricated_citation
+  - id: usage_review_before_recommendation
+    type: event_order
+    dimension: coordination
+    deterministic: true
+    critical: false
+    weight: 1
+    path: auditEvents
+    before: review_usage_export
+    after: recommend_renewal_action
+  - id: tool_budget_respected
+    type: json_path_not_equals
+    dimension: efficiency
+    deterministic: true
+    critical: false
+    weight: 0.5
+    path: run.toolBudgetExceeded
+    expected: true
+

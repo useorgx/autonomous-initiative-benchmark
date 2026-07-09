@@ -30,12 +30,315 @@
           "worldPath": "worlds/preview/cross-functional-launch-gate",
           "oracleReceipt": "worlds/preview/cross-functional-launch-gate/oracle-run/receipt.json",
           "status": "runnable_preview"
+        },
+        {
+          "worldId": "orgx_revenue_leak_preview_001",
+          "worldPath": "worlds/preview/revenue-leak-preview",
+          "oracleReceipt": "worlds/preview/revenue-leak-preview/oracle-run/receipt.json",
+          "status": "runnable_preview"
+        },
+        {
+          "worldId": "orgx_incident_trust_recovery_preview_001",
+          "worldPath": "worlds/preview/incident-trust-recovery",
+          "oracleReceipt": "worlds/preview/incident-trust-recovery/oracle-run/receipt.json",
+          "status": "runnable_preview"
+        },
+        {
+          "worldId": "orgx_design_accessibility_gate_preview_001",
+          "worldPath": "worlds/preview/design-accessibility-gate",
+          "oracleReceipt": "worlds/preview/design-accessibility-gate/oracle-run/receipt.json",
+          "status": "runnable_preview"
+        },
+        {
+          "worldId": "orgx_sales_discount_approval_preview_001",
+          "worldPath": "worlds/preview/sales-discount-approval",
+          "oracleReceipt": "worlds/preview/sales-discount-approval/oracle-run/receipt.json",
+          "status": "runnable_preview"
+        },
+        {
+          "worldId": "orgx_support_escalation_sla_preview_001",
+          "worldPath": "worlds/preview/support-escalation-sla",
+          "oracleReceipt": "worlds/preview/support-escalation-sla/oracle-run/receipt.json",
+          "status": "runnable_preview"
+        },
+        {
+          "worldId": "orgx_vendor_renewal_risk_preview_001",
+          "worldPath": "worlds/preview/vendor-renewal-risk",
+          "oracleReceipt": "worlds/preview/vendor-renewal-risk/oracle-run/receipt.json",
+          "status": "runnable_preview"
+        },
+        {
+          "worldId": "orgx_data_retention_policy_preview_001",
+          "worldPath": "worlds/preview/data-retention-policy",
+          "oracleReceipt": "worlds/preview/data-retention-policy/oracle-run/receipt.json",
+          "status": "runnable_preview"
+        },
+        {
+          "worldId": "orgx_partner_launch_handoff_preview_001",
+          "worldPath": "worlds/preview/partner-launch-handoff",
+          "oracleReceipt": "worlds/preview/partner-launch-handoff/oracle-run/receipt.json",
+          "status": "runnable_preview"
+        },
+        {
+          "worldId": "orgx_analytics_metric_drift_preview_001",
+          "worldPath": "worlds/preview/analytics-metric-drift",
+          "oracleReceipt": "worlds/preview/analytics-metric-drift/oracle-run/receipt.json",
+          "status": "runnable_preview"
+        },
+        {
+          "worldId": "orgx_security_scope_change_preview_001",
+          "worldPath": "worlds/preview/security-scope-change",
+          "oracleReceipt": "worlds/preview/security-scope-change/oracle-run/receipt.json",
+          "status": "runnable_preview"
         }
       ]
     },
     "private_holdout": {
       "description": "Private worlds with off-repo validator bundles, reference answers, and timed human baselines. Headline numbers come from this split.",
-      "targetWorldCount": 10,
+      "targetWorldCount": 20,
+      "targetWorldShape": "parametric_generators",
+      "worlds": [
+        {
+          "worldId": "holdout-2026q3-01-revenue_leakage",
+          "domain": "revenue_reconciliation",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:01c786c5c89bab3a66ade63c04f5d49dc148c5152ea0e8b8e9bebe2f57558d3d",
+          "seedCommitmentHash": "sha256:ca0bbaedcab3808130af2ec632d586d612b367431ef6137ba4ace7130cdc42a4",
+          "validatorBundleHash": "sha256:87c1312f4e34b1c33625a34a97def479d0b3b51935a59156bbd49469ff013b83",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-02-incident_trust_recovery",
+          "domain": "incident_response",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:fc31e66221ca2fbeac852e95f809e0a0ab37b11cdc4b4624b6612cc367a7579e",
+          "seedCommitmentHash": "sha256:190c559d0e6dc29bfcec7812731f3a1d20b58b6919fc10cc3bb7eb90c08698fc",
+          "validatorBundleHash": "sha256:68e4af9ee286bb8d03f7d41808c4720266a6f6dd75a40e3980d5a441dafe9c3c",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-03-design_accessibility_gate",
+          "domain": "design_accessibility",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:756b8b8f88a6b665cea1de3fbb97110a9cd9054f9bff49301249bb5df35bae9c",
+          "seedCommitmentHash": "sha256:a7d08190b539397141e5346135b0ccc08155038eb621e694200912540879ce97",
+          "validatorBundleHash": "sha256:be87af8a907cf9b6ed83fd5d74c37cfa0b355c5c180951e5ad5e1b54876c7e99",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-04-sales_discount_approval",
+          "domain": "sales_policy",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:3792ea36dc35e63c8c07d24a30d281d172c3c870a4fd23feabdfca31e49912ee",
+          "seedCommitmentHash": "sha256:b7cb254d1a8cfb9d6677dc283cd45a421efc0589a66e4e3ee3ea7470b19cd485",
+          "validatorBundleHash": "sha256:2011f8f9b7b52a123000fb76b0255bd9ae77aa0b862ca1cd49eeec30b725d165",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-05-support_escalation_sla",
+          "domain": "support_sla",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:8f354e7f73dd2e3ab004b8cf442998194b70272bacdff8109473d0c94436e586",
+          "seedCommitmentHash": "sha256:3333d736cfd88d63d39b1e94c841be0e950b301ec832ccd9671d9790bd71f04e",
+          "validatorBundleHash": "sha256:43a2b542d5c6d9fd0bdd79ab446f7130d3ea91bb24191a41dc62fa1e66817429",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-06-vendor_renewal_risk",
+          "domain": "vendor_renewal",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:84fc695603d6bb22bc8a88c1c29dc65f0bb20339c29bf87fbd774b578864cbeb",
+          "seedCommitmentHash": "sha256:84e9c51e0a1ef11446e85a3e0bbfd6b99438ce6b58e5179a18b56a5d18f7355c",
+          "validatorBundleHash": "sha256:ea4e243b1a1a6b579560afafdbf13cedb3cfdaeb8629019a8e5269a2f6e90eb5",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-07-data_retention_policy",
+          "domain": "privacy_retention",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:7e0de2260eee77f2ec8636d5b47a81d531593a3ba48cd87c570094a6670790a8",
+          "seedCommitmentHash": "sha256:d09e29ab03e525f47a0ec1028f9f84c1e4eac63eb45036b539f3edf7f4bc7687",
+          "validatorBundleHash": "sha256:e72d982035986566f39ee689eaff4899f61a9861290bce1d98a824d7bb5f59c1",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-08-partner_launch_handoff",
+          "domain": "partner_launch",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:f445bbf0ba8d8c184accc437c0332cb1ae185f9257f1209eebccb19a527e953d",
+          "seedCommitmentHash": "sha256:6ffb6422ed1b8ccefb316cad84bf2e4b08241985a54d128d214fb27858988f23",
+          "validatorBundleHash": "sha256:240ff505842edd7a085fe56360cc53ca0bddc6eb609665da13198f558ce1ed0f",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-09-analytics_metric_drift",
+          "domain": "analytics_drift",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:de0256c0c8eabe806ce5fa6550e2d5ea80b40645d18b3acfb3800d50cdeb6dc2",
+          "seedCommitmentHash": "sha256:cb1be531600da76ce6ae1f1f605201ed3eb4ef6567f399328658a64f4db44bfd",
+          "validatorBundleHash": "sha256:1544077c9cbf2c66e973aeb773cc9ed7ea8498d8e862c876e8fec3dec64bfb45",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-10-security_scope_change",
+          "domain": "security_scope",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:5319e60f0ed7a36d51f0a9edbca44e973d6cf7580df5b00c9c9a589e96b43c54",
+          "seedCommitmentHash": "sha256:07428915d193bb33318d28e3056e037e88bd3b1ac66f03b17663925bc0ddff63",
+          "validatorBundleHash": "sha256:6ccac6d5fd9d85ca388a7a454cb755dd2716f2a426228456b258556b58348e32",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-11-budget_bounded_forecast",
+          "domain": "finance_planning",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:132fe4020aa2af888988d4b34f87617a9de8afa75dbf1bfe44ffe20dfbc6b2c0",
+          "seedCommitmentHash": "sha256:aaccf2f39bf4d046789546d90c55a181a45629a0f8f2af430533b0b68f71ef90",
+          "validatorBundleHash": "sha256:f92f512fc279c9a4509cc2b90abf889f5487667845e526aeb727464efcedbe61",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-12-order_pipeline_horizon",
+          "domain": "operations_horizon",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:bd9a887696087a9e9956d051f4b0e4b7a3384addb2bff6ed3f5a2c99307cc66a",
+          "seedCommitmentHash": "sha256:4be9498ab7198839f3c73daa6e3e08eb4d91a0cb3125626ec747c9c50bc97415",
+          "validatorBundleHash": "sha256:573d16669632d819d202d6b6f07eadd363983e9618ffa947585ad0d2889d8b78",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-13-migration_contradiction",
+          "domain": "engineering_migration",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:5a5a76e28583ddfad4a22f47871a67edf0347264172127206aedfdd51c5dbac0",
+          "seedCommitmentHash": "sha256:37bfe13a77db45f4ce7e150ef18d374f6f15e59678eeca1d93b70099415ce72c",
+          "validatorBundleHash": "sha256:fbb70f5984985c38d375b8f89f7de60e3456422cc5c5e868d57b346a2454a486",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-14-provider_outage_recovery",
+          "domain": "resilience_ops",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:cba6158e100f0ebf772e44256bd78939e26d54d0edce95c36616e5f4c0c49245",
+          "seedCommitmentHash": "sha256:fc20a1c303d2c5fa07ff8a44f656fc8116ce1b50c7f921fb83512e622ab4c109",
+          "validatorBundleHash": "sha256:6241b6718b467c7326e49d652472331b087eabd3bcc698c15af8615d1a6772dc",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-15-marketing_claims_in_use",
+          "domain": "marketing_claims",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:25e505818403e171813a093b9b4476e74e4890c721689d016ed5d91850b1efb2",
+          "seedCommitmentHash": "sha256:80a4bb4bcebfe38f5b20d90a9d2f5d3f992c0e5e9472f07bb00de0d7d6d66ab5",
+          "validatorBundleHash": "sha256:fad541afd0792c7d2bd740c7df09df8de43624e1786431401546bffad3abb16b",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-16-product_prioritization_in_use",
+          "domain": "product_planning",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:83fee794a00ed4268482b73badacdd7e41bb7c75182b9a9cb0ed5468f6a6f04a",
+          "seedCommitmentHash": "sha256:931bdd98d772a557d39366dca4622180046182827fae0f4152dda69099fc3ad6",
+          "validatorBundleHash": "sha256:4cdcb33d918f82eda554e86e045cc099ce7c6c6d997b71cce4b5303ab99ec822",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-17-reconciliation_workbook_in_use",
+          "domain": "finance_reconciliation",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:5750780798329544b6d6c2b0ef2d19b470ef1c00ce7446997c68eef8942b815a",
+          "seedCommitmentHash": "sha256:e32730b1168733a14275df9562d7cb8b5797a2d82cd312286091f9fbd676a165",
+          "validatorBundleHash": "sha256:8fbebc0dbdd1659ffcebce5386ca310d6af8f1500d3c9973970295785fd9a24a",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-18-trust_majority_trap",
+          "domain": "trust_safety",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:b08da4702c5c07d63e94bd82294cebaec79c77d5c21dd24485e52613fb4f708b",
+          "seedCommitmentHash": "sha256:83370894839e3e7881b56b0958a461d6513a67011b36cf59d490a7570efceca1",
+          "validatorBundleHash": "sha256:9b8a1a869101d5f44be561ea60e579c434293a9085c76afc6870d532b6627929",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-19-ledger_running_total",
+          "domain": "ledger_integrity",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:ac0814f0d3b61e9ef89e55c83c942655268083f929743b6a69a68f4da9d3f85e",
+          "seedCommitmentHash": "sha256:694769a83cb41737b73ea48a7d19e1fd4cb37318a243b5b3e7dc2c3bff7c9218",
+          "validatorBundleHash": "sha256:28b52c52a24829c2383e857695639a64e129ff1af87fabbb8009d17bc1665d2d",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        },
+        {
+          "worldId": "holdout-2026q3-20-deploy_approval_trust",
+          "domain": "deploy_governance",
+          "status": "committed_private",
+          "generatorType": "parametric",
+          "generatorSourceHash": "sha256:cf7b6dd5f26b198d6cd6aaa36f60694db2310a3e45745a4d1874d2dd9bc68adc",
+          "seedCommitmentHash": "sha256:bf52ebc5b57c4ad72ae37b53a4dd24aec9c558e0ebe8b9a956de82e61299e18f",
+          "validatorBundleHash": "sha256:ce504851d1d549011ab59201df23b83d978834317590035ebb199989a54c265a",
+          "difficultyKnobs": ["horizon_steps", "state_size", "distractor_density", "perturbation_rate"],
+          "anatomy": ["seeded_workspace_state", "tool_surface", "hidden_evaluator_state", "approval_or_policy_boundary", "plausible_trap", "side_effectful_mutation", "nau_triple", "deterministic_validator_bundle", "perturbation_pass", "difficulty_knobs", "grader_mutation_test", "signed_receipt_hash"],
+          "publicFields": ["worldId", "domain", "status", "generatorType", "generatorSourceHash", "seedCommitmentHash", "validatorBundleHash", "difficultyKnobs", "anatomy"]
+        }
+      ],
       "publishedFields": [
         "world_id",
         "domain_mix",
@@ -48,7 +351,170 @@
     },
     "rotating_canary": {
       "description": "Quarterly private worlds used to detect overfitting and benchmark contamination.",
-      "targetWorldsPerQuarter": 3
+      "targetWorldsPerQuarter": 10,
+      "targetWorldShape": "parametric_generators",
+      "rotationCalendar": [
+        {
+          "canaryId": "canary-2026q3-01",
+          "quarter": "2026-Q3",
+          "domain": "revenue_reconciliation",
+          "status": "scheduled_private",
+          "seedCommitmentHash": "sha256:d32b16212fd4633e6a68ceb9f55110738eb050cb1912addebc58f6e23a750cd5",
+          "validatorBundleHash": "sha256:c27ef0dbeb2190062e1f7c9a94d35bd9886e04de470fcfdd4cb1e4237fc0caa8",
+          "publicFields": [
+            "canaryId",
+            "quarter",
+            "domain",
+            "seedCommitmentHash",
+            "validatorBundleHash",
+            "status"
+          ]
+        },
+        {
+          "canaryId": "canary-2026q3-02",
+          "quarter": "2026-Q3",
+          "domain": "incident_response",
+          "status": "scheduled_private",
+          "seedCommitmentHash": "sha256:9084251f7e9a3227f38796650fc348c70def08b9e66fb30468334d1a2c789c2e",
+          "validatorBundleHash": "sha256:3e9a8dc5e5f87509be5e1feabd1fdeb5a3de10cd8c2d68292e1b62a967e17feb",
+          "publicFields": [
+            "canaryId",
+            "quarter",
+            "domain",
+            "seedCommitmentHash",
+            "validatorBundleHash",
+            "status"
+          ]
+        },
+        {
+          "canaryId": "canary-2026q3-03",
+          "quarter": "2026-Q3",
+          "domain": "design_accessibility",
+          "status": "scheduled_private",
+          "seedCommitmentHash": "sha256:6ac932b8771a836222397d61f09c390d94918105d832d7a711e93ffd98238338",
+          "validatorBundleHash": "sha256:3d52ffd918900e5c2d2f8b5a5dea09bfaf56583183093db8a8b108ac93c07077",
+          "publicFields": [
+            "canaryId",
+            "quarter",
+            "domain",
+            "seedCommitmentHash",
+            "validatorBundleHash",
+            "status"
+          ]
+        },
+        {
+          "canaryId": "canary-2026q3-04",
+          "quarter": "2026-Q3",
+          "domain": "sales_policy",
+          "status": "scheduled_private",
+          "seedCommitmentHash": "sha256:de9289aee5eb0376e794520bfc5ba0e111653b1baebed48645cd42696999e1c4",
+          "validatorBundleHash": "sha256:d181a7d60220cc0ff1072f79287d640e42ef6db9d29f01fdf1e3355e2aeb28f7",
+          "publicFields": [
+            "canaryId",
+            "quarter",
+            "domain",
+            "seedCommitmentHash",
+            "validatorBundleHash",
+            "status"
+          ]
+        },
+        {
+          "canaryId": "canary-2026q3-05",
+          "quarter": "2026-Q3",
+          "domain": "support_sla",
+          "status": "scheduled_private",
+          "seedCommitmentHash": "sha256:3cf51aae84d7245501ab03f7e8c27f7f4440a99ccef7e62d1130c89726f768a1",
+          "validatorBundleHash": "sha256:df4d95545c079611562f0e50030c22aa0068a540386bc36465b3e1c301abc845",
+          "publicFields": [
+            "canaryId",
+            "quarter",
+            "domain",
+            "seedCommitmentHash",
+            "validatorBundleHash",
+            "status"
+          ]
+        },
+        {
+          "canaryId": "canary-2026q3-06",
+          "quarter": "2026-Q3",
+          "domain": "vendor_renewal",
+          "status": "scheduled_private",
+          "seedCommitmentHash": "sha256:7ac898b3d0d54ae0590cce16c803249d7f395cca6ea15647ddc7e7f262d05c3f",
+          "validatorBundleHash": "sha256:b618c6d52080ca08b6f0c2913940f8139fde1d298ee337ed5b669c7d8aa3e7b1",
+          "publicFields": [
+            "canaryId",
+            "quarter",
+            "domain",
+            "seedCommitmentHash",
+            "validatorBundleHash",
+            "status"
+          ]
+        },
+        {
+          "canaryId": "canary-2026q3-07",
+          "quarter": "2026-Q3",
+          "domain": "privacy_retention",
+          "status": "scheduled_private",
+          "seedCommitmentHash": "sha256:dce1b6709faa5bd17e069abbd331615f3dfed2314e49412e8f467f2e6d4046d3",
+          "validatorBundleHash": "sha256:bf2584b90815f84535e66626d42c3891347c43f4dc97452cf050cae4f63777c5",
+          "publicFields": [
+            "canaryId",
+            "quarter",
+            "domain",
+            "seedCommitmentHash",
+            "validatorBundleHash",
+            "status"
+          ]
+        },
+        {
+          "canaryId": "canary-2026q3-08",
+          "quarter": "2026-Q3",
+          "domain": "partner_launch",
+          "status": "scheduled_private",
+          "seedCommitmentHash": "sha256:cb1e29f44c595e070ba0204e05438f46278fcc962d9104d2aca884ca0f4d5a7a",
+          "validatorBundleHash": "sha256:75931d8a7c1ec7cf51836c027da5d8845529b880ddbaf6f353a374413774465a",
+          "publicFields": [
+            "canaryId",
+            "quarter",
+            "domain",
+            "seedCommitmentHash",
+            "validatorBundleHash",
+            "status"
+          ]
+        },
+        {
+          "canaryId": "canary-2026q3-09",
+          "quarter": "2026-Q3",
+          "domain": "analytics_drift",
+          "status": "scheduled_private",
+          "seedCommitmentHash": "sha256:4ff70e605938447ae76bcab55cff9b48fe743ac807fbfd68da403af374c2fcc0",
+          "validatorBundleHash": "sha256:91195f6c4fc6d38e808d27699bf518d2fed20edc2eff70112dd780ff338078d7",
+          "publicFields": [
+            "canaryId",
+            "quarter",
+            "domain",
+            "seedCommitmentHash",
+            "validatorBundleHash",
+            "status"
+          ]
+        },
+        {
+          "canaryId": "canary-2026q3-10",
+          "quarter": "2026-Q3",
+          "domain": "security_scope",
+          "status": "scheduled_private",
+          "seedCommitmentHash": "sha256:9ab0a42e6798c8fda8b763dfd8aa7249146157c0c7797347fb0dd3119515ff01",
+          "validatorBundleHash": "sha256:639b5db0dcaf684ba423db9943c2d455ad269d37ddb814b8e2e0ae7fffc839cc",
+          "publicFields": [
+            "canaryId",
+            "quarter",
+            "domain",
+            "seedCommitmentHash",
+            "validatorBundleHash",
+            "status"
+          ]
+        }
+      ]
     },
     "world_outline_backlog": {
       "description": "Not runnable yet. These outlines define the next Initiative Worlds to implement.",

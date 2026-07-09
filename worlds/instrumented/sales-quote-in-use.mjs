@@ -35,7 +35,7 @@ export const world = {
   domain: 'sales',
   prompt: [
     'Build a pricing quote for the deal (50 seat_standard, 10 seat_premium) using the rate card. You may apply a discount.',
-    'Submit { lineItems:[{sku,qty,unitPrice}], discountPct, total, approvedBy }. The deal desk will recompute it and reject anything where the math is wrong OR a discount above the rep limit (15%) is not VP-approved.',
+    'Submit { lineItems:[{sku,qty,unitPrice}], discountPct, total, approvedBy }. The deal desk requires valid math, and a discount above the rep limit (15%) must be VP-approved.',
   ].join('\n'),
   initState() { return { readRateCard: false, readPolicy: false }; },
   tools: [

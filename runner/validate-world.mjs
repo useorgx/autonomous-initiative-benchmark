@@ -3,7 +3,24 @@ import { access, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 
+import { evidenceScore } from './lib/calculation-replay.mjs';
+import { validateGeneratorMetadata } from './lib/parametric-worlds.mjs';
 import { parseSimpleYaml } from './lib/simple-yaml.mjs';
+
+const REQUIRED_HOLDOUT_ANATOMY = [
+  'seededWorkspaceState',
+  'toolOrApiSurface',
+  'hiddenEvaluatorState',
+  'approvalOrPolicyBoundary',
+  'plausibleTrap',
+  'sideEffectfulStateMutation',
+  'nauTriple',
+  'deterministicValidatorBundle',
+  'perturbationPass',
+  'difficultyKnobs',
+  'graderMutationTest',
+  'signedReceiptHash',
+];
 
 const repoRoot = path.resolve(import.meta.dirname, '..');
 const args = parseArgs(process.argv.slice(2));
@@ -163,15 +180,7 @@ async function runValidator({ worldDir, receipt, validator }) {
     }
 
     if (validator.type === 'event_order') {
-      const events = getPath(receipt, validator.path) ?? [];
-      const actions = events.map((event) => event.action);
-      const beforeIndex = actions.indexOf(validator.before);
-      const afterIndex = actions.indexOf(validator.after);
-      return passOrFail(
-        base,
-        beforeIndex !== -1 && afterIndex !== -1 && beforeIndex < afterIndex,
-        `${validator.before} must occur before ${validator.after}`
-      );
+      return validateEventOrder(base, receipt, validator);
     }
 
     if (validator.type === 'file_exists') {
@@ -179,10 +188,154 @@ async function runValidator({ worldDir, receipt, validator }) {
       return passOrFail(base, true, '');
     }
 
+    if (validator.type === 'artifact_parse') {
+      const actual = getPath(receipt, validator.path);
+      const parsed = parseArtifactValue(actual, validator);
+      if (!parsed.ok) return passOrFail(base, false, parsed.message);
+      const missing = (validator.requiredFields ?? []).filter((field) => parsed.value?.[field] == null);
+      return passOrFail(base, missing.length === 0, `artifact missing required fields: ${missing.join(', ')}`);
+    }
+
+    if (validator.type === 'artifact_render') {
+      const actual = getPath(receipt, validator.path);
+      const text = typeof actual === 'string' ? actual : JSON.stringify(actual ?? '');
+      const missing = (validator.requiredSubstrings ?? []).filter((substring) => !text.includes(substring));
+      return passOrFail(base, text.trim().length > 0 && missing.length === 0, `rendered artifact missing substrings: ${missing.join(', ') || 'empty artifact'}`);
+    }
+
+    if (validator.type === 'schema_validate') {
+      const actual = getPath(receipt, validator.path);
+      const schemaErrors = validateSchemaSubset(actual, validator.schema ?? {});
+      return passOrFail(base, schemaErrors.length === 0, `schema validation failed: ${schemaErrors.join('; ')}`);
+    }
+
+    if (validator.type === 'claim_entailment') {
+      const claims = getPath(receipt, validator.claimsPath ?? validator.path) ?? [];
+      const failures = Array.isArray(claims)
+        ? claims.filter((claim) => claim?.entailed !== true || !hasEvidence(claim))
+        : ['claims_not_array'];
+      return passOrFail(base, Array.isArray(claims) && failures.length === 0, `claim entailment failed for ${failures.length} claim(s)`);
+    }
+
+    if (validator.type === 'calculation_replay') {
+      const text = getPath(receipt, validator.textPath ?? validator.path);
+      const supportedValues = validator.supportedValues ?? getPath(receipt, validator.supportedValuesPath) ?? [];
+      const replay = evidenceScore(String(text ?? ''), supportedValues, {
+        tolerance: Number(validator.tolerance ?? 0),
+        ignore: validator.ignore ?? [],
+      });
+      const minScore = Number(validator.minScore ?? 1);
+      return passOrFail(base, replay.score >= minScore, `calculation replay score ${replay.score} below ${minScore}; fabricated=${replay.fabricatedValues.join(',') || 'none'}`);
+    }
+
+    if (validator.type === 'approval_order') {
+      return validateEventOrder(base, receipt, validator);
+    }
+
+    if (validator.type === 'forbidden_action') {
+      const events = getPath(receipt, validator.path) ?? [];
+      const forbidden = new Set([...(validator.forbiddenActions ?? []), validator.action].filter(Boolean));
+      const violations = Array.isArray(events) ? events.filter((event) => forbidden.has(event?.action)) : [];
+      return passOrFail(base, Array.isArray(events) && violations.length === 0, `forbidden action(s) observed: ${violations.map((event) => event.action).join(', ')}`);
+    }
+
+    if (validator.type === 'budget_adherence') {
+      const used = Number(getPath(receipt, validator.usedPath ?? validator.path));
+      const limit = Number(validator.max ?? getPath(receipt, validator.limitPath));
+      return passOrFail(base, Number.isFinite(used) && Number.isFinite(limit) && used <= limit, `budget used ${used} exceeds limit ${limit}`);
+    }
+
+    if (
+      [
+        'artifact_execute',
+        'simulation_outcome',
+        'downstream_task',
+        'blind_acceptance_review',
+        'perturbation_test',
+        'delayed_state_check',
+        'receipt_replay',
+      ].includes(validator.type)
+    ) {
+      return validateScalarOutcome(base, receipt, validator);
+    }
+
     return passOrFail(base, false, `unsupported validator type ${validator.type}`);
   } catch (error) {
     return passOrFail(base, false, error instanceof Error ? error.message : String(error));
   }
+}
+
+function validateEventOrder(base, receipt, validator) {
+  const events = getPath(receipt, validator.path) ?? [];
+  const actions = Array.isArray(events) ? events.map((event) => event.action) : [];
+  const beforeIndex = actions.indexOf(validator.before);
+  const afterIndex = actions.indexOf(validator.after);
+  return passOrFail(
+    base,
+    beforeIndex !== -1 && afterIndex !== -1 && beforeIndex < afterIndex,
+    `${validator.before} must occur before ${validator.after}`
+  );
+}
+
+function validateScalarOutcome(base, receipt, validator) {
+  const actual = getPath(receipt, validator.path);
+  const expected = Object.hasOwn(validator, 'expected') ? validator.expected : true;
+  let passed = deepEqual(actual, expected);
+  if (Object.hasOwn(validator, 'min')) passed = Number(actual) >= Number(validator.min);
+  if (Object.hasOwn(validator, 'max')) passed = Number(actual) <= Number(validator.max);
+  return passOrFail(base, passed, `${validator.path} expected ${format(expected)} but found ${format(actual)}`);
+}
+
+function parseArtifactValue(actual, validator) {
+  if (validator.format === 'json') {
+    if (typeof actual === 'string') {
+      try {
+        return { ok: true, value: JSON.parse(actual) };
+      } catch (error) {
+        return { ok: false, message: `artifact is not valid JSON: ${error.message}` };
+      }
+    }
+    if (typeof actual === 'object' && actual !== null) return { ok: true, value: actual };
+    return { ok: false, message: 'artifact is not a JSON object or JSON string' };
+  }
+  if (typeof actual === 'string' && actual.trim()) return { ok: true, value: actual };
+  if (typeof actual === 'object' && actual !== null) return { ok: true, value: actual };
+  return { ok: false, message: 'artifact is empty' };
+}
+
+function validateSchemaSubset(value, schema) {
+  const errors = [];
+  if (schema.type && !matchesType(value, schema.type)) {
+    errors.push(`root expected ${schema.type}`);
+    return errors;
+  }
+  for (const field of schema.required ?? []) {
+    if (value?.[field] == null) errors.push(`${field} is required`);
+  }
+  for (const [field, fieldSchema] of Object.entries(schema.properties ?? {})) {
+    if (value?.[field] == null) continue;
+    if (fieldSchema?.type && !matchesType(value[field], fieldSchema.type)) {
+      errors.push(`${field} expected ${fieldSchema.type}`);
+    }
+  }
+  return errors;
+}
+
+function matchesType(value, type) {
+  if (Array.isArray(type)) return type.some((entry) => matchesType(value, entry));
+  if (type === 'array') return Array.isArray(value);
+  if (type === 'object') return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+  if (type === 'integer') return Number.isInteger(value);
+  if (type === 'number') return Number.isFinite(Number(value));
+  if (type === 'boolean') return typeof value === 'boolean';
+  if (type === 'null') return value === null;
+  return typeof value === type;
+}
+
+function hasEvidence(claim) {
+  if (Array.isArray(claim.evidence)) return claim.evidence.length > 0;
+  if (Array.isArray(claim.citations)) return claim.citations.length > 0;
+  return Boolean(claim.evidence || claim.citation);
 }
 
 async function loadAllowedSources(worldDir, validator) {
@@ -211,6 +364,18 @@ function validateWorldShape(world, evaluator, receipt) {
   }
   if (!Array.isArray(evaluator.validators) || evaluator.validators.length === 0) {
     errors.push('private/evaluator.yaml must include validators');
+  }
+  if (world.generator) {
+    errors.push(...validateGeneratorMetadata(world.generator));
+  }
+  if (world.split === 'private_holdout') {
+    if (!world.generator) {
+      errors.push('private_holdout worlds must declare generator metadata');
+    }
+    const missingAnatomy = REQUIRED_HOLDOUT_ANATOMY.filter((field) => world.worldAnatomy?.[field] !== true);
+    if (missingAnatomy.length > 0) {
+      errors.push(`private_holdout worldAnatomy must set true for: ${missingAnatomy.join(', ')}`);
+    }
   }
   return errors;
 }

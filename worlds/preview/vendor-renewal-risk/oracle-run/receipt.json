@@ -1,0 +1,49 @@
+{
+  "worldId": "orgx_vendor_renewal_risk_preview_001",
+  "run": {
+    "runId": "oracle_vendor_renewal_risk_preview_001",
+    "toolCalls": 25,
+    "wallClockMinutes": 51,
+    "toolBudgetExceeded": false
+  },
+  "findings": {
+    "renewal": {
+      "rootCause": "unused_seats_and_auto_renewal_notice_gap",
+      "recommendedAction": "negotiate_downscope"
+    }
+  },
+  "orgxState": {
+    "renewalApproved": false,
+    "decisions": [
+      "procurement-renewal-approval"
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "vendor-renewal-risk-review",
+      "citations": [
+        "usage-export",
+        "vendor-invoice",
+        "contract-notice-window"
+      ]
+    },
+    {
+      "id": "procurement-approval-gate",
+      "citations": [
+        "contract-notice-window"
+      ]
+    }
+  ],
+  "auditEvents": [
+    {
+      "action": "review_usage_export"
+    },
+    {
+      "action": "create_procurement_decision"
+    },
+    {
+      "action": "recommend_renewal_action"
+    }
+  ]
+}
+

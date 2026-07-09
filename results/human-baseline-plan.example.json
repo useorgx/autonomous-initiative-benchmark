@@ -1,0 +1,639 @@
+{
+  "protocol_version": "timed_expert_baseline_v2",
+  "plan_version": "human_baseline_plan_v1",
+  "release_id": null,
+  "generated_at": "2026-07-09T00:45:07.255Z",
+  "minimum_humans": 3,
+  "summary": {
+    "target_worlds": 20,
+    "required_sessions": 60,
+    "completed_sessions": 0,
+    "assigned_sessions": 0,
+    "unassigned_sessions": 60,
+    "worlds_complete": 0,
+    "worlds_fully_assigned_or_complete": 0,
+    "invalid_baseline_records": 0
+  },
+  "worlds": [
+    {
+      "world_id": "holdout-2026q3-01-revenue_leakage",
+      "domain": "revenue_reconciliation",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-01-revenue_leakage",
+          "domain": "revenue_reconciliation",
+          "required_expertise": "revenue reconciliation domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-01-revenue_leakage",
+          "domain": "revenue_reconciliation",
+          "required_expertise": "revenue reconciliation domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-01-revenue_leakage",
+          "domain": "revenue_reconciliation",
+          "required_expertise": "revenue reconciliation domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-02-incident_trust_recovery",
+      "domain": "incident_response",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-02-incident_trust_recovery",
+          "domain": "incident_response",
+          "required_expertise": "incident response domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-02-incident_trust_recovery",
+          "domain": "incident_response",
+          "required_expertise": "incident response domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-02-incident_trust_recovery",
+          "domain": "incident_response",
+          "required_expertise": "incident response domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-03-design_accessibility_gate",
+      "domain": "design_accessibility",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-03-design_accessibility_gate",
+          "domain": "design_accessibility",
+          "required_expertise": "design accessibility domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-03-design_accessibility_gate",
+          "domain": "design_accessibility",
+          "required_expertise": "design accessibility domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-03-design_accessibility_gate",
+          "domain": "design_accessibility",
+          "required_expertise": "design accessibility domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-04-sales_discount_approval",
+      "domain": "sales_policy",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-04-sales_discount_approval",
+          "domain": "sales_policy",
+          "required_expertise": "sales policy domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-04-sales_discount_approval",
+          "domain": "sales_policy",
+          "required_expertise": "sales policy domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-04-sales_discount_approval",
+          "domain": "sales_policy",
+          "required_expertise": "sales policy domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-05-support_escalation_sla",
+      "domain": "support_sla",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-05-support_escalation_sla",
+          "domain": "support_sla",
+          "required_expertise": "support sla domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-05-support_escalation_sla",
+          "domain": "support_sla",
+          "required_expertise": "support sla domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-05-support_escalation_sla",
+          "domain": "support_sla",
+          "required_expertise": "support sla domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-06-vendor_renewal_risk",
+      "domain": "vendor_renewal",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-06-vendor_renewal_risk",
+          "domain": "vendor_renewal",
+          "required_expertise": "vendor renewal domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-06-vendor_renewal_risk",
+          "domain": "vendor_renewal",
+          "required_expertise": "vendor renewal domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-06-vendor_renewal_risk",
+          "domain": "vendor_renewal",
+          "required_expertise": "vendor renewal domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-07-data_retention_policy",
+      "domain": "privacy_retention",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-07-data_retention_policy",
+          "domain": "privacy_retention",
+          "required_expertise": "privacy retention domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-07-data_retention_policy",
+          "domain": "privacy_retention",
+          "required_expertise": "privacy retention domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-07-data_retention_policy",
+          "domain": "privacy_retention",
+          "required_expertise": "privacy retention domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-08-partner_launch_handoff",
+      "domain": "partner_launch",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-08-partner_launch_handoff",
+          "domain": "partner_launch",
+          "required_expertise": "partner launch domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-08-partner_launch_handoff",
+          "domain": "partner_launch",
+          "required_expertise": "partner launch domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-08-partner_launch_handoff",
+          "domain": "partner_launch",
+          "required_expertise": "partner launch domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-09-analytics_metric_drift",
+      "domain": "analytics_drift",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-09-analytics_metric_drift",
+          "domain": "analytics_drift",
+          "required_expertise": "analytics drift domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-09-analytics_metric_drift",
+          "domain": "analytics_drift",
+          "required_expertise": "analytics drift domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-09-analytics_metric_drift",
+          "domain": "analytics_drift",
+          "required_expertise": "analytics drift domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-10-security_scope_change",
+      "domain": "security_scope",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-10-security_scope_change",
+          "domain": "security_scope",
+          "required_expertise": "security scope domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-10-security_scope_change",
+          "domain": "security_scope",
+          "required_expertise": "security scope domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-10-security_scope_change",
+          "domain": "security_scope",
+          "required_expertise": "security scope domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-11-budget_bounded_forecast",
+      "domain": "finance_planning",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-11-budget_bounded_forecast",
+          "domain": "finance_planning",
+          "required_expertise": "finance planning domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-11-budget_bounded_forecast",
+          "domain": "finance_planning",
+          "required_expertise": "finance planning domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-11-budget_bounded_forecast",
+          "domain": "finance_planning",
+          "required_expertise": "finance planning domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-12-order_pipeline_horizon",
+      "domain": "operations_horizon",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-12-order_pipeline_horizon",
+          "domain": "operations_horizon",
+          "required_expertise": "operations horizon domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-12-order_pipeline_horizon",
+          "domain": "operations_horizon",
+          "required_expertise": "operations horizon domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-12-order_pipeline_horizon",
+          "domain": "operations_horizon",
+          "required_expertise": "operations horizon domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-13-migration_contradiction",
+      "domain": "engineering_migration",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-13-migration_contradiction",
+          "domain": "engineering_migration",
+          "required_expertise": "engineering migration domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-13-migration_contradiction",
+          "domain": "engineering_migration",
+          "required_expertise": "engineering migration domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-13-migration_contradiction",
+          "domain": "engineering_migration",
+          "required_expertise": "engineering migration domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-14-provider_outage_recovery",
+      "domain": "resilience_ops",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-14-provider_outage_recovery",
+          "domain": "resilience_ops",
+          "required_expertise": "resilience ops domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-14-provider_outage_recovery",
+          "domain": "resilience_ops",
+          "required_expertise": "resilience ops domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-14-provider_outage_recovery",
+          "domain": "resilience_ops",
+          "required_expertise": "resilience ops domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-15-marketing_claims_in_use",
+      "domain": "marketing_claims",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-15-marketing_claims_in_use",
+          "domain": "marketing_claims",
+          "required_expertise": "marketing claims domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-15-marketing_claims_in_use",
+          "domain": "marketing_claims",
+          "required_expertise": "marketing claims domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-15-marketing_claims_in_use",
+          "domain": "marketing_claims",
+          "required_expertise": "marketing claims domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-16-product_prioritization_in_use",
+      "domain": "product_planning",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-16-product_prioritization_in_use",
+          "domain": "product_planning",
+          "required_expertise": "product planning domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-16-product_prioritization_in_use",
+          "domain": "product_planning",
+          "required_expertise": "product planning domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-16-product_prioritization_in_use",
+          "domain": "product_planning",
+          "required_expertise": "product planning domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-17-reconciliation_workbook_in_use",
+      "domain": "finance_reconciliation",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-17-reconciliation_workbook_in_use",
+          "domain": "finance_reconciliation",
+          "required_expertise": "finance reconciliation domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-17-reconciliation_workbook_in_use",
+          "domain": "finance_reconciliation",
+          "required_expertise": "finance reconciliation domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-17-reconciliation_workbook_in_use",
+          "domain": "finance_reconciliation",
+          "required_expertise": "finance reconciliation domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-18-trust_majority_trap",
+      "domain": "trust_safety",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-18-trust_majority_trap",
+          "domain": "trust_safety",
+          "required_expertise": "trust safety domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-18-trust_majority_trap",
+          "domain": "trust_safety",
+          "required_expertise": "trust safety domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-18-trust_majority_trap",
+          "domain": "trust_safety",
+          "required_expertise": "trust safety domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-19-ledger_running_total",
+      "domain": "ledger_integrity",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-19-ledger_running_total",
+          "domain": "ledger_integrity",
+          "required_expertise": "ledger integrity domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-19-ledger_running_total",
+          "domain": "ledger_integrity",
+          "required_expertise": "ledger integrity domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-19-ledger_running_total",
+          "domain": "ledger_integrity",
+          "required_expertise": "ledger integrity domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    },
+    {
+      "world_id": "holdout-2026q3-20-deploy_approval_trust",
+      "domain": "deploy_governance",
+      "minimum_humans": 3,
+      "sessions": [
+        {
+          "slot": 1,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-20-deploy_approval_trust",
+          "domain": "deploy_governance",
+          "required_expertise": "deploy governance domain expert"
+        },
+        {
+          "slot": 2,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-20-deploy_approval_trust",
+          "domain": "deploy_governance",
+          "required_expertise": "deploy governance domain expert"
+        },
+        {
+          "slot": 3,
+          "status": "unassigned",
+          "world_id": "holdout-2026q3-20-deploy_approval_trust",
+          "domain": "deploy_governance",
+          "required_expertise": "deploy governance domain expert"
+        }
+      ],
+      "completed_sessions": 0,
+      "assigned_sessions": 0,
+      "unassigned_sessions": 3
+    }
+  ]
+}

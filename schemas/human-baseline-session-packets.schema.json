@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/human-baseline-session-packets.schema.json",
+  "title": "OrgX-Bench Human Baseline Session Packets",
+  "description": "Reviewer-safe operational packet export for timed expert baseline sessions. Packets contain logistics and recording commands, not private validators or answers.",
+  "type": "object",
+  "required": [
+    "packet_version",
+    "protocol_version",
+    "release_id",
+    "generated_at",
+    "source_plan_generated_at",
+    "minimum_humans",
+    "summary",
+    "packets"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "packet_version": {
+      "type": "string",
+      "const": "human_baseline_session_packets_v1"
+    },
+    "protocol_version": {
+      "type": "string",
+      "const": "timed_expert_baseline_v2"
+    },
+    "release_id": { "type": ["string", "null"] },
+    "generated_at": { "type": "string" },
+    "source_plan_generated_at": { "type": ["string", "null"] },
+    "minimum_humans": { "type": "integer", "minimum": 1 },
+    "summary": {
+      "type": "object",
+      "required": ["packets", "assigned_packets", "unassigned_packets", "completed_packets"],
+      "additionalProperties": false,
+      "properties": {
+        "packets": { "type": "integer", "minimum": 0 },
+        "assigned_packets": { "type": "integer", "minimum": 0 },
+        "unassigned_packets": { "type": "integer", "minimum": 0 },
+        "completed_packets": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "packets": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/packet" }
+    }
+  },
+  "$defs": {
+    "packet": {
+      "type": "object",
+      "required": [
+        "packet_id",
+        "release_id",
+        "protocol_version",
+        "world_id",
+        "domain",
+        "slot",
+        "status",
+        "minimum_humans",
+        "required_expertise",
+        "blind_review_required",
+        "private_validator_access",
+        "instructions",
+        "record_command_template"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "packet_id": { "type": "string" },
+        "release_id": { "type": ["string", "null"] },
+        "protocol_version": { "type": "string", "const": "timed_expert_baseline_v2" },
+        "world_id": { "type": "string" },
+        "domain": { "type": ["string", "null"] },
+        "slot": { "type": "integer", "minimum": 1 },
+        "status": { "type": "string", "enum": ["completed", "assigned", "unassigned"] },
+        "minimum_humans": { "type": "integer", "minimum": 1 },
+        "required_expertise": { "type": "string" },
+        "blind_review_required": { "type": "boolean", "const": true },
+        "private_validator_access": { "type": "boolean", "const": false },
+        "instructions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "record_command_template": { "type": "string" },
+        "assignee_id": { "type": "string" },
+        "operator_profile_hash": {
+          "type": ["string", "null"],
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "recruitment_channel": { "type": ["string", "null"] },
+        "due_at": { "type": ["string", "null"] },
+        "human_id": { "type": "string" },
+        "artifact_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "receipt_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "elapsed_seconds": { "type": "number", "minimum": 0 },
+        "success": { "type": "boolean" },
+        "completed_at": { "type": "string" }
+      }
+    }
+  }
+}

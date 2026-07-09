@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/benchmark-run-manifest.schema.json",
+  "title": "OrgX-Bench Run Manifest",
+  "description": "Execution-side manifest emitted with a benchmark bundle. The evaluation manifest preregisters the claim; this run manifest binds the executed split, seeds, model manifest, loss registry, and artifact hashes.",
+  "type": "object",
+  "required": [
+    "id",
+    "evaluationManifestId",
+    "contractVersion",
+    "createdAt",
+    "split",
+    "k",
+    "modelManifestId",
+    "lossRegistryId",
+    "arms",
+    "artifactHashes"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "evaluationManifestId": {
+      "type": "string"
+    },
+    "contractVersion": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "split": {
+      "type": "string",
+      "enum": [
+        "public_validation",
+        "initiative_worlds_preview",
+        "private_holdout",
+        "rotating_canary"
+      ]
+    },
+    "k": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "modelManifestId": {
+      "type": "string"
+    },
+    "lossRegistryId": {
+      "type": "string"
+    },
+    "worldGeneratorId": {
+      "type": ["string", "null"],
+      "description": "Parametric generator id for generated/private worlds."
+    },
+    "worldSeedCommitment": {
+      "type": ["string", "null"],
+      "description": "Hash commitment to private seeds before execution."
+    },
+    "difficultySchedule": {
+      "type": "array",
+      "description": "Predeclared generator difficulty levels executed in this run. Empty or omitted only for non-parametric smoke runs.",
+      "items": {
+        "type": "object",
+        "required": ["worldGeneratorId", "levelId", "knobs", "difficultyScore"],
+        "additionalProperties": false,
+        "properties": {
+          "worldGeneratorId": {
+            "type": "string"
+          },
+          "levelId": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "knobs": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": {
+              "type": ["string", "number", "boolean"]
+            }
+          },
+          "difficultyScore": {
+            "type": "number",
+            "minimum": 0
+          },
+          "seedRange": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "first": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "last": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "externalEvaluatorId": {
+      "type": ["string", "null"]
+    },
+    "arms": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["id", "system", "modelManifestId"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "system": {
+            "type": "string"
+          },
+          "modelManifestId": {
+            "type": "string"
+          },
+          "budget": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "artifactHashes": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "sha256 hashes for public bundle files and sealed private commitments."
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

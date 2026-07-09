@@ -1,0 +1,687 @@
+{
+  "ok": true,
+  "drill": "future_model_config_only",
+  "startedAt": "2026-07-08T23:45:35.292Z",
+  "completedAt": "2026-07-08T23:45:35.293Z",
+  "elapsedMs": 1,
+  "provider": "openai",
+  "providerApi": "responses",
+  "model": "gpt-6-fire-drill-stub",
+  "modelManifestEntryId": "openai/gpt-6-fire-drill-stub",
+  "runManifestId": "run-future-model-fire-drill-openai-gpt-6-fire-drill-stub",
+  "evaluationManifestId": "future-model-fire-drill-openai-gpt-6-fire-drill-stub",
+  "split": "public_validation",
+  "k": 2,
+  "arms": [
+    "raw",
+    "orgx"
+  ],
+  "worldCount": 19,
+  "jobCount": 76,
+  "jobs": [
+    {
+      "worldId": "analytics-chart-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "analytics-chart-in-use-raw-e1"
+    },
+    {
+      "worldId": "analytics-chart-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "analytics-chart-in-use-raw-e2"
+    },
+    {
+      "worldId": "analytics-chart-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "analytics-chart-in-use-orgx-e1"
+    },
+    {
+      "worldId": "analytics-chart-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "analytics-chart-in-use-orgx-e2"
+    },
+    {
+      "worldId": "budget-bounded-forecast",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "budget-bounded-forecast-raw-e1"
+    },
+    {
+      "worldId": "budget-bounded-forecast",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "budget-bounded-forecast-raw-e2"
+    },
+    {
+      "worldId": "budget-bounded-forecast",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "budget-bounded-forecast-orgx-e1"
+    },
+    {
+      "worldId": "budget-bounded-forecast",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "budget-bounded-forecast-orgx-e2"
+    },
+    {
+      "worldId": "deploy-approval-trust",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "deploy-approval-trust-raw-e1"
+    },
+    {
+      "worldId": "deploy-approval-trust",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "deploy-approval-trust-raw-e2"
+    },
+    {
+      "worldId": "deploy-approval-trust",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "deploy-approval-trust-orgx-e1"
+    },
+    {
+      "worldId": "deploy-approval-trust",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "deploy-approval-trust-orgx-e2"
+    },
+    {
+      "worldId": "design-accessibility-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "design-accessibility-in-use-raw-e1"
+    },
+    {
+      "worldId": "design-accessibility-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "design-accessibility-in-use-raw-e2"
+    },
+    {
+      "worldId": "design-accessibility-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "design-accessibility-in-use-orgx-e1"
+    },
+    {
+      "worldId": "design-accessibility-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "design-accessibility-in-use-orgx-e2"
+    },
+    {
+      "worldId": "design-tokens-production-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "design-tokens-production-in-use-raw-e1"
+    },
+    {
+      "worldId": "design-tokens-production-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "design-tokens-production-in-use-raw-e2"
+    },
+    {
+      "worldId": "design-tokens-production-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "design-tokens-production-in-use-orgx-e1"
+    },
+    {
+      "worldId": "design-tokens-production-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "design-tokens-production-in-use-orgx-e2"
+    },
+    {
+      "worldId": "engineering-query-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "engineering-query-in-use-raw-e1"
+    },
+    {
+      "worldId": "engineering-query-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "engineering-query-in-use-raw-e2"
+    },
+    {
+      "worldId": "engineering-query-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "engineering-query-in-use-orgx-e1"
+    },
+    {
+      "worldId": "engineering-query-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "engineering-query-in-use-orgx-e2"
+    },
+    {
+      "worldId": "incident-triage-dependency",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "incident-triage-dependency-raw-e1"
+    },
+    {
+      "worldId": "incident-triage-dependency",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "incident-triage-dependency-raw-e2"
+    },
+    {
+      "worldId": "incident-triage-dependency",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "incident-triage-dependency-orgx-e1"
+    },
+    {
+      "worldId": "incident-triage-dependency",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "incident-triage-dependency-orgx-e2"
+    },
+    {
+      "worldId": "ledger-running-total",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "ledger-running-total-raw-e1"
+    },
+    {
+      "worldId": "ledger-running-total",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "ledger-running-total-raw-e2"
+    },
+    {
+      "worldId": "ledger-running-total",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "ledger-running-total-orgx-e1"
+    },
+    {
+      "worldId": "ledger-running-total",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "ledger-running-total-orgx-e2"
+    },
+    {
+      "worldId": "marketing-claims-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "marketing-claims-in-use-raw-e1"
+    },
+    {
+      "worldId": "marketing-claims-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "marketing-claims-in-use-raw-e2"
+    },
+    {
+      "worldId": "marketing-claims-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "marketing-claims-in-use-orgx-e1"
+    },
+    {
+      "worldId": "marketing-claims-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "marketing-claims-in-use-orgx-e2"
+    },
+    {
+      "worldId": "migration-contradiction-refusal",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "migration-contradiction-refusal-raw-e1"
+    },
+    {
+      "worldId": "migration-contradiction-refusal",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "migration-contradiction-refusal-raw-e2"
+    },
+    {
+      "worldId": "migration-contradiction-refusal",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "migration-contradiction-refusal-orgx-e1"
+    },
+    {
+      "worldId": "migration-contradiction-refusal",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "migration-contradiction-refusal-orgx-e2"
+    },
+    {
+      "worldId": "order-pipeline-horizon",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "order-pipeline-horizon-raw-e1"
+    },
+    {
+      "worldId": "order-pipeline-horizon",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "order-pipeline-horizon-raw-e2"
+    },
+    {
+      "worldId": "order-pipeline-horizon",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "order-pipeline-horizon-orgx-e1"
+    },
+    {
+      "worldId": "order-pipeline-horizon",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "order-pipeline-horizon-orgx-e2"
+    },
+    {
+      "worldId": "product-prioritization-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "product-prioritization-in-use-raw-e1"
+    },
+    {
+      "worldId": "product-prioritization-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "product-prioritization-in-use-raw-e2"
+    },
+    {
+      "worldId": "product-prioritization-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "product-prioritization-in-use-orgx-e1"
+    },
+    {
+      "worldId": "product-prioritization-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "product-prioritization-in-use-orgx-e2"
+    },
+    {
+      "worldId": "provider-outage-recovery",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "provider-outage-recovery-raw-e1"
+    },
+    {
+      "worldId": "provider-outage-recovery",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "provider-outage-recovery-raw-e2"
+    },
+    {
+      "worldId": "provider-outage-recovery",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "provider-outage-recovery-orgx-e1"
+    },
+    {
+      "worldId": "provider-outage-recovery",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "provider-outage-recovery-orgx-e2"
+    },
+    {
+      "worldId": "reconciliation-workbook-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "reconciliation-workbook-in-use-raw-e1"
+    },
+    {
+      "worldId": "reconciliation-workbook-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "reconciliation-workbook-in-use-raw-e2"
+    },
+    {
+      "worldId": "reconciliation-workbook-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "reconciliation-workbook-in-use-orgx-e1"
+    },
+    {
+      "worldId": "reconciliation-workbook-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "reconciliation-workbook-in-use-orgx-e2"
+    },
+    {
+      "worldId": "revenue-reconciliation-hard",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "revenue-reconciliation-hard-raw-e1"
+    },
+    {
+      "worldId": "revenue-reconciliation-hard",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "revenue-reconciliation-hard-raw-e2"
+    },
+    {
+      "worldId": "revenue-reconciliation-hard",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "revenue-reconciliation-hard-orgx-e1"
+    },
+    {
+      "worldId": "revenue-reconciliation-hard",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "revenue-reconciliation-hard-orgx-e2"
+    },
+    {
+      "worldId": "revenue-refund-reconciliation",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "revenue-refund-reconciliation-raw-e1"
+    },
+    {
+      "worldId": "revenue-refund-reconciliation",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "revenue-refund-reconciliation-raw-e2"
+    },
+    {
+      "worldId": "revenue-refund-reconciliation",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "revenue-refund-reconciliation-orgx-e1"
+    },
+    {
+      "worldId": "revenue-refund-reconciliation",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "revenue-refund-reconciliation-orgx-e2"
+    },
+    {
+      "worldId": "sales-quote-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "sales-quote-in-use-raw-e1"
+    },
+    {
+      "worldId": "sales-quote-in-use",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "sales-quote-in-use-raw-e2"
+    },
+    {
+      "worldId": "sales-quote-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "sales-quote-in-use-orgx-e1"
+    },
+    {
+      "worldId": "sales-quote-in-use",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "sales-quote-in-use-orgx-e2"
+    },
+    {
+      "worldId": "silent-corruption-reconciliation",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "silent-corruption-reconciliation-raw-e1"
+    },
+    {
+      "worldId": "silent-corruption-reconciliation",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "silent-corruption-reconciliation-raw-e2"
+    },
+    {
+      "worldId": "silent-corruption-reconciliation",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "silent-corruption-reconciliation-orgx-e1"
+    },
+    {
+      "worldId": "silent-corruption-reconciliation",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "silent-corruption-reconciliation-orgx-e2"
+    },
+    {
+      "worldId": "trust-majority-trap",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 1,
+      "episodeId": "trust-majority-trap-raw-e1"
+    },
+    {
+      "worldId": "trust-majority-trap",
+      "split": "public_validation",
+      "arm": "raw",
+      "seedIndex": 2,
+      "episodeId": "trust-majority-trap-raw-e2"
+    },
+    {
+      "worldId": "trust-majority-trap",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 1,
+      "episodeId": "trust-majority-trap-orgx-e1"
+    },
+    {
+      "worldId": "trust-majority-trap",
+      "split": "public_validation",
+      "arm": "orgx",
+      "seedIndex": 2,
+      "episodeId": "trust-majority-trap-orgx-e2"
+    }
+  ],
+  "zeroCodeChangeEvidence": [
+    "Model selected from evaluationManifest.modelManifest.models.",
+    "Run arms selected from runManifest.arms.",
+    "Provider routing reused an existing provider registry entry.",
+    "No provider API key or network call is required for this dry-run drill."
+  ],
+  "manifests": {
+    "evaluationManifest": {
+      "contractVersion": "orgx-bench-v1.1",
+      "id": "future-model-fire-drill-openai-gpt-6-fire-drill-stub",
+      "date": "2026-07-08",
+      "claim": "Future frontier models can be introduced through manifests without runner code changes.",
+      "arms": [
+        {
+          "id": "raw",
+          "system": "single_frontier",
+          "provider": "openai",
+          "model": "gpt-6-fire-drill-stub",
+          "modelManifestId": "openai/gpt-6-fire-drill-stub",
+          "budget": {
+            "tokens": 30000,
+            "calls": 12
+          }
+        },
+        {
+          "id": "orgx",
+          "system": "adaptive_orgx",
+          "provider": "openai",
+          "model": "gpt-6-fire-drill-stub",
+          "modelManifestId": "openai/gpt-6-fire-drill-stub",
+          "budget": {
+            "tokens": 30000,
+            "calls": 12
+          }
+        }
+      ],
+      "tasks": "public_validation",
+      "k": 2,
+      "metrics": [
+        "pass_at_k",
+        "pass_pow_k",
+        "latency",
+        "budget_adherence"
+      ],
+      "modelManifest": {
+        "id": "models-future-model-fire-drill-openai-gpt-6-fire-drill-stub",
+        "createdAt": "2026-07-08T23:45:35.292Z",
+        "models": [
+          {
+            "id": "openai/gpt-6-fire-drill-stub",
+            "provider": "openai",
+            "model": "gpt-6-fire-drill-stub",
+            "pinned": true,
+            "accessDate": "2026-07-08",
+            "capabilityTags": [
+              "text",
+              "tool_use",
+              "future_model_drill"
+            ],
+            "contextWindowTokens": null,
+            "toolUse": true,
+            "vision": null,
+            "pricing": {
+              "inputUsdPerMTok": null,
+              "outputUsdPerMTok": null,
+              "pricingDate": null
+            },
+            "notes": "Synthetic future-model row used to prove config-only runner acceptance."
+          }
+        ]
+      },
+      "lossPolicy": {
+        "publishAllAttempts": true,
+        "singleAgentWinsAreLosses": true,
+        "invalidRunsCountAsLosses": true,
+        "notes": "Fire drill only; no provider calls are made."
+      },
+      "lossRegistry": [
+        {
+          "id": "timeout",
+          "countedAsLoss": true,
+          "publicLabel": "Timeout"
+        },
+        {
+          "id": "invalid_output",
+          "countedAsLoss": true,
+          "publicLabel": "Invalid output"
+        },
+        {
+          "id": "unmeasured",
+          "countedAsLoss": true,
+          "publicLabel": "Unmeasured attempt"
+        }
+      ],
+      "headlineEligible": false
+    },
+    "runManifest": {
+      "id": "run-future-model-fire-drill-openai-gpt-6-fire-drill-stub",
+      "evaluationManifestId": "future-model-fire-drill-openai-gpt-6-fire-drill-stub",
+      "contractVersion": "orgx-bench-v1.1",
+      "createdAt": "2026-07-08T23:45:35.292Z",
+      "split": "public_validation",
+      "k": 2,
+      "modelManifestId": "models-future-model-fire-drill-openai-gpt-6-fire-drill-stub",
+      "lossRegistryId": "loss-registry-fire-drill",
+      "arms": [
+        {
+          "id": "raw",
+          "system": "single_frontier",
+          "modelManifestId": "openai/gpt-6-fire-drill-stub",
+          "budget": {
+            "tokens": 30000,
+            "calls": 12
+          }
+        },
+        {
+          "id": "orgx",
+          "system": "adaptive_orgx",
+          "modelManifestId": "openai/gpt-6-fire-drill-stub",
+          "budget": {
+            "tokens": 30000,
+            "calls": 12
+          }
+        }
+      ],
+      "artifactHashes": {
+        "evaluationManifest": "sha256:future-model-fire-drill",
+        "worldSplit": "sha256:future-model-fire-drill"
+      },
+      "notes": "Dry-run manifest for future-model config-only drill."
+    }
+  }
+}

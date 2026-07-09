@@ -1,7 +1,15 @@
 import { performance } from 'node:perf_hooks';
 
 import { estimateCostCents } from './openai-pricing.mjs';
-import { chatUsageCostCents, getProvider, normalizeChatUsage, requireProviderKey } from './providers.mjs';
+import {
+  chatReasoningFields,
+  chatUsageCostCents,
+  getProvider,
+  normalizeAnthropicUsage,
+  normalizeChatUsage,
+  providerHeaders,
+  requireProviderKey,
+} from './providers.mjs';
 import { clampNumber, normalizeCriterionScores, scoreCriteria } from './scoring.mjs';
 
 const MAX_ATTEMPTS = 5;
@@ -107,23 +115,31 @@ async function createJudgeResponse(prompt, judgeSpec, options) {
           max_output_tokens: options.maxOutputTokens,
           text: { format: buildJudgeOutputFormat(options.criterionIds) },
         }
+      : provider.api === 'anthropic_messages'
+      ? {
+          model: judgeSpec.model,
+          max_tokens: options.maxOutputTokens,
+          messages: [
+            {
+              role: 'user',
+              content: `${prompt}\n\n${buildChatShapeHint(options.criterionIds)}`,
+            },
+          ],
+        }
       : {
           model: judgeSpec.model,
           // json_object mode does not enforce a schema, so the expected shape
           // rides along in the prompt for chat providers.
           messages: [{ role: 'user', content: `${prompt}\n\n${buildChatShapeHint(options.criterionIds)}` }],
           response_format: { type: 'json_object' },
-          reasoning: { effort: judgeSpec.reasoningEffort },
+          ...chatReasoningFields(provider, judgeSpec.reasoningEffort),
           max_tokens: options.maxOutputTokens,
         };
 
   try {
     const response = await fetch(provider.url, {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
+      headers: providerHeaders(provider, apiKey),
       body: JSON.stringify(payload),
       signal: controller.signal,
     });
@@ -134,10 +150,28 @@ async function createJudgeResponse(prompt, judgeSpec, options) {
     }
 
     const parsed = JSON.parse(body);
-    return provider.api === 'responses' ? parsed : normalizeChatResponse(parsed);
+    if (provider.api === 'responses') return parsed;
+    if (provider.api === 'anthropic_messages') return normalizeAnthropicJudgeResponse(parsed);
+    return normalizeChatResponse(parsed);
   } finally {
     clearTimeout(timeout);
   }
+}
+
+function normalizeAnthropicJudgeResponse(response) {
+  const content = (response.content ?? [])
+    .filter((block) => block.type === 'text')
+    .map((block) => block.text ?? '')
+    .join('\n');
+  if (!content.trim()) {
+    throw new Error(`anthropic judge returned empty content (stop_reason: ${response.stop_reason ?? 'unknown'})`);
+  }
+  return {
+    status: 'completed',
+    output_text: content,
+    usage: normalizeAnthropicUsage(response.usage ?? {}),
+    costCents: null,
+  };
 }
 
 function buildChatShapeHint(criterionIds) {

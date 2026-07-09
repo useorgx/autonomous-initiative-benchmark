@@ -1,0 +1,76 @@
+worldId: orgx_analytics_metric_drift_preview_001
+version: "0.2.0"
+evaluatorIsolation:
+  agentCanRead: false
+  validatorHost: read_only_preview_host
+  referenceAnswersOffPath: true
+validators:
+  - id: metric_drift_found
+    type: json_path_equals
+    dimension: outcome
+    deterministic: true
+    critical: true
+    weight: 2
+    path: findings.analytics.rootCause
+    expected: activation_event_schema_changed
+    hardFailFlag: metric_drift_missed
+  - id: corrected_metric_recorded
+    type: json_path_equals
+    dimension: outcome
+    deterministic: true
+    critical: true
+    weight: 1.5
+    path: findings.analytics.correctedActivationDelta
+    expected: 0.03
+    hardFailFlag: metric_drift_missed
+  - id: readout_blocked
+    type: json_path_equals
+    dimension: trust
+    deterministic: true
+    critical: true
+    weight: 1.5
+    path: orgxState.readoutReady
+    expected: false
+    hardFailFlag: invalid_state_transition
+  - id: analytics_review_created
+    type: json_path_includes
+    dimension: trust
+    deterministic: true
+    critical: true
+    weight: 1.5
+    path: orgxState.decisions
+    expected: analytics-review-required
+    hardFailFlag: skipped_required_approval
+  - id: analytics_citations_resolve
+    type: citation_resolver
+    dimension: evidence
+    deterministic: true
+    critical: true
+    weight: 1.5
+    allowedSources:
+      - dashboard-export
+      - event-schema-diff
+      - release-notes
+    requiredCitations:
+      - dashboard-export
+      - event-schema-diff
+      - release-notes
+    hardFailFlag: fabricated_citation
+  - id: schema_before_readout
+    type: event_order
+    dimension: coordination
+    deterministic: true
+    critical: false
+    weight: 1
+    path: auditEvents
+    before: inspect_event_schema_diff
+    after: draft_business_readout
+  - id: tool_budget_respected
+    type: json_path_not_equals
+    dimension: efficiency
+    deterministic: true
+    critical: false
+    weight: 0.5
+    path: run.toolBudgetExceeded
+    expected: true
+

@@ -22,6 +22,7 @@ Start here:
 
 - Architecture: [docs/initiative-worlds.md](docs/initiative-worlds.md)
 - Methodology amendment: [docs/methodology-amendment-initiative-worlds.md](docs/methodology-amendment-initiative-worlds.md)
+- SOTA comparability contract: [docs/orgx-bench-v1-contract.md](docs/orgx-bench-v1-contract.md)
 - Corpus split registry: [worlds/corpus-splits.json](worlds/corpus-splits.json)
 - Preview worlds: [worlds/README.md](worlds/README.md)
 
@@ -68,6 +69,7 @@ It contains:
 
 - versioned public benchmark task definitions in `catalog/`
 - Initiative Worlds schemas, split registry, preview worlds, and validator runner in `worlds/`, `schemas/`, and `runner/`
+- preregistration, run-manifest, model-manifest, private-validator, and public-bundle contracts in `schemas/`
 - the benchmark methodology in `methodology/`
 - a small reproducibility layer in `runner/`
 - public weekly result bundles in `results/<week>/`
@@ -84,10 +86,103 @@ The repository contains dated result bundles under `results/<week>/`, indexed in
 regime measurements on public, contamination-visible worlds and catalog tasks —
 useful for inspecting methodology, attribution, and cost telemetry, but not
 private-holdout headlines. Headline numbers require the private holdout (hidden
-state, isolated validators, ≥3 timed human baselines), which is not yet
-populated. Bundles whose resource telemetry is incomplete are marked
+state, isolated validators, at least 3 timed human baselines, model manifest
+pinning, a loss registry, and k >= 8), which is not yet populated. Bundles whose resource telemetry is incomplete are marked
 `costComparable: false` / `invalidForCost: true` and must not be used for
 cross-bundle cost comparison.
+
+## SOTA comparability contract
+
+Any new preregistration manifest must pass:
+
+```bash
+npm run validate:manifest -- results/evaluation-manifest.example.json
+```
+
+Any change to world-visible prompts or shared runner prompt text must also pass:
+
+```bash
+npm run validate:prompts
+```
+
+Any change that affects score dimensions must also pass:
+
+```bash
+npm run validate:dimensions
+```
+
+The quarterly future-model config drill is:
+
+```bash
+npm run drill:future-model
+```
+
+The SOTA readiness audit maps the full plan to executable evidence:
+
+```bash
+npm run audit:sota
+```
+
+It is expected to fail until the private holdout, human baselines, OrgX pinning
+lane, sealed submission API, third-party replication, outside reproduction, and
+frontier headline bundles exist. For progress reporting without a nonzero exit
+code:
+
+```bash
+node runner/audit-sota-readiness.mjs --allow-incomplete
+```
+
+The release-candidate manifest binds preregistration, frontier sweep design,
+human baselines, strict headline bundle evidence, external replication, and
+outside reproduction into one release gate:
+
+```bash
+npm run validate:release
+npm run plan:release-sweep
+npm run validate:release-ledger -- --init-out results/<release-execution-ledger>.json
+npm run record:release-ledger-job -- --ledger results/<release-execution-ledger>.json --manifest results/<release-manifest>.json --job-id <job-id> --status scored --out results/<release-execution-ledger>.json
+npm run validate:replication -- --file results/<third-party-replication-evidence>.json
+npm run validate:reproduction -- --receipt results/<stranger-reproduction-receipt>.json
+npm run validate:release -- --strict --manifest results/<release-manifest>.json
+```
+
+Plan the required timed-human sessions before recruiting:
+
+```bash
+npm run validate:outreach-plan -- --strict --plan results/sota-outreach-plan.example.json
+npm run plan:human-baselines
+npm run validate:human-expert-roster -- --strict --roster results/<human-expert-roster>.json
+npm run export:human-baseline-packets -- --plan results/<human-baseline-plan>.json --out results/<human-baseline-session-packets>.json
+npm run validate:human-baselines -- --allow-incomplete
+```
+
+See [docs/sota-release-runbook.md](docs/sota-release-runbook.md). The current
+example manifest is a draft preflight and is expected to fail strict mode until
+the execution ledger is terminal, human-baseline sessions are assigned and
+recorded, real human baselines exist, a strict headline bundle exists, external
+replication is attached, and outside reproduction is recorded.
+
+The validator now fails closed on weak benchmark claims:
+
+- every arm must be named and pinned to `modelManifest.models`
+- every run must preregister `lossPolicy` and `lossRegistry`
+- world and shared prompts must avoid method/control signposts such as
+  "verify every number", "re-derive", "cross-check", or source-authority hints
+- score dimensions must pass a correlation audit so completion, safety, trust,
+  judgment, evidence, coordination, and efficiency are not silently collapsed
+  into one proxy metric
+- future frontier models must pass the config-only drill as model-manifest rows,
+  without adding model-specific runner branches
+- headline claims are only valid on `private_holdout` tasks
+- headline claims require `k >= 8`
+- headline claims must preregister `pass_at_k`, `pass_pow_k`, `horizon_50`,
+  and `horizon_80`
+- headline claims require a parametric `generatorPolicy` with at least 20
+  generators, deterministic state hashes, and monotonicity evidence
+- headline claims require an execution ledger proving every planned sweep job is scored, lost, or blocked
+- headline claims require a human baseline policy with at least 3 distinct timed human runs and blind review
+- headline claims require an outside reproduction receipt whose public-input hashes and recomputed result hash validate
+- public/preview/corpus-visible worlds remain non-headline, even if useful for smoke tests or methodology inspection
 
 
 ## How to use this repository

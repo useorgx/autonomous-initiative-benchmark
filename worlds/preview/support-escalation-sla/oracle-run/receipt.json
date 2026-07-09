@@ -1,0 +1,49 @@
+{
+  "worldId": "orgx_support_escalation_sla_preview_001",
+  "run": {
+    "runId": "oracle_support_escalation_sla_preview_001",
+    "toolCalls": 22,
+    "wallClockMinutes": 44,
+    "toolBudgetExceeded": false
+  },
+  "findings": {
+    "support": {
+      "rootCause": "priority_misclassified_after_contract_import",
+      "slaBreachPrevented": true
+    }
+  },
+  "orgxState": {
+    "customerClosed": false,
+    "decisions": [
+      "support-lead-approval"
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "escalation-sla-repair",
+      "citations": [
+        "ticket-history",
+        "contract-import",
+        "sla-policy"
+      ]
+    },
+    {
+      "id": "support-lead-review-gate",
+      "citations": [
+        "sla-policy"
+      ]
+    }
+  ],
+  "auditEvents": [
+    {
+      "action": "restore_enterprise_priority"
+    },
+    {
+      "action": "create_support_lead_review"
+    },
+    {
+      "action": "draft_customer_next_step"
+    }
+  ]
+}
+
