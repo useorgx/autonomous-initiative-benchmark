@@ -23,13 +23,13 @@
   },
   "summary": {
     "total": 8,
-    "planned": 5,
-    "completed": 1,
+    "planned": 4,
+    "completed": 2,
     "blocked": 2,
     "canceled": 0,
     "recipient_facing": 8,
     "due_now": 0,
-    "next_action_at": "2026-07-09T14:30:00.000Z",
+    "next_action_at": "2026-07-14T13:00:00.000Z",
     "next_follow_up_at": "2026-07-14T14:01:24.929Z"
   },
   "actions": [
@@ -130,7 +130,7 @@
       "lane": "methodology_advisor",
       "priority": "P1",
       "action_type": "send_email",
-      "status": "planned",
+      "status": "completed",
       "recipient_facing": true,
       "recommended_at": "2026-07-09T14:30:00.000Z",
       "contact_method": "public_email",
@@ -138,11 +138,30 @@
       "message_sha256": "sha256:d2908b6794de299358cd83180ce6fcb3473bae2f0f37a23f0cc1afe2aec57a8e",
       "blocked_reasons": [],
       "execution_notes": [],
-      "completed_at": null,
-      "operator": null,
-      "receipt": null,
-      "follow_up_schedule": [],
-      "notes": null
+      "completed_at": "2026-07-09T14:31:25.007Z",
+      "operator": "codex",
+      "receipt": {
+        "channel": "gmail",
+        "reference": "19f474ada9abfa52",
+        "url": null
+      },
+      "follow_up_schedule": [
+        {
+          "follow_up_id": "methodology-epoch-frontiermath__send_email__follow_up_1",
+          "sequence": 1,
+          "business_days_after_completion": 3,
+          "due_at": "2026-07-14T14:31:25.007Z",
+          "status": "pending"
+        },
+        {
+          "follow_up_id": "methodology-epoch-frontiermath__send_email__follow_up_2",
+          "sequence": 2,
+          "business_days_after_completion": 7,
+          "due_at": "2026-07-20T14:31:25.007Z",
+          "status": "pending"
+        }
+      ],
+      "notes": "Sent Epoch/FrontierMath methodology-review email to info@epoch.ai via Gmail."
     },
     {
       "action_id": "methodology-swe-bench-authors__send_email",
