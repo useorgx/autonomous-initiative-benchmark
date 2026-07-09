@@ -70,3 +70,67 @@ passed:
 
 The report should read like an operational verification record, not a vanity
 leaderboard card.
+
+## Third-Party Replication Row
+
+Published replication evidence must be machine-checkable. Each external row in
+`metadata.externalReplication.rows` or `metadata.thirdPartyReplication.rows`
+must use:
+
+```json
+{
+  "protocol_version": "third_party_replication_v1",
+  "party_id": "external-lab-1",
+  "party_name": "External Lab 1",
+  "world_id": "holdout-2026q3-01-revenue_leakage",
+  "submission_id": "submission-1",
+  "model_manifest_id": "models-frontier-2026q3",
+  "run_manifest_id": "run-private-holdout-2026q3",
+  "seed_commitment_hash": "sha256:<64-hex>",
+  "signed_receipt_hash": "sha256:<64-hex>",
+  "scorecard_hash": "sha256:<64-hex>",
+  "replication_protocol_hash": "sha256:<64-hex>",
+  "discrepancy_log_hash": "sha256:<64-hex>",
+  "submitted_at": "2026-07-08T10:00:00.000Z",
+  "scored_at": "2026-07-08T10:05:00.000Z",
+  "agreement_within_ci": true,
+  "discrepancies": []
+}
+```
+
+Validate rows with:
+
+```bash
+npm run validate:replication
+npm run validate:replication -- --file results/<third-party-replication-evidence>.json
+npm run validate:replication -- --strict
+npm run validate:replication -- --strict --file results/<third-party-replication-evidence>.json
+```
+
+The non-strict command allows zero rows while the benchmark is pre-release, but
+fails if any present row is malformed. Strict mode requires at least one valid
+row and is the release gate for third-party replication claims. Standalone
+evidence files use `schemas/third-party-replication-evidence.schema.json` and
+carry `protocol_version:"third_party_replication_evidence_v1"` plus `rows`.
+Release manifests can reference the standalone file with
+`evidence.externalReplicationEvidencePath`; release validation merges those rows
+with bundle metadata rows and fails if either source is malformed.
+
+## Stranger Reproduction Receipt
+
+Every headline release also needs one outside reviewer to recompute the public
+release from public files only. The release manifest points to this receipt via
+`evidence.strangerReproductionReceiptPath`.
+
+Validate the receipt with:
+
+```bash
+npm run validate:reproduction -- --receipt results/<stranger-reproduction-receipt>.json
+npm run validate:reproduction -- --strict --receipt results/<stranger-reproduction-receipt>.json
+```
+
+The receipt schema is `schemas/stranger-reproduction-receipt.schema.json`. It
+records the reviewer id/affiliation, command, public input hashes, result hash,
+bundle hash, release-manifest hash, reproduction-log hash, deviations, execution
+environment, and the two release-gating booleans: `completed` and
+`matched_to_digit`.

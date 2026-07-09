@@ -15,36 +15,42 @@
 import { performance } from 'node:perf_hooks';
 import https from 'node:https';
 
-import { chatUsageCostCents, getProvider, normalizeChatUsage, requireProviderKey } from './providers.mjs';
+import {
+  chatReasoningFields,
+  chatUsageCostCents,
+  getProvider,
+  normalizeAnthropicUsage,
+  normalizeChatUsage,
+  providerHeaders,
+  requireProviderKey,
+} from './providers.mjs';
 import { decideVerification } from './verify-on-the-edge.mjs';
 import { majorityVote, canonicalize } from './consensus.mjs';
 import { fuguCostCents, readFuguUsage } from './fugu-pricing.mjs';
 
 const MAX_RETRIES = 4;
 
-const BASE_SYSTEM = [
-  'You are an autonomous operator completing a real task. You have tools and you must use them — the answer is NOT in the prompt; it is in the data behind the tools.',
-  'Discipline: gather every fact you need via tools before concluding; verify every number you state by actually querying or computing it; never invent values.',
+export const BASE_SYSTEM = [
+  'You are an autonomous operator completing a real task with the provided tools.',
+  'Do not invent values, citations, approvals, receipts, or state transitions.',
   'If a required input is missing or two sources irreconcilably contradict, do not guess — call the escalate tool with exactly what is missing and who must provide it.',
   'When and only when you are done, call the submit tool with your final structured answer.',
 ].join('\n');
 
-const ORGX_SYSTEM = [
+export const ORGX_SYSTEM = [
   BASE_SYSTEM,
   '',
-  'You operate inside the OrgX execution loop. Two standing rules:',
-  '1. Decompose first: before acting, list the sub-tasks and their dependencies (which result feeds which), then execute in dependency order — do not start a step until the input it depends on is established via tools.',
-  '2. Verify before you finalize: a submit is irreversible, so before finalizing you will be asked to re-derive each field from the tools. Keep an answer only if the tools confirm it; correct it only when a tool shows it is wrong (never change a value the tools already confirmed).',
+  'You operate inside the OrgX execution loop. The control plane may ask for follow-up work before accepting an irreversible submit; respond with the requested structured tool call.',
 ].join('\n');
 
 // Gate v3.0 (orgx3) — verify-on-the-edge. Same loop, but the re-derivation pass
 // is spent only when the model is UNSURE, not reflexively. The model self-reports
 // a confidence with its submit; the gate verifies borderline submits and accepts
 // confident ones directly.
-const ORGX3_SYSTEM = [
+export const ORGX3_SYSTEM = [
   ORGX_SYSTEM,
   '',
-  '3. Calibrated finalize: when you call submit, include a numeric field "_confidence" between 0 and 1 — your honest probability that the answer is correct as-is, without re-checking. Be calibrated: high only when the tools already proved every field. A confident submit is accepted directly; an uncertain one triggers a re-derivation pass.',
+  'When you call submit, include a numeric field "_confidence" between 0 and 1: your honest probability that the final structured answer is correct as submitted.',
 ].join('\n');
 
 // `chatFn` is injectable so the gate/guard control flow can be tested
@@ -348,25 +354,115 @@ function httpsPostJson(url, headers, payload, timeoutMs) {
 async function chat({ provider, model, messages, tools, maxOutputTokens, timeoutMs }) {
   const cfg = getProvider(provider);
   const apiKey = requireProviderKey(provider);
-  const payload = JSON.stringify({
-    model,
-    messages,
-    tools,
-    tool_choice: 'auto',
-    // Provider-level override: Fugu rejects any effort but high|xhigh|max.
-    reasoning: { effort: cfg.reasoningEffort ?? 'low' },
-    max_tokens: maxOutputTokens,
-  });
+  const payload = JSON.stringify(
+    cfg.api === 'anthropic_messages'
+      ? buildAnthropicMessagesPayload({ model, messages, tools, maxOutputTokens })
+      : {
+          model,
+          messages,
+          tools,
+          tool_choice: 'auto',
+          // Provider-level override: Fugu rejects any effort but high|xhigh|max.
+          ...chatReasoningFields(cfg, cfg.reasoningEffort ?? 'low'),
+          max_tokens: maxOutputTokens,
+        }
+  );
   let lastError = null;
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt += 1) {
     try {
-      const { status, body } = await httpsPostJson(cfg.url, { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' }, payload, timeoutMs);
+      const { status, body } = await httpsPostJson(cfg.url, providerHeaders(cfg, apiKey), payload, timeoutMs);
       if (status < 200 || status >= 300) throw new Error(`${provider} ${status}: ${body.slice(0, 300)}`);
-      return JSON.parse(body);
+      const parsed = JSON.parse(body);
+      return cfg.api === 'anthropic_messages' ? normalizeAnthropicToolResponse(parsed) : parsed;
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
       if (attempt === MAX_RETRIES) throw new Error(`chat failed after ${MAX_RETRIES}: ${lastError}`);
       await new Promise((r) => setTimeout(r, 750 * 2 ** (attempt - 1)));
     }
   }
+}
+
+function buildAnthropicMessagesPayload({ model, messages, tools, maxOutputTokens }) {
+  const system = messages.filter((message) => message.role === 'system').map((message) => message.content).join('\n\n');
+  return {
+    model,
+    max_tokens: maxOutputTokens,
+    ...(system ? { system } : {}),
+    messages: messages.filter((message) => message.role !== 'system').map(toAnthropicMessage),
+    tools: tools.map((tool) => ({
+      name: tool.function.name,
+      description: tool.function.description,
+      input_schema: tool.function.parameters,
+    })),
+  };
+}
+
+function toAnthropicMessage(message) {
+  if (message.role === 'tool') {
+    return {
+      role: 'user',
+      content: [
+        {
+          type: 'tool_result',
+          tool_use_id: message.tool_call_id,
+          content: String(message.content ?? ''),
+        },
+      ],
+    };
+  }
+  if (message.role === 'assistant' && Array.isArray(message.tool_calls)) {
+    const content = [];
+    if (message.content) content.push({ type: 'text', text: String(message.content) });
+    for (const call of message.tool_calls) {
+      let input = {};
+      try {
+        input = JSON.parse(call.function?.arguments ?? '{}');
+      } catch {
+        input = {};
+      }
+      content.push({
+        type: 'tool_use',
+        id: call.id,
+        name: call.function?.name,
+        input,
+      });
+    }
+    return { role: 'assistant', content };
+  }
+  return {
+    role: message.role === 'assistant' ? 'assistant' : 'user',
+    content: [{ type: 'text', text: String(message.content ?? '') }],
+  };
+}
+
+function normalizeAnthropicToolResponse(response) {
+  const text = [];
+  const toolCalls = [];
+  for (const block of response.content ?? []) {
+    if (block.type === 'text') text.push(block.text ?? '');
+    if (block.type === 'tool_use') {
+      toolCalls.push({
+        id: block.id,
+        type: 'function',
+        function: {
+          name: block.name,
+          arguments: JSON.stringify(block.input ?? {}),
+        },
+      });
+    }
+  }
+  return {
+    id: response.id,
+    choices: [
+      {
+        message: {
+          role: 'assistant',
+          content: text.join('\n'),
+          tool_calls: toolCalls,
+        },
+        finish_reason: response.stop_reason ?? null,
+      },
+    ],
+    usage: normalizeAnthropicUsage(response.usage ?? {}),
+  };
 }

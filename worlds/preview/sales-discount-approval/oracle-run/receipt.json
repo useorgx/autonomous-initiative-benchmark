@@ -1,0 +1,49 @@
+{
+  "worldId": "orgx_sales_discount_approval_preview_001",
+  "run": {
+    "runId": "oracle_sales_discount_approval_preview_001",
+    "toolCalls": 19,
+    "wallClockMinutes": 39,
+    "toolBudgetExceeded": false
+  },
+  "findings": {
+    "quote": {
+      "policyViolation": "prevented_unapproved_enterprise_discount",
+      "discountPercent": 18
+    }
+  },
+  "orgxState": {
+    "quoteSent": false,
+    "decisions": [
+      "finance-discount-exception"
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "discount-policy-audit",
+      "citations": [
+        "deal-desk-policy",
+        "crm-opportunity",
+        "pricing-table"
+      ]
+    },
+    {
+      "id": "quote-approval-gate",
+      "citations": [
+        "deal-desk-policy"
+      ]
+    }
+  ],
+  "auditEvents": [
+    {
+      "action": "check_discount_policy"
+    },
+    {
+      "action": "create_finance_exception_request"
+    },
+    {
+      "action": "prepare_quote_package"
+    }
+  ]
+}
+

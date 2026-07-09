@@ -20,7 +20,42 @@ rubric-only public tasks.
 
 See `worlds/corpus-splits.json` for the source-of-truth split registry.
 
+## Canary Commitments
+
+The `rotating_canary.rotationCalendar` publishes the Q3 2026 private canary
+commitments. It exposes only canary id, quarter, domain, status, seed commitment
+hash, and validator bundle hash. The canary task text, fixtures, seeds, and
+validators remain private unless a canary is burned and later disclosed.
+
+## Private Holdout Commitments
+
+The `private_holdout.worlds` registry publishes the Q3 2026 sealed generator
+commitments for the headline holdout. Each entry exposes only a world id, domain,
+private status, parametric generator type, source/seed/validator hashes,
+difficulty knob names, and the anatomy checklist flags. The generator code,
+fixtures, hidden evaluator state, seeds, gold artifacts, and validator bundles
+remain off-repo and off-path from agents until aggregate release disclosure.
+
+These commitments are not headline results by themselves. Headline eligibility
+still requires measured timed human baselines, strict private-holdout runs, loss
+accounting, cost provenance, and external replication.
+
 ## Runnable Preview
+
+The preview split currently contains 12 runnable worlds:
+
+- activation sprint
+- cross-functional launch gate
+- revenue leak reconciliation
+- incident trust recovery
+- design accessibility gate
+- sales discount approval
+- support escalation SLA
+- vendor renewal risk
+- data retention policy
+- partner launch handoff
+- analytics metric drift
+- security scope change
 
 Validate all runnable preview worlds:
 

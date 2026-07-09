@@ -1,11 +1,22 @@
 import { performance } from 'node:perf_hooks';
 
 import { estimateCostCents } from './openai-pricing.mjs';
-import { chatUsageCostCents, getProvider, normalizeChatUsage, requireProviderKey } from './providers.mjs';
+import {
+  chatReasoningFields,
+  chatUsageCostCents,
+  getProvider,
+  normalizeAnthropicUsage,
+  normalizeChatUsage,
+  providerHeaders,
+  requireProviderKey,
+} from './providers.mjs';
 import { clampNumber, normalizeCriterionScores, scoreCriteria } from './scoring.mjs';
 
 const MAX_ATTEMPTS = 5;
 const RETRY_BASE_MS = 750;
+
+export const HIDDEN_CRITERIA_GENERATOR_NOTE =
+  'This task is scored by independent judges against undisclosed criteria. Do the work to a senior practitioner standard.';
 
 export async function runOpenAITask(task, runId, options) {
   const startedAt = new Date().toISOString();
@@ -90,21 +101,24 @@ async function createResponse(task, prompt, options) {
           max_output_tokens: options.maxOutputTokens,
           text: { format: buildOutputFormat(task) },
         }
+      : provider.api === 'anthropic_messages'
+      ? {
+          model: options.model,
+          max_tokens: options.maxOutputTokens,
+          messages: [{ role: 'user', content: prompt }],
+        }
       : {
           model: options.model,
           messages: [{ role: 'user', content: prompt }],
           response_format: { type: 'json_object' },
-          reasoning: { effort: options.reasoningEffort ?? 'low' },
+          ...chatReasoningFields(provider, options.reasoningEffort ?? 'low'),
           max_tokens: options.maxOutputTokens,
         };
 
   try {
     const response = await fetch(provider.url, {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
+      headers: providerHeaders(provider, apiKey),
       body: JSON.stringify(payload),
       signal: controller.signal,
     });
@@ -115,10 +129,28 @@ async function createResponse(task, prompt, options) {
     }
 
     const parsed = JSON.parse(body);
-    return provider.api === 'responses' ? parsed : normalizeChatResponse(parsed);
+    if (provider.api === 'responses') return parsed;
+    if (provider.api === 'anthropic_messages') return normalizeAnthropicTextResponse(parsed);
+    return normalizeChatResponse(parsed);
   } finally {
     clearTimeout(timeout);
   }
+}
+
+function normalizeAnthropicTextResponse(response) {
+  const content = (response.content ?? [])
+    .filter((block) => block.type === 'text')
+    .map((block) => block.text ?? '')
+    .join('\n');
+  if (!content.trim()) {
+    throw new Error(`anthropic generation returned empty content (stop_reason: ${response.stop_reason ?? 'unknown'})`);
+  }
+  return {
+    status: 'completed',
+    output_text: content,
+    usage: normalizeAnthropicUsage(response.usage ?? {}),
+    costCents: null,
+  };
 }
 
 // Chat-completions response -> the subset of the Responses API shape this
@@ -162,9 +194,7 @@ function buildPrompt(task, minArtifactChars, lastError, attempt) {
       : 'Criterion scores must be numbers from 0 to 1. completeness must be 0 to 1.',
     `artifactMarkdown must contain the complete finished artifact in Markdown, at least ${minArtifactChars} characters.`,
     'notes must be a brief note about scoring only. Do not put the artifact in notes.',
-    hidden
-      ? 'This task is scored by independent judges against undisclosed criteria. Do the work to a senior practitioner standard; verify every number you state.'
-      : '',
+    hidden ? HIDDEN_CRITERIA_GENERATOR_NOTE : '',
     attempt > 1 ? `Previous attempt was rejected: ${lastError}` : '',
     '',
     `Task id: ${task.id}`,

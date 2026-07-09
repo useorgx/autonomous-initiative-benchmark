@@ -148,6 +148,150 @@
           "type": "boolean"
         }
       }
+    },
+    "generator": {
+      "type": "object",
+      "description": "Optional parametric generator metadata. Headline holdout worlds should be generators, not fixed instances.",
+      "required": [
+        "type",
+        "knobs"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "parametric"
+        },
+        "seedHash": {
+          "type": "string",
+          "enum": [
+            "sha256"
+          ]
+        },
+        "difficultyAxis": {
+          "type": "string"
+        },
+        "defaultLevels": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "knobs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "type",
+              "default",
+              "monotonic"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]*$"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "integer",
+                  "number",
+                  "enum",
+                  "boolean"
+                ]
+              },
+              "min": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"
+              },
+              "values": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": [
+                    "string",
+                    "number",
+                    "boolean"
+                  ]
+                }
+              },
+              "default": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean"
+                ]
+              },
+              "monotonic": {
+                "type": "string",
+                "enum": [
+                  "harder_when_increases",
+                  "harder_when_decreases",
+                  "nominal"
+                ]
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "difficultySchedule": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "knobs"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "difficultyScore": {
+                "type": "number",
+                "minimum": 0
+              },
+              "knobs": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": [
+                    "string",
+                    "number",
+                    "boolean"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "worldAnatomy": {
+      "type": "object",
+      "description": "Checklist for headline-capable worlds. Public previews may omit it; private holdout generator worlds should set every field true.",
+      "additionalProperties": false,
+      "properties": {
+        "seededWorkspaceState": { "type": "boolean" },
+        "toolOrApiSurface": { "type": "boolean" },
+        "hiddenEvaluatorState": { "type": "boolean" },
+        "approvalOrPolicyBoundary": { "type": "boolean" },
+        "plausibleTrap": { "type": "boolean" },
+        "sideEffectfulStateMutation": { "type": "boolean" },
+        "nauTriple": { "type": "boolean" },
+        "deterministicValidatorBundle": { "type": "boolean" },
+        "perturbationPass": { "type": "boolean" },
+        "difficultyKnobs": { "type": "boolean" },
+        "graderMutationTest": { "type": "boolean" },
+        "signedReceiptHash": { "type": "boolean" }
+      }
     }
   }
 }

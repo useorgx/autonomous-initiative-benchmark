@@ -1,4 +1,5 @@
 {
+  "contractVersion": "orgx-bench-v1.1",
   "id": "fugu-regime-demo-2026-06-22",
   "date": "2026-06-22",
   "claim": "Selective orchestration (verify-on-the-edge) is more cost-resilient than reflexive/always-on orchestration on tasks a strong base model already saturates.",
@@ -11,6 +12,73 @@
   "tasks": "public_validation_worlds_v2",
   "k": 8,
   "metrics": ["pass_at_k", "pass_pow_k", "quality_per_ktoken", "latency", "provenance_completeness", "recovery_score", "budget_adherence"],
+  "modelManifest": {
+    "id": "models-2026-06-22-public-regime-demo",
+    "createdAt": "2026-06-22T00:00:00.000Z",
+    "models": [
+      {
+        "id": "deepseek/deepseek-v4-flash",
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v4-flash",
+        "pinned": true,
+        "accessDate": "2026-06-22",
+        "capabilityTags": ["text", "tool_use"],
+        "contextWindowTokens": null,
+        "toolUse": true,
+        "vision": null,
+        "pricing": {
+          "inputUsdPerMTok": null,
+          "outputUsdPerMTok": null,
+          "pricingDate": null
+        }
+      },
+      {
+        "id": "fugu",
+        "provider": "fugu",
+        "model": "fugu",
+        "pinned": true,
+        "accessDate": "2026-06-22",
+        "capabilityTags": ["orchestration_regime"],
+        "contextWindowTokens": null,
+        "toolUse": true,
+        "vision": null,
+        "pricing": {
+          "inputUsdPerMTok": null,
+          "outputUsdPerMTok": null,
+          "pricingDate": null
+        }
+      },
+      {
+        "id": "fugu-ultra",
+        "provider": "fugu",
+        "model": "fugu-ultra",
+        "pinned": true,
+        "accessDate": "2026-06-22",
+        "capabilityTags": ["orchestration_regime"],
+        "contextWindowTokens": null,
+        "toolUse": true,
+        "vision": null,
+        "pricing": {
+          "inputUsdPerMTok": null,
+          "outputUsdPerMTok": null,
+          "pricingDate": null
+        }
+      }
+    ]
+  },
+  "lossPolicy": {
+    "publishAllAttempts": true,
+    "singleAgentWinsAreLosses": true,
+    "invalidRunsCountAsLosses": true,
+    "notes": "Any single-frontier quality win, invalid output, timeout, cost loss, or unmeasured attempt remains visible in the public bundle."
+  },
+  "lossRegistry": [
+    { "id": "single_agent_quality_win", "countedAsLoss": true, "publicLabel": "Single-agent quality win" },
+    { "id": "invalid_output", "countedAsLoss": true, "publicLabel": "Invalid output" },
+    { "id": "timeout", "countedAsLoss": true, "publicLabel": "Timeout" },
+    { "id": "cost_loss", "countedAsLoss": true, "publicLabel": "Cost loss" },
+    { "id": "unmeasured", "countedAsLoss": true, "publicLabel": "Unmeasured attempt" }
+  ],
   "headlineEligible": false,
   "notes": "Public/contamination-visible worlds: a mechanism+regime measurement, NOT a private-holdout headline. Cost reported as envelope (billed + orchestration tokens where exposed + latency + quota burn), not a single dollar figure."
 }

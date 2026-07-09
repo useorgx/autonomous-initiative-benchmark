@@ -24,6 +24,19 @@ export const PROVIDERS = {
     url: 'https://api.deepseek.com/chat/completions',
     envKey: 'DEEPSEEK_API_KEY',
   },
+  anthropic: {
+    api: 'anthropic_messages',
+    url: 'https://api.anthropic.com/v1/messages',
+    envKey: 'ANTHROPIC_API_KEY',
+    anthropicVersion: '2023-06-01',
+    modelsApiUrl: 'https://api.anthropic.com/v1/models',
+  },
+  google: {
+    api: 'chat',
+    url: 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions',
+    envKey: 'GEMINI_API_KEY',
+    reasoningParam: 'reasoning_effort',
+  },
   // Sakana Fugu — a learned multi-agent orchestrator behind one
   // OpenAI-compatible endpoint. Verified 2026-06-22 from console.sakana.ai.
   // Run it as a black-box orchestration arm (the 3-arm demo). Note: `fugu`
@@ -56,6 +69,27 @@ export function requireProviderKey(name) {
   return process.env[provider.envKey];
 }
 
+export function providerHeaders(provider, apiKey) {
+  if (provider.api === 'anthropic_messages') {
+    return {
+      'x-api-key': apiKey,
+      'anthropic-version': provider.anthropicVersion,
+      'Content-Type': 'application/json',
+    };
+  }
+  return {
+    Authorization: `Bearer ${apiKey}`,
+    'Content-Type': 'application/json',
+  };
+}
+
+export function chatReasoningFields(provider, effort) {
+  if (provider.reasoningParam === 'reasoning_effort') {
+    return { reasoning_effort: effort };
+  }
+  return { reasoning: { effort } };
+}
+
 // Chat-completions usage shape -> Responses API usage shape so the existing
 // bundle accounting (summarizeUsage) keeps working across providers.
 export function normalizeChatUsage(usage = {}) {
@@ -69,6 +103,20 @@ export function normalizeChatUsage(usage = {}) {
       reasoning_tokens: Number(usage.completion_tokens_details?.reasoning_tokens ?? 0),
     },
     total_tokens: Number(usage.total_tokens ?? 0),
+  };
+}
+
+export function normalizeAnthropicUsage(usage = {}) {
+  return {
+    input_tokens: Number(usage.input_tokens ?? 0),
+    input_tokens_details: {
+      cached_tokens: Number(usage.cache_read_input_tokens ?? 0),
+    },
+    output_tokens: Number(usage.output_tokens ?? 0),
+    output_tokens_details: {
+      reasoning_tokens: 0,
+    },
+    total_tokens: Number(usage.input_tokens ?? 0) + Number(usage.output_tokens ?? 0),
   };
 }
 

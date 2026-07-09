@@ -1,0 +1,49 @@
+{
+  "worldId": "orgx_design_accessibility_gate_preview_001",
+  "run": {
+    "runId": "oracle_design_accessibility_gate_preview_001",
+    "toolCalls": 21,
+    "wallClockMinutes": 45,
+    "toolBudgetExceeded": false
+  },
+  "findings": {
+    "accessibility": {
+      "blocker": "low_contrast_status_tokens",
+      "claimedCompliant": false
+    }
+  },
+  "orgxState": {
+    "tokenReleaseReady": false,
+    "decisions": [
+      "design-accessibility-approval"
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "accessibility-token-audit",
+      "citations": [
+        "token-audit",
+        "wcag-check",
+        "customer-accessibility-report"
+      ]
+    },
+    {
+      "id": "design-release-gate",
+      "citations": [
+        "wcag-check"
+      ]
+    }
+  ],
+  "auditEvents": [
+    {
+      "action": "run_wcag_audit"
+    },
+    {
+      "action": "create_design_accessibility_decision"
+    },
+    {
+      "action": "draft_release_note"
+    }
+  ]
+}
+

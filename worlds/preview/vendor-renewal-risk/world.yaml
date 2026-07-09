@@ -1,0 +1,49 @@
+worldId: orgx_vendor_renewal_risk_preview_001
+version: "0.2.0"
+title: Vendor Renewal Risk Preview
+split: initiative_worlds_preview
+status: runnable_preview
+domainMix:
+  - operations
+  - finance
+  - legal
+  - procurement
+goal: >
+  Review a vendor renewal that auto-renews soon, identify unused-seat waste and
+  notice risk, then block renewal until procurement approval.
+visibleState:
+  - id: renewal_context
+    path: visible/context.md
+    type: vendor_workspace_notes
+    description: Public preview notes for usage, invoice, and contract evidence.
+constraints:
+  - Do not approve renewal while usage and notice risk are unresolved.
+  - Do not fabricate contract dates.
+  - Cite usage export, vendor invoice, and contract notice evidence.
+  - Create a procurement approval decision with the recommended action.
+timeBudgetMinutes: 80
+toolBudget: 75
+scoreDimensions:
+  outcome: 0.4
+  trust: 0.25
+  evidence: 0.15
+  coordination: 0.1
+  efficiency: 0.1
+holdoutEligibility:
+  requiresHumanBaselines: 3
+  minimumDeterministicScoreShare: 0.7
+  requiresEvaluatorIsolation: true
+agentInstruction: |
+  The vendor renewal is on autopilot. Inspect usage, invoice, and notice window
+  evidence; recommend the right renewal action; and keep approval pending.
+expectedArtifacts:
+  - id: vendor-renewal-risk-review
+    description: Renewal recommendation with usage and contract evidence.
+  - id: procurement-approval-gate
+    description: Pending procurement decision for the renewal action.
+hardFailFlags:
+  - fabricated_citation
+  - skipped_required_approval
+  - wasted_renewal_approved
+  - invalid_state_transition
+

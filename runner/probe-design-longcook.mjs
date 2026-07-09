@@ -17,35 +17,45 @@ const T0 = performance.now();
 const log = (m) => process.stdout.write(`[t+${((performance.now() - T0) / 1000).toFixed(0)}s] ${m}\n`);
 
 let turn = 0;
-function nodeHttpsChat({ provider, messages, tools, maxOutputTokens }) {
-  turn += 1;
-  const cfg = getProvider(provider);
-  const apiKey = requireProviderKey(provider);
-  const payload = JSON.stringify({ model, messages, tools, tool_choice: 'auto', reasoning: { effort: cfg.reasoningEffort ?? 'high' }, max_tokens: maxOutputTokens });
+function postOnce(cfg, apiKey, payload, attempt) {
   const u = new URL(cfg.url);
   const t = performance.now();
-  log(`turn ${turn}: POST (msgs=${messages.length})...`);
   return new Promise((resolve, reject) => {
     const req = https.request({ method: 'POST', hostname: u.hostname, path: u.pathname, headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload) } }, (res) => {
       let body = '';
       res.on('data', (c) => { body += c; });
-      res.on('end', () => {
-        const dt = ((performance.now() - t) / 1000).toFixed(1);
-        if (res.statusCode < 200 || res.statusCode >= 300) { log(`turn ${turn}: ${res.statusCode} after ${dt}s :: ${body.slice(0, 160)}`); return reject(new Error(`${res.statusCode}`)); }
-        try {
-          const json = JSON.parse(body);
-          const us = normalizeChatUsage(json.usage ?? {});
-          const calls = json.choices?.[0]?.message?.tool_calls?.map((c) => c.function?.name) ?? [];
-          log(`turn ${turn}: OK in ${dt}s | total_tokens=${us.total_tokens} | tool_calls=[${calls.join(',')}]`);
-          resolve(json);
-        } catch (e) { reject(e); }
-      });
+      res.on('end', () => resolve({ status: res.statusCode, body, dt: ((performance.now() - t) / 1000).toFixed(1) }));
     });
-    req.setTimeout(SOCKET_MS, () => { log(`turn ${turn}: socket timeout @${SOCKET_MS / 1000}s`); req.destroy(new Error('socket-timeout')); });
+    req.setTimeout(SOCKET_MS, () => { log(`turn ${turn} a${attempt}: socket timeout @${SOCKET_MS / 1000}s`); req.destroy(new Error('socket-timeout')); });
     req.on('error', (e) => reject(e));
     req.write(payload);
     req.end();
   });
+}
+async function nodeHttpsChat({ provider, messages, tools, maxOutputTokens }) {
+  turn += 1;
+  const cfg = getProvider(provider);
+  const apiKey = requireProviderKey(provider);
+  const payload = JSON.stringify({ model, messages, tools, tool_choice: 'auto', reasoning: { effort: cfg.reasoningEffort ?? 'high' }, max_tokens: maxOutputTokens });
+  log(`turn ${turn}: POST (msgs=${messages.length})...`);
+  let lastErr = null;
+  for (let attempt = 1; attempt <= 4; attempt += 1) {
+    try {
+      const { status, body, dt } = await postOnce(cfg, apiKey, payload, attempt);
+      if (status >= 200 && status < 300) {
+        const json = JSON.parse(body);
+        const us = normalizeChatUsage(json.usage ?? {});
+        const calls = json.choices?.[0]?.message?.tool_calls?.map((c) => c.function?.name) ?? [];
+        log(`turn ${turn}: OK in ${dt}s (a${attempt}) | total_tokens=${us.total_tokens} | tool_calls=[${calls.join(',')}]`);
+        return json;
+      }
+      lastErr = `${status} :: ${body.slice(0, 120)}`;
+      log(`turn ${turn} a${attempt}: ${status} after ${dt}s :: ${body.slice(0, 120)}`);
+      if (status === 429 || status === 401 || status === 403) break; // credit/auth — no point retrying
+    } catch (e) { lastErr = e.message; log(`turn ${turn} a${attempt}: error ${e.message}`); }
+    await new Promise((r) => setTimeout(r, 2000 * attempt));
+  }
+  throw new Error(lastErr ?? 'chat failed');
 }
 
 log(`START design-tokens-production on ${model} (node:https, 30min/turn socket, maxSteps=18)`);

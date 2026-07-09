@@ -1,0 +1,467 @@
+{
+  "package_version": "sota_outreach_drafts_v1",
+  "source_plan_version": "sota_outreach_plan_v1",
+  "generated_at": "2026-07-09T02:20:00.000Z",
+  "source_plan_generated_at": "2026-07-09T01:40:00.000Z",
+  "send_policy": {
+    "time_zone": "America/Chicago",
+    "allowed_weekdays": [
+      "Tuesday",
+      "Wednesday",
+      "Thursday"
+    ],
+    "local_send_hour_start": 8,
+    "local_send_hour_end": 11,
+    "no_blasts": true,
+    "max_first_wave_targets": 8,
+    "max_per_send_window": 4,
+    "send_spacing_minutes": 30,
+    "follow_up_business_days": [
+      3,
+      7
+    ]
+  },
+  "summary": {
+    "drafts": 8,
+    "send_ready": 5,
+    "dispatch_ready_now": 0,
+    "blocked": 3,
+    "recipient_facing_actions": 8,
+    "next_recipient_action_at": "2026-07-09T13:00:00.000Z",
+    "by_lane": {
+      "methodology_advisor": 3,
+      "paid_practitioner_baseline": 2,
+      "replication_partner": 2,
+      "stranger_reproduction_reviewer": 1
+    }
+  },
+  "action_queue": [
+    {
+      "action_id": "baseline-paid-revops-finance-pool__post_paid_baseline_recruiting_task",
+      "draft_id": "baseline-paid-revops-finance-pool__paid-practitioner-baseline-short",
+      "target_id": "baseline-paid-revops-finance-pool",
+      "lane": "paid_practitioner_baseline",
+      "priority": "P0",
+      "action_type": "post_paid_baseline_recruiting_task",
+      "recipient_facing": true,
+      "dispatch_ready_now": false,
+      "contact_method": "marketplace",
+      "contact_value": "Respondent, User Interviews, Prolific, or CloudResearch Connect",
+      "blocked": false,
+      "block_reasons": [],
+      "execution_notes": [
+        "Create or post a paid recruiting task through the chosen practitioner pool; this is not a direct-recipient email."
+      ],
+      "recommended_at": "2026-07-09T13:00:00.000Z",
+      "timing_note": "Recipient-facing action is scheduled inside the planned high-response window."
+    },
+    {
+      "action_id": "baseline-paid-sre-incident-pool__post_paid_baseline_recruiting_task",
+      "draft_id": "baseline-paid-sre-incident-pool__paid-practitioner-baseline-short",
+      "target_id": "baseline-paid-sre-incident-pool",
+      "lane": "paid_practitioner_baseline",
+      "priority": "P0",
+      "action_type": "post_paid_baseline_recruiting_task",
+      "recipient_facing": true,
+      "dispatch_ready_now": false,
+      "contact_method": "marketplace",
+      "contact_value": "Respondent, User Interviews, Prolific, or CloudResearch Connect",
+      "blocked": false,
+      "block_reasons": [],
+      "execution_notes": [
+        "Create or post a paid recruiting task through the chosen practitioner pool; this is not a direct-recipient email."
+      ],
+      "recommended_at": "2026-07-09T13:30:00.000Z",
+      "timing_note": "Recipient-facing action is scheduled inside the planned high-response window."
+    },
+    {
+      "action_id": "methodology-metr__send_email",
+      "draft_id": "methodology-metr__methodology-review-short",
+      "target_id": "methodology-metr",
+      "lane": "methodology_advisor",
+      "priority": "P0",
+      "action_type": "send_email",
+      "recipient_facing": true,
+      "dispatch_ready_now": false,
+      "contact_method": "public_email",
+      "contact_value": "info@metr.org",
+      "blocked": false,
+      "block_reasons": [],
+      "execution_notes": [],
+      "recommended_at": "2026-07-09T14:00:00.000Z",
+      "timing_note": "Recipient-facing action is scheduled inside the planned high-response window."
+    },
+    {
+      "action_id": "methodology-epoch-frontiermath__send_email",
+      "draft_id": "methodology-epoch-frontiermath__methodology-review-short",
+      "target_id": "methodology-epoch-frontiermath",
+      "lane": "methodology_advisor",
+      "priority": "P1",
+      "action_type": "send_email",
+      "recipient_facing": true,
+      "dispatch_ready_now": false,
+      "contact_method": "public_email",
+      "contact_value": "info@epoch.ai",
+      "blocked": false,
+      "block_reasons": [],
+      "execution_notes": [],
+      "recommended_at": "2026-07-09T14:30:00.000Z",
+      "timing_note": "Recipient-facing action is scheduled inside the planned high-response window."
+    },
+    {
+      "action_id": "methodology-swe-bench-authors__send_email",
+      "draft_id": "methodology-swe-bench-authors__methodology-review-short",
+      "target_id": "methodology-swe-bench-authors",
+      "lane": "methodology_advisor",
+      "priority": "P0",
+      "action_type": "send_email",
+      "recipient_facing": true,
+      "dispatch_ready_now": false,
+      "contact_method": "public_email",
+      "contact_value": "carlosej@cs.princeton.edu, johnby@stanford.edu",
+      "blocked": false,
+      "block_reasons": [],
+      "execution_notes": [],
+      "recommended_at": "2026-07-14T13:00:00.000Z",
+      "timing_note": "Recipient-facing action is scheduled inside the planned high-response window."
+    },
+    {
+      "action_id": "replication-tau-bench-authors__send_email",
+      "draft_id": "replication-tau-bench-authors__replication-partner-short",
+      "target_id": "replication-tau-bench-authors",
+      "lane": "replication_partner",
+      "priority": "P0",
+      "action_type": "send_email",
+      "recipient_facing": true,
+      "dispatch_ready_now": false,
+      "contact_method": "public_email",
+      "contact_value": "research@sierra.ai",
+      "blocked": false,
+      "block_reasons": [],
+      "execution_notes": [],
+      "recommended_at": "2026-07-14T13:30:00.000Z",
+      "timing_note": "Recipient-facing action is scheduled inside the planned high-response window."
+    },
+    {
+      "action_id": "replication-webarena-agentcompany__send_email",
+      "draft_id": "replication-webarena-agentcompany__replication-partner-short",
+      "target_id": "replication-webarena-agentcompany",
+      "lane": "replication_partner",
+      "priority": "P0",
+      "action_type": "send_email",
+      "recipient_facing": true,
+      "dispatch_ready_now": false,
+      "contact_method": "public_email",
+      "contact_value": "fangzhex@cs.cmu.edu, yufans@alumni.cmu.edu, boxuanli@alumni.cmu.edu",
+      "blocked": false,
+      "block_reasons": [],
+      "execution_notes": [],
+      "recommended_at": "2026-07-14T14:00:00.000Z",
+      "timing_note": "Recipient-facing action is scheduled inside the planned high-response window."
+    },
+    {
+      "action_id": "reproduction-independent-engineer__request_warm_intro",
+      "draft_id": "reproduction-independent-engineer__stranger-reproduction-short",
+      "target_id": "reproduction-independent-engineer",
+      "lane": "stranger_reproduction_reviewer",
+      "priority": "P0",
+      "action_type": "request_warm_intro",
+      "recipient_facing": true,
+      "dispatch_ready_now": false,
+      "contact_method": "warm_intro_needed",
+      "contact_value": null,
+      "blocked": false,
+      "block_reasons": [],
+      "execution_notes": [
+        "Ask a trusted introducer first; send direct copy only after the target opts into the thread."
+      ],
+      "recommended_at": "2026-07-14T14:30:00.000Z",
+      "timing_note": "Recipient-facing action is scheduled inside the planned high-response window."
+    }
+  ],
+  "drafts": [
+    {
+      "draft_id": "methodology-metr__methodology-review-short",
+      "target_id": "methodology-metr",
+      "template_id": "methodology-review-short",
+      "lane": "methodology_advisor",
+      "status": "drafted",
+      "priority": "P0",
+      "organization": "METR",
+      "name": null,
+      "contact_method": "public_email",
+      "contact_value": "info@metr.org",
+      "planned_send_window": {
+        "start": "2026-07-09T13:00:00.000Z",
+        "end": "2026-07-09T16:00:00.000Z"
+      },
+      "evidence_gaps": [
+        "timed-human-baselines",
+        "frontier-headline-release"
+      ],
+      "ask": "30-minute human-baseline and time-horizon methodology critique.",
+      "send_ready": true,
+      "dispatch_ready_now": false,
+      "block_reasons": [],
+      "action_type": "send_email",
+      "timing": {
+        "evaluated_at": "2026-07-09T02:20:00.000Z",
+        "allowed_now": false,
+        "planned_window_status": "future",
+        "planned_window_start": "2026-07-09T13:00:00.000Z",
+        "planned_window_end": "2026-07-09T16:00:00.000Z"
+      },
+      "subject": "Protocol review request for an agent benchmark",
+      "body": "Hi METR team,\n\nI am building OrgX-Bench, a benchmark for autonomous initiative work: long-horizon, tool-using workplace tasks with hidden validators, loss accounting, human baselines, and outside reproduction.\n\nI am reaching out because METR's time-horizon work is one of the references shaping our protocol. The ask is a focused 30-minute critique of the human-baseline and release-gate design before we publish any headline claims.\n\nWe already have strict validators for model/run manifests, private holdout commitments, human-baseline coverage, third-party replication evidence, and public reproduction receipts. I want the protocol to be hard to dismiss before the frontier sweep runs.\n\nWould you be open to reviewing the protocol or pointing me to the right person for critique?",
+      "markdown": "# methodology-metr\n\nLane: methodology_advisor\nStatus: drafted\nPriority: P0\nContact: public_email: info@metr.org\nSend Ready: yes\nDispatch Ready Now: no\nAction Type: send_email\nPlanned Window: future\nBlock Reasons: none\nEvidence Gaps: timed-human-baselines, frontier-headline-release\nAsk: 30-minute human-baseline and time-horizon methodology critique.\nRationale: METR is the strongest methodological reference for human-expert task duration, reliability curves, and time-horizon framing.\n\nSubject: Protocol review request for an agent benchmark\n\nHi METR team,\n\nI am building OrgX-Bench, a benchmark for autonomous initiative work: long-horizon, tool-using workplace tasks with hidden validators, loss accounting, human baselines, and outside reproduction.\n\nI am reaching out because METR's time-horizon work is one of the references shaping our protocol. The ask is a focused 30-minute critique of the human-baseline and release-gate design before we publish any headline claims.\n\nWe already have strict validators for model/run manifests, private holdout commitments, human-baseline coverage, third-party replication evidence, and public reproduction receipts. I want the protocol to be hard to dismiss before the frontier sweep runs.\n\nWould you be open to reviewing the protocol or pointing me to the right person for critique?\n"
+    },
+    {
+      "draft_id": "methodology-swe-bench-authors__methodology-review-short",
+      "target_id": "methodology-swe-bench-authors",
+      "template_id": "methodology-review-short",
+      "lane": "methodology_advisor",
+      "status": "drafted",
+      "priority": "P0",
+      "organization": "SWE-bench authors / Verified collaborators",
+      "name": "SWE-bench team",
+      "contact_method": "public_email",
+      "contact_value": "carlosej@cs.princeton.edu, johnby@stanford.edu",
+      "planned_send_window": {
+        "start": "2026-07-14T13:00:00.000Z",
+        "end": "2026-07-14T16:00:00.000Z"
+      },
+      "evidence_gaps": [
+        "timed-human-baselines",
+        "strict-headline-bundle"
+      ],
+      "ask": "Protocol critique on human screening and invalid-task exclusion policy.",
+      "send_ready": true,
+      "dispatch_ready_now": false,
+      "block_reasons": [],
+      "action_type": "send_email",
+      "timing": {
+        "evaluated_at": "2026-07-09T02:20:00.000Z",
+        "allowed_now": false,
+        "planned_window_status": "future",
+        "planned_window_start": "2026-07-14T13:00:00.000Z",
+        "planned_window_end": "2026-07-14T16:00:00.000Z"
+      },
+      "subject": "Protocol review request for an agent benchmark",
+      "body": "Hi SWE-bench team,\n\nI am building OrgX-Bench, a benchmark for autonomous initiative work: long-horizon, tool-using workplace tasks with hidden validators, loss accounting, human baselines, and outside reproduction.\n\nI am reaching out because SWE-bench Verified is one of the references shaping our protocol. The ask is a focused 30-minute critique of the human-baseline and release-gate design before we publish any headline claims.\n\nWe already have strict validators for model/run manifests, private holdout commitments, human-baseline coverage, third-party replication evidence, and public reproduction receipts. I want the protocol to be hard to dismiss before the frontier sweep runs.\n\nWould you be open to reviewing the protocol or pointing me to the right person for critique?",
+      "markdown": "# methodology-swe-bench-authors\n\nLane: methodology_advisor\nStatus: drafted\nPriority: P0\nContact: public_email: carlosej@cs.princeton.edu, johnby@stanford.edu\nSend Ready: yes\nDispatch Ready Now: no\nAction Type: send_email\nPlanned Window: future\nBlock Reasons: none\nEvidence Gaps: timed-human-baselines, strict-headline-bundle\nAsk: Protocol critique on human screening and invalid-task exclusion policy.\nRationale: SWE-bench Verified is the relevant precedent for human screening, underspecification filtering, and task-validity annotation.\n\nSubject: Protocol review request for an agent benchmark\n\nHi SWE-bench team,\n\nI am building OrgX-Bench, a benchmark for autonomous initiative work: long-horizon, tool-using workplace tasks with hidden validators, loss accounting, human baselines, and outside reproduction.\n\nI am reaching out because SWE-bench Verified is one of the references shaping our protocol. The ask is a focused 30-minute critique of the human-baseline and release-gate design before we publish any headline claims.\n\nWe already have strict validators for model/run manifests, private holdout commitments, human-baseline coverage, third-party replication evidence, and public reproduction receipts. I want the protocol to be hard to dismiss before the frontier sweep runs.\n\nWould you be open to reviewing the protocol or pointing me to the right person for critique?\n"
+    },
+    {
+      "draft_id": "replication-tau-bench-authors__replication-partner-short",
+      "target_id": "replication-tau-bench-authors",
+      "template_id": "replication-partner-short",
+      "lane": "replication_partner",
+      "status": "drafted",
+      "priority": "P0",
+      "organization": "tau-bench authors / Sierra Research",
+      "name": "Sierra Research team",
+      "contact_method": "public_email",
+      "contact_value": "research@sierra.ai",
+      "planned_send_window": {
+        "start": "2026-07-14T13:00:00.000Z",
+        "end": "2026-07-14T16:00:00.000Z"
+      },
+      "evidence_gaps": [
+        "third-party-replication",
+        "strict-headline-bundle"
+      ],
+      "ask": "Small independent sealed-world replication attempt or referral to the right evaluator.",
+      "send_ready": true,
+      "dispatch_ready_now": false,
+      "block_reasons": [],
+      "action_type": "send_email",
+      "timing": {
+        "evaluated_at": "2026-07-09T02:20:00.000Z",
+        "allowed_now": false,
+        "planned_window_status": "future",
+        "planned_window_start": "2026-07-14T13:00:00.000Z",
+        "planned_window_end": "2026-07-14T16:00:00.000Z"
+      },
+      "subject": "Independent replication request for an agent benchmark",
+      "body": "Hi Sierra Research team,\n\nI am preparing an external validation pass for OrgX-Bench, a benchmark for autonomous initiative work with sealed holdout validators and strict loss accounting.\n\nThe ask is not endorsement. It is an independent replication attempt on two sealed holdout worlds through the submission API, with a signed result or a published discrepancy log.\n\nThe goal is to make the release checkable by someone outside OrgX before any headline claims are made.\n\nWould your team be open to a small replication run, or is there someone you would recommend for this?",
+      "markdown": "# replication-tau-bench-authors\n\nLane: replication_partner\nStatus: drafted\nPriority: P0\nContact: public_email: research@sierra.ai\nSend Ready: yes\nDispatch Ready Now: no\nAction Type: send_email\nPlanned Window: future\nBlock Reasons: none\nEvidence Gaps: third-party-replication, strict-headline-bundle\nAsk: Small independent sealed-world replication attempt or referral to the right evaluator.\nRationale: tau-bench is directly relevant to stateful tool-agent-user interaction, final-state grading, and pass^k reliability.\n\nSubject: Independent replication request for an agent benchmark\n\nHi Sierra Research team,\n\nI am preparing an external validation pass for OrgX-Bench, a benchmark for autonomous initiative work with sealed holdout validators and strict loss accounting.\n\nThe ask is not endorsement. It is an independent replication attempt on two sealed holdout worlds through the submission API, with a signed result or a published discrepancy log.\n\nThe goal is to make the release checkable by someone outside OrgX before any headline claims are made.\n\nWould your team be open to a small replication run, or is there someone you would recommend for this?\n"
+    },
+    {
+      "draft_id": "replication-webarena-agentcompany__replication-partner-short",
+      "target_id": "replication-webarena-agentcompany",
+      "template_id": "replication-partner-short",
+      "lane": "replication_partner",
+      "status": "drafted",
+      "priority": "P0",
+      "organization": "WebArena / TheAgentCompany authors",
+      "name": "TheAgentCompany team",
+      "contact_method": "public_email",
+      "contact_value": "fangzhex@cs.cmu.edu, yufans@alumni.cmu.edu, boxuanli@alumni.cmu.edu",
+      "planned_send_window": {
+        "start": "2026-07-14T13:00:00.000Z",
+        "end": "2026-07-14T16:00:00.000Z"
+      },
+      "evidence_gaps": [
+        "third-party-replication",
+        "stranger-reproduction"
+      ],
+      "ask": "Replication or reproduction review, or critique of the sealed-world environment design.",
+      "send_ready": true,
+      "dispatch_ready_now": false,
+      "block_reasons": [],
+      "action_type": "send_email",
+      "timing": {
+        "evaluated_at": "2026-07-09T02:20:00.000Z",
+        "allowed_now": false,
+        "planned_window_status": "future",
+        "planned_window_start": "2026-07-14T13:00:00.000Z",
+        "planned_window_end": "2026-07-14T16:00:00.000Z"
+      },
+      "subject": "Independent replication request for an agent benchmark",
+      "body": "Hi TheAgentCompany team,\n\nI am preparing an external validation pass for OrgX-Bench, a benchmark for autonomous initiative work with sealed holdout validators and strict loss accounting.\n\nThe ask is not endorsement. It is an independent replication attempt on two sealed holdout worlds through the submission API, with a signed result or a published discrepancy log.\n\nThe goal is to make the release checkable by someone outside OrgX before any headline claims are made.\n\nWould your team be open to a small replication run, or is there someone you would recommend for this?",
+      "markdown": "# replication-webarena-agentcompany\n\nLane: replication_partner\nStatus: drafted\nPriority: P0\nContact: public_email: fangzhex@cs.cmu.edu, yufans@alumni.cmu.edu, boxuanli@alumni.cmu.edu\nSend Ready: yes\nDispatch Ready Now: no\nAction Type: send_email\nPlanned Window: future\nBlock Reasons: none\nEvidence Gaps: third-party-replication, stranger-reproduction\nAsk: Replication or reproduction review, or critique of the sealed-world environment design.\nRationale: WebArena and TheAgentCompany are the closest public precedents for self-contained realistic web/workplace agent environments.\n\nSubject: Independent replication request for an agent benchmark\n\nHi TheAgentCompany team,\n\nI am preparing an external validation pass for OrgX-Bench, a benchmark for autonomous initiative work with sealed holdout validators and strict loss accounting.\n\nThe ask is not endorsement. It is an independent replication attempt on two sealed holdout worlds through the submission API, with a signed result or a published discrepancy log.\n\nThe goal is to make the release checkable by someone outside OrgX before any headline claims are made.\n\nWould your team be open to a small replication run, or is there someone you would recommend for this?\n"
+    },
+    {
+      "draft_id": "methodology-epoch-frontiermath__methodology-review-short",
+      "target_id": "methodology-epoch-frontiermath",
+      "template_id": "methodology-review-short",
+      "lane": "methodology_advisor",
+      "status": "drafted",
+      "priority": "P1",
+      "organization": "Epoch AI / FrontierMath",
+      "name": null,
+      "contact_method": "public_email",
+      "contact_value": "info@epoch.ai",
+      "planned_send_window": {
+        "start": "2026-07-09T13:00:00.000Z",
+        "end": "2026-07-09T16:00:00.000Z"
+      },
+      "evidence_gaps": [
+        "third-party-replication",
+        "strict-headline-bundle"
+      ],
+      "ask": "Advice on expert-authored private holdouts and third-party review workflow.",
+      "send_ready": true,
+      "dispatch_ready_now": false,
+      "block_reasons": [],
+      "action_type": "send_email",
+      "timing": {
+        "evaluated_at": "2026-07-09T02:20:00.000Z",
+        "allowed_now": false,
+        "planned_window_status": "future",
+        "planned_window_start": "2026-07-09T13:00:00.000Z",
+        "planned_window_end": "2026-07-09T16:00:00.000Z"
+      },
+      "subject": "Protocol review request for an agent benchmark",
+      "body": "Hi Epoch AI / FrontierMath team,\n\nI am building OrgX-Bench, a benchmark for autonomous initiative work: long-horizon, tool-using workplace tasks with hidden validators, loss accounting, human baselines, and outside reproduction.\n\nI am reaching out because FrontierMath is one of the references shaping our protocol. The ask is a focused 30-minute critique of the human-baseline and release-gate design before we publish any headline claims.\n\nWe already have strict validators for model/run manifests, private holdout commitments, human-baseline coverage, third-party replication evidence, and public reproduction receipts. I want the protocol to be hard to dismiss before the frontier sweep runs.\n\nWould you be open to reviewing the protocol or pointing me to the right person for critique?",
+      "markdown": "# methodology-epoch-frontiermath\n\nLane: methodology_advisor\nStatus: drafted\nPriority: P1\nContact: public_email: info@epoch.ai\nSend Ready: yes\nDispatch Ready Now: no\nAction Type: send_email\nPlanned Window: future\nBlock Reasons: none\nEvidence Gaps: third-party-replication, strict-headline-bundle\nAsk: Advice on expert-authored private holdouts and third-party review workflow.\nRationale: FrontierMath is a strong precedent for unpublished expert-authored problems and expert review workflows.\n\nSubject: Protocol review request for an agent benchmark\n\nHi Epoch AI / FrontierMath team,\n\nI am building OrgX-Bench, a benchmark for autonomous initiative work: long-horizon, tool-using workplace tasks with hidden validators, loss accounting, human baselines, and outside reproduction.\n\nI am reaching out because FrontierMath is one of the references shaping our protocol. The ask is a focused 30-minute critique of the human-baseline and release-gate design before we publish any headline claims.\n\nWe already have strict validators for model/run manifests, private holdout commitments, human-baseline coverage, third-party replication evidence, and public reproduction receipts. I want the protocol to be hard to dismiss before the frontier sweep runs.\n\nWould you be open to reviewing the protocol or pointing me to the right person for critique?\n"
+    },
+    {
+      "draft_id": "baseline-paid-sre-incident-pool__paid-practitioner-baseline-short",
+      "target_id": "baseline-paid-sre-incident-pool",
+      "template_id": "paid-practitioner-baseline-short",
+      "lane": "paid_practitioner_baseline",
+      "status": "drafted",
+      "priority": "P0",
+      "organization": "Paid SRE / incident response practitioner pool",
+      "name": null,
+      "contact_method": "marketplace",
+      "contact_value": "Respondent, User Interviews, Prolific, or CloudResearch Connect",
+      "planned_send_window": {
+        "start": "2026-07-09T13:00:00.000Z",
+        "end": "2026-07-09T16:00:00.000Z"
+      },
+      "evidence_gaps": [
+        "timed-human-baselines"
+      ],
+      "ask": "Recruit at least six paid operators covering incident_response, resilience_ops, deploy_governance, and support_sla.",
+      "send_ready": false,
+      "dispatch_ready_now": false,
+      "block_reasons": [
+        "target is a pool/marketplace listing, not a direct recipient."
+      ],
+      "action_type": "post_paid_baseline_recruiting_task",
+      "timing": {
+        "evaluated_at": "2026-07-09T02:20:00.000Z",
+        "allowed_now": false,
+        "planned_window_status": "future",
+        "planned_window_start": "2026-07-09T13:00:00.000Z",
+        "planned_window_end": "2026-07-09T16:00:00.000Z"
+      },
+      "subject": "Paid timed expert session for an agent benchmark",
+      "body": "Hi there,\n\nI am recruiting paid domain practitioners for timed baseline sessions in OrgX-Bench, a benchmark for autonomous initiative work.\n\nThe ask is a 45-90 minute timed task using provided instructions and allowed tools only. You would produce the work artifact, record timing, and consent to hashed non-identifying aggregate reporting. You will not see private validators or answers.\n\nThis is not a marketing quote. It is baseline data so model results are compared against real human work.\n\nWould you be open to participating or referring a qualified incident response, resilience ops, deploy governance, and support sla operator?",
+      "markdown": "# baseline-paid-sre-incident-pool\n\nLane: paid_practitioner_baseline\nStatus: drafted\nPriority: P0\nContact: marketplace: Respondent, User Interviews, Prolific, or CloudResearch Connect\nSend Ready: no\nDispatch Ready Now: no\nAction Type: post_paid_baseline_recruiting_task\nPlanned Window: future\nBlock Reasons: target is a pool/marketplace listing, not a direct recipient.\nEvidence Gaps: timed-human-baselines\nAsk: Recruit at least six paid operators covering incident_response, resilience_ops, deploy_governance, and support_sla.\nRationale: Incident, resilience, deploy governance, and support-SLA worlds require real operator baselines more than academic review.\n\nSubject: Paid timed expert session for an agent benchmark\n\nHi there,\n\nI am recruiting paid domain practitioners for timed baseline sessions in OrgX-Bench, a benchmark for autonomous initiative work.\n\nThe ask is a 45-90 minute timed task using provided instructions and allowed tools only. You would produce the work artifact, record timing, and consent to hashed non-identifying aggregate reporting. You will not see private validators or answers.\n\nThis is not a marketing quote. It is baseline data so model results are compared against real human work.\n\nWould you be open to participating or referring a qualified incident response, resilience ops, deploy governance, and support sla operator?\n"
+    },
+    {
+      "draft_id": "baseline-paid-revops-finance-pool__paid-practitioner-baseline-short",
+      "target_id": "baseline-paid-revops-finance-pool",
+      "template_id": "paid-practitioner-baseline-short",
+      "lane": "paid_practitioner_baseline",
+      "status": "drafted",
+      "priority": "P0",
+      "organization": "Paid RevOps / finance practitioner pool",
+      "name": null,
+      "contact_method": "marketplace",
+      "contact_value": "Respondent, User Interviews, Prolific, or CloudResearch Connect",
+      "planned_send_window": {
+        "start": "2026-07-09T13:00:00.000Z",
+        "end": "2026-07-09T16:00:00.000Z"
+      },
+      "evidence_gaps": [
+        "timed-human-baselines"
+      ],
+      "ask": "Recruit at least six paid operators covering revenue_reconciliation, finance_planning, finance_reconciliation, ledger_integrity, sales_policy, and vendor_renewal.",
+      "send_ready": false,
+      "dispatch_ready_now": false,
+      "block_reasons": [
+        "target is a pool/marketplace listing, not a direct recipient."
+      ],
+      "action_type": "post_paid_baseline_recruiting_task",
+      "timing": {
+        "evaluated_at": "2026-07-09T02:20:00.000Z",
+        "allowed_now": false,
+        "planned_window_status": "future",
+        "planned_window_start": "2026-07-09T13:00:00.000Z",
+        "planned_window_end": "2026-07-09T16:00:00.000Z"
+      },
+      "subject": "Paid timed expert session for an agent benchmark",
+      "body": "Hi there,\n\nI am recruiting paid domain practitioners for timed baseline sessions in OrgX-Bench, a benchmark for autonomous initiative work.\n\nThe ask is a 45-90 minute timed task using provided instructions and allowed tools only. You would produce the work artifact, record timing, and consent to hashed non-identifying aggregate reporting. You will not see private validators or answers.\n\nThis is not a marketing quote. It is baseline data so model results are compared against real human work.\n\nWould you be open to participating or referring a qualified revenue reconciliation, finance planning, finance reconciliation, ledger integrity, sales policy, and vendor renewal operator?",
+      "markdown": "# baseline-paid-revops-finance-pool\n\nLane: paid_practitioner_baseline\nStatus: drafted\nPriority: P0\nContact: marketplace: Respondent, User Interviews, Prolific, or CloudResearch Connect\nSend Ready: no\nDispatch Ready Now: no\nAction Type: post_paid_baseline_recruiting_task\nPlanned Window: future\nBlock Reasons: target is a pool/marketplace listing, not a direct recipient.\nEvidence Gaps: timed-human-baselines\nAsk: Recruit at least six paid operators covering revenue_reconciliation, finance_planning, finance_reconciliation, ledger_integrity, sales_policy, and vendor_renewal.\nRationale: Revenue reconciliation, finance planning, ledger integrity, sales-policy, and vendor-renewal worlds need practitioner baselines.\n\nSubject: Paid timed expert session for an agent benchmark\n\nHi there,\n\nI am recruiting paid domain practitioners for timed baseline sessions in OrgX-Bench, a benchmark for autonomous initiative work.\n\nThe ask is a 45-90 minute timed task using provided instructions and allowed tools only. You would produce the work artifact, record timing, and consent to hashed non-identifying aggregate reporting. You will not see private validators or answers.\n\nThis is not a marketing quote. It is baseline data so model results are compared against real human work.\n\nWould you be open to participating or referring a qualified revenue reconciliation, finance planning, finance reconciliation, ledger integrity, sales policy, and vendor renewal operator?\n"
+    },
+    {
+      "draft_id": "reproduction-independent-engineer__stranger-reproduction-short",
+      "target_id": "reproduction-independent-engineer",
+      "template_id": "stranger-reproduction-short",
+      "lane": "stranger_reproduction_reviewer",
+      "status": "drafted",
+      "priority": "P0",
+      "organization": "Independent reproducibility-minded engineer",
+      "name": null,
+      "contact_method": "warm_intro_needed",
+      "contact_value": null,
+      "planned_send_window": {
+        "start": "2026-07-14T13:00:00.000Z",
+        "end": "2026-07-14T16:00:00.000Z"
+      },
+      "evidence_gaps": [
+        "stranger-reproduction"
+      ],
+      "ask": "Fixed-fee public repo reproduction once a release candidate exists.",
+      "send_ready": false,
+      "dispatch_ready_now": false,
+      "block_reasons": [
+        "target needs a warm intro before direct outreach."
+      ],
+      "action_type": "request_warm_intro",
+      "timing": {
+        "evaluated_at": "2026-07-09T02:20:00.000Z",
+        "allowed_now": false,
+        "planned_window_status": "future",
+        "planned_window_start": "2026-07-14T13:00:00.000Z",
+        "planned_window_end": "2026-07-14T16:00:00.000Z"
+      },
+      "subject": "Outside reproduction request for a benchmark release",
+      "body": "Hi there,\n\nI am looking for an outside reviewer to reproduce a public benchmark release from files only.\n\nThe ask is to pull the public repo, run the documented reproduction command, record input hashes, command output, result hash, deviations, and whether the public headline numbers match to the digit.\n\nThis is a reproducibility check, not an endorsement.\n\nWould you be open to doing this for a fixed review fee once the release candidate is ready?",
+      "markdown": "# reproduction-independent-engineer\n\nLane: stranger_reproduction_reviewer\nStatus: drafted\nPriority: P0\nContact: warm_intro_needed\nSend Ready: no\nDispatch Ready Now: no\nAction Type: request_warm_intro\nPlanned Window: future\nBlock Reasons: target needs a warm intro before direct outreach.\nEvidence Gaps: stranger-reproduction\nAsk: Fixed-fee public repo reproduction once a release candidate exists.\nRationale: The public release needs a non-OrgX reviewer who can run the reproduction command and sign the receipt without being involved in benchmark construction.\n\nSubject: Outside reproduction request for a benchmark release\n\nHi there,\n\nI am looking for an outside reviewer to reproduce a public benchmark release from files only.\n\nThe ask is to pull the public repo, run the documented reproduction command, record input hashes, command output, result hash, deviations, and whether the public headline numbers match to the digit.\n\nThis is a reproducibility check, not an endorsement.\n\nWould you be open to doing this for a fixed review fee once the release candidate is ready?\n"
+    }
+  ]
+}

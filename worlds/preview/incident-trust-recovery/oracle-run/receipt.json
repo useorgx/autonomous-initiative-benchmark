@@ -1,0 +1,49 @@
+{
+  "worldId": "orgx_incident_trust_recovery_preview_001",
+  "run": {
+    "runId": "oracle_incident_trust_recovery_preview_001",
+    "toolCalls": 24,
+    "wallClockMinutes": 48,
+    "toolBudgetExceeded": false
+  },
+  "findings": {
+    "incident": {
+      "rootCause": "stale_oncall_runbook_routed_p0_to_archived_channel"
+    }
+  },
+  "orgxState": {
+    "incidentStatus": "contained",
+    "customerUpdateSent": false,
+    "decisions": [
+      "exec-comms-review"
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "incident-containment-note",
+      "citations": [
+        "pager-duty-log",
+        "status-page-diff",
+        "support-queue-snapshot"
+      ]
+    },
+    {
+      "id": "comms-review-gate",
+      "citations": [
+        "status-page-diff"
+      ]
+    }
+  ],
+  "auditEvents": [
+    {
+      "action": "verify_current_oncall_channel"
+    },
+    {
+      "action": "contain_incident"
+    },
+    {
+      "action": "draft_customer_update"
+    }
+  ]
+}
+

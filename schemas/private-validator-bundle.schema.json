@@ -62,7 +62,22 @@
               "json_path_includes",
               "citation_resolver",
               "event_order",
-              "file_exists"
+              "file_exists",
+              "artifact_parse",
+              "artifact_render",
+              "artifact_execute",
+              "schema_validate",
+              "claim_entailment",
+              "calculation_replay",
+              "simulation_outcome",
+              "downstream_task",
+              "blind_acceptance_review",
+              "perturbation_test",
+              "delayed_state_check",
+              "approval_order",
+              "receipt_replay",
+              "budget_adherence",
+              "forbidden_action"
             ]
           },
           "dimension": {
@@ -86,6 +101,89 @@
             "type": "boolean"
           },
           "hardFailFlag": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string",
+            "description": "Dot path into the receipt for scalar, artifact, event, budget, and state validators."
+          },
+          "expected": {
+            "description": "Expected scalar/object value for path-based validators."
+          },
+          "min": {
+            "type": "number",
+            "description": "Minimum numeric value for outcome, review, and perturbation validators."
+          },
+          "max": {
+            "type": "number",
+            "description": "Maximum numeric value for budget and scalar validators."
+          },
+          "format": {
+            "type": "string",
+            "enum": ["json", "text"]
+          },
+          "requiredFields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "requiredSubstrings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "schema": {
+            "type": "object",
+            "description": "Small JSON-schema subset used by schema_validate."
+          },
+          "claimsPath": {
+            "type": "string"
+          },
+          "textPath": {
+            "type": "string"
+          },
+          "supportedValuesPath": {
+            "type": "string"
+          },
+          "supportedValues": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "tolerance": {
+            "type": "number"
+          },
+          "ignore": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "minScore": {
+            "type": "number"
+          },
+          "before": {
+            "type": "string"
+          },
+          "after": {
+            "type": "string"
+          },
+          "forbiddenActions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "action": {
+            "type": "string"
+          },
+          "usedPath": {
+            "type": "string"
+          },
+          "limitPath": {
             "type": "string"
           }
         }

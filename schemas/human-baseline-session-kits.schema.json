@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/human-baseline-session-kits.schema.json",
+  "title": "OrgX-Bench Human Baseline Session Kits",
+  "description": "Participant-facing Markdown kit manifest for timed expert baseline sessions. Kits contain consent, timing, and receipt instructions, not private validators or answers.",
+  "type": "object",
+  "required": [
+    "kit_version",
+    "source_packet_version",
+    "protocol_version",
+    "release_id",
+    "generated_at",
+    "source_packet_generated_at",
+    "output_dir",
+    "summary",
+    "kits"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "kit_version": {
+      "type": "string",
+      "const": "human_baseline_session_kits_v1"
+    },
+    "source_packet_version": {
+      "type": "string",
+      "const": "human_baseline_session_packets_v1"
+    },
+    "protocol_version": {
+      "type": "string",
+      "const": "timed_expert_baseline_v2"
+    },
+    "release_id": { "type": ["string", "null"] },
+    "generated_at": { "type": "string" },
+    "source_packet_generated_at": { "type": "string" },
+    "output_dir": { "type": "string" },
+    "summary": {
+      "type": "object",
+      "required": [
+        "kits",
+        "assigned_kits",
+        "unassigned_kits",
+        "completed_kits",
+        "private_validator_access_count"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kits": { "type": "integer", "minimum": 0 },
+        "assigned_kits": { "type": "integer", "minimum": 0 },
+        "unassigned_kits": { "type": "integer", "minimum": 0 },
+        "completed_kits": { "type": "integer", "minimum": 0 },
+        "private_validator_access_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "kits": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/kit" }
+    }
+  },
+  "$defs": {
+    "kit": {
+      "type": "object",
+      "required": [
+        "kit_id",
+        "packet_id",
+        "world_id",
+        "domain",
+        "slot",
+        "status",
+        "assignee_id",
+        "required_expertise",
+        "due_at",
+        "blind_review_required",
+        "private_validator_access",
+        "file_path",
+        "content_sha256",
+        "markdown"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kit_id": { "type": "string" },
+        "packet_id": { "type": "string" },
+        "world_id": { "type": "string" },
+        "domain": { "type": ["string", "null"] },
+        "slot": { "type": "integer", "minimum": 1 },
+        "status": { "type": "string", "enum": ["assigned", "unassigned", "completed"] },
+        "assignee_id": { "type": ["string", "null"] },
+        "required_expertise": { "type": "string" },
+        "due_at": { "type": ["string", "null"] },
+        "blind_review_required": { "type": "boolean", "const": true },
+        "private_validator_access": { "type": "boolean", "const": false },
+        "file_path": { "type": "string" },
+        "content_sha256": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "markdown": { "type": "string" }
+      }
+    }
+  }
+}

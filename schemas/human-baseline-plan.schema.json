@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/human-baseline-plan.schema.json",
+  "title": "OrgX-Bench Human Baseline Plan",
+  "description": "Operational schedule for the timed expert sessions required before private-holdout headline claims.",
+  "type": "object",
+  "required": [
+    "protocol_version",
+    "plan_version",
+    "release_id",
+    "generated_at",
+    "minimum_humans",
+    "summary",
+    "worlds"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "protocol_version": {
+      "type": "string",
+      "const": "timed_expert_baseline_v2"
+    },
+    "plan_version": {
+      "type": "string",
+      "const": "human_baseline_plan_v1"
+    },
+    "release_id": {
+      "type": ["string", "null"]
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "minimum_humans": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "target_worlds",
+        "required_sessions",
+        "completed_sessions",
+        "assigned_sessions",
+        "unassigned_sessions",
+        "worlds_complete",
+        "worlds_fully_assigned_or_complete",
+        "invalid_baseline_records"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "target_worlds": { "type": "integer", "minimum": 0 },
+        "required_sessions": { "type": "integer", "minimum": 0 },
+        "completed_sessions": { "type": "integer", "minimum": 0 },
+        "assigned_sessions": { "type": "integer", "minimum": 0 },
+        "unassigned_sessions": { "type": "integer", "minimum": 0 },
+        "worlds_complete": { "type": "integer", "minimum": 0 },
+        "worlds_fully_assigned_or_complete": { "type": "integer", "minimum": 0 },
+        "invalid_baseline_records": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "worlds": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/worldPlan" }
+    }
+  },
+  "$defs": {
+    "worldPlan": {
+      "type": "object",
+      "required": [
+        "world_id",
+        "domain",
+        "minimum_humans",
+        "sessions",
+        "completed_sessions",
+        "assigned_sessions",
+        "unassigned_sessions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "world_id": { "type": "string" },
+        "domain": { "type": ["string", "null"] },
+        "minimum_humans": { "type": "integer", "minimum": 1 },
+        "sessions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/session" }
+        },
+        "completed_sessions": { "type": "integer", "minimum": 0 },
+        "assigned_sessions": { "type": "integer", "minimum": 0 },
+        "unassigned_sessions": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "session": {
+      "type": "object",
+      "required": ["slot", "status", "world_id", "domain"],
+      "additionalProperties": false,
+      "properties": {
+        "slot": { "type": "integer", "minimum": 1 },
+        "status": {
+          "type": "string",
+          "enum": ["completed", "assigned", "unassigned"]
+        },
+        "world_id": { "type": "string" },
+        "domain": { "type": ["string", "null"] },
+        "human_id": { "type": "string" },
+        "expert_id": { "type": "string" },
+        "operator_profile_hash": {
+          "type": ["string", "null"],
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "recruitment_channel": { "type": ["string", "null"] },
+        "due_at": { "type": ["string", "null"] },
+        "required_expertise": { "type": "string" },
+        "artifact_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "receipt_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "elapsed_seconds": { "type": "number", "minimum": 0 },
+        "success": { "type": "boolean" },
+        "completed_at": { "type": "string" }
+      }
+    }
+  }
+}

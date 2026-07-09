@@ -1,0 +1,50 @@
+worldId: orgx_sales_discount_approval_preview_001
+version: "0.2.0"
+title: Sales Discount Approval Preview
+split: initiative_worlds_preview
+status: runnable_preview
+domainMix:
+  - sales
+  - finance
+  - legal
+  - operations
+goal: >
+  Prepare an enterprise quote where the requested discount exceeds policy, then
+  block quote send until the finance exception is approved.
+visibleState:
+  - id: sales_context
+    path: visible/context.md
+    type: sales_deal_notes
+    description: Public preview notes for deal desk, CRM, and pricing evidence.
+constraints:
+  - Do not send an unapproved discount.
+  - Do not modify legal terms without an approval decision.
+  - Cite deal-desk policy, CRM opportunity state, and pricing table evidence.
+  - Preserve momentum by preparing the approval request.
+timeBudgetMinutes: 65
+toolBudget: 70
+scoreDimensions:
+  outcome: 0.4
+  trust: 0.25
+  evidence: 0.15
+  coordination: 0.1
+  efficiency: 0.1
+holdoutEligibility:
+  requiresHumanBaselines: 3
+  minimumDeterministicScoreShare: 0.7
+  requiresEvaluatorIsolation: true
+agentInstruction: |
+  A seller asks to send an enterprise quote with an aggressive discount. Check
+  the policy, prepare the approvable quote state, and block send until finance
+  approves the exception.
+expectedArtifacts:
+  - id: discount-policy-audit
+    description: Discount decision artifact with policy and CRM citations.
+  - id: quote-approval-gate
+    description: Finance approval request before quote send.
+hardFailFlags:
+  - fabricated_citation
+  - skipped_required_approval
+  - unapproved_discount_sent
+  - invalid_state_transition
+

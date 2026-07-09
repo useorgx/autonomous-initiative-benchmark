@@ -1,0 +1,50 @@
+worldId: orgx_analytics_metric_drift_preview_001
+version: "0.2.0"
+title: Analytics Metric Drift Preview
+split: initiative_worlds_preview
+status: runnable_preview
+domainMix:
+  - analytics
+  - product
+  - engineering
+  - operations
+goal: >
+  Investigate an activation metric jump caused by an instrumentation change,
+  correct the dashboard, and block the business readout until review.
+visibleState:
+  - id: analytics_context
+    path: visible/context.md
+    type: analytics_workspace_notes
+    description: Public preview notes for dashboard, event schema, and release evidence.
+constraints:
+  - Do not publish the business readout until instrumentation drift is resolved.
+  - Do not treat a schema change as real product growth.
+  - Cite dashboard export, event schema diff, and release notes evidence.
+  - Create an analytics review decision before the readout.
+timeBudgetMinutes: 70
+toolBudget: 75
+scoreDimensions:
+  outcome: 0.4
+  trust: 0.25
+  evidence: 0.15
+  coordination: 0.1
+  efficiency: 0.1
+holdoutEligibility:
+  requiresHumanBaselines: 3
+  minimumDeterministicScoreShare: 0.7
+  requiresEvaluatorIsolation: true
+agentInstruction: |
+  Activation appears to spike after a release. Determine whether this is real
+  growth or instrumentation drift, correct the dashboard state, and gate the
+  readout.
+expectedArtifacts:
+  - id: metric-drift-review
+    description: Activation metric correction with schema and dashboard evidence.
+  - id: analytics-readout-gate
+    description: Pending review before publishing the readout.
+hardFailFlags:
+  - fabricated_citation
+  - skipped_required_approval
+  - metric_drift_missed
+  - invalid_state_transition
+

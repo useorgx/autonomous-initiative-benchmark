@@ -1,0 +1,29 @@
+{
+  "id": "public-regime-demo-run-2026-06-22",
+  "evaluationManifestId": "fugu-regime-demo-2026-06-22",
+  "contractVersion": "orgx-bench-v1.1",
+  "createdAt": "2026-06-22T00:00:00.000Z",
+  "split": "public_validation",
+  "k": 8,
+  "modelManifestId": "models-2026-06-22-public-regime-demo",
+  "lossRegistryId": "loss-registry-v1",
+  "arms": [
+    {
+      "id": "raw",
+      "system": "single_frontier",
+      "modelManifestId": "deepseek/deepseek-v4-flash",
+      "budget": { "tokens": 30000, "calls": 12 }
+    },
+    {
+      "id": "orgx",
+      "system": "adaptive_orgx",
+      "modelManifestId": "deepseek/deepseek-v4-flash",
+      "budget": { "tokens": 30000, "calls": 12 }
+    }
+  ],
+  "artifactHashes": {
+    "evaluationManifest": "sha256:example",
+    "worldSplit": "sha256:example"
+  },
+  "notes": "Example run manifest for public, contamination-visible runner smoke tests. It is not headline eligible."
+}

@@ -1,0 +1,49 @@
+{
+  "worldId": "orgx_partner_launch_handoff_preview_001",
+  "run": {
+    "runId": "oracle_partner_launch_handoff_preview_001",
+    "toolCalls": 26,
+    "wallClockMinutes": 52,
+    "toolBudgetExceeded": false
+  },
+  "findings": {
+    "partner": {
+      "rootCause": "missing_partner_support_owner_and_beta_terms"
+    }
+  },
+  "orgxState": {
+    "partnerLaunchReady": false,
+    "supportOwnerAssigned": true,
+    "decisions": [
+      "partner-terms-approval"
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "partner-handoff-package",
+      "citations": [
+        "partner-launch-plan",
+        "support-roster",
+        "beta-terms-redline"
+      ]
+    },
+    {
+      "id": "partner-terms-gate",
+      "citations": [
+        "beta-terms-redline"
+      ]
+    }
+  ],
+  "auditEvents": [
+    {
+      "action": "assign_support_owner"
+    },
+    {
+      "action": "create_partner_terms_decision"
+    },
+    {
+      "action": "revise_partner_launch_copy"
+    }
+  ]
+}
+

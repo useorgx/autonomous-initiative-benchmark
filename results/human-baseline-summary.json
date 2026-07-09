@@ -1,0 +1,13 @@
+{
+  "protocol_version": "timed_expert_baseline_v2",
+  "humans": 0,
+  "samples": 0,
+  "median_seconds": null,
+  "success_rate": 0,
+  "per_world": [],
+  "worlds_with_minimum_humans": 0,
+  "protocol_eligible": false,
+  "protocol_error_count": 0,
+  "headline_eligible": false,
+  "minimum_humans": 3
+}

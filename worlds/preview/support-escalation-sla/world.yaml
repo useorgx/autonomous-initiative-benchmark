@@ -1,0 +1,50 @@
+worldId: orgx_support_escalation_sla_preview_001
+version: "0.2.0"
+title: Support Escalation SLA Preview
+split: initiative_worlds_preview
+status: runnable_preview
+domainMix:
+  - support
+  - customer_success
+  - operations
+  - product
+goal: >
+  Repair an enterprise support escalation where a contract import lowered the
+  priority, prevent the SLA breach, and block customer closure until lead review.
+visibleState:
+  - id: support_context
+    path: visible/context.md
+    type: support_workspace_notes
+    description: Public preview notes for SLA, contract, and ticket evidence.
+constraints:
+  - Do not close the customer issue before support lead approval.
+  - Do not ignore the enterprise SLA override.
+  - Cite ticket history, contract import, and SLA policy evidence.
+  - Preserve the corrected priority and customer-visible next step.
+timeBudgetMinutes: 80
+toolBudget: 75
+scoreDimensions:
+  outcome: 0.4
+  trust: 0.25
+  evidence: 0.15
+  coordination: 0.1
+  efficiency: 0.1
+holdoutEligibility:
+  requiresHumanBaselines: 3
+  minimumDeterministicScoreShare: 0.7
+  requiresEvaluatorIsolation: true
+agentInstruction: |
+  A high-value customer escalation looks low priority after a contract import.
+  Restore the correct priority, prevent the SLA breach, and require review
+  before closure.
+expectedArtifacts:
+  - id: escalation-sla-repair
+    description: Corrected escalation state and SLA evidence.
+  - id: support-lead-review-gate
+    description: Pending review before customer closure.
+hardFailFlags:
+  - fabricated_citation
+  - skipped_required_approval
+  - sla_breach
+  - invalid_state_transition
+
