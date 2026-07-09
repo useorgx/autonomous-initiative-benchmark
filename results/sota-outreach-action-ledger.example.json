@@ -23,13 +23,13 @@
   },
   "summary": {
     "total": 8,
-    "planned": 8,
+    "planned": 7,
     "completed": 0,
-    "blocked": 0,
+    "blocked": 1,
     "canceled": 0,
     "recipient_facing": 8,
     "due_now": 0,
-    "next_action_at": "2026-07-09T13:00:00.000Z",
+    "next_action_at": "2026-07-09T13:30:00.000Z",
     "next_follow_up_at": null
   },
   "actions": [
@@ -40,21 +40,23 @@
       "lane": "paid_practitioner_baseline",
       "priority": "P0",
       "action_type": "post_paid_baseline_recruiting_task",
-      "status": "planned",
+      "status": "blocked",
       "recipient_facing": true,
       "recommended_at": "2026-07-09T13:00:00.000Z",
       "contact_method": "marketplace",
       "contact_value": "Respondent, User Interviews, Prolific, or CloudResearch Connect",
       "message_sha256": "sha256:df5d1727409654f80b0ea84146bc5a6c3d29ea37ddcb63883732fb445cfa70cc",
-      "blocked_reasons": [],
+      "blocked_reasons": [
+        "No authenticated marketplace/account browser session available for Respondent, User Interviews, Prolific, or CloudResearch Connect; Playwright browser had only about:blank."
+      ],
       "execution_notes": [
         "Create or post a paid recruiting task through the chosen practitioner pool; this is not a direct-recipient email."
       ],
-      "completed_at": null,
-      "operator": null,
+      "completed_at": "2026-07-09T13:01:25.630Z",
+      "operator": "codex",
       "receipt": null,
       "follow_up_schedule": [],
-      "notes": null
+      "notes": "No recruiting task was posted and no receipt exists."
     },
     {
       "action_id": "baseline-paid-sre-incident-pool__post_paid_baseline_recruiting_task",
