@@ -23,14 +23,14 @@
   },
   "summary": {
     "total": 8,
-    "planned": 6,
-    "completed": 0,
+    "planned": 5,
+    "completed": 1,
     "blocked": 2,
     "canceled": 0,
     "recipient_facing": 8,
     "due_now": 0,
-    "next_action_at": "2026-07-09T14:00:00.000Z",
-    "next_follow_up_at": null
+    "next_action_at": "2026-07-09T14:30:00.000Z",
+    "next_follow_up_at": "2026-07-14T14:01:24.929Z"
   },
   "actions": [
     {
@@ -90,7 +90,7 @@
       "lane": "methodology_advisor",
       "priority": "P0",
       "action_type": "send_email",
-      "status": "planned",
+      "status": "completed",
       "recipient_facing": true,
       "recommended_at": "2026-07-09T14:00:00.000Z",
       "contact_method": "public_email",
@@ -98,11 +98,30 @@
       "message_sha256": "sha256:22ac4c7a55ba4bb01b3fec706bedee10797abc9a1cd5c9b093b1c73e8f40902e",
       "blocked_reasons": [],
       "execution_notes": [],
-      "completed_at": null,
-      "operator": null,
-      "receipt": null,
-      "follow_up_schedule": [],
-      "notes": null
+      "completed_at": "2026-07-09T14:01:24.929Z",
+      "operator": "codex",
+      "receipt": {
+        "channel": "gmail",
+        "reference": "19f472f60b9771e5",
+        "url": null
+      },
+      "follow_up_schedule": [
+        {
+          "follow_up_id": "methodology-metr__send_email__follow_up_1",
+          "sequence": 1,
+          "business_days_after_completion": 3,
+          "due_at": "2026-07-14T14:01:24.929Z",
+          "status": "pending"
+        },
+        {
+          "follow_up_id": "methodology-metr__send_email__follow_up_2",
+          "sequence": 2,
+          "business_days_after_completion": 7,
+          "due_at": "2026-07-20T14:01:24.929Z",
+          "status": "pending"
+        }
+      ],
+      "notes": "Sent METR methodology-review email to info@metr.org via Gmail."
     },
     {
       "action_id": "methodology-epoch-frontiermath__send_email",
