@@ -42,6 +42,7 @@ test('SOTA readiness fails loudly when headline-only evidence is missing', () =>
     headlineBundleCount: 0,
     externallyReplicatedRows: 0,
     strangerReproduction: { exists: false, strictErrors: ['missing'] },
+    benchmarkQualityEvidence: {},
   });
 
   assert.equal(report.ok, false);
@@ -50,6 +51,10 @@ test('SOTA readiness fails loudly when headline-only evidence is missing', () =>
   assert.ok(failedIds.has('ws2.private-holdout-generators'));
   assert.ok(failedIds.has('ws2.rotating-canaries'));
   assert.ok(failedIds.has('ws3.timed-human-baselines'));
+  assert.ok(failedIds.has('ws2.world-quality-audit'));
+  assert.ok(failedIds.has('ws2.contamination-audit'));
+  assert.ok(failedIds.has('ws6.statistical-precision'));
+  assert.ok(failedIds.has('ws6.correction-governance'));
   assert.ok(failedIds.has('ws4.orgx-pinning-and-lab'));
   assert.ok(failedIds.has('ws6.frontier-headline-release'));
   assert.ok(failedIds.has('ws6.third-party-replication'));
@@ -121,6 +126,7 @@ function completeFixture() {
         ...REQUIRED_SCHEMAS,
         'docs/orgx-bench-v1-contract.md',
         'docs/strategy/sota-undeniable-plan-2026-07-08.md',
+        'docs/strategy/benchmark-v1.2-defensibility-plan-2026-07-09.md',
         'runner/lib/prompt-audit.mjs',
         'runner/lib/dimension-independence.mjs',
         'runner/lib/validate-bundle-contract.test.mjs',
@@ -201,6 +207,48 @@ function completeFixture() {
         },
         errors: [],
         warnings: [],
+      },
+    },
+    benchmarkQualityEvidence: {
+      worldQuality: {
+        exists: true,
+        path: 'results/world-quality-audit.json',
+        validation: {
+          ok: true,
+          summary: { status: 'complete', eligible_worlds: 20, severe_defects: 0 },
+          errors: [],
+          warnings: [],
+        },
+      },
+      contamination: {
+        exists: true,
+        path: 'results/contamination-audit.json',
+        validation: {
+          ok: true,
+          summary: { status: 'complete', headline_eligible_worlds: 20, strong_leak_signals: 0 },
+          errors: [],
+          warnings: [],
+        },
+      },
+      statisticalPrecision: {
+        exists: true,
+        path: 'results/statistical-precision.json',
+        validation: {
+          ok: true,
+          summary: { status: 'complete', all_cells_precise: true },
+          errors: [],
+          warnings: [],
+        },
+      },
+      correctionLedger: {
+        exists: true,
+        path: 'results/benchmark-correction-ledger.json',
+        validation: {
+          ok: true,
+          summary: { status: 'active', open_blocking_corrections: 0 },
+          errors: [],
+          warnings: [],
+        },
       },
     },
   };

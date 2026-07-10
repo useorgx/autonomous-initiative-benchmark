@@ -1,0 +1,14 @@
+{
+  "protocol_version": "orgx_bench_contamination_audit_v1",
+  "release_id": "sota-headline-2026-q3-draft",
+  "generated_at": "2026-07-09T20:00:00.000Z",
+  "status": "preflight",
+  "policy": {
+    "sealed_vault": true,
+    "just_in_time_seeds": true,
+    "signed_access_log": true,
+    "provider_retention_controls": true,
+    "burn_on_strong_leak_signal": true
+  },
+  "worlds": []
+}

@@ -20,6 +20,10 @@ there is a real release candidate. A release candidate must bind:
 - third-party replication source
 - optional standalone third-party replication evidence path
 - outside reviewer reproduction receipt path
+- world-quality audit path
+- contamination audit path
+- statistical-precision report path
+- public correction-ledger path
 
 Run the preflight validator:
 
@@ -118,6 +122,23 @@ command templates, but it does not contain private validators, hidden answers,
 or grader output. Use it for recruiting and session operations, then record
 finished sessions with `npm run record:human-baseline`.
 
+Validate the benchmark's own error controls:
+
+```bash
+npm run validate:world-quality -- --file results/<world-quality-audit>.json --strict
+npm run validate:contamination -- --file results/<contamination-audit>.json --strict
+npm run validate:precision -- --file results/<statistical-precision-report>.json --strict
+npm run validate:corrections -- --file results/benchmark-correction-ledger.json --release-id <release-id> --strict
+```
+
+The world-quality audit covers every private generator with five independent
+reviewers, valid and invalid solution classes, counterfactual twins,
+metamorphic relations, and delayed consequences. The contamination audit
+records leakage probes, canaries, access events, retention controls, and burn
+state. The precision report makes `n >= 8` a floor and requires every headline
+cell to meet the preregistered CI-width target. The append-only correction
+ledger blocks releases with open severe or critical defects.
+
 Validate the outside reproduction receipt once an actual outside reviewer has
 recomputed the public release:
 
@@ -156,6 +177,9 @@ Strict mode must fail until all of these are true:
 - the execution ledger accounts for every planned model and human-baseline job
 - every human-baseline session has been planned, assigned, recorded, and validated
 - every private holdout world has at least three protocol-valid human baselines
+- every private holdout world passes the world-quality and contamination gates
+- every headline cell meets the preregistered confidence-interval width target
+- the correction ledger has no open severe or critical defect affecting the release
 - the headline bundle passes `validate:bundle:strict`
 - the headline bundle carries at least one valid third-party replication row with
   `agreement_within_ci:true`, or the release manifest points at a valid
@@ -173,3 +197,5 @@ unassigned. It intentionally has no headline bundle path, no external
 replication row, no stranger reproduction receipt, and the generated
 human-baseline summary reports zero human sessions. That is not a release
 candidate. It is the executable checklist for becoming one.
+The world-quality, contamination, and statistical-precision files are also
+preflight placeholders until real reviewer and run evidence populates them.

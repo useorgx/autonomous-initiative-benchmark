@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/benchmark-correction-ledger.schema.json",
+  "title": "OrgX-Bench Correction Ledger",
+  "type": "object",
+  "required": ["protocol_version", "updated_at", "status", "entries"],
+  "additionalProperties": false,
+  "properties": {
+    "protocol_version": { "const": "orgx_bench_correction_ledger_v1" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "status": { "enum": ["active", "superseded"] },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["correction_id", "reported_at", "status", "severity", "affected_release_ids", "affected_world_ids", "public_summary", "score_recomputed"],
+        "additionalProperties": false,
+        "properties": {
+          "correction_id": { "type": "string", "minLength": 1 },
+          "reported_at": { "type": "string", "format": "date-time" },
+          "status": { "enum": ["open", "resolved", "rejected"] },
+          "severity": { "enum": ["low", "moderate", "severe", "critical"] },
+          "affected_release_ids": { "type": "array", "items": { "type": "string" } },
+          "affected_world_ids": { "type": "array", "items": { "type": "string" } },
+          "public_summary": { "type": "string", "minLength": 1 },
+          "resolution": { "type": ["string", "null"] },
+          "score_recomputed": { "type": "boolean" },
+          "disclosed_at": { "type": ["string", "null"], "format": "date-time" }
+        }
+      }
+    }
+  }
+}

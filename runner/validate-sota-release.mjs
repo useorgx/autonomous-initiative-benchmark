@@ -14,6 +14,12 @@ import { validateSotaExecutionLedger } from './lib/sota-execution-ledger.mjs';
 import { sha256File, validateSotaReleaseManifest } from './lib/sota-release.mjs';
 import { buildSotaSweepPlan } from './lib/sota-sweep-plan.mjs';
 import { validateStrangerReproductionReceipt } from './lib/stranger-reproduction.mjs';
+import {
+  validateContaminationAudit,
+  validateCorrectionLedger,
+  validateStatisticalPrecisionReport,
+  validateWorldQualityAudit,
+} from './lib/benchmark-quality-evidence.mjs';
 import { validateBundleDirectory } from './validate-bundle.mjs';
 
 const repoRoot = path.resolve(import.meta.dirname, '..');
@@ -61,6 +67,35 @@ export async function collectReleaseEvidence({ manifest, repoRoot }) {
   const humanBaselinePlan = await collectHumanBaselinePlanEvidence({ manifest, repoRoot });
   const executionLedger = await collectExecutionLedgerEvidence({ manifest, registry, repoRoot });
   const strangerReproduction = await collectStrangerReproductionEvidence({ manifest, repoRoot });
+  const expectedWorldIds = (registry?.splits?.private_holdout?.worlds ?? []).map((world) => world.worldId).filter(Boolean);
+  const worldQuality = await collectQualityEvidence({
+    manifest,
+    repoRoot,
+    pathField: 'worldQualityAuditPath',
+    validator: validateWorldQualityAudit,
+    options: { strict: false, expectedWorldIds },
+  });
+  const contamination = await collectQualityEvidence({
+    manifest,
+    repoRoot,
+    pathField: 'contaminationAuditPath',
+    validator: validateContaminationAudit,
+    options: { strict: false, expectedWorldIds },
+  });
+  const statisticalPrecision = await collectQualityEvidence({
+    manifest,
+    repoRoot,
+    pathField: 'statisticalPrecisionReportPath',
+    validator: validateStatisticalPrecisionReport,
+    options: { strict: false },
+  });
+  const correctionLedger = await collectQualityEvidence({
+    manifest,
+    repoRoot,
+    pathField: 'correctionLedgerPath',
+    validator: validateCorrectionLedger,
+    options: { strict: false, releaseId: manifest.releaseId },
+  });
 
   return {
     registry,
@@ -72,6 +107,22 @@ export async function collectReleaseEvidence({ manifest, repoRoot }) {
     replicationEvidence,
     replicationRows,
     strangerReproduction,
+    worldQuality,
+    contamination,
+    statisticalPrecision,
+    correctionLedger,
+  };
+}
+
+async function collectQualityEvidence({ manifest, repoRoot, pathField, validator, options }) {
+  const evidencePath = manifest.evidence?.[pathField];
+  if (!evidencePath) return { exists: false, strictErrors: [`${pathField} is not set`] };
+  const document = await readJson(path.join(repoRoot, evidencePath), null);
+  if (!document) return { exists: false, path: evidencePath, strictErrors: [`${pathField} is missing or invalid JSON`] };
+  return {
+    exists: true,
+    path: evidencePath,
+    validation: validator(document, options),
   };
 }
 

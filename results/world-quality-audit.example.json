@@ -1,0 +1,18 @@
+{
+  "protocol_version": "orgx_bench_world_quality_v1",
+  "release_id": "sota-headline-2026-q3-draft",
+  "generated_at": "2026-07-09T20:00:00.000Z",
+  "status": "preflight",
+  "thresholds": {
+    "minimumIndependentReviewers": 5,
+    "maximumFalseAcceptanceRate": 0.02,
+    "maximumFalseRejectionRate": 0.02,
+    "maximumAmbiguityRate": 0.05,
+    "minimumReviewerAgreement": 0.67,
+    "minimumCounterfactualTwinPassRate": 0.95,
+    "minimumMetamorphicPassRate": 0.95,
+    "minimumDelayedConsequencePassRate": 0.95,
+    "maximumSevereDefects": 0
+  },
+  "worlds": []
+}

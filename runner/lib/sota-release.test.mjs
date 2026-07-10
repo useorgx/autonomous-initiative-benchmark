@@ -16,6 +16,16 @@ import {
   STRANGER_REPRODUCTION_PROTOCOL_VERSION,
   validateStrangerReproductionReceipt,
 } from './stranger-reproduction.mjs';
+import {
+  CONTAMINATION_AUDIT_PROTOCOL_VERSION,
+  CORRECTION_LEDGER_PROTOCOL_VERSION,
+  STATISTICAL_PRECISION_PROTOCOL_VERSION,
+  WORLD_QUALITY_PROTOCOL_VERSION,
+  validateContaminationAudit,
+  validateCorrectionLedger,
+  validateStatisticalPrecisionReport,
+  validateWorldQualityAudit,
+} from './benchmark-quality-evidence.mjs';
 
 const hash = (char) => `sha256:${char.repeat(64)}`;
 
@@ -54,6 +64,10 @@ function manifest(overrides = {}) {
       externalReplicationSource: 'headline_bundle_metadata',
       externalReplicationEvidencePath: 'results/third-party-replication-2026q3.json',
       strangerReproductionReceiptPath: 'results/stranger-reproduction-2026q3.json',
+      worldQualityAuditPath: 'results/world-quality-audit-2026q3.json',
+      contaminationAuditPath: 'results/contamination-audit-2026q3.json',
+      statisticalPrecisionReportPath: 'results/statistical-precision-2026q3.json',
+      correctionLedgerPath: 'results/benchmark-correction-ledger.json',
     },
     ...overrides,
   };
@@ -80,8 +94,78 @@ function evidence(overrides = {}) {
     replicationRows: [replicationRow()],
     replicationEvidence: replicationEvidence(),
     strangerReproduction: strangerReproductionEvidence(),
+    worldQuality: worldQualityEvidence(),
+    contamination: contaminationEvidence(),
+    statisticalPrecision: statisticalPrecisionEvidence(),
+    correctionLedger: correctionLedgerEvidence(),
     ...overrides,
   };
+}
+
+function passEvidence(path, validation) {
+  return { exists: true, path, validation };
+}
+
+function worldQualityEvidence() {
+  const worlds = Array.from({ length: 20 }, (_, index) => ({
+    world_id: `world-${index + 1}`,
+    generator_hash: hash('a'),
+    reviewer_ids: ['r1', 'r2', 'r3', 'r4', 'r5'],
+    solution_zoo: { valid_solution_count: 2, invalid_solution_count: 3, accepts_all_valid: true, rejects_all_invalid: true, false_acceptance_rate: 0, false_rejection_rate: 0 },
+    task_audit: { overly_strict_tests: 0, underspecified_prompt: 0, low_coverage_tests: 0, misleading_prompt: 0, severe_defects: 0, ambiguity_rate: 0, reviewer_agreement: 0.8 },
+    counterfactual_twins: { case_count: 20, passed_count: 20, pass_rate: 1 },
+    metamorphic_tests: { case_count: 20, passed_count: 20, pass_rate: 1 },
+    delayed_consequence_tests: { case_count: 20, passed_count: 20, pass_rate: 1 },
+    status: 'eligible',
+  }));
+  const document = {
+    protocol_version: WORLD_QUALITY_PROTOCOL_VERSION,
+    release_id: 'sota-headline-2026-q3',
+    generated_at: '2026-07-10T00:00:00.000Z',
+    status: 'complete',
+    thresholds: {},
+    worlds,
+  };
+  return passEvidence('results/world-quality-audit-2026q3.json', validateWorldQualityAudit(document, { expectedWorldIds: worlds.map((world) => world.world_id) }));
+}
+
+function contaminationEvidence() {
+  const worlds = Array.from({ length: 20 }, (_, index) => ({
+    world_id: `world-${index + 1}`,
+    probe_runs: 15,
+    canary_count: 3,
+    access_event_count: 4,
+    strong_leak_signals: 0,
+    burned: false,
+    burn_reason: null,
+    headline_eligible: true,
+  }));
+  const document = {
+    protocol_version: CONTAMINATION_AUDIT_PROTOCOL_VERSION,
+    release_id: 'sota-headline-2026-q3',
+    generated_at: '2026-07-10T00:00:00.000Z',
+    status: 'complete',
+    policy: { sealed_vault: true, just_in_time_seeds: true, signed_access_log: true, provider_retention_controls: true, burn_on_strong_leak_signal: true },
+    worlds,
+  };
+  return passEvidence('results/contamination-audit-2026q3.json', validateContaminationAudit(document, { expectedWorldIds: worlds.map((world) => world.world_id) }));
+}
+
+function statisticalPrecisionEvidence() {
+  const document = {
+    protocol_version: STATISTICAL_PRECISION_PROTOCOL_VERSION,
+    release_id: 'sota-headline-2026-q3',
+    generated_at: '2026-07-10T00:00:00.000Z',
+    status: 'complete',
+    policy: { minimumEpisodesPerCell: 8, maximumCiWidth: 0.1, paired_seeds: true, hierarchical_model: true, suppress_rank_on_overlap: true },
+    cells: [{ world_id: 'world-1', model_id: 'model-1', arm: 'orgx_full', attempts: 64, ci_low: 0.81, ci_high: 0.9, precision_met: true }],
+  };
+  return passEvidence('results/statistical-precision-2026q3.json', validateStatisticalPrecisionReport(document));
+}
+
+function correctionLedgerEvidence() {
+  const document = { protocol_version: CORRECTION_LEDGER_PROTOCOL_VERSION, updated_at: '2026-07-10T00:00:00.000Z', status: 'active', entries: [] };
+  return passEvidence('results/benchmark-correction-ledger.json', validateCorrectionLedger(document, { releaseId: 'sota-headline-2026-q3' }));
 }
 
 function humanBaselinePlan(overrides = {}) {
@@ -217,6 +301,35 @@ test('strict SOTA release validation accepts a complete release candidate', () =
   assert.equal(result.ok, true);
   assert.equal(result.summary.failed, 0);
   assert.deepEqual(result.errors, []);
+});
+
+test('headline release fails closed on benchmark-quality, contamination, precision, and correction evidence', () => {
+  const brokenQuality = worldQualityEvidence();
+  brokenQuality.validation.summary.severe_defects = 1;
+  const brokenContamination = contaminationEvidence();
+  brokenContamination.validation.summary.strong_leak_signals = 1;
+  const brokenPrecision = statisticalPrecisionEvidence();
+  brokenPrecision.validation.summary.all_cells_precise = false;
+  const brokenCorrections = correctionLedgerEvidence();
+  brokenCorrections.validation.summary.open_blocking_corrections = 1;
+
+  const validation = validateSotaReleaseManifest(
+    manifest(),
+    evidence({
+      worldQuality: brokenQuality,
+      contamination: brokenContamination,
+      statisticalPrecision: brokenPrecision,
+      correctionLedger: brokenCorrections,
+    }),
+    { strict: true }
+  );
+  const text = validation.errors.join('\n');
+
+  assert.equal(validation.ok, false);
+  assert.match(text, /world-quality-audit/);
+  assert.match(text, /contamination-audit/);
+  assert.match(text, /statistical-precision/);
+  assert.match(text, /correction-ledger/);
 });
 
 test('draft preflight remains structurally valid but reports missing evidence gates', () => {

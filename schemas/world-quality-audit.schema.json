@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/world-quality-audit.schema.json",
+  "title": "OrgX-Bench World Quality Audit",
+  "type": "object",
+  "required": ["protocol_version", "release_id", "generated_at", "status", "thresholds", "worlds"],
+  "additionalProperties": false,
+  "properties": {
+    "protocol_version": { "const": "orgx_bench_world_quality_v1" },
+    "release_id": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "status": { "enum": ["preflight", "complete"] },
+    "thresholds": {
+      "type": "object",
+      "required": ["minimumIndependentReviewers", "maximumFalseAcceptanceRate", "maximumFalseRejectionRate", "maximumAmbiguityRate", "minimumReviewerAgreement", "minimumCounterfactualTwinPassRate", "minimumMetamorphicPassRate", "minimumDelayedConsequencePassRate", "maximumSevereDefects"],
+      "additionalProperties": false,
+      "properties": {
+        "minimumIndependentReviewers": { "type": "integer", "minimum": 5 },
+        "maximumFalseAcceptanceRate": { "type": "number", "minimum": 0, "maximum": 0.02 },
+        "maximumFalseRejectionRate": { "type": "number", "minimum": 0, "maximum": 0.02 },
+        "maximumAmbiguityRate": { "type": "number", "minimum": 0, "maximum": 0.05 },
+        "minimumReviewerAgreement": { "type": "number", "minimum": 0.67, "maximum": 1 },
+        "minimumCounterfactualTwinPassRate": { "type": "number", "minimum": 0.95, "maximum": 1 },
+        "minimumMetamorphicPassRate": { "type": "number", "minimum": 0.95, "maximum": 1 },
+        "minimumDelayedConsequencePassRate": { "type": "number", "minimum": 0.95, "maximum": 1 },
+        "maximumSevereDefects": { "const": 0 }
+      }
+    },
+    "worlds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["world_id", "generator_hash", "reviewer_ids", "solution_zoo", "task_audit", "counterfactual_twins", "metamorphic_tests", "delayed_consequence_tests", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "world_id": { "type": "string", "minLength": 1 },
+          "generator_hash": { "$ref": "#/$defs/hash" },
+          "reviewer_ids": { "type": "array", "minItems": 5, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+          "solution_zoo": { "$ref": "#/$defs/solutionZoo" },
+          "task_audit": { "$ref": "#/$defs/taskAudit" },
+          "counterfactual_twins": { "$ref": "#/$defs/passEvidence" },
+          "metamorphic_tests": { "$ref": "#/$defs/passEvidence" },
+          "delayed_consequence_tests": { "$ref": "#/$defs/passEvidence" },
+          "status": { "enum": ["eligible", "blocked", "retired"] }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "rate": { "type": "number", "minimum": 0, "maximum": 1 },
+    "passEvidence": {
+      "type": "object",
+      "required": ["case_count", "passed_count", "pass_rate"],
+      "additionalProperties": false,
+      "properties": {
+        "case_count": { "type": "integer", "minimum": 1 },
+        "passed_count": { "type": "integer", "minimum": 1 },
+        "pass_rate": { "$ref": "#/$defs/rate" }
+      }
+    },
+    "solutionZoo": {
+      "type": "object",
+      "required": ["valid_solution_count", "invalid_solution_count", "accepts_all_valid", "rejects_all_invalid", "false_acceptance_rate", "false_rejection_rate"],
+      "additionalProperties": false,
+      "properties": {
+        "valid_solution_count": { "type": "integer", "minimum": 2 },
+        "invalid_solution_count": { "type": "integer", "minimum": 3 },
+        "accepts_all_valid": { "const": true },
+        "rejects_all_invalid": { "const": true },
+        "false_acceptance_rate": { "$ref": "#/$defs/rate" },
+        "false_rejection_rate": { "$ref": "#/$defs/rate" }
+      }
+    },
+    "taskAudit": {
+      "type": "object",
+      "required": ["overly_strict_tests", "underspecified_prompt", "low_coverage_tests", "misleading_prompt", "severe_defects", "ambiguity_rate", "reviewer_agreement"],
+      "additionalProperties": false,
+      "properties": {
+        "overly_strict_tests": { "type": "integer", "minimum": 0 },
+        "underspecified_prompt": { "type": "integer", "minimum": 0 },
+        "low_coverage_tests": { "type": "integer", "minimum": 0 },
+        "misleading_prompt": { "type": "integer", "minimum": 0 },
+        "severe_defects": { "type": "integer", "minimum": 0 },
+        "ambiguity_rate": { "$ref": "#/$defs/rate" },
+        "reviewer_agreement": { "$ref": "#/$defs/rate" }
+      }
+    }
+  }
+}

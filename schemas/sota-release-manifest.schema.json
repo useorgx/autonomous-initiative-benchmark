@@ -79,7 +79,11 @@
         "headlineBundlePath",
         "externalReplicationSource",
         "externalReplicationEvidencePath",
-        "strangerReproductionReceiptPath"
+        "strangerReproductionReceiptPath",
+        "worldQualityAuditPath",
+        "contaminationAuditPath",
+        "statisticalPrecisionReportPath",
+        "correctionLedgerPath"
       ],
       "additionalProperties": false,
       "properties": {
@@ -93,7 +97,11 @@
           "enum": ["headline_bundle_metadata", "standalone_evidence_file"]
         },
         "externalReplicationEvidencePath": { "type": ["string", "null"] },
-        "strangerReproductionReceiptPath": { "type": ["string", "null"] }
+        "strangerReproductionReceiptPath": { "type": ["string", "null"] },
+        "worldQualityAuditPath": { "type": ["string", "null"] },
+        "contaminationAuditPath": { "type": ["string", "null"] },
+        "statisticalPrecisionReportPath": { "type": ["string", "null"] },
+        "correctionLedgerPath": { "type": ["string", "null"] }
       }
     }
   }
