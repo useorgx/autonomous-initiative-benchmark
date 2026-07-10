@@ -138,6 +138,10 @@ outside reproduction into one release gate:
 
 ```bash
 npm run validate:release
+npm run validate:world-quality -- --file results/<world-quality-audit>.json --strict
+npm run validate:contamination -- --file results/<contamination-audit>.json --strict
+npm run validate:precision -- --file results/<statistical-precision-report>.json --strict
+npm run validate:corrections -- --file results/benchmark-correction-ledger.json --release-id <release-id> --strict
 npm run plan:release-sweep
 npm run validate:release-ledger -- --init-out results/<release-execution-ledger>.json
 npm run record:release-ledger-job -- --ledger results/<release-execution-ledger>.json --manifest results/<release-manifest>.json --job-id <job-id> --status scored --out results/<release-execution-ledger>.json
@@ -182,6 +186,11 @@ The validator now fails closed on weak benchmark claims:
 - headline claims require an execution ledger proving every planned sweep job is scored, lost, or blocked
 - headline claims require a human baseline policy with at least 3 distinct timed human runs and blind review
 - headline claims require an outside reproduction receipt whose public-input hashes and recomputed result hash validate
+- headline claims require a five-reviewer world-quality audit proving alternative valid solutions pass and shortcuts fail
+- headline claims require counterfactual-twin, metamorphic, and delayed-consequence evidence
+- headline claims require a complete contamination audit and burn every world with a strong leak signal
+- `n >= 8` is only a floor; every headline cell must also meet the preregistered CI-width target
+- headline claims are blocked by open severe or critical entries in the public correction ledger
 - public/preview/corpus-visible worlds remain non-headline, even if useful for smoke tests or methodology inspection
 
 

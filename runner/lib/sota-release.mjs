@@ -48,6 +48,10 @@ export function validateSotaReleaseManifest(manifest, evidence = {}, { strict = 
   gates.push(frontierSweepGate(manifest));
   gates.push(executionLedgerGate(evidence.executionLedger, { strict }));
   gates.push(humanBaselinePlanGate(evidence.humanBaselinePlan, { strict }));
+  gates.push(worldQualityGate(evidence.worldQuality, holdoutTarget));
+  gates.push(contaminationGate(evidence.contamination, holdoutTarget));
+  gates.push(statisticalPrecisionGate(evidence.statisticalPrecision));
+  gates.push(correctionLedgerGate(evidence.correctionLedger));
   gates.push(humanBaselineGate(evidence.humanBaselineSummary, holdoutTarget));
   gates.push(headlineBundleGate(evidence.headlineBundle));
   gates.push(replicationGate(evidence.replicationRows, evidence.replicationEvidence));
@@ -77,6 +81,81 @@ export function validateSotaReleaseManifest(manifest, evidence = {}, { strict = 
     warnings,
     gates,
   };
+}
+
+function worldQualityGate(evidence, holdoutTarget) {
+  const summary = evidence?.validation?.summary ?? {};
+  const issues = evidenceIssues(evidence);
+  if (summary.status !== 'complete') issues.push('world-quality audit status is not complete');
+  if (Number(summary.eligible_worlds ?? 0) < holdoutTarget) issues.push(`world-quality audit covers ${summary.eligible_worlds ?? 0}/${holdoutTarget} eligible worlds`);
+  if (Number(summary.severe_defects ?? 0) > 0) issues.push('world-quality audit contains severe defects');
+  return gate({
+    id: 'world-quality-audit',
+    pass: issues.length === 0,
+    evidence: qualityEvidenceSummary(evidence),
+    details: issues,
+    remediation: 'Complete the five-reviewer solution-zoo audit for every headline world and demonstrate low false-accept/reject rates, counterfactual twins, metamorphic relations, and delayed consequences.',
+  });
+}
+
+function contaminationGate(evidence, holdoutTarget) {
+  const summary = evidence?.validation?.summary ?? {};
+  const issues = evidenceIssues(evidence);
+  if (summary.status !== 'complete') issues.push('contamination audit status is not complete');
+  if (Number(summary.headline_eligible_worlds ?? 0) < holdoutTarget) issues.push(`contamination audit covers ${summary.headline_eligible_worlds ?? 0}/${holdoutTarget} headline-eligible worlds`);
+  if (Number(summary.strong_leak_signals ?? 0) > 0) issues.push('contamination audit contains strong leak signals');
+  return gate({
+    id: 'contamination-audit',
+    pass: issues.length === 0,
+    evidence: qualityEvidenceSummary(evidence),
+    details: issues,
+    remediation: 'Run leakage probes and canaries for every sealed world, retain a signed access log, and burn any world with a strong leak signal.',
+  });
+}
+
+function statisticalPrecisionGate(evidence) {
+  const summary = evidence?.validation?.summary ?? {};
+  const issues = evidenceIssues(evidence);
+  if (summary.status !== 'complete') issues.push('statistical precision report status is not complete');
+  if (summary.all_cells_precise !== true) issues.push('not all headline cells meet the preregistered CI-width target');
+  return gate({
+    id: 'statistical-precision',
+    pass: issues.length === 0,
+    evidence: qualityEvidenceSummary(evidence),
+    details: issues,
+    remediation: 'Continue paired-seed sampling until every headline cell meets the CI-width target; suppress ranks while intervals overlap.',
+  });
+}
+
+function correctionLedgerGate(evidence) {
+  const summary = evidence?.validation?.summary ?? {};
+  const issues = evidenceIssues(evidence);
+  if (summary.status !== 'active') issues.push('correction ledger is not active');
+  if (Number(summary.open_blocking_corrections ?? 0) > 0) issues.push('correction ledger contains open severe or critical corrections');
+  return gate({
+    id: 'correction-ledger',
+    pass: issues.length === 0,
+    evidence: qualityEvidenceSummary(evidence),
+    details: issues,
+    remediation: 'Publish an active correction ledger and resolve or retire every severe/critical defect before release.',
+  });
+}
+
+function evidenceIssues(evidence) {
+  if (evidence?.exists !== true) return [...(evidence?.strictErrors ?? ['evidence file is missing'])];
+  return [...(evidence?.validation?.errors ?? []), ...(evidence?.strictErrors ?? [])].map(String);
+}
+
+function qualityEvidenceSummary(evidence) {
+  return evidence
+    ? {
+        exists: evidence.exists === true,
+        path: evidence.path ?? null,
+        summary: evidence.validation?.summary ?? null,
+        errors: evidence.validation?.errors ?? evidence.strictErrors ?? [],
+        warnings: evidence.validation?.warnings ?? [],
+      }
+    : null;
 }
 
 export async function sha256File(filePath) {

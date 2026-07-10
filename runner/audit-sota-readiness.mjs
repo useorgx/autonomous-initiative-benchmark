@@ -11,6 +11,12 @@ import {
   summarizeReplicationRows,
 } from './lib/replication-evidence.mjs';
 import { validateStrangerReproductionReceipt } from './lib/stranger-reproduction.mjs';
+import {
+  validateContaminationAudit,
+  validateCorrectionLedger,
+  validateStatisticalPrecisionReport,
+  validateWorldQualityAudit,
+} from './lib/benchmark-quality-evidence.mjs';
 
 const repoRoot = path.resolve(import.meta.dirname, '..');
 const args = parseArgs(process.argv.slice(2));
@@ -50,6 +56,7 @@ export async function buildSotaReadinessReport({ repoRoot, orgxRoot = null } = {
   ]);
 
   const resolvedOrgxRoot = orgxEvidence.root ?? orgxRoot;
+  const benchmarkQualityEvidence = await collectBenchmarkQualityEvidence(repoRoot, registry);
   return {
     generatedAt: new Date().toISOString(),
     repoRoot,
@@ -66,6 +73,7 @@ export async function buildSotaReadinessReport({ repoRoot, orgxRoot = null } = {
       headlineBundleCount,
       externallyReplicatedRows,
       strangerReproduction,
+      benchmarkQualityEvidence,
     }),
   };
 }
@@ -74,6 +82,7 @@ async function collectArtifactPresence(root) {
   const required = [
     'docs/orgx-bench-v1-contract.md',
     'docs/strategy/sota-undeniable-plan-2026-07-08.md',
+    'docs/strategy/benchmark-v1.2-defensibility-plan-2026-07-09.md',
     'runner/lib/prompt-audit.mjs',
     'runner/lib/dimension-independence.mjs',
     'runner/lib/validate-bundle-contract.test.mjs',
@@ -97,6 +106,12 @@ async function collectArtifactPresence(root) {
     'schemas/outreach-action-ledger.schema.json',
     'schemas/private-validator-bundle.schema.json',
     'schemas/initiative-world.schema.json',
+    'schemas/world-quality-audit.schema.json',
+    'schemas/contamination-audit.schema.json',
+    'schemas/statistical-precision-report.schema.json',
+    'schemas/benchmark-correction-ledger.schema.json',
+    'runner/lib/benchmark-quality-evidence.mjs',
+    'runner/lib/benchmark-quality-evidence.test.mjs',
   ];
   const entries = {};
   await Promise.all(
@@ -105,6 +120,24 @@ async function collectArtifactPresence(root) {
     })
   );
   return entries;
+}
+
+async function collectBenchmarkQualityEvidence(root, registry) {
+  const manifest = await readJson(path.join(root, 'results', 'sota-release-manifest.example.json'), {});
+  const expectedWorldIds = (registry?.splits?.private_holdout?.worlds ?? []).map((world) => world.worldId).filter(Boolean);
+  const collect = async (pathField, validator, options = {}) => {
+    const evidencePath = manifest?.evidence?.[pathField];
+    if (!evidencePath) return { exists: false, path: null, validation: null };
+    const document = await readJson(path.join(root, evidencePath), null);
+    if (!document) return { exists: false, path: evidencePath, validation: null };
+    return { exists: true, path: evidencePath, validation: validator(document, options) };
+  };
+  return {
+    worldQuality: await collect('worldQualityAuditPath', validateWorldQualityAudit, { expectedWorldIds }),
+    contamination: await collect('contaminationAuditPath', validateContaminationAudit, { expectedWorldIds }),
+    statisticalPrecision: await collect('statisticalPrecisionReportPath', validateStatisticalPrecisionReport),
+    correctionLedger: await collect('correctionLedgerPath', validateCorrectionLedger, { releaseId: manifest.releaseId }),
+  };
 }
 
 async function collectProviderKeys(root) {

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/statistical-precision-report.schema.json",
+  "title": "OrgX-Bench Statistical Precision Report",
+  "type": "object",
+  "required": ["protocol_version", "release_id", "generated_at", "status", "policy", "cells"],
+  "additionalProperties": false,
+  "properties": {
+    "protocol_version": { "const": "orgx_bench_statistical_precision_v1" },
+    "release_id": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "status": { "enum": ["preflight", "complete"] },
+    "policy": {
+      "type": "object",
+      "required": ["minimumEpisodesPerCell", "maximumCiWidth", "paired_seeds", "hierarchical_model", "suppress_rank_on_overlap"],
+      "additionalProperties": false,
+      "properties": {
+        "minimumEpisodesPerCell": { "type": "integer", "minimum": 8 },
+        "maximumCiWidth": { "type": "number", "exclusiveMinimum": 0, "maximum": 0.1 },
+        "paired_seeds": { "const": true },
+        "hierarchical_model": { "const": true },
+        "suppress_rank_on_overlap": { "const": true }
+      }
+    },
+    "cells": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["world_id", "model_id", "arm", "attempts", "ci_low", "ci_high", "precision_met"],
+        "additionalProperties": false,
+        "properties": {
+          "world_id": { "type": "string", "minLength": 1 },
+          "model_id": { "type": "string", "minLength": 1 },
+          "arm": { "type": "string", "minLength": 1 },
+          "attempts": { "type": "integer", "minimum": 8 },
+          "ci_low": { "type": "number", "minimum": 0, "maximum": 1 },
+          "ci_high": { "type": "number", "minimum": 0, "maximum": 1 },
+          "precision_met": { "const": true }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "protocol_version": "orgx_bench_statistical_precision_v1",
+  "release_id": "sota-headline-2026-q3-draft",
+  "generated_at": "2026-07-09T20:00:00.000Z",
+  "status": "preflight",
+  "policy": {
+    "minimumEpisodesPerCell": 8,
+    "maximumCiWidth": 0.1,
+    "paired_seeds": true,
+    "hierarchical_model": true,
+    "suppress_rank_on_overlap": true
+  },
+  "cells": []
+}

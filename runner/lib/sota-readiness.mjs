@@ -15,6 +15,10 @@ export const REQUIRED_SCHEMAS = [
   'schemas/outreach-action-ledger.schema.json',
   'schemas/private-validator-bundle.schema.json',
   'schemas/initiative-world.schema.json',
+  'schemas/world-quality-audit.schema.json',
+  'schemas/contamination-audit.schema.json',
+  'schemas/statistical-precision-report.schema.json',
+  'schemas/benchmark-correction-ledger.schema.json',
 ];
 
 export const REQUIRED_SCRIPTS = [
@@ -30,6 +34,10 @@ export const REQUIRED_SCRIPTS = [
   'validate:human-baseline-kits',
   'validate:replication',
   'validate:reproduction',
+  'validate:world-quality',
+  'validate:contamination',
+  'validate:precision',
+  'validate:corrections',
   'validate:outreach-plan',
   'materialize:outreach-drafts',
   'init:outreach-ledger',
@@ -95,6 +103,7 @@ export function evaluateSotaReadiness({
   headlineBundleCount = 0,
   externallyReplicatedRows = 0,
   strangerReproduction = null,
+  benchmarkQualityEvidence = {},
 } = {}) {
   const checks = [];
   const scripts = packageJson.scripts ?? {};
@@ -125,10 +134,15 @@ export function evaluateSotaReadiness({
     gate({
       id: 'ws0.plan-document',
       workstream: 'WS0',
-      requirement: 'Keep the SOTA plan versioned in the repo.',
-      pass: Boolean(artifacts['docs/strategy/sota-undeniable-plan-2026-07-08.md']),
-      evidence: 'docs/strategy/sota-undeniable-plan-2026-07-08.md',
-      remediation: 'Add or restore the dated SOTA plan so the readiness gates remain grounded in an explicit contract.',
+      requirement: 'Keep the SOTA plan and V1.2 defensibility amendment versioned in the repo.',
+      pass:
+        Boolean(artifacts['docs/strategy/sota-undeniable-plan-2026-07-08.md']) &&
+        Boolean(artifacts['docs/strategy/benchmark-v1.2-defensibility-plan-2026-07-09.md']),
+      evidence: [
+        'docs/strategy/sota-undeniable-plan-2026-07-08.md',
+        'docs/strategy/benchmark-v1.2-defensibility-plan-2026-07-09.md',
+      ].filter((file) => artifacts[file]),
+      remediation: 'Add or restore the dated SOTA plan and V1.2 defensibility amendment so readiness remains grounded in explicit contracts.',
     })
   );
 
@@ -308,6 +322,68 @@ export function evaluateSotaReadiness({
           }
         : null,
       remediation: 'Collect real timed expert sessions with runner/record-human-baseline.mjs and publish the summary.',
+    })
+  );
+
+  const quality = benchmarkQualityEvidence.worldQuality?.validation;
+  checks.push(
+    gate({
+      id: 'ws2.world-quality-audit',
+      workstream: 'WS2',
+      requirement: 'Every private generator has a complete solution-zoo and task-validity audit with counterfactual, metamorphic, and delayed-consequence evidence.',
+      pass:
+        quality?.ok === true &&
+        quality.summary?.status === 'complete' &&
+        Number(quality.summary?.eligible_worlds ?? 0) >= holdoutTarget &&
+        Number(quality.summary?.severe_defects ?? 0) === 0,
+      evidence: benchmarkQualityEvidence.worldQuality ?? null,
+      remediation: 'Complete results/world-quality-audit.example.json with five independent reviewers and empirical grader-error evidence for every holdout world.',
+    })
+  );
+
+  const contamination = benchmarkQualityEvidence.contamination?.validation;
+  checks.push(
+    gate({
+      id: 'ws2.contamination-audit',
+      workstream: 'WS2',
+      requirement: 'Every headline world passes leakage probes, canaries, access logging, and burn-policy review.',
+      pass:
+        contamination?.ok === true &&
+        contamination.summary?.status === 'complete' &&
+        Number(contamination.summary?.headline_eligible_worlds ?? 0) >= holdoutTarget &&
+        Number(contamination.summary?.strong_leak_signals ?? 0) === 0,
+      evidence: benchmarkQualityEvidence.contamination ?? null,
+      remediation: 'Run and record the contamination audit for every private holdout world; burn any world with a strong leak signal.',
+    })
+  );
+
+  const precision = benchmarkQualityEvidence.statisticalPrecision?.validation;
+  checks.push(
+    gate({
+      id: 'ws6.statistical-precision',
+      workstream: 'WS6',
+      requirement: 'Headline cells meet a preregistered CI-width target using paired seeds and rank suppression on overlap.',
+      pass:
+        precision?.ok === true &&
+        precision.summary?.status === 'complete' &&
+        precision.summary?.all_cells_precise === true,
+      evidence: benchmarkQualityEvidence.statisticalPrecision ?? null,
+      remediation: 'Continue adaptive sampling and publish a complete statistical precision report before ranking systems.',
+    })
+  );
+
+  const corrections = benchmarkQualityEvidence.correctionLedger?.validation;
+  checks.push(
+    gate({
+      id: 'ws6.correction-governance',
+      workstream: 'WS6',
+      requirement: 'An active public correction ledger has no open severe or critical defects affecting the release.',
+      pass:
+        corrections?.ok === true &&
+        corrections.summary?.status === 'active' &&
+        Number(corrections.summary?.open_blocking_corrections ?? 0) === 0,
+      evidence: benchmarkQualityEvidence.correctionLedger ?? null,
+      remediation: 'Keep the public correction ledger active and recompute affected scores after resolving severe defects.',
     })
   );
 

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://useorgx.com/schemas/contamination-audit.schema.json",
+  "title": "OrgX-Bench Contamination Audit",
+  "type": "object",
+  "required": ["protocol_version", "release_id", "generated_at", "status", "policy", "worlds"],
+  "additionalProperties": false,
+  "properties": {
+    "protocol_version": { "const": "orgx_bench_contamination_audit_v1" },
+    "release_id": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "status": { "enum": ["preflight", "complete"] },
+    "policy": {
+      "type": "object",
+      "required": ["sealed_vault", "just_in_time_seeds", "signed_access_log", "provider_retention_controls", "burn_on_strong_leak_signal"],
+      "additionalProperties": false,
+      "properties": {
+        "sealed_vault": { "const": true },
+        "just_in_time_seeds": { "const": true },
+        "signed_access_log": { "const": true },
+        "provider_retention_controls": { "const": true },
+        "burn_on_strong_leak_signal": { "const": true }
+      }
+    },
+    "worlds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["world_id", "probe_runs", "canary_count", "access_event_count", "strong_leak_signals", "burned", "burn_reason", "headline_eligible"],
+        "additionalProperties": false,
+        "properties": {
+          "world_id": { "type": "string", "minLength": 1 },
+          "probe_runs": { "type": "integer", "minimum": 1 },
+          "canary_count": { "type": "integer", "minimum": 1 },
+          "access_event_count": { "type": "integer", "minimum": 1 },
+          "strong_leak_signals": { "type": "integer", "minimum": 0 },
+          "burned": { "type": "boolean" },
+          "burn_reason": { "type": ["string", "null"] },
+          "headline_eligible": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}
