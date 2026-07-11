@@ -1,12 +1,31 @@
 # OrgX Autonomous Initiative Benchmark
 
-This repository is the public proof surface for the OrgX Autonomous Initiative Benchmark.
+Most agent benchmarks ask whether a model can produce a convincing answer. This
+benchmark asks whether an AI system can complete multi-domain organizational
+work, change the right state, respect approval boundaries, and leave enough
+evidence for another person to verify what happened.
+
+This repository is the public, inspectable proof surface for that work. It
+contains the task catalog, Initiative Worlds contracts, methodology, validators,
+and publication bundles used to evaluate OrgX without turning internal product
+telemetry into marketing claims.
+
+## Reviewer path
+
+1. Read the [Initiative Worlds architecture](docs/initiative-worlds.md).
+2. Inspect the public task and world definitions in [`catalog/`](catalog/) and
+   [`worlds/`](worlds/).
+3. Review the publication boundary in **Published result bundles** below.
+4. Run `npm run validate:worlds:preview` to validate the public preview worlds.
+
+> **Current evidence boundary:** the public preview proves the methodology and
+> validation machinery. It does not yet support a frontier-model or
+> customer-performance headline; the private holdout, timed human baselines,
+> and outside reproduction gates remain intentionally fail-closed.
 
 ## Initiative Worlds preview
 
-Benchmark V2 is a trust-hardening release:
-
-**Benchmark V2 / OrgX-Bench v0.2: Initiative Worlds**
+**OrgX-Bench v0.2: Initiative Worlds** is the current trust-hardening preview.
 
 The current task catalog remains the public validation set. It is useful for
 runner smoke tests, methodology transparency, and contamination-visible examples.
