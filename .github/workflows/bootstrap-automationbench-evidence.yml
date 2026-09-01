@@ -1,0 +1,102 @@
+name: Bootstrap AutomationBench evidence program
+
+on:
+  push:
+    branches:
+      - codex/automationbench-comparison-20260901
+    paths:
+      - ".bootstrap_payload/**"
+      - ".github/workflows/bootstrap-automationbench-evidence.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bootstrap-automationbench-evidence-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  apply-and-verify:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/automationbench-comparison-20260901
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Decode exact change payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .bootstrap_payload/public.part-* | base64 --decode > /tmp/automationbench-public.tar.gz
+          tar -xzf /tmp/automationbench-public.tar.gz -C .
+          python .bootstrap/apply_existing_patches.py
+          rm -rf .bootstrap .bootstrap_payload .github/workflows/bootstrap-automationbench-evidence.yml
+          git diff --check
+      - name: Run complete deterministic repository test suite
+        run: node --test runner/lib/*.test.mjs worlds/instrumented/*.test.mjs
+      - name: Parse all new executables
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile runner/automationbench_pilot.py
+          node --check runner/compare-automationbench.mjs
+          node --check runner/reconcile-automationbench-ledger.mjs
+          node --check runner/materialize-automationbench-manifest.mjs
+      - uses: actions/checkout@v4
+        with:
+          repository: zapier/AutomationBench
+          ref: 4a8e1061254004d9dac807054eed33fad7d1ff14
+          path: vendor/AutomationBench
+      - uses: astral-sh/setup-uv@v6
+      - name: Install exact upstream benchmark
+        working-directory: vendor/AutomationBench
+        run: uv sync --frozen
+      - name: Freeze and validate exact public microcanary contract
+        working-directory: vendor/AutomationBench
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$GITHUB_WORKSPACE/artifacts/automationbench"
+          uv run python "$GITHUB_WORKSPACE/runner/automationbench_pilot.py" \
+            --seed orgx-automationbench-development-v1 \
+            --expected-upstream-commit 4a8e1061254004d9dac807054eed33fad7d1ff14 \
+            --expected-benchmark-version 1.0.6 \
+            --per-domain 1 \
+            --cohort-role development_microcanary \
+            --output "$GITHUB_WORKSPACE/artifacts/automationbench/cohort.json"
+          cd "$GITHUB_WORKSPACE"
+          node - <<'NODE'
+          const cohort = require('./artifacts/automationbench/cohort.json');
+          if (cohort.upstream_commit !== '4a8e1061254004d9dac807054eed33fad7d1ff14') throw new Error('upstream commit drift');
+          if (cohort.benchmark_version !== '1.0.6') throw new Error('benchmark version drift');
+          if (cohort.task_count !== 6) throw new Error(`expected 6 tasks, got ${cohort.task_count}`);
+          if (new Set(cohort.tasks.map((task) => task.domain)).size !== 6) throw new Error('six domains required');
+          if (!/^[a-f0-9]{64}$/.test(cohort.cohort_sha256)) throw new Error('cohort digest missing');
+          for (const task of cohort.tasks) {
+            if (!/^[a-f0-9]{64}$/.test(task.contract_sha256)) throw new Error(`unbound task: ${task.name}`);
+            if (task.evaluation_example_id !== cohort.tasks.indexOf(task)) throw new Error(`example id drift: ${task.name}`);
+          }
+          NODE
+      - name: Commit only after every evidence gate passes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Harden AutomationBench evidence program and Initiative Worlds accounting"
+          git push origin HEAD:codex/automationbench-comparison-20260901
+      - uses: actions/upload-artifact@v4
+        with:
+          name: automationbench-pinned-microcanary-contract
+          path: artifacts/automationbench/cohort.json
+          if-no-files-found: error
