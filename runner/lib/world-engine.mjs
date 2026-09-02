@@ -8,8 +8,9 @@
 //
 // Two arms, same base model, same tools, same competent base prompt:
 //   - raw:  best-effort single agent + tools (finalizes on first submit)
-//   - orgx: same + plan/decompose + a GROUNDED verification gate on the
-//           irreversible submit (re-derive each field via tools, no-regression)
+//   - orgx: same + plan/decompose + a grounded verification prompt on the
+//           irreversible submit. Draft recovery is an availability guard, not a
+//           proof that a second model call cannot semantically regress an answer.
 // The only variable is the loop architecture, so uplift is attributable to
 // orchestration, not the model or the prompt.
 import { performance } from 'node:perf_hooks';
@@ -58,16 +59,15 @@ export const ORGX3_SYSTEM = [
 export async function runEpisode({ world, arm, provider, model, episodeId, maxSteps = 18, maxOutputTokens = 6000, timeoutMs = 120_000, chatFn = chat }) {
   const started = performance.now();
   const state = world.initState();
-  const weg = { nodes: [], toolCalls: [], promptTokens: 0, completionTokens: 0, totalTokens: 0, costCents: 0, modelTurns: 0 };
+  const weg = { nodes: [], toolCalls: [], promptTokens: 0, completionTokens: 0, totalTokens: 0, costCents: 0, modelTurns: 0, resourceTelemetryComplete: true };
   const tools = world.tools.map(toToolSchema);
-  // Arm config. 'orgx' = reflexive gate v1 (Phase 1: harmful). 'orgx2' = gate
-  // v2.0: same grounded re-derivation BUT with a hard no-regression guard —
-  // the validated draft is kept if the verification pass runs past budget, so
-  // the loop can never lower a result the agent already produced.
+  // Arm config. 'orgx' = reflexive gate v1. 'orgx2' adds bounded draft
+  // recovery: if the second pass cannot finish, preserve the first submission
+  // instead of returning an empty timeout. This is not semantic no-regression.
   const usesGate = arm === 'orgx' || arm === 'orgx2' || arm === 'orgx3';
   const draftFallback = arm === 'orgx2' || arm === 'orgx3';
   // 'reflect' = the self-reflection null: one generic self-critique pass, NO
-  // OrgX decompose/verify framing and NO no-regression guard. Isolates whether
+  // OrgX decompose/verify framing and NO draft-recovery guard. Isolates whether
   // OrgX's *structured, grounded* gate beats plain "check your work".
   const usesReflection = arm === 'reflect';
   const system = arm === 'orgx3' ? ORGX3_SYSTEM : usesGate ? ORGX_SYSTEM : BASE_SYSTEM;
@@ -79,9 +79,18 @@ export async function runEpisode({ world, arm, provider, model, episodeId, maxSt
   let verificationOffered = false;
   let gateDraft = null;
   let terminal = null;
+  let executionError = null;
 
   for (let step = 0; step < maxSteps; step += 1) {
-    const response = await chatFn({ provider, model, messages, tools, maxOutputTokens, timeoutMs });
+    let response;
+    try {
+      response = await chatFn({ provider, model, messages, tools, maxOutputTokens, timeoutMs });
+    } catch (error) {
+      executionError = error instanceof Error ? error : new Error(String(error));
+      weg.resourceTelemetryComplete = false;
+      weg.nodes.push({ type: 'model_call_failed', step, error: executionError.message });
+      break;
+    }
     accUsage(weg, response.usage, model);
     weg.modelTurns += 1;
     const msg = response.choices?.[0]?.message ?? {};
@@ -116,7 +125,8 @@ export async function runEpisode({ world, arm, provider, model, episodeId, maxSt
         // step). escalate is not bounced.
         if (usesGate && name === 'submit' && !verificationOffered) {
           verificationOffered = true;
-          gateDraft = args; // v2.0 no-regression: remember the validated draft
+          gateDraft = { ...args }; // Preserve the first unvalidated submission for bounded recovery.
+          delete gateDraft._confidence; // Meta confidence must never leak into a recovered submission.
 
           // Gate v3.0 (orgx3): verify-on-the-edge — only spend the re-derivation
           // pass when the model is UNSURE. orgx/orgx2: reflexive (always verify).
@@ -170,13 +180,15 @@ export async function runEpisode({ world, arm, provider, model, episodeId, maxSt
   }
 
   if (!terminal) {
-    // v2.0 no-regression guard: if the verification pass blew the budget but
-    // the agent had already produced a validated draft, keep the draft instead
-    // of failing empty. This is what makes the gate incapable of lowering a
-    // result the agent already had.
+    // Bounded availability behavior only: retaining the first submission avoids
+    // an empty result after a failed/unfinished second pass. The independent
+    // validator still decides whether that submission is correct.
     if (draftFallback && gateDraft) {
-      terminal = { kind: 'submit', submission: gateDraft, recoveredFromDraft: true };
-      weg.nodes.push({ type: 'no_regression_fallback' });
+      const recoveryReason = executionError ? 'execution_error' : 'step_budget_exhausted';
+      terminal = { kind: 'submit', submission: gateDraft, recoveredFromDraft: true, recoveryReason };
+      weg.nodes.push({ type: 'draft_recovery', recoveryReason });
+    } else if (executionError) {
+      terminal = { kind: 'execution_error', submission: state.submission ?? null };
     } else {
       terminal = { kind: 'timeout', submission: state.submission ?? null };
       weg.nodes.push({ type: 'budget_exhausted' });
@@ -195,6 +207,9 @@ export async function runEpisode({ world, arm, provider, model, episodeId, maxSt
     terminalKind: terminal.kind,
     submission: terminal.submission,
     weg: { ...weg, toolCallCount: weg.toolCalls.length },
+    failed: Boolean(executionError),
+    executionError: executionError?.message ?? null,
+    resourceTelemetryComplete: weg.resourceTelemetryComplete !== false,
     ...scored, // { pass, dimensions: {...}, detail }
   };
 }
@@ -202,26 +217,36 @@ export async function runEpisode({ world, arm, provider, model, episodeId, maxSt
 // Restart-at-boundary arm: process the job in segments, each in a FRESH
 // context that receives only the carried verified state. Kills state drift by
 // keeping each working context small. Requires world.restart.
-export async function runRestartEpisode({ world, provider, model, episodeId, maxStepsPerSegment = 12, maxOutputTokens = 6000, timeoutMs = 120_000 }) {
+export async function runRestartEpisode({ world, provider, model, episodeId, maxStepsPerSegment = 12, maxOutputTokens = 6000, timeoutMs = 120_000, chatFn = chat }) {
   const started = performance.now();
   const spec = world.restart;
-  const weg = { nodes: [], toolCalls: [], promptTokens: 0, completionTokens: 0, totalTokens: 0, costCents: 0, modelTurns: 0, segments: 0 };
+  const weg = { nodes: [], toolCalls: [], promptTokens: 0, completionTokens: 0, totalTokens: 0, costCents: 0, modelTurns: 0, segments: 0, resourceTelemetryComplete: true };
   let carry = spec.initCarry();
-  const n = Math.ceil(spec.totalItems / spec.segmentSize);
+  const expectedSegments = Math.ceil(spec.totalItems / spec.segmentSize);
+  let completedSegments = 0;
+  let executionError = null;
 
-  for (let seg = 0; seg < n; seg += 1) {
+  segments: for (let seg = 0; seg < expectedSegments; seg += 1) {
     const lo = seg * spec.segmentSize;
     const hi = Math.min(spec.totalItems, lo + spec.segmentSize);
     const tools = spec.segmentTools(carry, lo, hi);
     const messages = [
       { role: 'system', content: BASE_SYSTEM },
-      { role: 'user', content: spec.segmentPrompt(lo, hi, n) },
+      { role: 'user', content: spec.segmentPrompt(lo, hi, expectedSegments) },
     ];
     weg.segments += 1;
     let segmentResult = null;
 
     for (let step = 0; step < maxStepsPerSegment && !segmentResult; step += 1) {
-      const response = await chat({ provider, model, messages, tools: tools.map(toToolSchema), maxOutputTokens, timeoutMs });
+      let response;
+      try {
+        response = await chatFn({ provider, model, messages, tools: tools.map(toToolSchema), maxOutputTokens, timeoutMs });
+      } catch (error) {
+        executionError = error instanceof Error ? error : new Error(String(error));
+        weg.resourceTelemetryComplete = false;
+        weg.nodes.push({ type: 'segment_model_call_failed', segment: seg, step, error: executionError.message });
+        break segments;
+      }
       accUsage(weg, response.usage, model);
       weg.modelTurns += 1;
       const msg = response.choices?.[0]?.message ?? {};
@@ -236,27 +261,59 @@ export async function runRestartEpisode({ world, provider, model, episodeId, max
         const name = call.function?.name;
         let args = {};
         try { args = JSON.parse(call.function?.arguments || '{}'); } catch { args = {}; }
-        const tool = tools.find((t) => t.name === name);
-        weg.toolCalls.push({ segment: seg, name });
-        if (!tool) { messages.push({ role: 'tool', tool_call_id: call.id, content: `Error: unknown tool "${name}".` }); continue; }
-        if (tool.terminal) { segmentResult = tool.handler(args); weg.nodes.push({ type: 'segment_submit', segment: seg }); break; }
-        const result = tool.handler(args);
-        messages.push({ role: 'tool', tool_call_id: call.id, content: typeof result === 'string' ? result : JSON.stringify(result) });
+        const observed = { segment: seg, step, name, args, status: 'attempted' };
+        weg.toolCalls.push(observed);
+        const tool = tools.find((candidate) => candidate.name === name);
+        if (!tool) {
+          observed.status = 'unknown_tool';
+          messages.push({ role: 'tool', tool_call_id: call.id, content: `Error: unknown tool "${name}".` });
+          continue;
+        }
+        try {
+          if (tool.terminal) {
+            segmentResult = tool.handler(args);
+            observed.status = 'succeeded';
+            weg.nodes.push({ type: 'segment_submit', segment: seg });
+            break;
+          }
+          const result = tool.handler(args);
+          observed.status = 'succeeded';
+          messages.push({ role: 'tool', tool_call_id: call.id, content: typeof result === 'string' ? result : JSON.stringify(result) });
+        } catch (error) {
+          observed.status = 'failed';
+          executionError = error instanceof Error ? error : new Error(String(error));
+          weg.nodes.push({ type: 'segment_tool_failed', segment: seg, step, name, error: executionError.message });
+          break segments;
+        }
       }
     }
-    if (!segmentResult) { weg.nodes.push({ type: 'segment_timeout', segment: seg }); break; }
+    if (!segmentResult) {
+      weg.nodes.push({ type: 'segment_timeout', segment: seg });
+      break;
+    }
     carry = spec.foldCarry(carry, segmentResult);
+    completedSegments += 1;
   }
 
-  const submission = spec.finalSubmission(carry);
-  const terminal = { kind: 'submit', submission };
-  // Method flag: restart used segment tools to query the data.
-  const state = { ...world.initState(), queriedOrders: true, queriedInventory: true, queriedInvoices: true, usedCompute: true };
+  const complete = completedSegments === expectedSegments;
+  const submission = complete ? spec.finalSubmission(carry) : null;
+  const terminal = {
+    kind: complete ? 'submit' : executionError ? 'execution_error' : 'timeout',
+    submission,
+  };
+  const baseState = world.initState();
+  const state = typeof spec.deriveValidationState === 'function'
+    ? spec.deriveValidationState({ baseState, carry, weg, expectedSegments, completedSegments })
+    : baseState;
   const scored = world.validate({ terminal, weg, state });
   return {
     episodeId, worldId: world.id, arm: 'restart', model,
     durationSeconds: Number(((performance.now() - started) / 1000).toFixed(2)),
     terminalKind: terminal.kind, submission,
+    completedSegments, expectedSegments,
+    failed: Boolean(executionError),
+    executionError: executionError?.message ?? null,
+    resourceTelemetryComplete: weg.resourceTelemetryComplete !== false,
     weg: { ...weg, toolCallCount: weg.toolCalls.length },
     ...scored,
   };
@@ -322,9 +379,12 @@ function accUsage(weg, usage, model) {
   const fu = readFuguUsage(usage ?? {});
   weg.orchInputTokens = (weg.orchInputTokens ?? 0) + fu.orchInput;
   weg.orchOutputTokens = (weg.orchOutputTokens ?? 0) + fu.orchOutput;
-  // Exact cost for Fugu Ultra (fixed pricing); else provider-billed cost; else 0.
+  // Exact cost for Fugu Ultra, otherwise provider-billed cost. Unknown
+  // billing must remain unknown rather than silently entering the mean as zero.
   const fugu = fuguCostCents(model, usage ?? {});
-  weg.costCents += fugu ?? (chatUsageCostCents(usage ?? {}) ?? 0);
+  const billed = fugu ?? chatUsageCostCents(usage ?? {});
+  if (billed == null || !Number.isFinite(billed)) weg.resourceTelemetryComplete = false;
+  else weg.costCents += billed;
 }
 
 // POST JSON over node:https. We deliberately do NOT use global fetch here:

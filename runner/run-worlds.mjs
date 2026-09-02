@@ -11,6 +11,7 @@ import { runEpisode, runRestartEpisode, runBestOfNEpisode } from './lib/world-en
 import { requireProviderKey } from './lib/providers.mjs';
 import { filterWorldsBySplit } from './lib/corpus-splits.mjs';
 import { buildWorldRunReport } from './lib/world-reporting.mjs';
+import { makeFailedEpisode } from './lib/failed-episode.mjs';
 import {
   buildDifficultySchedule,
   materializeWorldForEpisode,
@@ -85,20 +86,7 @@ const episodes = await mapWithConcurrency(jobs, concurrency, async (job, index) 
     return { ...(await runEpisode({ world: worldForEpisode, arm: job.arm, provider, model, episodeId: job.episodeId })), ...provenance };
   } catch (error) {
     console.error(`  ${job.episodeId} FAILED: ${error instanceof Error ? error.message : error}`);
-    return {
-      episodeId: job.episodeId,
-      baseWorldId: job.world.id,
-      seedIndex: job.seedIndex,
-      difficulty: job.difficulty ?? null,
-      worldId: job.world.id,
-      arm: job.arm,
-      model,
-      failed: true,
-      error: String(error),
-      pass: false,
-      dimensions: {},
-      weg: { totalTokens: 0, costCents: 0, toolCallCount: 0 },
-    };
+    return makeFailedEpisode({ job, model, error });
   }
 });
 
@@ -138,8 +126,10 @@ function printReport(report) {
     console.log(`\n[${arm}]`);
     console.log(`  pass@k:         raw ${u.passAtK.raw}  ->  ${u.passAtK.arm}   (${sign(u.passAtK.uplift)})`);
     console.log(`  pass^k (all-k): raw ${u.passPowK.raw}  ->  ${u.passPowK.arm}   (${sign(u.passPowK.uplift)})`);
-    console.log(`  quality/Ktoken: raw ${u.qualityPerKToken.raw}  ->  ${u.qualityPerKToken.arm}   (${sign(u.qualityPerKToken.uplift)})`);
-    console.log(`  mean tokens:    raw ${u.meanTokens.raw}  ->  ${u.meanTokens.arm}   (${(u.meanTokens.arm / Math.max(1, u.meanTokens.raw)).toFixed(2)}x)`);
+    if (u.qualityPerKToken.raw == null || u.qualityPerKToken.arm == null) console.log('  quality/Ktoken: unknown (incomplete resource telemetry)');
+    else console.log(`  quality/Ktoken: raw ${u.qualityPerKToken.raw}  ->  ${u.qualityPerKToken.arm}   (${sign(u.qualityPerKToken.uplift)})`);
+    if (u.meanTokens.raw == null || u.meanTokens.arm == null) console.log('  mean tokens:    unknown (incomplete resource telemetry)');
+    else console.log(`  mean tokens:    raw ${u.meanTokens.raw}  ->  ${u.meanTokens.arm}   (${(u.meanTokens.arm / Math.max(1, u.meanTokens.raw)).toFixed(2)}x)`);
     for (const [d, v] of Object.entries(u.dimensions ?? {})) {
       console.log(`    ${d.padEnd(16)} ${v.raw} -> ${v.arm}   (${sign(v.uplift)})`);
     }
