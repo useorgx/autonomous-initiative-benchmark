@@ -1,11 +1,17 @@
-name: Bootstrap AutomationBench evidence program
+name: AutomationBench evidence integrity
 
 on:
   push:
     branches:
       - codex/automationbench-comparison-20260901
+  pull_request:
+    branches:
+      - main
     paths:
-      - ".bootstrap_payload/**"
+      - "runner/**"
+      - "worlds/**"
+      - "schemas/**"
+      - "package.json"
       - ".github/workflows/bootstrap-automationbench-evidence.yml"
   workflow_dispatch:
 
@@ -13,53 +19,85 @@ permissions:
   contents: write
 
 concurrency:
-  group: bootstrap-automationbench-evidence-${{ github.ref }}
+  group: automationbench-evidence-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  apply-and-verify:
-    if: github.actor != 'github-actions[bot]'
+  deterministic-integrity:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: codex/automationbench-comparison-20260901
           fetch-depth: 0
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
-      - name: Decode exact change payload
-        shell: bash
-        run: |
-          set -euo pipefail
-          cat .bootstrap_payload/public.part-* | base64 --decode > /tmp/automationbench-public.tar.gz
-          tar -xzf /tmp/automationbench-public.tar.gz -C .
-          python .bootstrap/apply_existing_patches.py
-          rm -rf .bootstrap .bootstrap_payload
 
-          # GitHub blocks Actions tokens from creating or modifying workflow
-          # files without a dedicated workflows permission. Materialize ordinary
-          # source first; an authenticated repository write installs the reviewed
-          # integrity workflow separately after the code is inspectable.
-          rm -f .github/workflows/benchmark-evidence-integrity.yml
-          git restore --source=HEAD --staged --worktree \
-            .github/workflows/bootstrap-automationbench-evidence.yml
-          git diff --check
-      - name: Materialize inspectable source before verification
+      - name: Repair materialized Boolean evidence regressions
+        if: github.event_name == 'push' && github.ref == 'refs/heads/codex/automationbench-comparison-20260901'
         shell: bash
         run: |
           set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          replacements = {
+              Path('worlds/instrumented/order-pipeline-horizon.mjs'): (
+                  """      const hasEverySegment = (name) => Array.from({ length: expectedSegments }, (_value, segment) =>
+                  successful.some((call) => call.segment === segment && call.name === name));""",
+                  """      const hasEverySegment = (name) =>
+                  Array.from({ length: expectedSegments }, (_value, segment) => segment)
+                    .every((segment) =>
+                      successful.some(
+                        (call) => call.segment === segment && call.name === name
+                      )
+                    );""",
+              ),
+              Path('worlds/instrumented/ledger-running-total.mjs'): (
+                  """      const everySegmentRead = Array.from({ length: expectedSegments }, (_value, segment) =>
+                  successful.some((call) => call.segment === segment));""",
+                  """      const everySegmentRead =
+                  Array.from({ length: expectedSegments }, (_value, segment) => segment)
+                    .every((segment) =>
+                      successful.some((call) => call.segment === segment)
+                    );""",
+              ),
+          }
+
+          for path, (old, new) in replacements.items():
+              text = path.read_text()
+              if old in text:
+                  path.write_text(text.replace(old, new, 1))
+              elif new not in text:
+                  raise SystemExit(f'Expected repair target not found in {path}')
+          PY
+          git diff --check
+
+      - name: Commit source repair when needed
+        if: github.event_name == 'push' && github.ref == 'refs/heads/codex/automationbench-comparison-20260901'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo "No source repair required."
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "Materialize AutomationBench evidence program for review"
+          git add worlds/instrumented/order-pipeline-horizon.mjs \
+                  worlds/instrumented/ledger-running-total.mjs
+          git commit -m "Fix restart evidence aggregation"
           git push origin HEAD:codex/automationbench-comparison-20260901
+
       - name: Run complete deterministic repository test suite
         run: node --test runner/lib/*.test.mjs worlds/instrumented/*.test.mjs
+
       - name: Parse all new executables
         shell: bash
         run: |
@@ -68,15 +106,19 @@ jobs:
           node --check runner/compare-automationbench.mjs
           node --check runner/reconcile-automationbench-ledger.mjs
           node --check runner/materialize-automationbench-manifest.mjs
+
       - uses: actions/checkout@v4
         with:
           repository: zapier/AutomationBench
           ref: 4a8e1061254004d9dac807054eed33fad7d1ff14
           path: vendor/AutomationBench
+
       - uses: astral-sh/setup-uv@v6
+
       - name: Install exact upstream benchmark
         working-directory: vendor/AutomationBench
         run: uv sync --frozen
+
       - name: Freeze and validate exact public microcanary contract
         working-directory: vendor/AutomationBench
         shell: bash
@@ -98,13 +140,15 @@ jobs:
           if (cohort.task_count !== 6) throw new Error(`expected 6 tasks, got ${cohort.task_count}`);
           if (new Set(cohort.tasks.map((task) => task.domain)).size !== 6) throw new Error('six domains required');
           if (!/^[a-f0-9]{64}$/.test(cohort.cohort_sha256)) throw new Error('cohort digest missing');
-          for (const task of cohort.tasks) {
+          for (const [index, task] of cohort.tasks.entries()) {
             if (!/^[a-f0-9]{64}$/.test(task.contract_sha256)) throw new Error(`unbound task: ${task.name}`);
-            if (task.evaluation_example_id !== cohort.tasks.indexOf(task)) throw new Error(`example id drift: ${task.name}`);
+            if (task.evaluation_example_id !== index) throw new Error(`example id drift: ${task.name}`);
           }
           NODE
+
       - uses: actions/upload-artifact@v4
         with:
           name: automationbench-pinned-microcanary-contract
           path: artifacts/automationbench/cohort.json
           if-no-files-found: error
+          retention-days: 30
