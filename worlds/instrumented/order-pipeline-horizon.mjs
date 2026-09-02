@@ -135,8 +135,13 @@ export const world = {
     },
     deriveValidationState({ baseState, weg, expectedSegments, completedSegments }) {
       const successful = (weg.toolCalls ?? []).filter((call) => call.status === 'succeeded');
-      const hasEverySegment = (name) => Array.from({ length: expectedSegments }, (_value, segment) =>
-        successful.some((call) => call.segment === segment && call.name === name));
+      const hasEverySegment = (name) =>
+        Array.from({ length: expectedSegments }, (_value, segment) => segment)
+          .every((segment) =>
+            successful.some(
+              (call) => call.segment === segment && call.name === name
+            )
+          );
       return {
         ...baseState,
         queriedOrders: completedSegments === expectedSegments && hasEverySegment('get_segment_orders'),
