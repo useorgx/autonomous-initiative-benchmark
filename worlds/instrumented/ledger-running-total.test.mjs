@@ -7,55 +7,114 @@ import assert from 'node:assert/strict';
 import { world } from './ledger-running-total.mjs';
 
 test('validate passes only on the exact ground-truth balance', () => {
-  // Re-derive the expected balance the same way the world does.
-  const r = world.validate({
-    terminal: { kind: 'submit', submission: { balance: world.validate({ terminal: { submission: {} }, weg: {}, state: {} }).detail.expected } },
+  const expected = world.validate({
+    terminal: { submission: {} },
+    weg: {},
+    state: {},
+  }).detail.expected;
+  const result = world.validate({
+    terminal: { kind: 'submit', submission: { balance: expected } },
     weg: { segments: 0 },
     state: { queriedLedger: true },
   });
-  assert.equal(r.pass, true);
-  assert.equal(r.dimensions.outcome, 1);
+  assert.equal(result.pass, true);
+  assert.equal(result.dimensions.outcome, 1);
 });
 
 test('a drifted (wrong) balance fails', () => {
-  const r = world.validate({
+  const result = world.validate({
     terminal: { kind: 'submit', submission: { balance: 999 } },
     weg: { segments: 0 },
     state: { queriedLedger: true },
   });
-  assert.equal(r.pass, false);
+  assert.equal(result.pass, false);
 });
+
+function replayEverySegment(spec) {
+  let carry = spec.initCarry();
+  const segmentCount = Math.ceil(spec.totalItems / spec.segmentSize);
+  const toolCalls = [];
+
+  for (let segment = 0; segment < segmentCount; segment += 1) {
+    const lo = segment * spec.segmentSize;
+    const hi = Math.min(spec.totalItems, lo + spec.segmentSize);
+    const tools = spec.segmentTools(carry, lo, hi);
+    const segmentRows = tools
+      .find((tool) => tool.name === 'get_segment')
+      .handler().transactions;
+    toolCalls.push({
+      segment,
+      step: 0,
+      name: 'get_segment',
+      status: 'succeeded',
+    });
+    const segmentSum = segmentRows.reduce(
+      (sum, transaction) => sum + transaction.amount,
+      0
+    );
+    const result = tools
+      .find((tool) => tool.name === 'submit_segment')
+      .handler({ segment_sum: segmentSum });
+    toolCalls.push({
+      segment,
+      step: 1,
+      name: 'submit_segment',
+      status: 'succeeded',
+    });
+    carry = spec.foldCarry(carry, result);
+  }
+
+  return { carry, segmentCount, toolCalls };
+}
 
 test('restart fold over all segments reconstructs the exact balance', () => {
   const spec = world.restart;
-  let carry = spec.initCarry();
-  const n = Math.ceil(spec.totalItems / spec.segmentSize);
-  for (let seg = 0; seg < n; seg += 1) {
-    const lo = seg * spec.segmentSize;
-    const hi = Math.min(spec.totalItems, lo + spec.segmentSize);
-    const tools = spec.segmentTools(carry, lo, hi);
-    const segTxns = tools.find((t) => t.name === 'get_segment').handler().transactions;
-    const segSum = segTxns.reduce((a, t) => a + t.amount, 0);
-    const result = tools.find((t) => t.name === 'submit_segment').handler({ segment_sum: segSum });
-    carry = spec.foldCarry(carry, result);
-  }
-  const expected = world.validate({ terminal: { submission: {} }, weg: {}, state: {} }).detail.expected;
+  const { carry, segmentCount } = replayEverySegment(spec);
+  const expected = world.validate({
+    terminal: { submission: {} },
+    weg: {},
+    state: {},
+  }).detail.expected;
   assert.equal(spec.finalSubmission(carry).balance, expected);
-  assert.equal(carry.processed, n);
+  assert.equal(carry.processed, segmentCount);
 });
 
-test('restart-derived submission passes validation', () => {
+test('restart-derived submission passes only with observed segment-read evidence', () => {
   const spec = world.restart;
-  let carry = spec.initCarry();
-  const n = Math.ceil(spec.totalItems / spec.segmentSize);
-  for (let seg = 0; seg < n; seg += 1) {
-    const lo = seg * spec.segmentSize;
-    const hi = Math.min(spec.totalItems, lo + spec.segmentSize);
-    const tools = spec.segmentTools(carry, lo, hi);
-    const segSum = tools.find((t) => t.name === 'get_segment').handler().transactions.reduce((a, t) => a + t.amount, 0);
-    carry = spec.foldCarry(carry, { segment_sum: segSum });
-  }
-  const r = world.validate({ terminal: { submission: spec.finalSubmission(carry) }, weg: { segments: n }, state: {} });
-  assert.equal(r.pass, true);
-  assert.equal(r.dimensions.method, 1);
+  const { carry, segmentCount, toolCalls } = replayEverySegment(spec);
+  const weg = { segments: segmentCount, toolCalls };
+  const state = spec.deriveValidationState({
+    baseState: world.initState(),
+    carry,
+    weg,
+    expectedSegments: segmentCount,
+    completedSegments: segmentCount,
+  });
+  const result = world.validate({
+    terminal: { kind: 'submit', submission: spec.finalSubmission(carry) },
+    weg,
+    state,
+  });
+  assert.equal(result.pass, true);
+  assert.equal(result.dimensions.method, 1);
+});
+
+test('correct restart math without observed reads does not earn method evidence', () => {
+  const spec = world.restart;
+  const { carry, segmentCount } = replayEverySegment(spec);
+  const weg = { segments: segmentCount, toolCalls: [] };
+  const state = spec.deriveValidationState({
+    baseState: world.initState(),
+    carry,
+    weg,
+    expectedSegments: segmentCount,
+    completedSegments: segmentCount,
+  });
+  const result = world.validate({
+    terminal: { kind: 'submit', submission: spec.finalSubmission(carry) },
+    weg,
+    state,
+  });
+  assert.equal(result.dimensions.outcome, 1);
+  assert.equal(result.dimensions.method, 0);
 });
