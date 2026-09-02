@@ -4,7 +4,14 @@ import assert from 'node:assert/strict';
 import { buildWorldRunReport } from './world-reporting.mjs';
 import { world as ledgerWorld } from '../../worlds/instrumented/ledger-running-total.mjs';
 
-function episode({ arm = 'raw', seedIndex = 1, pass = true, complete = true, tokens = 10, cost = 0.1 } = {}) {
+function episode({
+  arm = 'raw',
+  seedIndex = 1,
+  pass = true,
+  complete = true,
+  tokens = 10,
+  cost = 0.1,
+} = {}) {
   return {
     episodeId: `${ledgerWorld.id}-${arm}-e${seedIndex}`,
     baseWorldId: ledgerWorld.id,
@@ -29,7 +36,10 @@ test('unmeasured dimensions stay null and incomplete resource means stay unknown
     worlds: [ledgerWorld],
     arms: ['raw'],
     k: 2,
-    episodes: [episode({ seedIndex: 1 }), episode({ seedIndex: 2, complete: false, tokens: 0, cost: 0 })],
+    episodes: [
+      episode({ seedIndex: 1 }),
+      episode({ seedIndex: 2, complete: false, tokens: 0, cost: 0 }),
+    ],
     provider: 'fixture',
     model: 'fixture-model',
   });
@@ -38,8 +48,12 @@ test('unmeasured dimensions stay null and incomplete resource means stay unknown
   assert.equal(raw.meanTokens, null);
   assert.equal(raw.meanCostCents, null);
   assert.equal(raw.resourceTelemetryComplete, false);
-  assert.equal(raw.knownMeanTokenLowerBound, 10);
-  assert.equal(raw.knownMeanCostLowerBoundCents, 0.1);
+
+  // The incomplete episode remains in the planned denominator. Its observed
+  // zero cannot be treated as a complete zero-cost run, but it is a valid lower
+  // bound, so the all-episode lower bound is 10 / 2 and 0.1 / 2.
+  assert.equal(raw.knownMeanTokenLowerBound, 5);
+  assert.equal(raw.knownMeanCostLowerBoundCents, 0.05);
 });
 
 test('a sample-perfect raw cell is diagnostic, never declared saturation', () => {
@@ -54,21 +68,30 @@ test('a sample-perfect raw cell is diagnostic, never declared saturation', () =>
   assert.equal(report.perWorld[0].headroomDiagnostic, 'raw_sample_perfect');
   assert.equal(report.admissionSummary.rawSamplePerfect, 1);
   assert.equal('saturated' in report.admissionSummary, false);
-  assert.match(report.admissionSummary.rule, /not a saturation claim/i);
+  assert.match(
+    report.admissionSummary.rule,
+    /not saturation|not a world-retirement decision/i
+  );
 });
 
 test('strict headline mode rejects incomplete resource telemetry', () => {
-  const episodes = Array.from({ length: 8 }, (_, index) => episode({
-    seedIndex: index + 1,
-    complete: index !== 7,
-  }));
-  assert.throws(() => buildWorldRunReport({
-    worlds: [ledgerWorld],
-    arms: ['raw'],
-    k: 8,
-    episodes,
-    provider: 'fixture',
-    model: 'fixture-model',
-    strictHeadline: true,
-  }), /resource telemetry|private_holdout/i);
+  const episodes = Array.from({ length: 8 }, (_, index) =>
+    episode({
+      seedIndex: index + 1,
+      complete: index !== 7,
+    })
+  );
+  assert.throws(
+    () =>
+      buildWorldRunReport({
+        worlds: [ledgerWorld],
+        arms: ['raw'],
+        k: 8,
+        episodes,
+        provider: 'fixture',
+        model: 'fixture-model',
+        strictHeadline: true,
+      }),
+    /resource telemetry|private_holdout/i
+  );
 });
