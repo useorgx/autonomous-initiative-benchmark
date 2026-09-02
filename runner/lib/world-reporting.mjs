@@ -10,28 +10,35 @@ import {
   estimateReliabilityHorizons,
 } from './parametric-worlds.mjs';
 import { recoveryScore } from './resilience-metrics.mjs';
+import { classifyObservedHeadroom, mean as evidenceMean, round as evidenceRound, summarizeDimension, summarizeEpisodeResources } from './resource-telemetry.mjs';
 
 export const HEADLINE_MIN_EPISODES_PER_CELL = 8;
 const DIMS = ['outcome', 'method', 'coordination', 'judgment', 'trust'];
 
 export function buildWorldRunReport({ worlds, arms, k, episodes, provider, model, strictHeadline = false }) {
-  const byKey = (worldId, arm) => episodes.filter((e) => e.worldId === worldId && e.arm === arm);
+  const byKey = (worldId, arm) => episodes.filter((episode) => episode.worldId === worldId && episode.arm === arm);
 
   const perWorld = worlds.map((world) => {
     const armStats = {};
     for (const arm of arms) {
       const eps = byKey(world.id, arm);
-      const passes = eps.filter((e) => e.pass).length;
+      const passes = eps.filter((episode) => episode.pass).length;
       const passAtK = eps.length ? passes / eps.length : 0;
-      const observedPassPowK = eps.length && eps.every((e) => e.pass) ? 1 : 0;
-      const tokens = avg(eps.map((e) => e.weg?.totalTokens ?? 0));
-      const cost = avg(eps.map((e) => e.weg?.costCents ?? 0));
-      const toolCalls = avg(eps.map((e) => e.weg?.toolCallCount ?? 0));
-      const dims = Object.fromEntries(DIMS.map((d) => [d, avg(eps.map((e) => Number(e.dimensions?.[d] ?? 0)))]));
-      const qualityPerKToken = tokens > 0 ? Number((passAtK / (tokens / 1000)).toFixed(4)) : 0;
-      const orchTokens = avg(eps.map((e) => (e.weg?.orchInputTokens ?? 0) + (e.weg?.orchOutputTokens ?? 0)));
-      const orchestrationRatio = tokens > 0 ? Number((orchTokens / tokens).toFixed(4)) : 0;
-      const injections = eps.map((e) => e.injection).filter(Boolean);
+      const observedPassPowK = eps.length && eps.every((episode) => episode.pass) ? 1 : 0;
+      const resources = summarizeEpisodeResources(eps);
+      const tokens = resources.meanTokens;
+      const cost = resources.meanCostCents;
+      const toolCalls = evidenceMean(eps.map((episode) => Number(episode.weg?.toolCallCount ?? 0)));
+      const dimensionSummaries = Object.fromEntries(DIMS.map((dimension) => [dimension, summarizeDimension(eps, dimension)]));
+      const qualityPerKToken = tokens != null && tokens > 0 ? Number((passAtK / (tokens / 1000)).toFixed(4)) : null;
+      const orchestrationValues = eps.map((episode) => {
+        const input = episode.weg?.orchInputTokens;
+        const output = episode.weg?.orchOutputTokens;
+        return Number.isFinite(input) || Number.isFinite(output) ? Number(input ?? 0) + Number(output ?? 0) : null;
+      }).filter(Number.isFinite);
+      const orchTokens = resources.complete && orchestrationValues.length === eps.length ? evidenceMean(orchestrationValues) : null;
+      const orchestrationRatio = tokens != null && orchTokens != null && tokens > 0 ? Number((orchTokens / tokens).toFixed(4)) : null;
+      const injections = eps.map((episode) => episode.injection).filter(Boolean);
       const recovery = injections.length ? recoveryScore(injections) : null;
       armStats[arm] = {
         n: eps.length,
@@ -39,32 +46,48 @@ export function buildWorldRunReport({ worlds, arms, k, episodes, provider, model
         passAtKCi95: wilsonInterval(passes, eps.length),
         passPowK: observedPassPowK,
         passPowKCurve: passPowerCurve(passAtK),
-        meanTokens: Math.round(tokens),
-        meanTokensCi95: bcaBootstrapMeanInterval(eps.map((e) => e.weg?.totalTokens ?? 0)),
+        resourceTelemetryComplete: resources.complete,
+        resourceTelemetryCompleteEpisodes: resources.completeEpisodes,
+        meanTokens: tokens == null ? null : Math.round(tokens),
+        meanTokensCi95: resources.complete ? bcaBootstrapMeanInterval(resources.tokenValues) : null,
+        knownMeanTokenLowerBound: resources.knownMeanTokenLowerBound == null ? null : Math.round(resources.knownMeanTokenLowerBound),
         meanCostCents: round(cost),
-        meanCostCentsCi95: bcaBootstrapMeanInterval(eps.map((e) => e.weg?.costCents ?? 0)),
+        meanCostCentsCi95: resources.complete ? bcaBootstrapMeanInterval(resources.costValues) : null,
+        knownMeanCostLowerBoundCents: round(resources.knownMeanCostLowerBoundCents),
         meanToolCalls: round(toolCalls),
         qualityPerKToken,
-        meanOrchestrationTokens: Math.round(orchTokens),
+        meanOrchestrationTokens: orchTokens == null ? null : Math.round(orchTokens),
         orchestrationRatio,
-        dimensions: Object.fromEntries(Object.entries(dims).map(([d, v]) => [d, round(v)])),
-        dimensionsCi95: Object.fromEntries(
-          DIMS.map((d) => [d, bcaBootstrapMeanInterval(eps.map((e) => Number(e.dimensions?.[d] ?? 0)))])
-        ),
+        dimensions: Object.fromEntries(DIMS.map((dimension) => [dimension, round(dimensionSummaries[dimension].value)])),
+        dimensionCoverage: Object.fromEntries(DIMS.map((dimension) => [dimension, dimensionSummaries[dimension].measuredEpisodes])),
+        dimensionsCi95: Object.fromEntries(DIMS.map((dimension) => [
+          dimension,
+          dimensionSummaries[dimension].values.length ? bcaBootstrapMeanInterval(dimensionSummaries[dimension].values) : null,
+        ])),
         recovery,
-        failures: eps.filter((e) => e.failed).length,
+        failures: eps.filter((episode) => episode.failed).length,
       };
     }
-    const rawSat = (armStats.raw?.passAtK ?? 0) >= 1;
-    return { worldId: world.id, domain: world.domain, admission: rawSat ? 'saturated' : 'admitted', arms: armStats };
+    return {
+      worldId: world.id,
+      domain: world.domain,
+      headroomDiagnostic: classifyObservedHeadroom(armStats.raw),
+      arms: armStats,
+    };
   });
 
   const uplift = buildUplift({ perWorld, arms });
   const pairedComparisons = buildPairedComparisons({ worlds, arms, episodes });
   const difficultyCurves = buildDifficultyCurves({ worlds, arms, episodes });
-  const admitted = perWorld.filter((w) => w.admission === 'admitted').length;
+  const rawSamplePerfect = perWorld.filter((world) => world.headroomDiagnostic === 'raw_sample_perfect').length;
   const report = {
-    admissionSummary: { admitted, saturated: perWorld.length - admitted, rule: 'admitted if raw baseline pass@k < 1.0 (headroom exists)' },
+    admissionSummary: {
+      rawSamplePerfect,
+      rawHeadroomObserved: perWorld.filter((world) => world.headroomDiagnostic === 'raw_headroom_observed').length,
+      rawUnobserved: perWorld.filter((world) => world.headroomDiagnostic === 'raw_unobserved').length,
+      retirementEligible: 0,
+      rule: 'Diagnostic only. A sample-perfect raw cell is not saturation or a world-retirement decision.',
+    },
     benchmark: 'orgx-bench-v2-instrumented-worlds',
     corpus: computeCorpusEligibility(worlds),
     generatedAtNote: 'timestamp stamped by caller',
@@ -75,10 +98,7 @@ export function buildWorldRunReport({ worlds, arms, k, episodes, provider, model
     worldCount: worlds.length,
     scoring: 'deterministic validators only (no LLM judge)',
     statistics: {
-      ci95: {
-        passRates: 'Wilson score interval',
-        means: 'BCa bootstrap interval',
-      },
+      ci95: { passRates: 'Wilson score interval', means: 'BCa bootstrap interval' },
       passPowerK: [1, 4, 8, 16, 32],
       headlineMinEpisodesPerCell: HEADLINE_MIN_EPISODES_PER_CELL,
       pairedSeedComparison: true,
@@ -110,6 +130,9 @@ export function assertHeadlineStatisticalContract(report) {
       if (stats.passAtKCi95?.low == null || stats.passAtKCi95?.high == null) {
         errors.push(`${world.worldId}/${arm} is missing passAtKCi95.`);
       }
+      if (!stats.resourceTelemetryComplete) {
+        errors.push(`${world.worldId}/${arm} has incomplete resource telemetry.`);
+      }
       if (stats.meanCostCentsCi95?.low == null || stats.meanCostCentsCi95?.high == null) {
         errors.push(`${world.worldId}/${arm} is missing meanCostCentsCi95.`);
       }
@@ -124,22 +147,29 @@ function buildUplift({ perWorld, arms }) {
   const uplift = {};
   if (!arms.includes('raw')) return uplift;
 
-  for (const arm of arms.filter((a) => a !== 'raw')) {
-    const worldsWith = perWorld.filter((w) => w.arms[arm]);
+  const aggregatePair = (worlds, rawSelector, armSelector) => {
+    const pairs = worlds.map((world) => ({ raw: rawSelector(world), arm: armSelector(world) }))
+      .filter((pair) => pair.raw != null && pair.arm != null);
+    if (pairs.length === 0) return { raw: null, arm: null, uplift: null, comparableWorlds: 0 };
+    const raw = evidenceMean(pairs.map((pair) => pair.raw));
+    const candidate = evidenceMean(pairs.map((pair) => pair.arm));
+    return { raw: round(raw), arm: round(candidate), uplift: round(candidate - raw), comparableWorlds: pairs.length };
+  };
+
+  for (const arm of arms.filter((candidate) => candidate !== 'raw')) {
+    const worldsWith = perWorld.filter((world) => world.arms[arm] && world.arms.raw);
     if (worldsWith.length === 0) continue;
-    const dimsAgg = {};
-    for (const d of DIMS) {
-      const raw = avg(worldsWith.map((w) => w.arms.raw?.dimensions?.[d] ?? 0));
-      const a = avg(worldsWith.map((w) => w.arms[arm]?.dimensions?.[d] ?? 0));
-      dimsAgg[d] = { raw: round(raw), arm: round(a), uplift: round(a - raw) };
-    }
-    const m = (sel) => round(avg(worldsWith.map(sel)));
+    const dimensions = Object.fromEntries(DIMS.map((dimension) => [dimension, aggregatePair(
+      worldsWith,
+      (world) => world.arms.raw.dimensions?.[dimension],
+      (world) => world.arms[arm].dimensions?.[dimension],
+    )]));
     uplift[arm] = {
-      passAtK: { raw: m((w) => w.arms.raw?.passAtK ?? 0), arm: m((w) => w.arms[arm].passAtK), uplift: round(m((w) => w.arms[arm].passAtK) - m((w) => w.arms.raw?.passAtK ?? 0)) },
-      passPowK: { raw: m((w) => w.arms.raw?.passPowK ?? 0), arm: m((w) => w.arms[arm].passPowK), uplift: round(m((w) => w.arms[arm].passPowK) - m((w) => w.arms.raw?.passPowK ?? 0)) },
-      qualityPerKToken: { raw: m((w) => w.arms.raw?.qualityPerKToken ?? 0), arm: m((w) => w.arms[arm].qualityPerKToken), uplift: round(m((w) => w.arms[arm].qualityPerKToken) - m((w) => w.arms.raw?.qualityPerKToken ?? 0)) },
-      meanTokens: { raw: Math.round(avg(worldsWith.map((w) => w.arms.raw?.meanTokens ?? 0))), arm: Math.round(avg(worldsWith.map((w) => w.arms[arm].meanTokens))) },
-      dimensions: dimsAgg,
+      passAtK: aggregatePair(worldsWith, (world) => world.arms.raw.passAtK, (world) => world.arms[arm].passAtK),
+      passPowK: aggregatePair(worldsWith, (world) => world.arms.raw.passPowK, (world) => world.arms[arm].passPowK),
+      qualityPerKToken: aggregatePair(worldsWith, (world) => world.arms.raw.qualityPerKToken, (world) => world.arms[arm].qualityPerKToken),
+      meanTokens: aggregatePair(worldsWith, (world) => world.arms.raw.meanTokens, (world) => world.arms[arm].meanTokens),
+      dimensions,
     };
   }
   return uplift;
@@ -227,10 +257,10 @@ function episodeBaseWorldId(episode) {
   return episode.baseWorldId ?? episode.worldId;
 }
 
-function avg(a) {
-  return a.length ? a.reduce((x, y) => x + Number(y || 0), 0) / a.length : 0;
+function avg(values) {
+  return evidenceMean(values) ?? 0;
 }
 
-function round(n) {
-  return Number(Number(n).toFixed(3));
+function round(value) {
+  return evidenceRound(value);
 }

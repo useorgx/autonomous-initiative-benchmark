@@ -133,6 +133,16 @@ export const world = {
         backordered: Array.isArray(segmentSubmission.backordered) ? segmentSubmission.backordered.map(String) : [],
       };
     },
+    deriveValidationState({ baseState, weg, expectedSegments, completedSegments }) {
+      const successful = (weg.toolCalls ?? []).filter((call) => call.status === 'succeeded');
+      const hasEverySegment = (name) => Array.from({ length: expectedSegments }, (_value, segment) =>
+        successful.some((call) => call.segment === segment && call.name === name));
+      return {
+        ...baseState,
+        queriedOrders: completedSegments === expectedSegments && hasEverySegment('get_segment_orders'),
+        queriedInventory: completedSegments === expectedSegments && hasEverySegment('get_carried_state'),
+      };
+    },
     finalSubmission(carry) {
       return { fulfillable_count: carry.running_count, total_revenue: carry.running_revenue, backordered_ids: carry.backordered };
     },
