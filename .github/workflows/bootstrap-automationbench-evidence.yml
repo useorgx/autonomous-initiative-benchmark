@@ -40,18 +40,21 @@ jobs:
           tar -xzf /tmp/automationbench-public.tar.gz -C .
           python .bootstrap/apply_existing_patches.py
           rm -rf .bootstrap .bootstrap_payload
-          # The job token may materialize source, but GitHub deliberately blocks
-          # workflow-file writes from an Actions token. Keep the bootstrap workflow
-          # unchanged here; the authenticated GitHub integration installs the
-          # reviewed integrity workflow after source materialization.
-          git restore --source=HEAD --staged --worktree .github/workflows
+
+          # GitHub blocks Actions tokens from creating or modifying workflow
+          # files without a dedicated workflows permission. Materialize ordinary
+          # source first; an authenticated repository write installs the reviewed
+          # integrity workflow separately after the code is inspectable.
+          rm -f .github/workflows/benchmark-evidence-integrity.yml
+          git restore --source=HEAD --staged --worktree \
+            .github/workflows/bootstrap-automationbench-evidence.yml
           git diff --check
       - name: Materialize inspectable source before verification
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git commit -m "Materialize AutomationBench evidence program for review"
           git push origin HEAD:codex/automationbench-comparison-20260901
