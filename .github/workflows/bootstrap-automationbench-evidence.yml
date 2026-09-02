@@ -41,6 +41,15 @@ jobs:
           python .bootstrap/apply_existing_patches.py
           rm -rf .bootstrap .bootstrap_payload .github/workflows/bootstrap-automationbench-evidence.yml
           git diff --check
+      - name: Materialize inspectable source before verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Materialize AutomationBench evidence program for review"
+          git push origin HEAD:codex/automationbench-comparison-20260901
       - name: Run complete deterministic repository test suite
         run: node --test runner/lib/*.test.mjs worlds/instrumented/*.test.mjs
       - name: Parse all new executables
@@ -86,15 +95,6 @@ jobs:
             if (task.evaluation_example_id !== cohort.tasks.indexOf(task)) throw new Error(`example id drift: ${task.name}`);
           }
           NODE
-      - name: Commit only after every evidence gate passes
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "Harden AutomationBench evidence program and Initiative Worlds accounting"
-          git push origin HEAD:codex/automationbench-comparison-20260901
       - uses: actions/upload-artifact@v4
         with:
           name: automationbench-pinned-microcanary-contract
