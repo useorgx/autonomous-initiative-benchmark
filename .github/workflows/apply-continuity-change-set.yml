@@ -27,10 +27,16 @@ jobs:
           set -euo pipefail
           mkdir -p artifacts/continuity
           python - <<'PY'
-          import base64, gzip, hashlib, json, pathlib, subprocess
+          import base64, gzip, hashlib, json, pathlib, subprocess, urllib.request, urllib.parse
           packet = pathlib.Path('.github/continuity-change-set.json')
           if not packet.exists(): raise SystemExit('No pending change set')
           data = json.loads(packet.read_text())
+          if 'download_url' in data:
+              url=urllib.parse.urlparse(data['download_url'])
+              if url.scheme!='https' or not (url.hostname or '').endswith('.oaiusercontent.com'): raise SystemExit('Unapproved transport host')
+              downloaded=urllib.request.urlopen(data['download_url'],timeout=30).read(2000001)
+              if len(downloaded)>2000000 or hashlib.sha256(downloaded).hexdigest()!=data['download_sha256']: raise SystemExit('Transport integrity failure')
+              data=json.loads(downloaded)
           subprocess.run(['git','merge-base','--is-ancestor',data['base_commit'],'HEAD'],check=True)
           raw = gzip.decompress(base64.b64decode(data['gzip_base64'],validate=True))
           if len(raw) > 5000000 or hashlib.sha256(raw).hexdigest() != data['sha256']: raise SystemExit('Change-set integrity failure')
