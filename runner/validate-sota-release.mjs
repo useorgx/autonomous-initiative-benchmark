@@ -73,28 +73,32 @@ export async function collectReleaseEvidence({ manifest, repoRoot }) {
     repoRoot,
     pathField: 'worldQualityAuditPath',
     validator: validateWorldQualityAudit,
-    options: { strict: false, expectedWorldIds },
+    options: { strict: true, expectedWorldIds },
   });
   const contamination = await collectQualityEvidence({
     manifest,
     repoRoot,
     pathField: 'contaminationAuditPath',
     validator: validateContaminationAudit,
-    options: { strict: false, expectedWorldIds },
+    options: { strict: true, expectedWorldIds },
   });
   const statisticalPrecision = await collectQualityEvidence({
     manifest,
     repoRoot,
     pathField: 'statisticalPrecisionReportPath',
     validator: validateStatisticalPrecisionReport,
-    options: { strict: false },
+    options: {
+      strict: true,
+      outcomeLedger: manifest.evidence?.precisionOutcomeLedgerPath ? await readJson(path.join(repoRoot, manifest.evidence.precisionOutcomeLedgerPath), null) : null,
+      expectedCells: manifest.evidence?.precisionExpectedCellsPath ? await readJson(path.join(repoRoot, manifest.evidence.precisionExpectedCellsPath), []) : [],
+    },
   });
   const correctionLedger = await collectQualityEvidence({
     manifest,
     repoRoot,
     pathField: 'correctionLedgerPath',
     validator: validateCorrectionLedger,
-    options: { strict: false, releaseId: manifest.releaseId },
+    options: { strict: true, releaseId: manifest.releaseId },
   });
 
   return {

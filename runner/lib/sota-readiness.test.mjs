@@ -184,6 +184,7 @@ function completeFixture() {
       headline_eligible: true,
     },
     orgxEvidence: {
+      qualification: { ok: true }, // Injected unit-test evidence, not a production claim.
       exists: true,
       pinningViolation: true,
       pinningChaosTest: true,

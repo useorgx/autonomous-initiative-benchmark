@@ -1,3 +1,5 @@
+import { digest, exactCoverage, isNumber, cellKey, recomputePrecision, tightenedPolicy } from './evidence-integrity.mjs';
+
 export const WORLD_QUALITY_PROTOCOL_VERSION = 'orgx_bench_world_quality_v1';
 export const CONTAMINATION_AUDIT_PROTOCOL_VERSION = 'orgx_bench_contamination_audit_v1';
 export const STATISTICAL_PRECISION_PROTOCOL_VERSION = 'orgx_bench_statistical_precision_v1';
@@ -31,7 +33,9 @@ export function validateWorldQualityAudit(document, { strict = false, expectedWo
   const errors = [];
   const warnings = [];
   const worlds = Array.isArray(document?.worlds) ? document.worlds : [];
-  const thresholds = { ...DEFAULT_QUALITY_THRESHOLDS, ...(document?.thresholds ?? {}) };
+  const checkedPolicy = tightenedPolicy(DEFAULT_QUALITY_THRESHOLDS, document?.thresholds);
+  const thresholds = checkedPolicy.policy;
+  errors.push(...checkedPolicy.errors);
 
   requireProtocol(document, WORLD_QUALITY_PROTOCOL_VERSION, errors);
   requireString(document?.release_id, 'release_id', errors);
@@ -80,7 +84,8 @@ export function validateWorldQualityAudit(document, { strict = false, expectedWo
   const unexpectedWorldIds = [...ids].filter((worldId) => expectedWorldIds.length > 0 && !expectedWorldIds.includes(worldId));
   if (strict && document?.status !== 'complete') errors.push('strict world-quality validation requires status=complete');
   if (strict && missingWorldIds.length > 0) errors.push(`world-quality audit is missing worlds: ${missingWorldIds.join(', ')}`);
-  if (unexpectedWorldIds.length > 0) warnings.push(`world-quality audit contains non-headline worlds: ${unexpectedWorldIds.join(', ')}`);
+  if (strict) errors.push(...exactCoverage(expectedWorldIds, worlds.map(w => w.world_id), 'world-quality'));
+  else if (unexpectedWorldIds.length > 0) warnings.push(`world-quality audit contains non-headline worlds: ${unexpectedWorldIds.join(', ')}`);
   if (!strict && document?.status !== 'complete') warnings.push('world-quality audit is preflight and cannot support a headline release');
 
   return result({
@@ -136,6 +141,7 @@ export function validateContaminationAudit(document, { strict = false, expectedW
   }
 
   const missingWorldIds = expectedWorldIds.filter((worldId) => !ids.has(worldId));
+  if (strict) errors.push(...exactCoverage(expectedWorldIds, worlds.map(w => w.world_id), 'contamination'));
   if (strict && document?.status !== 'complete') errors.push('strict contamination validation requires status=complete');
   if (strict && missingWorldIds.length > 0) errors.push(`contamination audit is missing worlds: ${missingWorldIds.join(', ')}`);
   if (!strict && document?.status !== 'complete') warnings.push('contamination audit is preflight and cannot support a headline release');
@@ -155,7 +161,7 @@ export function validateContaminationAudit(document, { strict = false, expectedW
   });
 }
 
-export function validateStatisticalPrecisionReport(document, { strict = false } = {}) {
+export function validateStatisticalPrecisionReport(document, { strict = false, expectedCells = [], outcomeLedger = null } = {}) {
   const errors = [];
   const warnings = [];
   const cells = Array.isArray(document?.cells) ? document.cells : [];
@@ -178,12 +184,30 @@ export function validateStatisticalPrecisionReport(document, { strict = false } 
     requireRate(cell?.ci_low, `${prefix}.ci_low`, errors);
     requireRate(cell?.ci_high, `${prefix}.ci_high`, errors);
     const width = Number(cell?.ci_high) - Number(cell?.ci_low);
+    if (isNumber(cell?.ci_low) && isNumber(cell?.ci_high) && cell.ci_low > cell.ci_high) errors.push(`${prefix} interval bounds are reversed`);
+    if (!Number.isInteger(cell?.attempts)) errors.push(`${prefix}.attempts must be an integer`);
     if (Number.isFinite(width) && width > Number(policy.maximumCiWidth) + 1e-12) {
       errors.push(`${prefix} CI width ${round(width)} exceeds ${policy.maximumCiWidth}`);
     }
     if (cell?.precision_met !== true) errors.push(`${prefix}.precision_met must be true`);
   }
 
+  if (strict) {
+    errors.push(...exactCoverage(expectedCells.map(cellKey), cells.map(cellKey), 'precision cells'));
+    const recomputed = recomputePrecision({ ledger: outcomeLedger, expectedCells, releaseId: document?.release_id });
+    errors.push(...recomputed.errors);
+    if (outcomeLedger && document?.outcome_ledger_sha256 !== digest(outcomeLedger)) errors.push('outcome ledger digest mismatch');
+    for (const computed of recomputed.cells) {
+      const reported = cells.find(c => cellKey(c) === cellKey(computed));
+      if (!reported) continue;
+      for (const field of ['attempts', 'successes', 'independent_clusters', 'method']) {
+        if (reported[field] !== computed[field]) errors.push(`${cellKey(computed)} ${field} does not match raw outcomes`);
+      }
+      for (const field of ['estimate', 'ci_low', 'ci_high']) {
+        if (!isNumber(reported[field]) || Math.abs(reported[field] - computed[field]) > 1e-8) errors.push(`${cellKey(computed)} ${field} does not match recomputation`);
+      }
+    }
+  }
   if (strict && document?.status !== 'complete') errors.push('strict precision validation requires status=complete');
   if (strict && cells.length === 0) errors.push('strict precision validation requires at least one measured cell');
   if (!strict && document?.status !== 'complete') warnings.push('statistical precision report is preflight and cannot support a headline release');
@@ -248,6 +272,7 @@ export function validateCorrectionLedger(document, { strict = false, releaseId =
 
 function validatePassEvidence(value, minimumPassRate, label, errors) {
   requireMinimum(value?.case_count, 1, `${label}.case_count`, errors);
+  if (!Number.isInteger(value?.case_count) || !Number.isInteger(value?.passed_count)) errors.push(`${label} counts must be integers`);
   requireMinimum(value?.passed_count, 1, `${label}.passed_count`, errors);
   if (Number(value?.passed_count) > Number(value?.case_count)) errors.push(`${label}.passed_count cannot exceed case_count`);
   requireRateAtLeast(value?.pass_rate, minimumPassRate, `${label}.pass_rate`, errors);
@@ -282,15 +307,15 @@ function requireHash(value, label, errors) {
 }
 
 function requireMinimum(value, minimum, label, errors) {
-  if (!Number.isFinite(Number(value)) || Number(value) < Number(minimum)) errors.push(`${label} must be >= ${minimum}`);
+  if (!isNumber(value) || value < minimum) errors.push(`${label} must be >= ${minimum}`);
 }
 
 function requireMaximum(value, maximum, label, errors) {
-  if (!Number.isFinite(Number(value)) || Number(value) > Number(maximum)) errors.push(`${label} must be <= ${maximum}`);
+  if (!isNumber(value) || value > maximum) errors.push(`${label} must be <= ${maximum}`);
 }
 
 function requireRate(value, label, errors) {
-  if (!Number.isFinite(Number(value)) || Number(value) < 0 || Number(value) > 1) errors.push(`${label} must be between 0 and 1`);
+  if (!isNumber(value) || value < 0 || value > 1) errors.push(`${label} must be between 0 and 1`);
 }
 
 function requireRateAtMost(value, maximum, label, errors) {

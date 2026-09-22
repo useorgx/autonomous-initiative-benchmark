@@ -14,14 +14,16 @@ const repoRoot = path.resolve(import.meta.dirname, '..');
 const args = parseArgs(process.argv.slice(2));
 
 if (!args.kind || !args.file) {
-  console.error('Usage: node runner/validate-benchmark-quality-evidence.mjs --kind <world-quality|contamination|precision|corrections> --file <path> [--strict] [--registry <path>] [--release-id <id>]');
+  console.error('Usage: node runner/validate-benchmark-quality-evidence.mjs --kind <world-quality|contamination|precision|corrections> --file <path> [--strict] [--registry <path>] [--release-id <id>] [--outcome-ledger <path>] [--expected-cells <path>]');
   process.exit(2);
 }
 
 const document = await readJson(resolvePath(args.file));
 const registry = args.registry ? await readJson(resolvePath(args.registry)) : null;
 const expectedWorldIds = (registry?.splits?.private_holdout?.worlds ?? []).map((world) => world.worldId).filter(Boolean);
-const options = { strict: args.strict, expectedWorldIds, releaseId: args.releaseId };
+const outcomeLedger = args.outcomeLedger ? await readJson(resolvePath(args.outcomeLedger)) : null;
+const expectedCells = args.expectedCells ? await readJson(resolvePath(args.expectedCells)) : [];
+const options = { strict: args.strict, expectedWorldIds, releaseId: args.releaseId, outcomeLedger, expectedCells };
 const validators = {
   'world-quality': validateWorldQualityAudit,
   contamination: validateContaminationAudit,
@@ -66,6 +68,9 @@ function parseArgs(argv) {
     else if (arg === '--file') parsed.file = argv[++index];
     else if (arg === '--registry') parsed.registry = argv[++index];
     else if (arg === '--release-id') parsed.releaseId = argv[++index];
+    else if (arg === '--outcome-ledger') parsed.outcomeLedger = argv[++index];
+    else if (arg === '--expected-cells') parsed.expectedCells = argv[++index];
+    else throw new Error(`Unknown argument ${arg}`);
   }
   return parsed;
 }
