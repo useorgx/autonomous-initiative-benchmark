@@ -393,6 +393,7 @@ export function evaluateSotaReadiness({
       workstream: 'WS4',
       requirement: 'Private OrgX lane enforces benchmark provider pinning and exports manifest/loss ids into the Lab truth surface.',
       pass:
+        orgxEvidence.qualification?.ok === true &&
         orgxEvidence.exists === true &&
         orgxEvidence.pinningViolation === true &&
         orgxEvidence.pinningChaosTest === true &&
@@ -408,7 +409,7 @@ export function evaluateSotaReadiness({
       id: 'ws5.external-verifiability',
       workstream: 'WS5',
       requirement: 'A sealed-validator submission path exists for outside parties without exposing holdout fixtures.',
-      pass: orgxEvidence.submissionApi === true && orgxEvidence.leakAudit === true,
+      pass: orgxEvidence.qualification?.ok === true && orgxEvidence.submissionApi === true && orgxEvidence.leakAudit === true,
       evidence: {
         submissionApi: orgxEvidence.submissionApi === true,
         leakAudit: orgxEvidence.leakAudit === true,

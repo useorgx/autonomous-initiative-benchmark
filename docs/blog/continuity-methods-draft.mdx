@@ -1,0 +1,115 @@
+---
+title: 'The model got better. Did your workload get smaller?'
+slug: 'orgx-bench-work-that-survives'
+excerpt: 'A proposed next step for OrgX-Bench: measure whether accepted work survives changed facts, replaced agents, and a fixed amount of human attention.'
+author: 'OrgX'
+tags:
+  - benchmarks
+  - organizational-memory
+  - human-leverage
+  - agents
+draft: true
+publicationStatus: 'methods-proposal-not-results'
+---
+
+A launch is almost ready.
+
+The release candidate works. The announcement is written. Support has its handoff. Then the launch owner changes the eligible region, one approval is withdrawn, and the agent that coordinated the work is replaced.
+
+A better model may be able to write every document again. That is not the whole problem.
+
+Someone still has to know which work remains valid, which decisions changed, which commitments are now unsafe, and what the next worker needs to continue. Too often, that someone is the human who delegated the work in the first place.
+
+That is the question we propose to put at the center of the next OrgX-Bench track:
+
+**How much accepted work survives change without making the human start over?**
+
+This article describes the proposed protocol. It does not announce a new model ranking or a measured OrgX performance gain.
+
+## A completed run is not a completed responsibility
+
+OrgX-Bench already distinguishes public validation examples from the evidence required for a frontier-model headline. Initiative Worlds provides contracts for state, approval boundaries, evidence and validation. The public repository explicitly limits the claims its current bundles can support.
+
+That foundation is useful. The next step is to make the outcome harder to mistake for activity.
+
+A run can finish without producing work another person can use. A document can be convincing while relying on a revoked decision. A receipt can exist without establishing that the underlying action happened. A fast agent can leave behind a slow review process.
+
+The next protocol should therefore follow the responsibility all the way through: delegation, action, change, handoff, acceptance and a declared follow-up window.
+
+## Change one thing
+
+First, change one material fact after work has begun.
+
+The launch owner might narrow the eligible customer group. A source metric might be corrected. An approval might no longer cover the version being shipped.
+
+The system should repair what depends on that change and preserve what does not. Rewriting everything is expensive. Updating nothing is unsafe. Producing an excellent explanation without repairing the affected deliverable is not completion.
+
+We would test both consequential and irrelevant changes. A harmless wording edit should not trigger a complete restart. A forged approval in a document should not acquire authority simply because the agent can retrieve it.
+
+The score would come from independently checked outcomes and recorded actions, not the agent's declaration that it handled the change.
+
+## Remove the worker
+
+Next, replace the agent, session or model at a controlled point in the work.
+
+Can the successor continue? Does it repeat an action whose acknowledgement was lost? Does it use an approval that belonged to an earlier artifact? Does the person have to explain the entire project again?
+
+This is not a contest against an artificially forgetful baseline. Every system should be allowed persistent files, search, shared memory and task state. They should receive the same underlying facts and operate through the same permitted tools.
+
+The difference to test is whether those facts become usable continuing work, rather than a pile of notes that someone must interpret.
+
+A fresh downstream worker should also be able to use the final result without the original author quietly filling in the gaps.
+
+## Keep the person constant
+
+Finally, hold human attention fixed and increase the amount of work in flight.
+
+The system can choose one agent or many. More agents do not earn points. Neither do longer traces, more checkpoints or more elaborate plans.
+
+What counts is the number of original obligations that become usable, authorized, accepted outcomes within the same human and machine budgets.
+
+The human budget must include the work that disappears from many demonstrations: briefing, monitoring, answering questions, reviewing, repairing, re-explaining and recovering. Necessary approval is legitimate work, not an automatic failure. But it is still human time.
+
+The machine budget must include planners, memory extraction, verification, retries and failed calls. Cheap generation followed by expensive invisible supervision is not cheap completion.
+
+## The benchmark has to be allowed to disagree with us
+
+A strong baseline might already handle a simple project perfectly. OrgX might add overhead. A new model might eliminate a benefit that previously required orchestration.
+
+Those are useful results.
+
+We propose to compare a capable persistent-agent baseline, a small generic control policy and the actual OrgX runtime, using the same model and resources. We would then repeat the comparison after model upgrades, keeping the evaluation and harness versions fixed for the bridge.
+
+If the baseline catches up, the right response is to simplify the product, not make the benchmark more favorable.
+
+External workflow tests should remain external. AutomationBench can test broad business-tool competence without being rewritten around OrgX. The continuity track can test the different question above. Their results should not be blended into one flattering score.
+
+## Evidence before a headline
+
+No finite benchmark is permanently ungameable.
+
+The practical standard is stricter: the agent cannot inspect or rewrite the evaluator; the grader checks independently observed state and history; alternative correct solutions pass; known shortcuts fail; every planned attempt remains accounted for; and another person can recompute the published result.
+
+We would retain frozen anchors for comparison, while adding separately versioned hidden scenarios that change the underlying organizational problem rather than merely changing names and numbers. A newly harder suite would not be presented as an unchanged historical trend.
+
+The results article should show one simple curve: accepted work against active human attention, at matched machine budgets, for each pinned model and system.
+
+Not how busy the agents looked.
+
+Not how many tasks they marked complete.
+
+Whether the human's responsibility became easier to carry.
+
+### Methodology and related work
+
+The existing [OrgX benchmark repository](https://github.com/useorgx/autonomous-initiative-benchmark) and [AutomationBench comparison plan](https://github.com/useorgx/autonomous-initiative-benchmark/blob/73f132af6243a19d231ad449ec80d6f4fe11bf35/docs/automationbench-comparison-2026-09-01.md) define the current evidence boundary and external evaluation approach. Relevant research includes [METR's productivity-measurement update](https://metr.org/blog/2026-02-24-uplift-update/), [LongMemEval](https://arxiv.org/abs/2410.10813), [WeaveBench](https://arxiv.org/abs/2606.09426), [BenchJack](https://arxiv.org/abs/2605.12673), and [BenchShield](https://arxiv.org/abs/2609.11028). These are related foundations, not evidence that the proposed OrgX experiment has already succeeded.
+
+## What the harness audit changed
+
+OrgX's follow-up audit found failures that the existing 457-test suite did not catch. A rejected provider attempt could share the preceding call's identifier. An unfinished call could disappear from cost completeness. A report could count acceptance without replaying the actions behind it.
+
+The repaired harness gives every attempt its own identity, retains unknown costs, checks planned job identities, and replays the observed action history before reporting acceptance. Paired comparisons now use differences within the same world and retain blocked episodes in the denominator.
+
+The earlier live run stopped after a provider HTTP 402 response. Its call ledger also fails two lifecycle checks. The first rerun stopped at credit preflight and retained all 288 planned episodes as blocked. A later funded development pilot scored 37 of 72 planned episodes: 36 accepted simulated outcomes and one failure after worker replacement. Another 35 episodes remained blocked by qualification or budget gates. Its $7.33 cost and complete execution ledger passed replay and accounting checks. These incomplete development results do not establish a model ranking or human productivity result.
+
+The next result requires a funded complete run, qualified full-product execution, independently authored holdouts and measured human attention. This article remains a methods draft until that evidence exists.

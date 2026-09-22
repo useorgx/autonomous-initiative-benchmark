@@ -244,3 +244,7 @@ Do **not** start here if your goal is simply to run the benchmark. The fastest p
 - Benchmark hub: https://useorgx.com/benchmarks
 - Weekly blog posts: https://useorgx.com/blog
 - Public repo: https://github.com/useorgx/autonomous-initiative-benchmark
+
+## Continuity development experiment
+
+See [the implementation and evidence boundary](docs/continuity-benchmark-implementation.md). Run `node runner/continuity-benchmark.mjs self-test --out artifacts/continuity/self-test.json` for deterministic checks. Public simulated results do not establish full OrgX performance or human time savings.

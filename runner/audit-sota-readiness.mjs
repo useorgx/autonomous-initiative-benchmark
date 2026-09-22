@@ -4,6 +4,8 @@ import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
+import { qualifyRuntime } from './lib/runtime-qualification.mjs';
+import { validateBundleDirectory } from './validate-bundle.mjs';
 import { evaluateSotaReadiness } from './lib/sota-readiness.mjs';
 import {
   collectReplicationRowsFromEvidenceDocument,
@@ -184,10 +186,15 @@ async function collectOrgxEvidence(root) {
 
   const files = await readCandidateOrgxFiles(appRoot);
   const haystack = files.map((file) => file.text).join('\n');
+  const document = await readJson(path.join(appRoot, 'artifacts/benchmark/runtime-qualification.json'), null);
+  const trust = await readJson(path.join(repoRoot, 'methodology/runtime-auditors.json'), {});
+  const qualification = qualifyRuntime(document, { trustedKeys: trust.keys ?? {}, runtimeCommit: trust.runtime_commit });
   return {
     exists: true,
     root: appRoot,
     filesRead: files.map((file) => path.relative(appRoot, file.path)).sort(),
+    qualification,
+    evidenceClass: 'source_inventory_plus_separately_verified_attestation',
     pinningViolation: /\bpinning_violated\b/.test(haystack),
     pinningChaosTest: /\bexpect\([^)]*(?:resultKind|skipReason)[^)]*\)\.toBe\('pinning_violated'\)/.test(haystack),
     benchmarkPinnedProvider: /\bbenchmarkPinnedProvider\b/.test(haystack),
@@ -264,7 +271,10 @@ async function countHeadlineBundles(root) {
       Array.isArray(metadata?.lossRegistry) &&
       metadata?.modelManifest?.models?.length > 0
     ) {
-      count += 1;
+      try {
+        const checked = await validateBundleDirectory(path.join(resultsDir, entry.name), { strict: true, cwd: root });
+        if (checked.issues.errors.length === 0) count += 1;
+      } catch { /* Missing/unrecomputable bundles cannot establish readiness. */ }
     }
   }
   return count;

@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { digest, recomputeCell } from './evidence-integrity.mjs';
 
 import {
   CONTAMINATION_AUDIT_PROTOCOL_VERSION,
@@ -123,7 +124,13 @@ function precision(overrides = {}) {
 test('complete quality evidence passes strict validation', () => {
   assert.equal(validateWorldQualityAudit(worldQuality(), { strict: true, expectedWorldIds: ['world-1'] }).ok, true);
   assert.equal(validateContaminationAudit(contamination(), { strict: true, expectedWorldIds: ['world-1'] }).ok, true);
-  assert.equal(validateStatisticalPrecisionReport(precision(), { strict: true }).ok, true);
+  const episodes = Array.from({length:400}, (_,i) => ({episode_id:`e${i}`, world_id:'world-1', model_id:'model-1', arm:'orgx_full', cluster_id:`s${i}`, accepted:i<340, status:'scored'}));
+  const outcomeLedger = {release_id:'release-1', episodes};
+  const document = precision();
+  document.outcome_ledger_sha256 = digest(outcomeLedger);
+  document.cells[0] = {...document.cells[0], ...recomputeCell(episodes)};
+  const expectedCells = [{world_id:'world-1',model_id:'model-1',arm:'orgx_full',episode_ids:episodes.map(e=>e.episode_id)}];
+  assert.equal(validateStatisticalPrecisionReport(document, { strict: true, expectedCells, outcomeLedger }).ok, true);
   assert.equal(
     validateCorrectionLedger(
       {

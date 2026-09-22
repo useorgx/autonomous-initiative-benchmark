@@ -1,0 +1,57 @@
+name: Continuity benchmark integrity
+on:
+  push:
+    branches: [codex/continuity-benchmark-20260922]
+  pull_request:
+    branches: [main]
+    paths: ['runner/**', 'worlds/**', 'schemas/**', 'package.json', '.github/workflows/continuity-integrity.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: continuity-integrity-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Record pinned source and baseline checks
+        shell: bash
+        run: |
+          mkdir -p artifacts/continuity
+          git rev-parse HEAD > artifacts/continuity/source-commit.txt
+          git archive --format=zip HEAD -o artifacts/continuity/source.zip
+          set -o pipefail
+          npm test 2>&1 | tee artifacts/continuity/tests.txt
+      - name: Validate public preview
+        run: npm run validate:worlds:preview > artifacts/continuity/preview.txt
+      - name: Run continuity development controls when present
+        shell: bash
+        run: |
+          if [ -f runner/continuity-benchmark.mjs ]; then
+            node runner/continuity-benchmark.mjs self-test --out artifacts/continuity/self-test.json
+            node runner/continuity-benchmark.mjs plan --out artifacts/continuity/pilot-manifest.json
+          fi
+      - name: Credential availability only, never secret values
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          node --input-type=module - <<'NODE'
+          import { writeFileSync } from 'node:fs';
+          const available = Object.fromEntries(['OPENAI_API_KEY','ANTHROPIC_API_KEY','OPENROUTER_API_KEY'].map(k => [k, Boolean(process.env[k])]));
+          writeFileSync('artifacts/continuity/credential-preflight.json', JSON.stringify({source: process.env.GITHUB_SHA, available, modelCallsMade: 0}, null, 2));
+          console.log(JSON.stringify({available, modelCallsMade: 0}));
+          NODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: continuity-integrity-${{ github.sha }}
+          path: artifacts/continuity
+          if-no-files-found: error
