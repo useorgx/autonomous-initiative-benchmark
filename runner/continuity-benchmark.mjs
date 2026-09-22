@@ -179,6 +179,13 @@ if (command === "self-test") {
       )
         throw new Error("Frozen source identity mismatch");
     } else manifest = await resolveModelManifest(models);
+    if (
+      plan.arms.includes("orgx_runtime_component") &&
+      !adapter?.createTurnAdapter
+    )
+      throw new Error(
+        "Frozen component arm requires its runtime adapter before dispatch"
+      );
     await json(path.join(out, "models.json"), manifest);
     const credit = await checkContinuityCredit({
       key: process.env.OPENROUTER_API_KEY,
@@ -336,6 +343,7 @@ if (command === "self-test") {
   await json(path.join(out, "report.json"), report);
   console.log(JSON.stringify(report, null, 2));
   if (preflightError) process.exitCode = 1;
+  if (shuttingDown) process.exitCode = 130;
 } else if (command === "report") {
   const plan = JSON.parse(await readFile(options.plan, "utf8")),
     ledger = JSON.parse(await readFile(options.ledger, "utf8"));

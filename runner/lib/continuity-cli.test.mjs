@@ -38,6 +38,31 @@ test("CLI preserves full frozen denominator when credit preflight blocks all dis
       frozen,
     ]);
     assert.equal(freeze.status, 0, freeze.stderr);
+    const componentFreeze = run([
+      "freeze",
+      "--models",
+      "test/model",
+      "--seeds",
+      "11",
+      "--component-arm",
+      "true",
+      "--out",
+      path.join(dir, "component"),
+    ]);
+    assert.equal(componentFreeze.status, 0, componentFreeze.stderr);
+    const missingAdapter = run([
+      "run",
+      "--frozen",
+      path.join(dir, "component"),
+      "--out",
+      path.join(dir, "missing-adapter"),
+    ]);
+    assert.equal(missingAdapter.status, 1, missingAdapter.stderr);
+    const blockedReport = JSON.parse(
+      readFileSync(path.join(dir, "missing-adapter", "report.json"))
+    );
+    assert.match(blockedReport.preflight_error, /requires its runtime adapter/);
+    assert.equal(blockedReport.budget.observed_usd, 0);
     const result = run(["run", "--frozen", frozen, "--out", out]);
     assert.equal(result.status, 1, result.stderr);
     const ledger = JSON.parse(readFileSync(path.join(out, "ledger.json")));
