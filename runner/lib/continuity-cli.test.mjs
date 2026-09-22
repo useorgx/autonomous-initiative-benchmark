@@ -63,6 +63,29 @@ test("CLI preserves full frozen denominator when credit preflight blocks all dis
     );
     assert.match(blockedReport.preflight_error, /requires its runtime adapter/);
     assert.equal(blockedReport.budget.observed_usd, 0);
+    const brokenAdapter = path.join(dir, "broken-adapter.mjs");
+    writeFileSync(
+      brokenAdapter,
+      "export function createTurnAdapter(){throw new Error('Invalid runtime identity');}"
+    );
+    const initialization = run([
+      "run",
+      "--frozen",
+      path.join(dir, "component"),
+      "--adapter",
+      brokenAdapter,
+      "--out",
+      path.join(dir, "initialization"),
+    ]);
+    assert.equal(initialization.status, 1, initialization.stderr);
+    const initLedger = JSON.parse(
+      readFileSync(path.join(dir, "initialization", "ledger.json"))
+    );
+    assert.ok(
+      initLedger.episodes.every(
+        (e) => e.status === "blocked" && e.calls.length === 0
+      )
+    );
     const result = run(["run", "--frozen", frozen, "--out", out]);
     assert.equal(result.status, 1, result.stderr);
     const ledger = JSON.parse(readFileSync(path.join(out, "ledger.json")));

@@ -149,6 +149,7 @@ if (command === "self-test") {
     budgetUsd: Number(options["max-usd"] ?? 40),
     episodeBudgetUsd: Number(options["episode-max-usd"] ?? 1.5),
   });
+  const adapters = new Map();
   let manifest = null,
     preflightError = null;
   try {
@@ -186,6 +187,18 @@ if (command === "self-test") {
       throw new Error(
         "Frozen component arm requires its runtime adapter before dispatch"
       );
+    for (const job of plan.episodes.filter(
+      (job) => job.arm === "orgx_runtime_component"
+    )) {
+      const turnAdapter = adapter.createTurnAdapter({
+        job,
+        model: manifest.models.find((model) => model.id === job.model_id),
+        limits: plan.limits,
+      });
+      if (typeof turnAdapter !== "function")
+        throw new Error("Runtime adapter must return a callable turn adapter");
+      adapters.set(job.episode_id, turnAdapter);
+    }
     await json(path.join(out, "models.json"), manifest);
     const credit = await checkContinuityCredit({
       key: process.env.OPENROUTER_API_KEY,
@@ -266,36 +279,7 @@ if (command === "self-test") {
           await flush();
         },
       });
-      let turnAdapter = null;
-      if (job.arm === "orgx_runtime_component") {
-        if (!adapter?.createTurnAdapter) {
-          results.set(job.episode_id, {
-            ...job,
-            status: "blocked",
-            accepted: false,
-            error: "Runtime component adapter unavailable",
-            calls: [],
-          });
-          continue;
-        }
-        try {
-          turnAdapter = adapter.createTurnAdapter({
-            job,
-            model,
-            limits: plan.limits,
-          });
-        } catch (e) {
-          results.set(job.episode_id, {
-            ...job,
-            status: "blocked",
-            accepted: false,
-            error: `Adapter initialization failed: ${e.message}`,
-            calls: [],
-          });
-          await flush();
-          continue;
-        }
-      }
+      const turnAdapter = adapters.get(job.episode_id) ?? null;
       const result = await runContinuityEpisode({
         job,
         call,
