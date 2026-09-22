@@ -48,6 +48,20 @@ Provider attempts receive identities before reservation. A rejected reservation 
 
 The report checks planned identities and regenerates evaluator state from actions. It includes conservative paired cluster differences; repeated variants do not become independent organizations. CLI report generation includes the ledger audit and returns nonzero on inconsistent accounting. This is an internal consistency check, not provider attestation or independent replication.
 
-The earlier run `35694499427` contains $11.15573678541798 of recorded provider cost and one unresolved HTTP 402 call. Independent replay detected two reused call identities and a cost reconciliation error. Preserve the original evidence; do not reinterpret that run as a clean comparison. The fresh account credit preflight found exhausted credits. The rerun retains all 288 planned jobs, blocks before dispatch, and spends zero model dollars.
+The earlier run `35694499427` contains $11.15573678541798 of recorded provider cost and one unresolved HTTP 402 call. Independent replay detected two reused call identities and a cost reconciliation error. Preserve the original evidence; do not reinterpret that run as a clean comparison. The first follow-up credit preflight found exhausted credits. That rerun retained all 288 planned jobs, blocked before dispatch, and spent zero model dollars. A later preflight found funds available; the subsequent development pilot is recorded below.
 
 Still required before the full plan can produce confirmatory findings: qualified full OrgX execution in isolated workspaces, professional downstream consumers, independently authored sealed organizations, observed human attention sessions, an old/new model intervention cohort, independent review and reproduction, and a funded complete execution. The component arm and deterministic fixtures do not satisfy those requirements. The methods post remains a draft.
+
+
+## Funded development pilot
+
+A source-frozen 72-episode pilot ran with one seed, three model families, three executable arms and an explicitly blocked full-product arm. Benchmark source was `1830d86711cb2ae0389232a084d17ee3ea76c75e`; component source was `075ec6ee6d61eccea4f9b30e317e8a9888cd4178`. The preregistered cap was $7.50.
+
+- 37 episodes scored: 36 accepted simulated outcomes and one failure after worker replacement.
+- 35 episodes blocked: 18 for missing full-product qualification and 17 at the spend cap.
+- Recorded cost: $7.3256323578. No unknown-cost calls remained.
+- Independent deterministic replay and call accounting passed for the complete 72-row ledger; 54 rows had replayable action histories, including budget-blocked attempts.
+
+The two interrupted setup attempts are retained separately and cost $0.7915259694; they are not pooled into the pilot. They motivated preflight initialization of every component adapter before any arm can dispatch.
+
+The final regression pass also records rejected over-budget action attempts in the history and halts dispatch after permanent provider errors even when measured cost is zero. Those faults were injected deterministically after the pilot; the pilot did not hit either case. The final local suite passes 473 tests. All live results remain development-only, with incomplete coverage and no full-product or human-effort claim.

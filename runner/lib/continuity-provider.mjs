@@ -50,10 +50,16 @@ export class SpendGuard {
     this.observedUsd = 0;
     this.reservedUsd = 0;
     this.unknownCalls = 0;
+    this.stopReason = null;
     this.nextId = 1;
     this.reservations = new Map();
   }
+  halt(reason) {
+    this.stopReason = String(reason);
+  }
   reserve(request, model) {
+    if (this.stopReason)
+      throw new Error(`Provider unavailable: ${this.stopReason}`);
     if (this.unknownCalls)
       throw new Error(
         "Cost uncertainty: new calls blocked until reconciliation"
@@ -209,6 +215,8 @@ export function createProviderCaller({
         }
       }
       if (settlementErrors.length) throw settlementErrors[0];
+      if ([400, 401, 402, 403, 404, 422].includes(response.status))
+        guard.halt(`terminal HTTP ${response.status}`);
       if (!response.ok || data.error)
         throw new Error(
           `Provider failure HTTP ${response.status}: ${
@@ -222,8 +230,10 @@ export function createProviderCaller({
           x.slice(x.indexOf("/") + 1)
         ),
       ];
-      if (!allowed.includes(data.model))
+      if (!allowed.includes(data.model)) {
+        guard.halt(`Model identity drift: ${String(data.model)}`);
         throw new Error(`Model identity drift: ${String(data.model)}`);
+      }
       if (
         !usage ||
         !Number.isSafeInteger(usage.prompt_tokens) ||

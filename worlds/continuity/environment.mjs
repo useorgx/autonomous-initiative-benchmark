@@ -60,8 +60,9 @@ export function createContinuityWorld({family,seed,variant=0}) {
     const {tool,args={}}=action;
     if(!TOOLS.some(t=>t.name===tool))throw new Error(`Unknown tool ${String(tool)}`);
     if(done)throw new Error('Episode is terminal');
-    if(++actorCalls>120)throw new Error('World action budget exhausted');
+    actorCalls++;
     record('tool_called',{tool,args});
+    if(actorCalls>120)throw new Error('World action budget exhausted');
     if(tool==='read'){
       if(args.id==='policy')return copy(policy());
       if(Object.hasOwn(sources,args.id))return copy(sources[args.id]);

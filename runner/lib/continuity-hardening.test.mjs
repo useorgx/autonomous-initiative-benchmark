@@ -151,3 +151,31 @@ test("exhausted credit preflight makes no completion call", async () => {
   assert.equal(calls, 1);
   assert.equal(result.model_calls_made, 0);
 });
+
+test("terminal provider errors halt subsequent dispatch even when billed cost is zero", async () => {
+  const guard = new SpendGuard(1),
+    events = [];
+  let dispatched = 0;
+  const call = createProviderCaller({
+    model,
+    key: "test",
+    guard,
+    episodeGuard: new SpendGuard(1),
+    emit: (e) => events.push(e),
+    fetchImpl: async () => {
+      dispatched++;
+      return {
+        ok: false,
+        status: 400,
+        json: async () => ({
+          error: { code: 400 },
+          usage: { cost: 0, prompt_tokens: 0, completion_tokens: 0 },
+        }),
+      };
+    },
+  });
+  await assert.rejects(() => call({ model: model.id, max_tokens: 10 }), /400/);
+  await assert.rejects(() => call({ model: model.id, max_tokens: 10 }));
+  assert.equal(dispatched, 1);
+  assert.equal(events.at(-1).status, "rejected");
+});
