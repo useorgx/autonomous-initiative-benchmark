@@ -103,3 +103,13 @@ Whether the human's responsibility became easier to carry.
 ### Methodology and related work
 
 The existing [OrgX benchmark repository](https://github.com/useorgx/autonomous-initiative-benchmark) and [AutomationBench comparison plan](https://github.com/useorgx/autonomous-initiative-benchmark/blob/73f132af6243a19d231ad449ec80d6f4fe11bf35/docs/automationbench-comparison-2026-09-01.md) define the current evidence boundary and external evaluation approach. Relevant research includes [METR's productivity-measurement update](https://metr.org/blog/2026-02-24-uplift-update/), [LongMemEval](https://arxiv.org/abs/2410.10813), [WeaveBench](https://arxiv.org/abs/2606.09426), [BenchJack](https://arxiv.org/abs/2605.12673), and [BenchShield](https://arxiv.org/abs/2609.11028). These are related foundations, not evidence that the proposed OrgX experiment has already succeeded.
+
+## What the harness audit changed
+
+OrgX's follow-up audit found failures that the existing 457-test suite did not catch. A rejected provider attempt could share the preceding call's identifier. An unfinished call could disappear from cost completeness. A report could count acceptance without replaying the actions behind it.
+
+The repaired harness gives every attempt its own identity, retains unknown costs, checks planned job identities, and replays the observed action history before reporting acceptance. Paired comparisons now use differences within the same world and retain blocked episodes in the denominator.
+
+The earlier live run stopped after a provider HTTP 402 response. Its call ledger also fails two lifecycle checks. A new credit preflight found exhausted account credits, so the rerun stopped before model dispatch and retained all 288 planned episodes as blocked. There is no new model ranking or human productivity result to publish.
+
+The next result requires a funded complete run, qualified full-product execution, independently authored holdouts and measured human attention. This article remains a methods draft until that evidence exists.
