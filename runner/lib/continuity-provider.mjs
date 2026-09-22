@@ -16,6 +16,9 @@ export async function resolveModelManifest(ids, { fetchImpl = fetch } = {}) {
     const prompt = Number(row.pricing?.prompt),
       completion = Number(row.pricing?.completion);
     if (
+      ![row.pricing?.prompt, row.pricing?.completion].every(
+        (value) => typeof value === "number" || (typeof value === "string" && value.trim() !== "")
+      ) ||
       !isNumber(prompt) ||
       !isNumber(completion) ||
       prompt < 0 ||

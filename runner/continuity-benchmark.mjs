@@ -202,6 +202,7 @@ if (command === "self-test") {
     await json(path.join(out, "models.json"), manifest);
     const credit = await checkContinuityCredit({
       key: process.env.OPENROUTER_API_KEY,
+      requiredUsd: plan.limits.max_usd,
     });
     await json(path.join(out, "credit-preflight.json"), credit);
     if (!credit.ok) throw new Error(credit.reason);

@@ -179,3 +179,17 @@ test("terminal provider errors halt subsequent dispatch even when billed cost is
   assert.equal(dispatched, 1);
   assert.equal(events.at(-1).status, "rejected");
 });
+
+test('credit preflight requires the complete frozen run budget', async () => {
+  const { checkContinuityCredit } = await import('./continuity-preflight.mjs');
+  const fetchImpl = async () => ({ok:true,json:async()=>({data:{total_credits:40,total_usage:1}})});
+  assert.equal((await checkContinuityCredit({key:'test',requiredUsd:40,fetchImpl})).ok,false);
+  assert.equal((await checkContinuityCredit({key:'test',requiredUsd:39,fetchImpl})).ok,true);
+  await assert.rejects(()=>checkContinuityCredit({requiredUsd:NaN}), /required credit/);
+});
+test('catalog rejects coerced null, blank and boolean prices before dispatch', async () => {
+  const { resolveModelManifest } = await import('./continuity-provider.mjs');
+  for (const prompt of [null, '', ' ', false, true]) {
+    await assert.rejects(()=>resolveModelManifest(['test/model'],{fetchImpl:async()=>({ok:true,json:async()=>({data:[{id:'test/model',pricing:{prompt,completion:'0.1'},supported_parameters:['tools']}]})})}),/Unqualified/);
+  }
+});

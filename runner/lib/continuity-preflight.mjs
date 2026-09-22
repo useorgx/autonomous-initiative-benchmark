@@ -1,5 +1,7 @@
 const API = "https://openrouter.ai/api/v1";
-export async function checkContinuityCredit({ key, fetchImpl = fetch } = {}) {
+export async function checkContinuityCredit({ key, requiredUsd = 0, fetchImpl = fetch } = {}) {
+  if (typeof requiredUsd !== "number" || !Number.isFinite(requiredUsd) || requiredUsd < 0)
+    throw new Error("Finite nonnegative required credit amount required");
   if (!key)
     return {
       ok: false,
@@ -31,8 +33,9 @@ export async function checkContinuityCredit({ key, fetchImpl = fetch } = {}) {
     };
   const remaining = credits - usage;
   return {
-    ok: remaining > 0,
-    reason: remaining > 0 ? null : "Provider account credits exhausted",
+    ok: remaining > 0 && remaining >= requiredUsd,
+    reason: remaining <= 0 ? "Provider account credits exhausted" : remaining < requiredUsd ? "Provider credits below frozen run budget" : null,
+    required_usd: requiredUsd,
     remaining_usd: remaining,
     observed_at: new Date().toISOString(),
     model_calls_made: 0,
