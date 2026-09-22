@@ -1,0 +1,280 @@
+diff --git a/runner/audit-sota-readiness.mjs b/runner/audit-sota-readiness.mjs
+index 6f30491..dceb7ab 100644
+--- a/runner/audit-sota-readiness.mjs
++++ b/runner/audit-sota-readiness.mjs
+@@ -4,6 +4,8 @@ import path from 'node:path';
+ import process from 'node:process';
+ import { fileURLToPath, pathToFileURL } from 'node:url';
+ 
++import { qualifyRuntime } from './lib/runtime-qualification.mjs';
++import { validateBundleDirectory } from './validate-bundle.mjs';
+ import { evaluateSotaReadiness } from './lib/sota-readiness.mjs';
+ import {
+   collectReplicationRowsFromEvidenceDocument,
+@@ -184,10 +186,15 @@ async function collectOrgxEvidence(root) {
+ 
+   const files = await readCandidateOrgxFiles(appRoot);
+   const haystack = files.map((file) => file.text).join('\n');
++  const document = await readJson(path.join(appRoot, 'artifacts/benchmark/runtime-qualification.json'), null);
++  const trust = await readJson(path.join(repoRoot, 'methodology/runtime-auditors.json'), {});
++  const qualification = qualifyRuntime(document, { trustedKeys: trust.keys ?? {}, runtimeCommit: trust.runtime_commit });
+   return {
+     exists: true,
+     root: appRoot,
+     filesRead: files.map((file) => path.relative(appRoot, file.path)).sort(),
++    qualification,
++    evidenceClass: 'source_inventory_plus_separately_verified_attestation',
+     pinningViolation: /\bpinning_violated\b/.test(haystack),
+     pinningChaosTest: /\bexpect\([^)]*(?:resultKind|skipReason)[^)]*\)\.toBe\('pinning_violated'\)/.test(haystack),
+     benchmarkPinnedProvider: /\bbenchmarkPinnedProvider\b/.test(haystack),
+@@ -264,7 +271,10 @@ async function countHeadlineBundles(root) {
+       Array.isArray(metadata?.lossRegistry) &&
+       metadata?.modelManifest?.models?.length > 0
+     ) {
+-      count += 1;
++      try {
++        const checked = await validateBundleDirectory(path.join(resultsDir, entry.name), { strict: true, cwd: root });
++        if (checked.issues.errors.length === 0) count += 1;
++      } catch { /* Missing/unrecomputable bundles cannot establish readiness. */ }
+     }
+   }
+   return count;
+diff --git a/runner/lib/benchmark-quality-evidence.mjs b/runner/lib/benchmark-quality-evidence.mjs
+index 5c58db8..652a471 100644
+--- a/runner/lib/benchmark-quality-evidence.mjs
++++ b/runner/lib/benchmark-quality-evidence.mjs
+@@ -1,3 +1,5 @@
++import { digest, exactCoverage, isNumber, cellKey, recomputePrecision, tightenedPolicy } from './evidence-integrity.mjs';
++
+ export const WORLD_QUALITY_PROTOCOL_VERSION = 'orgx_bench_world_quality_v1';
+ export const CONTAMINATION_AUDIT_PROTOCOL_VERSION = 'orgx_bench_contamination_audit_v1';
+ export const STATISTICAL_PRECISION_PROTOCOL_VERSION = 'orgx_bench_statistical_precision_v1';
+@@ -31,7 +33,9 @@ export function validateWorldQualityAudit(document, { strict = false, expectedWo
+   const errors = [];
+   const warnings = [];
+   const worlds = Array.isArray(document?.worlds) ? document.worlds : [];
+-  const thresholds = { ...DEFAULT_QUALITY_THRESHOLDS, ...(document?.thresholds ?? {}) };
++  const checkedPolicy = tightenedPolicy(DEFAULT_QUALITY_THRESHOLDS, document?.thresholds);
++  const thresholds = checkedPolicy.policy;
++  errors.push(...checkedPolicy.errors);
+ 
+   requireProtocol(document, WORLD_QUALITY_PROTOCOL_VERSION, errors);
+   requireString(document?.release_id, 'release_id', errors);
+@@ -80,7 +84,8 @@ export function validateWorldQualityAudit(document, { strict = false, expectedWo
+   const unexpectedWorldIds = [...ids].filter((worldId) => expectedWorldIds.length > 0 && !expectedWorldIds.includes(worldId));
+   if (strict && document?.status !== 'complete') errors.push('strict world-quality validation requires status=complete');
+   if (strict && missingWorldIds.length > 0) errors.push(`world-quality audit is missing worlds: ${missingWorldIds.join(', ')}`);
+-  if (unexpectedWorldIds.length > 0) warnings.push(`world-quality audit contains non-headline worlds: ${unexpectedWorldIds.join(', ')}`);
++  if (strict) errors.push(...exactCoverage(expectedWorldIds, worlds.map(w => w.world_id), 'world-quality'));
++  else if (unexpectedWorldIds.length > 0) warnings.push(`world-quality audit contains non-headline worlds: ${unexpectedWorldIds.join(', ')}`);
+   if (!strict && document?.status !== 'complete') warnings.push('world-quality audit is preflight and cannot support a headline release');
+ 
+   return result({
+@@ -136,6 +141,7 @@ export function validateContaminationAudit(document, { strict = false, expectedW
+   }
+ 
+   const missingWorldIds = expectedWorldIds.filter((worldId) => !ids.has(worldId));
++  if (strict) errors.push(...exactCoverage(expectedWorldIds, worlds.map(w => w.world_id), 'contamination'));
+   if (strict && document?.status !== 'complete') errors.push('strict contamination validation requires status=complete');
+   if (strict && missingWorldIds.length > 0) errors.push(`contamination audit is missing worlds: ${missingWorldIds.join(', ')}`);
+   if (!strict && document?.status !== 'complete') warnings.push('contamination audit is preflight and cannot support a headline release');
+@@ -155,7 +161,7 @@ export function validateContaminationAudit(document, { strict = false, expectedW
+   });
+ }
+ 
+-export function validateStatisticalPrecisionReport(document, { strict = false } = {}) {
++export function validateStatisticalPrecisionReport(document, { strict = false, expectedCells = [], outcomeLedger = null } = {}) {
+   const errors = [];
+   const warnings = [];
+   const cells = Array.isArray(document?.cells) ? document.cells : [];
+@@ -178,12 +184,30 @@ export function validateStatisticalPrecisionReport(document, { strict = false }
+     requireRate(cell?.ci_low, `${prefix}.ci_low`, errors);
+     requireRate(cell?.ci_high, `${prefix}.ci_high`, errors);
+     const width = Number(cell?.ci_high) - Number(cell?.ci_low);
++    if (isNumber(cell?.ci_low) && isNumber(cell?.ci_high) && cell.ci_low > cell.ci_high) errors.push(`${prefix} interval bounds are reversed`);
++    if (!Number.isInteger(cell?.attempts)) errors.push(`${prefix}.attempts must be an integer`);
+     if (Number.isFinite(width) && width > Number(policy.maximumCiWidth) + 1e-12) {
+       errors.push(`${prefix} CI width ${round(width)} exceeds ${policy.maximumCiWidth}`);
+     }
+     if (cell?.precision_met !== true) errors.push(`${prefix}.precision_met must be true`);
+   }
+ 
++  if (strict) {
++    errors.push(...exactCoverage(expectedCells.map(cellKey), cells.map(cellKey), 'precision cells'));
++    const recomputed = recomputePrecision({ ledger: outcomeLedger, expectedCells, releaseId: document?.release_id });
++    errors.push(...recomputed.errors);
++    if (outcomeLedger && document?.outcome_ledger_sha256 !== digest(outcomeLedger)) errors.push('outcome ledger digest mismatch');
++    for (const computed of recomputed.cells) {
++      const reported = cells.find(c => cellKey(c) === cellKey(computed));
++      if (!reported) continue;
++      for (const field of ['attempts', 'successes', 'independent_clusters', 'method']) {
++        if (reported[field] !== computed[field]) errors.push(`${cellKey(computed)} ${field} does not match raw outcomes`);
++      }
++      for (const field of ['estimate', 'ci_low', 'ci_high']) {
++        if (!isNumber(reported[field]) || Math.abs(reported[field] - computed[field]) > 1e-8) errors.push(`${cellKey(computed)} ${field} does not match recomputation`);
++      }
++    }
++  }
+   if (strict && document?.status !== 'complete') errors.push('strict precision validation requires status=complete');
+   if (strict && cells.length === 0) errors.push('strict precision validation requires at least one measured cell');
+   if (!strict && document?.status !== 'complete') warnings.push('statistical precision report is preflight and cannot support a headline release');
+@@ -248,6 +272,7 @@ export function validateCorrectionLedger(document, { strict = false, releaseId =
+ 
+ function validatePassEvidence(value, minimumPassRate, label, errors) {
+   requireMinimum(value?.case_count, 1, `${label}.case_count`, errors);
++  if (!Number.isInteger(value?.case_count) || !Number.isInteger(value?.passed_count)) errors.push(`${label} counts must be integers`);
+   requireMinimum(value?.passed_count, 1, `${label}.passed_count`, errors);
+   if (Number(value?.passed_count) > Number(value?.case_count)) errors.push(`${label}.passed_count cannot exceed case_count`);
+   requireRateAtLeast(value?.pass_rate, minimumPassRate, `${label}.pass_rate`, errors);
+@@ -282,15 +307,15 @@ function requireHash(value, label, errors) {
+ }
+ 
+ function requireMinimum(value, minimum, label, errors) {
+-  if (!Number.isFinite(Number(value)) || Number(value) < Number(minimum)) errors.push(`${label} must be >= ${minimum}`);
++  if (!isNumber(value) || value < minimum) errors.push(`${label} must be >= ${minimum}`);
+ }
+ 
+ function requireMaximum(value, maximum, label, errors) {
+-  if (!Number.isFinite(Number(value)) || Number(value) > Number(maximum)) errors.push(`${label} must be <= ${maximum}`);
++  if (!isNumber(value) || value > maximum) errors.push(`${label} must be <= ${maximum}`);
+ }
+ 
+ function requireRate(value, label, errors) {
+-  if (!Number.isFinite(Number(value)) || Number(value) < 0 || Number(value) > 1) errors.push(`${label} must be between 0 and 1`);
++  if (!isNumber(value) || value < 0 || value > 1) errors.push(`${label} must be between 0 and 1`);
+ }
+ 
+ function requireRateAtMost(value, maximum, label, errors) {
+diff --git a/runner/lib/benchmark-quality-evidence.test.mjs b/runner/lib/benchmark-quality-evidence.test.mjs
+index d62bd74..01705e2 100644
+--- a/runner/lib/benchmark-quality-evidence.test.mjs
++++ b/runner/lib/benchmark-quality-evidence.test.mjs
+@@ -1,5 +1,6 @@
+ import test from 'node:test';
+ import assert from 'node:assert/strict';
++import { digest, recomputeCell } from './evidence-integrity.mjs';
+ 
+ import {
+   CONTAMINATION_AUDIT_PROTOCOL_VERSION,
+@@ -123,7 +124,13 @@ function precision(overrides = {}) {
+ test('complete quality evidence passes strict validation', () => {
+   assert.equal(validateWorldQualityAudit(worldQuality(), { strict: true, expectedWorldIds: ['world-1'] }).ok, true);
+   assert.equal(validateContaminationAudit(contamination(), { strict: true, expectedWorldIds: ['world-1'] }).ok, true);
+-  assert.equal(validateStatisticalPrecisionReport(precision(), { strict: true }).ok, true);
++  const episodes = Array.from({length:400}, (_,i) => ({episode_id:`e${i}`, world_id:'world-1', model_id:'model-1', arm:'orgx_full', cluster_id:`s${i}`, accepted:i<340, status:'scored'}));
++  const outcomeLedger = {release_id:'release-1', episodes};
++  const document = precision();
++  document.outcome_ledger_sha256 = digest(outcomeLedger);
++  document.cells[0] = {...document.cells[0], ...recomputeCell(episodes)};
++  const expectedCells = [{world_id:'world-1',model_id:'model-1',arm:'orgx_full',episode_ids:episodes.map(e=>e.episode_id)}];
++  assert.equal(validateStatisticalPrecisionReport(document, { strict: true, expectedCells, outcomeLedger }).ok, true);
+   assert.equal(
+     validateCorrectionLedger(
+       {
+diff --git a/runner/lib/sota-readiness.mjs b/runner/lib/sota-readiness.mjs
+index 427aaec..a59b617 100644
+--- a/runner/lib/sota-readiness.mjs
++++ b/runner/lib/sota-readiness.mjs
+@@ -393,6 +393,7 @@ export function evaluateSotaReadiness({
+       workstream: 'WS4',
+       requirement: 'Private OrgX lane enforces benchmark provider pinning and exports manifest/loss ids into the Lab truth surface.',
+       pass:
++        orgxEvidence.qualification?.ok === true &&
+         orgxEvidence.exists === true &&
+         orgxEvidence.pinningViolation === true &&
+         orgxEvidence.pinningChaosTest === true &&
+@@ -408,7 +409,7 @@ export function evaluateSotaReadiness({
+       id: 'ws5.external-verifiability',
+       workstream: 'WS5',
+       requirement: 'A sealed-validator submission path exists for outside parties without exposing holdout fixtures.',
+-      pass: orgxEvidence.submissionApi === true && orgxEvidence.leakAudit === true,
++      pass: orgxEvidence.qualification?.ok === true && orgxEvidence.submissionApi === true && orgxEvidence.leakAudit === true,
+       evidence: {
+         submissionApi: orgxEvidence.submissionApi === true,
+         leakAudit: orgxEvidence.leakAudit === true,
+diff --git a/runner/lib/sota-readiness.test.mjs b/runner/lib/sota-readiness.test.mjs
+index f32b416..777634f 100644
+--- a/runner/lib/sota-readiness.test.mjs
++++ b/runner/lib/sota-readiness.test.mjs
+@@ -184,6 +184,7 @@ function completeFixture() {
+       headline_eligible: true,
+     },
+     orgxEvidence: {
++      qualification: { ok: true }, // Injected unit-test evidence, not a production claim.
+       exists: true,
+       pinningViolation: true,
+       pinningChaosTest: true,
+diff --git a/runner/validate-benchmark-quality-evidence.mjs b/runner/validate-benchmark-quality-evidence.mjs
+index e200f72..08fdf53 100644
+--- a/runner/validate-benchmark-quality-evidence.mjs
++++ b/runner/validate-benchmark-quality-evidence.mjs
+@@ -14,14 +14,16 @@ const repoRoot = path.resolve(import.meta.dirname, '..');
+ const args = parseArgs(process.argv.slice(2));
+ 
+ if (!args.kind || !args.file) {
+-  console.error('Usage: node runner/validate-benchmark-quality-evidence.mjs --kind <world-quality|contamination|precision|corrections> --file <path> [--strict] [--registry <path>] [--release-id <id>]');
++  console.error('Usage: node runner/validate-benchmark-quality-evidence.mjs --kind <world-quality|contamination|precision|corrections> --file <path> [--strict] [--registry <path>] [--release-id <id>] [--outcome-ledger <path>] [--expected-cells <path>]');
+   process.exit(2);
+ }
+ 
+ const document = await readJson(resolvePath(args.file));
+ const registry = args.registry ? await readJson(resolvePath(args.registry)) : null;
+ const expectedWorldIds = (registry?.splits?.private_holdout?.worlds ?? []).map((world) => world.worldId).filter(Boolean);
+-const options = { strict: args.strict, expectedWorldIds, releaseId: args.releaseId };
++const outcomeLedger = args.outcomeLedger ? await readJson(resolvePath(args.outcomeLedger)) : null;
++const expectedCells = args.expectedCells ? await readJson(resolvePath(args.expectedCells)) : [];
++const options = { strict: args.strict, expectedWorldIds, releaseId: args.releaseId, outcomeLedger, expectedCells };
+ const validators = {
+   'world-quality': validateWorldQualityAudit,
+   contamination: validateContaminationAudit,
+@@ -66,6 +68,9 @@ function parseArgs(argv) {
+     else if (arg === '--file') parsed.file = argv[++index];
+     else if (arg === '--registry') parsed.registry = argv[++index];
+     else if (arg === '--release-id') parsed.releaseId = argv[++index];
++    else if (arg === '--outcome-ledger') parsed.outcomeLedger = argv[++index];
++    else if (arg === '--expected-cells') parsed.expectedCells = argv[++index];
++    else throw new Error(`Unknown argument ${arg}`);
+   }
+   return parsed;
+ }
+diff --git a/runner/validate-sota-release.mjs b/runner/validate-sota-release.mjs
+index 1d93efd..b675652 100644
+--- a/runner/validate-sota-release.mjs
++++ b/runner/validate-sota-release.mjs
+@@ -73,28 +73,32 @@ export async function collectReleaseEvidence({ manifest, repoRoot }) {
+     repoRoot,
+     pathField: 'worldQualityAuditPath',
+     validator: validateWorldQualityAudit,
+-    options: { strict: false, expectedWorldIds },
++    options: { strict: true, expectedWorldIds },
+   });
+   const contamination = await collectQualityEvidence({
+     manifest,
+     repoRoot,
+     pathField: 'contaminationAuditPath',
+     validator: validateContaminationAudit,
+-    options: { strict: false, expectedWorldIds },
++    options: { strict: true, expectedWorldIds },
+   });
+   const statisticalPrecision = await collectQualityEvidence({
+     manifest,
+     repoRoot,
+     pathField: 'statisticalPrecisionReportPath',
+     validator: validateStatisticalPrecisionReport,
+-    options: { strict: false },
++    options: {
++      strict: true,
++      outcomeLedger: manifest.evidence?.precisionOutcomeLedgerPath ? await readJson(path.join(repoRoot, manifest.evidence.precisionOutcomeLedgerPath), null) : null,
++      expectedCells: manifest.evidence?.precisionExpectedCellsPath ? await readJson(path.join(repoRoot, manifest.evidence.precisionExpectedCellsPath), []) : [],
++    },
+   });
+   const correctionLedger = await collectQualityEvidence({
+     manifest,
+     repoRoot,
+     pathField: 'correctionLedgerPath',
+     validator: validateCorrectionLedger,
+-    options: { strict: false, releaseId: manifest.releaseId },
++    options: { strict: true, releaseId: manifest.releaseId },
+   });
+ 
+   return {
