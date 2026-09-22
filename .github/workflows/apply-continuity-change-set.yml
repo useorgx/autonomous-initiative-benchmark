@@ -1,0 +1,85 @@
+name: Apply and verify continuity implementation
+on:
+  push:
+    branches: [codex/continuity-benchmark-20260922]
+    paths: [.github/continuity-change-set.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: continuity-materialization
+  cancel-in-progress: false
+jobs:
+  apply:
+    if: github.ref == 'refs/heads/codex/continuity-benchmark-20260922'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate source preimages and materialize exact UTF-8 files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/continuity
+          python - <<'PY'
+          import base64, gzip, hashlib, json, pathlib, subprocess
+          packet = pathlib.Path('.github/continuity-change-set.json')
+          if not packet.exists(): raise SystemExit('No pending change set')
+          data = json.loads(packet.read_text())
+          subprocess.run(['git','merge-base','--is-ancestor',data['base_commit'],'HEAD'],check=True)
+          raw = gzip.decompress(base64.b64decode(data['gzip_base64'],validate=True))
+          if len(raw) > 5000000 or hashlib.sha256(raw).hexdigest() != data['sha256']: raise SystemExit('Change-set integrity failure')
+          files = json.loads(raw)
+          if not files or len(files)>100: raise SystemExit('Invalid change-set size')
+          root = pathlib.Path.cwd().resolve()
+          seen = set()
+          for f in files:
+              name = f['path']; p = pathlib.Path(name)
+              if name in seen or p.is_absolute() or '..' in p.parts or p.suffix not in {'.mjs','.json','.md','.mdx'}: raise SystemExit('Unsafe/duplicate path')
+              if not (name.startswith(('runner/','worlds/','schemas/','docs/')) or name in {'package.json','README.md'}): raise SystemExit('Path outside benchmark scope')
+              if not p.resolve().is_relative_to(root) or any(parent.is_symlink() for parent in [p,*p.parents]): raise SystemExit('Symlink path forbidden')
+              current=hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else None
+              if current != f['before_sha256']: raise SystemExit('Source drift: '+name)
+              content=f['content'].encode('utf-8')
+              if hashlib.sha256(content).hexdigest()!=f['after_sha256']: raise SystemExit('Content mismatch: '+name)
+              seen.add(name)
+          for f in files:
+              p=pathlib.Path(f['path']);p.parent.mkdir(parents=True,exist_ok=True);p.write_text(f['content'],encoding='utf-8')
+          pathlib.Path('artifacts/continuity/changed-paths.json').write_text(json.dumps([f['path'] for f in files]))
+          PY
+          git diff --check
+      - name: Run all tests and deterministic worlds before committing
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm test 2>&1 | tee artifacts/continuity/tests.txt
+          npm run validate:worlds:preview > artifacts/continuity/preview.txt
+          node runner/continuity-benchmark.mjs self-test --out artifacts/continuity/self-test.json
+          node runner/continuity-benchmark.mjs plan --out artifacts/continuity/pilot-plan.json
+      - name: Commit verified source, not the transport packet
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, subprocess
+          files=json.load(open('artifacts/continuity/changed-paths.json'))
+          subprocess.run(['git','add','--',*files],check=True)
+          subprocess.run(['git','rm','--','.github/continuity-change-set.json'],check=True)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Implement verified continuity benchmark, evidence hardening and rerun tooling'
+          git push origin HEAD:codex/continuity-benchmark-20260922
+          git rev-parse HEAD > artifacts/continuity/source-commit.txt
+          git archive --format=zip HEAD -o artifacts/continuity/source.zip
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: continuity-implementation-${{ github.run_id }}
+          path: artifacts/continuity
+          if-no-files-found: error
