@@ -113,7 +113,7 @@ jobs:
           ref: 4a8e1061254004d9dac807054eed33fad7d1ff14
           path: vendor/AutomationBench
 
-      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
 
       - name: Install exact upstream benchmark
         working-directory: vendor/AutomationBench
