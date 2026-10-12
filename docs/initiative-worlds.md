@@ -34,6 +34,8 @@ OrgX-Bench now has four conceptual splits:
 | `rotating_canary` | Quarterly private worlds for contamination and overfitting checks | Aggregate only | Yes, after review |
 
 The source-of-truth split registry lives at `worlds/corpus-splits.json`.
+Eligibility in this table is conditional on all existing world and release
+gates; a split assignment alone is not headline evidence.
 
 ## World Anatomy
 
@@ -86,6 +88,11 @@ A world cannot enter the private holdout unless all of these are true:
 10. The world is explicitly assigned to public validation, private holdout, or
     rotating canary.
 
+A discoverable dependency is not the same as inaccessible evaluator truth.
+A task may require investigation through permitted sources; it must not require
+the actor to know a hidden answer it cannot observe. Correct handling of
+uncertainty or required approval remains distinct from autonomous completion.
+
 ## Saturation Policy
 
 A benchmark version is approaching saturation when:
@@ -104,3 +111,17 @@ A version is saturated when:
 - canary tasks stop revealing new failure modes
 
 At saturation, freeze that leaderboard and start the next benchmark version.
+
+## Candidate extension: ergonomics and accretive learning
+
+The [agent ergonomics and accretion amendment](agent-ergonomics-and-accretion.md)
+proposes measuring correct orientation, recovery effort, cross-client
+continuation, full resource cost, and improvement on later unseen work. It also
+specifies matched model/harness comparisons so interface improvements and
+weight-training gains are not conflated.
+
+This is a methodological candidate dated 2026-08-31, not an adopted change to
+the scoring weights, result schemas, catalogs, or release criteria above. No
+existing bundle becomes headline-eligible through this document. Implemented
+validators, preregistration, statistical precision, and independent evidence
+remain required before publishing the proposed measures as supported claims.
