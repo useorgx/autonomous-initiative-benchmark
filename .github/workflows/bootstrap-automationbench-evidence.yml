@@ -25,7 +25,7 @@ concurrency:
 jobs:
   deterministic-integrity:
     runs-on: ${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && vars.ORGX_CI_RUNNER || 'ubuntu-latest' }}
-    timeout-minutes: 35
+    timeout-minutes: ${{ vars.ORGX_CI_RUNNER && 160 || 35 }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
