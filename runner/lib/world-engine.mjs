@@ -81,7 +81,9 @@ export async function runEpisode({ world, arm, provider, model, episodeId, maxSt
   let terminal = null;
   let executionError = null;
 
-  for (let step = 0; step < maxSteps; step += 1) {
+  // A world with a longer horizon (paged data, many decisions) can raise the step budget.
+  const stepBudget = Math.max(maxSteps, Number(world.maxSteps) || 0);
+  for (let step = 0; step < stepBudget; step += 1) {
     let response;
     try {
       response = await chatFn({ provider, model, messages, tools, maxOutputTokens, timeoutMs });

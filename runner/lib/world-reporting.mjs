@@ -55,6 +55,9 @@ export function buildWorldRunReport({ worlds, arms, k, episodes, provider, model
         meanCostCentsCi95: resources.complete ? bcaBootstrapMeanInterval(resources.costValues) : null,
         knownMeanCostLowerBoundCents: round(resources.knownMeanCostLowerBoundCents),
         meanToolCalls: round(toolCalls),
+        // Partial credit (weighted checkpoints minus penalties) from worlds that report it.
+        meanScore: (() => { const scores = eps.map((episode) => episode.score).filter(Number.isFinite); return scores.length ? round(evidenceMean(scores)) : null; })(),
+        failedCheckpoints: countFailedCheckpoints(eps),
         qualityPerKToken,
         meanOrchestrationTokens: orchTokens == null ? null : Math.round(orchTokens),
         orchestrationRatio,
@@ -263,4 +266,18 @@ function avg(values) {
 
 function round(value) {
   return evidenceRound(value);
+}
+
+// How often each checkpoint fell short or each penalty fired, so a pass rate names its causes.
+function countFailedCheckpoints(episodes) {
+  const counts = {};
+  for (const episode of episodes) {
+    for (const [id, value] of Object.entries(episode.detail?.checkpoints ?? {})) {
+      if (Number(value) < 1) counts[id] = (counts[id] ?? 0) + 1;
+    }
+    for (const [id, fired] of Object.entries(episode.detail?.penalties ?? {})) {
+      if (fired) counts[`penalty:${id}`] = (counts[`penalty:${id}`] ?? 0) + 1;
+    }
+  }
+  return counts;
 }
