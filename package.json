@@ -3,6 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "test:ax": "node --test runner/lib/ax-protocol.test.mjs",
+    "smoke:ax": "node runner/ax-receipt-smoke.mjs",
     "orgx": "node runner/orgx-benchmark.mjs",
     "orgx:open": "node runner/orgx-benchmark.mjs open",
     "orgx:starter": "node runner/orgx-benchmark.mjs start starter",
